@@ -281,7 +281,7 @@ $('#dlgOk').addEventListener('click',()=>{$('#dlg').hidden=true;const f=dlgCb;dl
 $('#dlgNo').addEventListener('click',()=>{$('#dlg').hidden=true;dlgCb=null});
 let toastT=null;
 function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,1700)}
-const MSG_URL='../메시지앱/messages.html';
+const MSG_URL='../Messages/messages.html';
 
 /* ---------- 버튼 동작 ---------- */
 const A={
