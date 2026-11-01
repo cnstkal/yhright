@@ -1,0 +1,9 @@
+/* Chapter 2 (2018, iPhone 6s, iOS 12): wallpaper + status bar only */
+.tw{background:#2a1a8c url(../assets/ios-wallpaper.svg) center/cover no-repeat!important}
+.screen{background:#2a1a8c}
+.tw .sb.ios-sb{display:flex!important;align-items:center;justify-content:space-between;position:relative;height:20px;padding:0 7px;box-sizing:border-box;background:transparent!important;color:#fff;font:600 12px/20px -apple-system,BlinkMacSystemFont,"SF Pro Text","Pretendard",sans-serif;letter-spacing:-.1px;text-shadow:none}
+.ios-sb .l,.ios-sb .r2{display:flex;align-items:center;gap:4px;position:relative;z-index:1}
+.ios-sb .c{position:absolute;left:0;right:0;text-align:center;font-feature-settings:"tnum"}
+.ios-sb svg{display:block;fill:#fff}
+.ios-sb .cr{font-weight:600;margin-left:1px}
+.ios-sb .bt2{display:block}

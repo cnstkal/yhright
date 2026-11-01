@@ -1,0 +1,100 @@
+[hidden]{display:none!important}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;background:#e9ebee;font:15px/1.34 -apple-system,BlinkMacSystemFont,'Helvetica Neue','Apple SD Gothic Neo','Noto Sans KR',sans-serif;color:#1d2129;overflow:hidden}
+#app{position:relative;height:100%;display:flex;flex-direction:column;overflow:hidden}
+button,input,textarea{font:inherit;color:inherit}button{background:none;border:0;padding:0;cursor:pointer}
+svg{width:24px;height:24px;vertical-align:middle;flex:none}
+/* iOS 12 상태 바 + 파란 내비게이션 바 */
+#st{flex:none;height:20px;background:#4267b2;color:#fff;display:flex;align-items:center;padding:0 7px;font-size:12px;font-weight:600;position:relative}
+#st svg{width:auto;height:11px;fill:#fff}#st .l,#st .r{display:flex;align-items:center;gap:4px;position:relative;z-index:1}#st .r{margin-left:auto}#st .t{position:absolute;left:0;right:0;text-align:center}
+#app.dk #st{background:#000}
+#hd{flex:none;background:#4267b2;color:#fff}
+.hb{display:flex;align-items:center;height:44px;padding:0 6px;gap:6px}
+.hb b{flex:1;font-size:17px;font-weight:600;text-align:center}.hb b.lf{text-align:left;font-size:20px;padding-left:6px}
+.hb button{height:44px;min-width:40px;display:grid;place-items:center;position:relative;color:#fff}
+.hb button svg{width:26px;height:26px}
+.sb{flex:1;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.25);border-radius:6px;height:30px;padding:0 10px;color:rgba(255,255,255,.85);font-size:15px}
+.sb svg{width:18px;height:18px}
+.hb input{flex:1;height:30px;border:0;border-radius:6px;padding:0 10px;background:rgba(255,255,255,.25);color:#fff;outline:0}.hb input::placeholder{color:rgba(255,255,255,.8)}
+#bd{flex:1;overflow-y:auto;min-height:0}
+/* 하단 탭 바 */
+#tb{flex:none;display:flex;background:#fff;border-top:1px solid #dddfe2;height:49px}
+#tb button{flex:1;display:grid;place-items:center;position:relative;color:#90949c}#tb .on{color:#4267b2}
+#tb.mg .on{color:#0084ff}#tb.mg button{font-size:12px;gap:0;align-content:center}
+.bg{position:absolute;top:3px;left:calc(50% + 4px);min-width:18px;height:18px;border-radius:9px;background:#fa3e3e;color:#fff;font-size:11px;font-weight:600;line-height:18px;text-align:center;padding:0 5px}
+.hb .bg{top:4px;left:auto;right:2px}
+/* 카드 · 게시물 */
+.cd{background:#fff;border-top:1px solid #dddfe2;border-bottom:1px solid #dddfe2;margin-bottom:8px}
+.cp{display:flex;align-items:center;gap:10px;padding:10px 12px}
+.av{flex:none;border-radius:50%;color:#fff;display:grid;place-items:center;font-weight:500}
+.nm{color:#1d2129;font-weight:600}.sub{color:#90949c;font-size:12px}.sub svg{width:12px;height:12px;vertical-align:-2px}
+.tx{padding:0 12px 10px;font-size:15px;white-space:pre-wrap;word-break:break-word}
+.im{width:100%;display:block}
+.lk{border:1px solid #dddfe2;margin:0 12px 10px}.lk div{padding:8px 10px;background:#f6f7f9}.lk b{display:block}.lk small{color:#90949c}
+.qt{margin:0 12px 10px;border:1px solid #dddfe2}
+.vw{position:relative;background:#000}.vw .pl{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px;border-radius:50%;background:rgba(0,0,0,.55);display:grid;place-items:center;color:#fff}
+.vw i{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;font-style:normal;padding:1px 6px;border-radius:3px}
+.vw.go:after{content:'';position:absolute;left:0;bottom:0;height:3px;background:#4267b2;width:0;animation:pg 6s linear forwards}@keyframes pg{to{width:100%}}
+.ct{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;color:#90949c;font-size:13px}
+.ct .lc{display:flex;align-items:center;gap:5px}.ct .lc i{width:18px;height:18px;border-radius:50%;background:#4267b2;display:grid;place-items:center;color:#fff}.ct .lc svg{width:11px;height:11px}
+.ac{display:flex;border-top:1px solid #e5e5e5;margin:0 12px}.ac button{flex:1;height:40px;display:flex;align-items:center;justify-content:center;gap:6px;color:#606770;font-size:14px;font-weight:500}
+.ac svg{width:20px;height:20px}.ac .on{color:#4267b2;font-weight:600}
+.cm{display:flex;gap:8px;padding:6px 12px;align-items:flex-start}.cm>div:last-child{background:#f2f3f5;border-radius:18px;padding:7px 12px}
+.cm .sub{margin-top:2px}
+.ci{display:flex;gap:8px;padding:8px 12px;background:#f6f7f9;border-top:1px solid #dddfe2;align-items:center}
+.ci input,.sf{flex:1;border:1px solid #dddfe2;border-radius:18px;padding:8px 14px;outline:0;background:#fff}
+.ci button{color:#4267b2;font-weight:700}
+.cmp{display:flex;align-items:center;gap:10px;padding:10px 12px}.cmp .sf{color:#90949c;text-align:left;height:38px;padding:0 14px}
+.bar{display:flex;border-top:1px solid #e5e5e5}.bar button{flex:1;height:42px;display:flex;align-items:center;justify-content:center;gap:6px;color:#4b4f56;font-size:13px;font-weight:500}.bar button+button{border-left:1px solid #e5e5e5}
+.bar svg{width:20px;height:20px}.bar button:nth-child(1) svg{color:#f3425f}.bar button:nth-child(2) svg{color:#45bd62}.bar button:nth-child(3) svg{color:#f5533d}
+/* 스토리 */
+.sts{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:#fff;border-bottom:1px solid #dddfe2;margin-bottom:8px}
+.s1{flex:none;width:92px;height:150px;border-radius:10px;background:center/cover #ccc;position:relative;overflow:hidden;color:#fff}
+.s1 .av{position:absolute;left:6px;top:6px;border:3px solid #4267b2;width:34px;height:34px;font-size:14px}
+.s1 span{position:absolute;left:6px;right:6px;bottom:6px;font-size:12px;font-weight:600;text-shadow:0 1px 2px #0008}
+.s1.me{background:#fff;border:1px solid #dddfe2;color:#1d2129}.s1.me .pp{height:105px;background:center/cover #ccc}.s1.me .pl2{position:absolute;left:50%;top:90px;margin-left:-14px;width:28px;height:28px;border-radius:50%;background:#4267b2;color:#fff;font-size:22px;line-height:25px;text-align:center;border:2px solid #fff}
+.s1.me span{color:#1d2129;text-align:center;text-shadow:none;bottom:12px}
+.stv{height:100%;background:center/cover #000;position:relative;color:#fff}.stv .pg{position:absolute;left:8px;right:8px;top:8px;height:3px;background:rgba(255,255,255,.35)}.stv .pg:after{content:'';display:block;height:100%;background:#fff;width:0;animation:pg 4.5s linear forwards}
+.stv .cp{position:absolute;top:14px;left:0;right:0;text-shadow:0 1px 2px #0008}.stv .nm{color:#fff}
+/* 목록 · 버튼 */
+.row{display:flex;align-items:center;gap:12px;padding:12px;background:#fff;border-bottom:1px solid #e5e5e5}.row.un{background:#edf2fa}.row .g{flex:1}
+.row .mi{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:#e7efff;color:#4267b2}
+.bt{padding:7px 16px;border-radius:5px;background:#4267b2;color:#fff;font-weight:600;font-size:14px}.bt.g2{background:#e9ebee;color:#4b4f56}
+h5{margin:0;padding:12px 12px 6px;color:#1d2129;font-size:17px;font-weight:700}
+.cv{height:170px;background:center/cover}.pf{background:#fff;padding:0 12px 12px;text-align:center;margin-bottom:8px}
+.pf .av{margin:-48px auto 6px;border:4px solid #fff}.pf h2{margin:0;font-size:22px}
+.pf .bs{margin-top:10px;display:flex;gap:8px;justify-content:center}
+.ph{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px;background:#fff}.ph img{width:100%;aspect-ratio:1;object-fit:cover}
+.fr{display:flex;flex-wrap:wrap;gap:8px;padding:8px 12px;background:#fff}.fr div{width:calc(33.3% - 6px);text-align:center;font-size:12px}.fr .av{margin:0 auto 4px}
+.cmpb{display:flex;flex-direction:column;background:#fff;min-height:100%}
+.cmpb textarea{border:0;outline:0;resize:none;min-height:130px;padding:12px;font-size:18px}
+.chip{display:inline-flex;align-items:center;gap:4px;background:#e9ebee;border-radius:5px;padding:2px 9px;font-size:12px;color:#4b4f56;margin-top:2px}.chip svg{width:12px;height:12px}
+/* Messenger (2018.10 개편) */
+.ms{background:#fff;min-height:100%}.ms .ttl{padding:10px 14px 4px;font-size:28px;font-weight:700}
+.ms .srch{margin:6px 12px 10px;height:34px;border-radius:17px;background:#f0f2f5;color:#90949c;display:flex;align-items:center;padding:0 14px;gap:6px}
+.act{display:flex;gap:12px;overflow-x:auto;padding:4px 12px 10px}.act>div{flex:none;width:58px;text-align:center;font-size:11px;position:relative}.act .av{margin:0 auto 3px}
+.dotg{position:absolute;right:4px;top:38px;width:14px;height:14px;border-radius:50%;background:#31a24c;border:2px solid #fff}
+.msg{display:flex;flex-direction:column;gap:6px;padding:12px;background:#fff;min-height:100%}
+.msg div{max-width:75%;padding:8px 12px;border-radius:18px;background:#f1f0f0;align-self:flex-start}.msg .me{background:#0084ff;color:#fff;align-self:flex-end}
+.lg{height:100%;background:#4267b2;color:#fff;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:32px;text-align:center}
+.lg h1{font-size:44px;margin:0 0 20px;letter-spacing:-1.5px}.lg input{height:44px;border:0;border-radius:6px;padding:0 12px;color:#000}.lg .bt{background:#42b72a;height:44px;font-size:17px}
+/* 다이얼로그: iOS 알림 / 액션 시트 */
+#dg{position:absolute;inset:0;background:rgba(0,0,0,.4);z-index:20;display:grid;place-items:center;padding:24px}
+#dg .box{background:rgba(255,255,255,.97);width:100%;max-width:270px;border-radius:14px;padding:18px 0 0;text-align:center;overflow:hidden}
+#dg h3{margin:0 16px 8px;font-size:17px;font-weight:600}#dg p{margin:0 16px 10px;font-size:13px}
+#dg input{width:calc(100% - 32px);margin:0 16px 12px;border:1px solid #c7c7cc;border-radius:5px;padding:6px 8px;outline:0;font-size:15px}
+#dg .bb{display:flex;border-top:1px solid #c7c7cc}#dg .bb button{flex:1;padding:12px;color:#007aff;font-size:17px}#dg .bb button:last-child{font-weight:600}#dg .bb button+button{border-left:1px solid #c7c7cc}
+#dg.sh{place-items:end center;padding:8px}
+#dg.sh .box{max-width:none;padding:0;background:transparent;border-radius:0}
+#dg.sh h3{display:none}
+#dg.sh .grp{background:rgba(255,255,255,.97);border-radius:13px;overflow:hidden;margin-bottom:8px}
+#dg .li{display:block;width:100%;padding:15px 0;font-size:19px;color:#007aff;border-top:1px solid #d6d6d9}#dg .li:first-child{border-top:0}
+#dg.sh .bb{border:0;background:#fff;border-radius:13px;overflow:hidden}#dg.sh .bb button{font-weight:600;font-size:19px;padding:15px}
+#tt{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:10px 18px;border-radius:18px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:30;white-space:nowrap;font-size:13px}#tt.on{opacity:1}
+*{scrollbar-width:none!important;-ms-overflow-style:none!important}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+
+
+/* iPhone 11 상단 노치 안전 영역 */
+html.emb #st{height:44px;padding-top:22px;align-items:center}
+html.emb #st .t{left:54px;right:auto;text-align:left}
