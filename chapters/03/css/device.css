@@ -1,1 +1,36 @@
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#151515;font-family:-apple-system,BlinkMacSystemFont,sans-serif}*{box-sizing:border-box}.stage{position:fixed;inset:0;display:grid;place-items:center}.device{position:relative;width:390px;height:844px;max-width:100vw;max-height:100dvh;background:#111;border:7px solid #171717;border-radius:54px;overflow:hidden;box-shadow:0 25px 70px #0008}.screen{position:absolute;inset:0;border-radius:46px;overflow:hidden;background:#fff}.notch{position:absolute;z-index:20;top:0;left:50%;transform:translateX(-50%);width:150px;height:30px;background:#111;border-radius:0 0 18px 18px;pointer-events:none}.home{position:absolute;z-index:30;bottom:8px;left:50%;transform:translateX(-50%);width:135px;height:5px;border-radius:5px;background:#111;pointer-events:none}html.emb .device{width:100%;height:100%;max-width:none;max-height:none;border:0;border-radius:0;box-shadow:none}html.emb .notch,html.emb .home{display:none}
+/* iPhone 11 (2019, iOS 13) 목업: 화면 414x896pt, 노치, 하단 홈 인디케이터(= 홈 버튼 역할) */
+html,body{margin:0;height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#eceef1,#aeb3bb)}
+*{box-sizing:border-box;scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none;width:0;height:0}
+.stage{position:fixed;inset:0}
+.device{position:absolute;left:50%;top:50%;width:450px;height:932px;margin:-466px 0 0 -225px;transform:scale(var(--k,1));border-radius:64px;
+ background:linear-gradient(135deg,#d3d6db,#8b9097 28%,#e3e5e9 50%,#8b9097 72%,#c4c7cd);
+ box-shadow:0 30px 70px #0006,0 2px 6px #0004,inset 0 0 0 1px #ffffff88}
+/* 측면 버튼 */
+.side{position:absolute;width:4px;border-radius:2px;background:linear-gradient(90deg,#8b9097,#e3e5e9,#8b9097)}
+.side.mute{left:-3px;top:150px;height:30px}.side.vu{left:-3px;top:212px;height:58px}.side.vd{left:-3px;top:284px;height:58px}.side.pw{right:-3px;top:250px;height:96px}
+/* 검은 베젤 */
+.bezel{position:absolute;inset:5px;border-radius:59px;background:#050506;box-shadow:inset 0 0 0 1px #23252b}
+/* 화면 */
+.screen{position:absolute;left:18px;top:18px;width:414px;height:896px;border-radius:42px;overflow:hidden;background:#fff}
+.screen iframe{display:block;position:absolute;left:0;top:0;width:100%;height:100%;border:0;background:#fff}
+/* 앱이 열려 있을 때는 아래 34pt를 홈 인디케이터 영역으로 비워 둠 (하단 탭이 가려지지 않도록) */
+.device:not(.at-home) .screen iframe{height:calc(100% - 34px)}
+/* 노치 */
+.notch{position:absolute;z-index:20;top:0;left:50%;transform:translateX(-50%);width:209px;height:30px;background:#000;border-radius:0 0 20px 20px;pointer-events:none}
+.notch:before,.notch:after{content:"";position:absolute;top:0;width:20px;height:20px}
+.notch:before{left:-20px;background:radial-gradient(circle at 0 100%,transparent 19.5px,#000 20.5px)}
+.notch:after{right:-20px;background:radial-gradient(circle at 100% 100%,transparent 19.5px,#000 20.5px)}
+.notch .spk{position:absolute;left:50%;top:9px;width:58px;height:6px;margin-left:-38px;border-radius:3px;background:#1d1e22;box-shadow:inset 0 1px 1px #000}
+.notch .cam{position:absolute;left:50%;top:7px;width:11px;height:11px;margin-left:34px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#2f3566,#0a0b18 62%,#000);box-shadow:0 0 0 1.5px #14151a}
+/* 홈 인디케이터: 누르거나 위로 쓸어올리면 홈 화면으로 */
+.hbar{position:absolute;z-index:30;left:50%;bottom:0;transform:translateX(-50%);width:220px;height:34px;border:0;padding:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hbar i{position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#000;transition:background .2s}
+.device.light .hbar i{background:#fff}
+
+/* 앱/홈이 iframe(디스플레이) 안에서 열릴 때: 기기 외형 없이 내용만 */
+html.emb,html.emb body{background:#000}
+html.emb .device{inset:0;left:0;top:0;margin:0;width:100%;height:100%;transform:none;border-radius:0;background:none;box-shadow:none}
+html.emb .device>i,html.emb .bezel,html.emb .notch,html.emb .hbar{display:none}
+html.emb .screen{left:0;top:0;width:100%;height:100%;border-radius:0}
+html:not(.emb) #home{display:none}
