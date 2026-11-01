@@ -580,7 +580,9 @@ window.APPS = {
       if (id === "instagram" && window.IgApp) window.IgApp.open();
     },
     goHome() {
-      // 앱 종료 시 앱별 임시 홈이 아니라 해당 챕터의 실제 홈 화면으로 복귀합니다.
+      // 화면 전환 중 앱 내부 임시 홈이 노출되지 않도록 문서를 즉시 숨깁니다.
+      document.documentElement.style.visibility = "hidden";
+      document.documentElement.style.pointerEvents = "none";
       try { localStorage.removeItem("hwaho-last-screen-v1"); } catch (_) {}
       window.location.replace("../home.html");
     },
