@@ -138,6 +138,8 @@ html.emb #home .dock{height:104px!important;bottom:22px!important;left:9px!impor
 html.emb #home .dock .ic{width:68px;height:68px;flex-basis:68px}
 
 
-/* 앱 아이콘 정사각형 비율 고정 */
-html.emb #home .ic{aspect-ratio:1/1;width:68px;height:auto;flex:0 0 68px;}
-html.emb #home .ic svg{width:100%;height:100%;object-fit:contain}
+/* 앱 아이콘은 항상 정사각형 */
+html.emb #home .grid .it .ic,
+html.emb #home .dock .ic{box-sizing:border-box!important;width:68px!important;height:68px!important;min-width:68px!important;min-height:68px!important;max-width:68px!important;max-height:68px!important;aspect-ratio:1/1!important;flex:0 0 68px!important;}
+html.emb #home .grid .it .ic svg,
+html.emb #home .dock .ic svg{width:100%!important;height:100%!important;aspect-ratio:1/1!important;object-fit:contain!important;}
