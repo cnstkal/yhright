@@ -41,9 +41,9 @@
   <a class="apps" href="#"><svg viewBox="0 0 24 24"><g><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></g></svg></a>
  </nav>
 </div></div>
-<i class="home-btn hw" id="hHome"></i>
+<button type="button" class="home-btn hw" id="hHome" aria-label="홈으로"></button>
 <i class="key recent hw"><svg viewBox="0 0 24 24"><path d="M3 8v12h13M8 4h13v12H8z"/></svg></i>
-<i class="key back hw" id="hBack"><svg viewBox="0 0 24 24"><path d="M9 5 4 10l5 5M4 10h10a5 5 0 0 1 0 10h-3"/></svg></i>
+<button type="button" class="key back hw" id="hBack" aria-label="뒤로가기"><svg viewBox="0 0 24 24"><path d="M9 5 4 10l5 5M4 10h10a5 5 0 0 1 0 10h-3"/></svg></button>
 </div></div>
 <script>
 (function(){const dv=document.getElementById('device'),dp=document.getElementById('disp');
@@ -52,8 +52,11 @@ const $=id=>document.getElementById(id);
 function tick(){const d=new Date(),h=d.getHours(),t=(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0'),a=h<12?'오전':'오후';
 $('tm').textContent=t;$('ap').textContent=a;$('sbt').textContent=a+' '+t;$('dt').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일';$('cw').textContent='일월화수목금토'[d.getDay()];$('cd').textContent=d.getDate()}
 tick();setInterval(tick,10000);
-/* 물리 버튼: 홈 = 홈 화면으로, 뒤로 = 디스플레이 내 뒤로가기 */
-function hw(id,fn){const e=$(id);if(e&&!document.documentElement.classList.contains('emb'))e.addEventListener('click',fn)}
-hw('hHome',()=>{try{dp.contentWindow.location.replace('home.html')}catch(e){dp.src='home.html'}});
-hw('hBack',()=>{try{dp.contentWindow.history.back()}catch(e){}})})();
+/* 물리 버튼: 가운데 홈은 홈 화면으로, 오른쪽은 한 단계 뒤로 */
+if(!document.documentElement.classList.contains('emb')){
+ const home=$('hHome'),back=$('hBack');
+ home.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();dp.src='home.html';});
+ back.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow;if(w.location.href!==new URL('home.html',location.href).href&&w.history.length>1)w.history.back();}catch(err){try{dp.contentWindow.history.back()}catch(_){}}});
+}
+})();
 </script></body></html>
