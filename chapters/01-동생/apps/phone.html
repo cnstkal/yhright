@@ -474,29 +474,9 @@ window.APPS = {
       if (id === "instagram" && window.IgApp) window.IgApp.open();
     },
     goHome() {
-      if (closeTimer) return;
-      const had = Home.current; Home.current = null;
-      try { localStorage.removeItem(HOME_STATE_KEY); } catch (_) {}
-      document.dispatchEvent(new CustomEvent("app:close", { detail: { id: had } }));
-      const h = $("#home");
-      h.style.display = "flex";
-      h.style.opacity = "1";
-      h.style.transform = "none";
-      h.style.pointerEvents = "auto";
-      h.classList.remove("returning"); void h.offsetWidth; h.classList.add("returning");
-      // After the closing animation, fully deactivate every app layer so it cannot block later taps.
-      closeTimer = setTimeout(() => {
-        closeTimer = null;
-        if (Home.current !== null) return;
-        document.querySelectorAll("#screen [id$='-app']").forEach(app => {
-          app.classList.remove("open", "show", "on", "active", "opening", "in-app");
-          app.setAttribute("aria-hidden", "true");
-          app.style.pointerEvents = "none";
-          app.style.display = "none";
-        });
-        h.style.display = "flex";
-        h.style.pointerEvents = "auto";
-      }, 460);
+      // 앱 종료 시 앱별 임시 홈이 아니라 해당 챕터의 실제 홈 화면으로 복귀합니다.
+      try { localStorage.removeItem("hwaho-last-screen-v1"); } catch (_) {}
+      window.location.replace("../home.html");
     },
     refresh: render,
   };
