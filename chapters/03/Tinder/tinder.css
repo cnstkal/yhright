@@ -222,3 +222,8 @@ svg{display:block;flex:none}
 .dfab{position:absolute;bottom:26px;left:0;right:0;display:flex;justify-content:center;gap:16px;align-items:center;pointer-events:none;z-index:3}
 .dfab button{pointer-events:auto;background:#fff;box-shadow:0 3px 14px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;border-radius:50%}
 .dfab button:active{transform:scale(.92)}
+
+/* iPhone 11 상단 노치 안전 영역 */
+html.emb #sb{height:54px;padding-top:22px}
+html.emb #sb .isl{top:7px}
+html.emb .screen{padding-top:44px}
