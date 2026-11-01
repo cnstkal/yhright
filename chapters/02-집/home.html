@@ -46,7 +46,7 @@ hm.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return
 function goHome(){dv.classList.remove('app-open');hm.style.display='';dp.src=base}
 if(!document.documentElement.classList.contains('emb')){
 const homeButton=$('hHome');
-['pointerdown','click'].forEach(type=>homeButton.addEventListener(type,e=>{e.preventDefault();e.stopPropagation();if(type==='click')goHome()},{capture:true}));
+homeButton.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();goHome()},{capture:true});
 }
 })();
 </script><script>/* iOS Safari fallback: suppress double-click zoom only. */document.addEventListener("dblclick",function(e){e.preventDefault()},{passive:false});</script><script src="../../dev-chapter-switcher.js"></script></body></html>
