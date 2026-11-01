@@ -51,3 +51,7 @@ h5{margin:0;padding:10px 12px 6px;color:#90949c;font-size:13px;font-weight:500}
 #dg input{width:100%;border:0;border-bottom:2px solid #3b5998;padding:6px 0;margin-bottom:10px;outline:0;font-size:15px}
 #dg .bb{display:flex;justify-content:flex-end}#dg .bb button{padding:12px;color:#3b5998;font-weight:700}
 #tt{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);background:#323232;color:#fff;padding:10px 18px;border-radius:2px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:30;white-space:nowrap;font-size:13px}#tt.on{opacity:1}
+
+/* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
+*{scrollbar-width:none!important;-ms-overflow-style:none!important}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
