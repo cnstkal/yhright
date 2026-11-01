@@ -190,3 +190,10 @@ ul{list-style:none;padding:0}
 .dlgbtns button+button{border-left:.5px solid var(--ln);font-weight:600}
 .dlgbtns .red{color:var(--red)}
 .toast{position:absolute;z-index:60;left:50%;bottom:100px;transform:translateX(-50%);padding:9px 16px;border-radius:18px;background:rgba(60,60,67,.9);color:#fff;font-size:14px;white-space:nowrap}
+
+/* iPhone 11 상단 노치 안전 영역 및 아이콘 가독성 */
+html.emb .sbar{height:44px;padding-top:22px}
+html.emb .sbar b{left:54px;right:auto;top:22px;text-align:left}
+html.emb .view{top:44px}
+html.emb .view.dark{top:0;padding-top:44px}
+html.emb .tabs svg{width:28px;height:28px}
