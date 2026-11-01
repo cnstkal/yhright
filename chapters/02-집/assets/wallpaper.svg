@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#020611"/><stop offset="1" stop-color="#071634"/></linearGradient>
+<linearGradient id="sw" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f6fd0"/><stop offset=".35" stop-color="#143a82"/><stop offset="1" stop-color="#071a45"/></linearGradient>
+<filter id="g"><feGaussianBlur stdDeviation="3"/></filter>
+</defs>
+<rect width="360" height="640" fill="url(#bg)"/>
+<path d="M360 170C300 185 200 250 120 380C70 460 30 540 0 600V640H360Z" fill="url(#sw)"/>
+<path d="M360 170C300 185 200 250 120 380C70 460 30 540 0 600" fill="none" stroke="#8fc0ff" stroke-width="3" opacity=".85" filter="url(#g)"/>
+<path d="M360 172C300 187 200 252 120 382C70 462 30 542 0 602" fill="none" stroke="#dff0ff" stroke-width="1" opacity=".7"/>
+<path d="M360 470C290 480 190 520 120 640H360Z" fill="#06122e" opacity=".75"/>
+<path d="M360 470C290 480 190 520 120 640" fill="none" stroke="#5b97ec" stroke-width="2" opacity=".6"/>
+</svg>

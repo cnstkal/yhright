@@ -2,9 +2,69 @@
 <html lang="ko"><head>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><title>집 · 홈 화면</title>
-<style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:white}body{background:radial-gradient(ellipse at 15% 10%,#52617c 0,#262c3a 42%,#12151c 100%)}main{height:100%;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 22px env(safe-area-inset-bottom)}header{height:44px;display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:650}.date{padding:24px 4px 28px}.date small{opacity:.72;font-size:13px}.date h1{font-size:32px;line-height:1.1;margin:7px 0 0;font-weight:650}.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px 8px}.app{color:#fff;text-decoration:none;text-align:center;font-size:11px}.ico{width:min(17vw,68px);height:min(17vw,68px);margin:0 auto 7px;border-radius:19px;display:grid;place-items:center;font-size:29px;background:linear-gradient(145deg,#ffffff35,#ffffff12);border:1px solid #ffffff25;box-shadow:0 8px 20px #0003}.blind{background:linear-gradient(145deg,#e64b46,#a61f2b)}.kakao{background:linear-gradient(145deg,#ffe66d,#f5c928);color:#352c10}.spacer{flex:1}.widget{border:1px solid #ffffff20;background:#ffffff12;border-radius:20px;padding:15px 17px;margin:22px 0 18px;font-size:12px;color:#ffffffb8}.widget b{display:block;color:white;font-size:14px;margin-bottom:5px}.dock{height:82px;border-radius:25px;background:#ffffff20;border:1px solid #ffffff24;backdrop-filter:blur(22px);display:flex;align-items:center;justify-content:space-evenly;margin-bottom:12px}.dock .ico{width:54px;height:54px;margin:0;border-radius:15px}.indicator{height:5px;width:108px;background:#fff;border-radius:9px;margin:0 auto 4px}
-</style><style>/* Hide scrollbar UI globally while preserving scroll gestures and wheel scrolling. */*{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}</style></head><body><main><header><span id="clock">9:41</span><span>▮▮▮ ◉ ▰</span></header><section class="date"><small id="day">오늘</small><h1 id="date">홈 화면</h1></section><section class="apps"><a class="app" href="apps/Blind.html"><div class="ico blind">B</div>블라인드</a><a class="app" href="apps/Kakaotalk.html"><div class="ico kakao">●</div>카카오톡</a></section><div class="spacer"></div><div class="widget"><b>오늘의 기록</b>윤호의 하루를 확인해 보세요.</div><nav class="dock"><a class="app" href="apps/Kakaotalk.html"><div class="ico kakao">●</div></a><a class="app" href="apps/Blind.html"><div class="ico blind">B</div></a></nav><div class="indicator"></div></main><script>const c=document.getElementById('clock'),dt=document.getElementById('date'),dy=document.getElementById('day');function tick(){const d=new Date();c.textContent=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0');dt.textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일';dy.textContent=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'][d.getDay()]}tick();setInterval(tick,10000)</script>
-<script src="../../dev-chapter-switcher.js?v=20261101-2"></script>
+<meta http-equiv="Expires" content="0"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><title>집 · Galaxy S7</title>
+<script>try{if(top!==self)document.documentElement.className='emb'}catch(e){document.documentElement.className='emb'}</script>
+<link rel="stylesheet" href="css/device.css?v=20261101-2"><link rel="stylesheet" href="css/touchwiz-home.css?v=20261101-2">
+<style>/* Hide scrollbar UI globally while preserving scroll gestures and wheel scrolling. */*{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}</style></head><body><div class="stage"><div class="device" id="device">
+<i class="side pw"></i><i class="side vu"></i><i class="side vd"></i>
+<div class="glass"></div>
+<i class="earpiece"></i><i class="sens b"></i><i class="sens c"></i><i class="cam"></i><i class="sens a"></i>
+<!-- PhoneFrame: 외곽 프레임은 여기 한 번만. Display(.screen) 안의 iframe에서 홈 화면과 모든 앱이 실행됩니다 -->
+<div class="screen"><iframe id="disp" allow="camera; microphone" src="home.html?v=20261101-4" title="display"></iframe>
+<div class="tw" id="home">
+ <div class="sb"><span><svg viewBox="0 0 16 16" width="13"><rect x="1" y="2" width="14" height="12" rx="1.500" fill="none" stroke="#fff" stroke-width="1.500"/><path d="M2 13l4-5 3 3 2-2 4 4z" fill="#fff"/></svg></span>
+  <span class="r"><svg viewBox="0 0 20 16" width="16"><path d="M2 5l7 7V3M2 11l7-7" fill="none" stroke="#fff" stroke-width="1.500"/><path d="M13 4q3 4 0 8M16 2q5 6 0 12" fill="none" stroke="#fff" stroke-width="1.300"/></svg>
+  <svg viewBox="0 0 24 18" width="15"><path d="M12 16.500 0 4.500C3.300 1.600 7.400 0 12 0s8.700 1.600 12 4.500z" opacity=".4" fill="#fff"/><path d="M12 16.500 5 9.500C6.800 8 9.300 7 12 7s5.200 1 7 2.500z" fill="#fff"/></svg>
+  <svg viewBox="0 0 16 16" width="13"><path d="M0 16 16 0v16z" opacity=".4" fill="#fff"/><path d="M0 16 10 6v10z" fill="#fff"/></svg>
+  <span>40%</span><span class="bt"><i></i></span><span id="sbt">오후 12:08</span></span></div>
+ <div class="wd"><div class="t"><small id="ap">오전</small><span id="tm">9:41</span></div><div class="d" id="dt"></div>
+  <div class="w"><svg viewBox="0 0 32 32"><circle cx="12" cy="12" r="5.500" fill="#ffd54a"/><g stroke="#ffd54a" stroke-width="1.800" stroke-linecap="round"><path d="M12 2v3M2 12h3M4.900 4.900 7 7M19 7l2.100-2.100"/></g><path d="M10 26a5 5 0 0 1 .8-9.900A6.500 6.500 0 0 1 23.400 17 4.500 4.500 0 0 1 23 26z" fill="#fff"/></svg><b>14°</b><span>서울</span></div></div>
+ <div class="grid">
+  <a class="it" href="Camera/camera.html"><div class="ic c-cream"><svg viewBox="0 0 54 54"><rect x="4" y="14" width="46" height="30" rx="6" fill="#d9d9d9"/><rect x="4" y="12" width="46" height="8" rx="4" fill="#bdbdbd"/><circle cx="27" cy="29" r="12" fill="#fff"/><circle cx="27" cy="29" r="9" fill="#2f8ff0"/><circle cx="27" cy="29" r="5.500" fill="#5a2fd0"/><circle cx="27" cy="29" r="2.500" fill="#111"/><circle cx="9" cy="10" r="1.800" fill="#ff5a3a"/></svg></div><span>카메라</span></a>
+  <a class="it" href="Photos/gallery.html"><div class="ic c-gal"><svg viewBox="0 0 54 54"><g fill="#ffe21a"><ellipse cx="27" cy="16" rx="8" ry="12"/><ellipse cx="38" cy="22" rx="8" ry="12" transform="rotate(60 38 22)"/><ellipse cx="38" cy="34" rx="8" ry="12" transform="rotate(120 38 34)"/><ellipse cx="27" cy="38" rx="8" ry="12"/><ellipse cx="16" cy="34" rx="8" ry="12" transform="rotate(60 16 34)"/><ellipse cx="16" cy="22" rx="8" ry="12" transform="rotate(120 16 22)"/></g><circle cx="27" cy="27" r="4" fill="#ffd000"/></svg></div><span>갤러리</span></a>
+  <a class="it" href="Naver/naver.html"><div class="ic" style="background:#1ec800;border-radius:30%"><svg viewBox="0 0 54 54" aria-hidden="true"><path fill="#fff" d="M13 10h9l10 17V10h9v34h-9L22 27v17h-9z"/></svg></div><span>네이버</span></a>
+  
+  
+  
+  
+  
+  
+  
+  <a class="it" href="Notes/notes.html"><div class="ic c-memo"><svg viewBox="0 0 54 54"><path d="M4 12h46v38a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" fill="#fffdf4"/><path d="M4 24h46M4 32h46M4 40h46M4 48h46" stroke="#e3dcc4" stroke-width="1.300"/><path d="M4 8a4 4 0 0 1 4-4h38a4 4 0 0 1 4 4v8H4z" fill="#f06a3a"/><g fill="#fff"><circle cx="12" cy="10" r="2"/><circle cx="21" cy="10" r="2"/><circle cx="30" cy="10" r="2"/><circle cx="39" cy="10" r="2"/></g></svg></div><span>메모</span></a>
+  <a class="it" href="Facebook/facebook.html"><div class="ic" style="background:#3b5998;border-radius:30%"><svg viewBox="0 0 54 54" aria-hidden="true"><path fill="#fff" d="M31.5 50V29.3h7l1-8.1h-8v-5.2c0-2.3.7-3.9 4-3.9h4.3V4.9c-.8-.1-3.4-.3-6.5-.3-6.4 0-10.8 3.9-10.8 11.1v5.5h-7.2v8.1h7.2V50z"/></svg></div><span>Facebook</span></a>
+  <a class="it" href="apps/Kakaotalk.html"><div class="ic" style="background:#fee500;border-radius:30%"><svg viewBox="0 0 54 54" aria-hidden="true"><path fill="#3c1e1e" d="M27 12C16.500 12 8 18.700 8 27c0 5.300 3.500 9.900 8.800 12.500l-2.200 8 8.700-4.800c.9.100 1.800.2 2.700.2 10.500 0 19-6.700 19-15S37.500 12 27 12z"/></svg></div><span>카카오톡</span></a>
+  <a class="it" href="apps/Blind.html"><div class="ic" style="background:#222;border-radius:30%"><svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="12" fill="none" stroke="#fff" stroke-width="3"/><path d="M15 27h24" stroke="#fff" stroke-width="3"/></svg></div><span>블라인드</span></a>
+  
+  
+  
+ </div>
+ <div class="pager"><i style="background:#fff"></i><i></i></div>
+ <nav class="dock">
+  <a href="Phone/phone.html"><div class="ic c-phone"><svg viewBox="0 0 54 54" fill="#fff"><path transform="translate(11 11) scale(1.350)" d="M6.600 10.800a15 15 0 0 0 6.600 6.600l2.200-2.200c.3-.3.700-.4 1-.2 1.100.4 2.300.6 3.600.6.600 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.400-1 1-1h3.500c.6 0 1 .4 1 1 0 1.300.2 2.500.6 3.600.1.300 0 .7-.2 1z" transform-origin="0 0"/></svg></div></a>
+  
+  <a href="Messages/messages.html"><div class="ic c-msg"><svg viewBox="0 0 54 54" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"><rect x="11" y="15" width="32" height="24" rx="3"/><path d="M11 17l16 12 16-12"/></svg></div></a>
+  <a href="Naver/naver.html"><div class="ic" style="background:#1ec800;border-radius:30%"><svg viewBox="0 0 54 54" aria-hidden="true"><path fill="#fff" d="M13 10h9l10 17V10h9v34h-9L22 27v17h-9z"/></svg></div></a>
+  
+  <a class="apps" href="#"><svg viewBox="0 0 24 24"><g><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></g></svg></a>
+ </nav>
+</div></div>
+<button type="button" class="home-btn hw" id="hHome" aria-label="홈으로"></button>
+<i class="key recent hw"><svg viewBox="0 0 24 24"><path d="M3 8v12h13M8 4h13v12H8z"/></svg></i>
+<button type="button" class="key back hw" id="hBack" aria-label="뒤로가기"><svg viewBox="0 0 24 24"><path d="M9 5 4 10l5 5M4 10h10a5 5 0 0 1 0 10h-3"/></svg></button>
+</div></div>
+<script>
+(function(){const dv=document.getElementById('device'),dp=document.getElementById('disp');
+function fit(){dv.style.setProperty('--k',Math.min(innerWidth/399,innerHeight/813,1.7).toFixed(3))}addEventListener('resize',fit);fit();
+const $=id=>document.getElementById(id);
+function tick(){const d=new Date(),h=d.getHours(),t=(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0'),a=h<12?'오전':'오후';
+$('tm').textContent=t;$('ap').textContent=a;$('sbt').textContent=a+' '+t;$('dt').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일';if($('cw'))$('cw').textContent='일월화수목금토'[d.getDay()];if($('cd'))$('cd').textContent=d.getDate()}
+tick();setInterval(tick,10000);
+/* 물리 버튼: 가운데 홈은 홈 화면으로, 오른쪽은 한 단계 뒤로 */
+if(!document.documentElement.classList.contains('emb')){
+ const home=$('hHome'),back=$('hBack');
+ home.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();dp.src='home.html?v=20261101-4';});
+ back.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow,homeUrl=new URL('home.html',location.href).href;if(w.location.href===homeUrl)return;let settled=false;const finish=handled=>{if(settled)return;settled=true;removeEventListener('message',onReply);clearTimeout(timer);if(!handled){try{if(w.history.length>1)w.history.back();else dp.src='home.html?v=20261101-4';}catch(_){dp.src='home.html';}}};const onReply=ev=>{if(ev.source===w&&ev.data&&ev.data.type==='backHandled')finish(!!ev.data.handled)};addEventListener('message',onReply);const timer=setTimeout(()=>finish(false),120);w.postMessage({type:'back'},'*');}catch(err){try{dp.contentWindow.history.back()}catch(_){dp.src='home.html';}}});
+}
+})();
+</script><script src="../../dev-chapter-switcher.js?v=20261101-2"></script>
 </body></html>
