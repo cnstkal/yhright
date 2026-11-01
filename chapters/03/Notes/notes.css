@@ -108,3 +108,8 @@ svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-l
 .shg .shbtn:first-child{border-top:0}
 .shbtn.red{color:#ff3b30}
 .shbtn.cn{background:#fff;border-radius:13px;font-weight:600;border:0}
+
+/* iPhone 11 상단 노치 안전 영역 */
+html.emb #app{padding-top:44px}
+html.emb .status{height:44px;padding-top:22px}
+html.emb .status #clk{left:54px;right:auto;text-align:left}
