@@ -10,7 +10,7 @@
 <div class="glass"></div>
 <i class="earpiece"></i><i class="sens b"></i><i class="sens c"></i><i class="cam"></i><i class="sens a"></i>
 <!-- PhoneFrame: 외곽 프레임은 여기 한 번만. Display(.screen) 안의 iframe에서 홈 화면과 모든 앱이 실행됩니다 -->
-<div class="screen"><iframe id="disp" src="home.html?v=20261101-3" title="display"></iframe>
+<div class="screen"><iframe id="disp" allow="camera; microphone" src="home.html?v=20261101-4" title="display"></iframe>
 <div class="tw" id="home">
  <div class="sb"><span><svg viewBox="0 0 16 16" width="13"><rect x="1" y="2" width="14" height="12" rx="1.500" fill="none" stroke="#fff" stroke-width="1.500"/><path d="M2 13l4-5 3 3 2-2 4 4z" fill="#fff"/></svg></span>
   <span class="r"><svg viewBox="0 0 20 16" width="16"><path d="M2 5l7 7V3M2 11l7-7" fill="none" stroke="#fff" stroke-width="1.500"/><path d="M13 4q3 4 0 8M16 2q5 6 0 12" fill="none" stroke="#fff" stroke-width="1.300"/></svg>
@@ -59,8 +59,8 @@ tick();setInterval(tick,10000);
 /* 물리 버튼: 가운데 홈은 홈 화면으로, 오른쪽은 한 단계 뒤로 */
 if(!document.documentElement.classList.contains('emb')){
  const home=$('hHome'),back=$('hBack');
- home.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();dp.src='home.html?v=20261101-3';});
- back.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow,homeUrl=new URL('home.html',location.href).href;if(w.location.href===homeUrl)return;let settled=false;const finish=handled=>{if(settled)return;settled=true;removeEventListener('message',onReply);clearTimeout(timer);if(!handled){try{if(w.history.length>1)w.history.back();else dp.src='home.html?v=20261101-3';}catch(_){dp.src='home.html';}}};const onReply=ev=>{if(ev.source===w&&ev.data&&ev.data.type==='backHandled')finish(!!ev.data.handled)};addEventListener('message',onReply);const timer=setTimeout(()=>finish(false),120);w.postMessage({type:'back'},'*');}catch(err){try{dp.contentWindow.history.back()}catch(_){dp.src='home.html';}}});
+ home.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();dp.src='home.html?v=20261101-4';});
+ back.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow,homeUrl=new URL('home.html',location.href).href;if(w.location.href===homeUrl)return;let settled=false;const finish=handled=>{if(settled)return;settled=true;removeEventListener('message',onReply);clearTimeout(timer);if(!handled){try{if(w.history.length>1)w.history.back();else dp.src='home.html?v=20261101-4';}catch(_){dp.src='home.html';}}};const onReply=ev=>{if(ev.source===w&&ev.data&&ev.data.type==='backHandled')finish(!!ev.data.handled)};addEventListener('message',onReply);const timer=setTimeout(()=>finish(false),120);w.postMessage({type:'back'},'*');}catch(err){try{dp.contentWindow.history.back()}catch(_){dp.src='home.html';}}});
 }
 })();
 </script><script src="../../dev-chapter-switcher.js?v=20261101-2"></script>
