@@ -1,8 +1,1 @@
 
-/* iPhone 6s / iOS 9.3 visual adaptation */
-html,body{font-family:"Helvetica Neue",Helvetica,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:#fff;color:#000}
-button{font-family:inherit}
-header,.header,.top,.toolbar{background:#fff!important;color:#000!important;border-bottom:.5px solid #c8c7cc!important;box-shadow:none!important}
-header button,.header button,.top button,.toolbar button{color:#007aff!important}
-input,select,textarea{font-family:inherit;border-radius:5px}
-.card,.job-card,.list-item{border-radius:0!important;box-shadow:none!important;border-bottom:1px solid #e5e5ea}
