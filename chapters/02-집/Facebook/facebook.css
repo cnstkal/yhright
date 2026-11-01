@@ -1,62 +1,10 @@
-[hidden]{display:none!important}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0;background:#e9ebee;font:14px/1.35 Roboto,'Noto Sans KR',sans-serif;color:#1d2129;overflow:hidden}
-#app{position:relative;height:100%;display:flex;flex-direction:column;overflow:hidden}
-button,input,textarea{font:inherit;color:inherit}button{background:none;border:0;padding:0;cursor:pointer}
-svg{width:22px;height:22px;fill:currentColor;vertical-align:middle}
-#hd{flex:none;background:#3b5998;color:#fff}
-.hb{display:flex;align-items:center;height:48px;padding:0 4px 0 8px;gap:6px}
-.hb b{flex:1;font-size:18px;font-weight:500}.hb button{height:44px;min-width:40px;display:grid;place-items:center;position:relative;color:#fff}
-.sb{flex:1;display:flex;align-items:center;gap:8px;background:#fff3;border-radius:2px;height:34px;padding:0 10px;color:#dfe3ee}
-.hb input{flex:1;height:34px;border:0;border-radius:2px;padding:0 10px;background:#fff3;color:#fff;outline:0}.hb input::placeholder{color:#dfe3ee}
-.tb{display:flex}.tb button{flex:1;height:44px;display:grid;place-items:center;position:relative;color:#c5cde0;border-bottom:3px solid transparent}
-.tb .on{color:#fff;border-color:#fff}
-.bg{position:absolute;top:4px;right:calc(50% - 22px);min-width:17px;height:17px;border-radius:9px;background:#fa3e3e;color:#fff;font-size:11px;line-height:17px;text-align:center;padding:0 4px}
-.hb .bg{top:4px;right:2px}
-#bd{flex:1;overflow-y:auto}
-.cd{background:#fff;border-top:1px solid #dddfe2;border-bottom:1px solid #dddfe2;margin-bottom:8px}
-.cp{display:flex;align-items:center;gap:10px;padding:10px 12px}
-.av{flex:none;border-radius:50%;color:#fff;display:grid;place-items:center;font-weight:500}
-.nm{color:#365899;font-weight:700}.sub{color:#90949c;font-size:12px}
-.tx{padding:0 12px 10px;font-size:15px;white-space:pre-wrap;word-break:break-word}
-.im{width:100%;display:block}
-.lk{border:1px solid #dddfe2;margin:0 12px 10px}.lk div{padding:8px 10px;background:#f6f7f9}.lk b{display:block}.lk small{color:#90949c}
-.qt{margin:0 12px 10px;border:1px solid #dddfe2}
-.ct{display:flex;justify-content:space-between;padding:8px 12px;color:#90949c;font-size:12px;border-bottom:1px solid #e5e5e5}
-.ac{display:flex}.ac button{flex:1;height:42px;display:flex;align-items:center;justify-content:center;gap:6px;color:#4b4f56;font-size:13px}
-.ac .on{color:#3b5998;font-weight:700}
-.cm{display:flex;gap:8px;padding:6px 12px}.cm div{background:#f2f3f5;border-radius:16px;padding:7px 12px}
-.ci{display:flex;gap:8px;padding:8px 12px;background:#fff;border-top:1px solid #dddfe2}
-.ci input,.sf{flex:1;border:1px solid #dddfe2;border-radius:18px;padding:8px 14px;outline:0;background:#fff}
-.ci button{color:#3b5998;font-weight:700}
-.cmp{display:flex;align-items:center;gap:10px;padding:12px}.cmp .sf{color:#90949c;text-align:left}
-.bar{display:flex;border-top:1px solid #e5e5e5}.bar button{flex:1;height:42px;display:flex;align-items:center;justify-content:center;gap:6px;color:#4b4f56;font-size:13px}.bar svg{color:#3b5998}
-.row{display:flex;align-items:center;gap:12px;padding:12px;background:#fff;border-bottom:1px solid #e5e5e5}.row.un{background:#edf2fa}.row .g{flex:1}
-.bt{padding:7px 14px;border-radius:2px;background:#4267b2;color:#fff;font-weight:700;font-size:13px}.bt.g2{background:#e9ebee;color:#4b4f56}
-h5{margin:0;padding:10px 12px 6px;color:#90949c;font-size:13px;font-weight:500}
-.cv{height:170px;background:center/cover}.pf{background:#fff;padding:0 12px 12px;text-align:center;margin-bottom:8px}
-.pf .av{margin:-44px auto 6px;border:4px solid #fff}.pf h2{margin:0;font-size:22px}
-.ph{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px;background:#fff}.ph img{width:100%;aspect-ratio:1;object-fit:cover}
-.fr{display:flex;flex-wrap:wrap;gap:8px;padding:8px 12px;background:#fff}.fr div{width:calc(33.3% - 6px);text-align:center;font-size:12px}
-.cmpb{display:flex;flex-direction:column;background:#fff;min-height:100%}
-.cmpb textarea{border:0;outline:0;resize:none;min-height:130px;padding:12px;font-size:18px}
-.chip{display:inline-block;background:#e9ebee;border-radius:3px;padding:3px 9px;font-size:12px;color:#4b4f56;margin-left:4px}
-.msg{display:flex;flex-direction:column;gap:6px;padding:12px;background:#fff;min-height:100%}
-.msg div{max-width:75%;padding:8px 12px;border-radius:16px;background:#f1f0f0;align-self:flex-start}.msg .me{background:#0084ff;color:#fff;align-self:flex-end}
-.lg{height:100%;background:#3b5998;color:#fff;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:32px;text-align:center}
-.lg h1{font-size:40px;margin:0 0 20px}.lg input{height:44px;border:0;border-radius:3px;padding:0 12px;color:#000}.lg .bt{background:#4267b2;border:1px solid #fff4;height:44px}
-#dg{position:absolute;inset:0;background:#0007;z-index:20;display:grid;place-items:center;padding:24px}
-#dg .box{background:#fff;width:100%;max-width:320px;padding:16px 16px 6px}#dg h3{margin:0 0 10px;font-size:17px}
-#dg .li{display:block;width:100%;text-align:left;padding:12px 0;font-size:15px;border-bottom:1px solid #eee}
-#dg input{width:100%;border:0;border-bottom:2px solid #3b5998;padding:6px 0;margin-bottom:10px;outline:0;font-size:15px}
-#dg .bb{display:flex;justify-content:flex-end}#dg .bb button{padding:12px;color:#3b5998;font-weight:700}
-#tt{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);background:#323232;color:#fff;padding:10px 18px;border-radius:2px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:30;white-space:nowrap;font-size:13px}#tt.on{opacity:1}
 
-/* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
-*{scrollbar-width:none!important;-ms-overflow-style:none!important}
-*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
-
-/* Chapter 2: make the main search/Messenger header row flush with both screen edges. */
-.hb:has(.sb){padding:0;gap:0}
-.hb .sb{flex:1;min-width:0;height:44px;border-radius:0;margin:0}
-.hb:has(.sb)>button[data-a="msgs"]{width:52px;min-width:52px;height:48px;flex:none}
+/* iPhone 6s / iOS 9.3 visual adaptation */
+html,body{font-family:"Helvetica Neue",Helvetica,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+button{font-family:inherit}
+header,.header,.topbar,.nav{background:#fff!important;color:#000!important;border-bottom:.5px solid #c8c7cc!important;box-shadow:none!important}
+header button,.header button,.topbar button,.nav button{color:#007aff!important}
+input,textarea{font-family:inherit;border-radius:5px}
+.tab,.tabs button,.bottom-nav button{color:#8e8e93}
+.tab.active,.tabs button.active,.bottom-nav button.active{color:#007aff}
+.card,.post,.feed-item{border-radius:0!important;box-shadow:none!important;border-bottom:1px solid #e5e5ea}
