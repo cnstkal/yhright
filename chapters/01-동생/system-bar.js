@@ -1,6 +1,6 @@
 /* 공용 상단 시스템 바: 시간(실시간) · 와이파이 · 배터리
-   각 앱 HTML의 <head>에 <script src="../shared/system-bar.js"></script> 로 불러옵니다.
-   다이나믹 아일랜드는 셸(index.html)에서 따로 그려집니다. */
+   이 챕터의 각 앱 HTML에서 <script src="../system-bar.js"></script> 로 불러옵니다 (챕터 내부 파일).
+    */
 (function () {
   if (window.top !== window.self && document.documentElement.hasAttribute("data-selfpad-ok")) document.documentElement.setAttribute("data-selfpad", "");
   if (window.__sysBar) return; window.__sysBar = true;

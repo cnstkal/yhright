@@ -466,27 +466,5 @@ function openApp(){S.fedit=false;S.sel=false;S.ids={};rerender();R.classList.add
 ;(function(){var K2='nt.seed.letter.v1',T='나 진짜 이런말 안하려고 했는데 술먹으니까 자꾸 니 생각나서 씀.. 안보내는게 맞는거 아는데 그냥 보내고싶엇어 내가 찐짜 잘못햇어 그때는 왜 몰랐을까 네가 나한테 얼마나 ㅈㄹ해줬는지 이제와서 이런말 하는 것도 웃기고 염치없는거 아는데 그래도 한번만 더 기회주면안되나...나이제오마카세도 데려가줄수있는데.... 나 아직도 너 너무 좋아하고 보고싶어 진심이야 맨날 후회해 내가 왜그랫ㅆ을까 조금만 더 잘해줄걸 니말좀들어 줄걸 너는 나한테 진짜 잘해줬는데 나는 왜 그게 당엲줄 알았을까 미안해 진짜 미안해 나 너랑 다시만나고싶어 그냥 하는 말 아니야 네가 싫다고하면 어쩔수 없는거 아는데 그래더 혹시나 하는 마음에 어휴됏다못해먹겠네',H='<div>'+T+'</div>';var n=S.n.find(function(x){return x.id==='seed_letter'});if(!n){n={id:'seed_letter',fid:'f0',pin:false,tags:[],del:0};S.n.push(n)}n.title='윤호에게…..';n.text=T;n.html=H;n.fid='f0';n.pin=false;n.tags=[];n.updated=Date.UTC(2026,6,31,15,0);delete n.lock;delete n.hint;saveN();try{localStorage.setItem(K2,'1')}catch(e){}})();openApp();})();
 </script>
 <script src="../i18n.js?v=202610252321"></script>
-<!-- chapter-switcher -->
-<style>
-#chapter-switch{position:fixed;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:2147483000;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
-#chapter-switch button{border:1px solid rgba(255,255,255,.28);background:rgba(28,30,36,.48);color:#fff;border-radius:18px;padding:6px 10px;font-size:10px;font-weight:650;letter-spacing:.04em;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 2px 10px #0002}
-#chapter-switch-panel{display:none;position:absolute;right:0;bottom:36px;min-width:142px;padding:6px;border:1px solid #ffffff24;border-radius:14px;background:rgba(28,30,36,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 8px 28px #0004}
-#chapter-switch-panel.open{display:block}
-#chapter-switch-panel a{display:flex;align-items:center;gap:8px;padding:10px 11px;border-radius:9px;color:#fff;text-decoration:none;font-size:12px;white-space:nowrap}
-#chapter-switch-panel a.current{background:#ffffff20}
-#chapter-switch-panel a span{font-size:9px;opacity:.58}
-@media(prefers-reduced-motion:no-preference){#chapter-switch-panel{transform:translateY(4px);opacity:0;transition:opacity .14s,transform .14s}#chapter-switch-panel.open{transform:translateY(0);opacity:1}}
-</style>
-<div id="chapter-switch">
- <div id="chapter-switch-panel" aria-hidden="true">
-  <a class="current" href="home.html">CH 01 <span>현재 챕터</span></a>
-  <a href="../../02-집/home.html">CH 02 · 집 <span>이동하기</span></a>
- </div>
- <button type="button" id="chapter-switch-toggle" aria-expanded="false" aria-controls="chapter-switch-panel">CH 01⌄</button>
-</div>
-<script>
-(()=>{const root=document.getElementById('chapter-switch'),btn=document.getElementById('chapter-switch-toggle'),panel=document.getElementById('chapter-switch-panel');if(!root||!btn||!panel)return;const close=()=>{panel.classList.remove('open');panel.setAttribute('aria-hidden','true');btn.setAttribute('aria-expanded','false')};btn.addEventListener('click',e=>{e.stopPropagation();const open=!panel.classList.contains('open');panel.classList.toggle('open',open);panel.setAttribute('aria-hidden',String(!open));btn.setAttribute('aria-expanded',String(open))});document.addEventListener('click',e=>{if(!root.contains(e.target))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()})})();
-</script>
-
 </body>
 </html>
