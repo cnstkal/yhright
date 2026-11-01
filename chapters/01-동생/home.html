@@ -60,4 +60,5 @@ if(!document.documentElement.classList.contains('emb')){
  back.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow,homeUrl=new URL('home.html',location.href).href;if(w.location.href===homeUrl)return;let settled=false;const finish=handled=>{if(settled)return;settled=true;removeEventListener('message',onReply);clearTimeout(timer);if(!handled){try{if(w.history.length>1)w.history.back();else dp.src='home.html';}catch(_){dp.src='home.html';}}};const onReply=ev=>{if(ev.source===w&&ev.data&&ev.data.type==='backHandled')finish(!!ev.data.handled)};addEventListener('message',onReply);const timer=setTimeout(()=>finish(false),120);w.postMessage({type:'back'},'*');}catch(err){try{dp.contentWindow.history.back()}catch(_){dp.src='home.html';}}});
 }
 })();
-</script></body></html>
+</script><script src="../../dev-chapter-switcher.js"></script>
+</body></html>
