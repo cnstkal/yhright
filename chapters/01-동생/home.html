@@ -1,50 +1,38 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"><title>2015 · iPhone 6s</title>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"><title>iPhone 6s · 홈</title>
 <script>try{if(top!==self)document.documentElement.className='emb'}catch(e){document.documentElement.className='emb'}</script>
-<link rel="stylesheet" href="css/device.css"><link rel="stylesheet" href="css/touchwiz-home.css">
-<style>/* Prevent iOS double-tap zoom without blocking ordinary taps or scrolling. */html,body,*{touch-action:manipulation}html,body{-webkit-text-size-adjust:100%}/* Hide scrollbar UI globally while preserving scroll gestures and wheel scrolling. */*{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}</style></head><body><div class="stage"><div class="device" id="device">
+<link rel="stylesheet" href="css/device.css"><link rel="stylesheet" href="css/ios9-home.css">
+<style>html,body,*{touch-action:manipulation}html,body{-webkit-text-size-adjust:100%}*{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}</style></head><body><div class="stage"><div class="device" id="device">
 <i class="side pw"></i><i class="side vu"></i><i class="side vd"></i>
 <div class="glass"></div>
 <i class="earpiece"></i><i class="sens b"></i><i class="sens c"></i><i class="cam"></i><i class="sens a"></i>
-<!-- PhoneFrame: 외곽 프레임은 여기 한 번만. Display(.screen) 안의 iframe에서 홈 화면과 모든 앱이 실행됩니다 -->
 <div class="screen"><iframe id="disp" src="home.html" title="display"></iframe>
 <div class="tw" id="home">
-<div class="sb"><span><svg viewBox="0 0 16 16" width="13"><rect x="1" y="2" width="14" height="12" rx="1.5" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M2 13l4-5 3 3 2-2 4 4z" fill="#fff"/></svg></span>
-<span class="r"><svg viewBox="0 0 20 16" width="16"><path d="M2 5l7 7V3M2 11l7-7" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M13 4q3 4 0 8M16 2q5 6 0 12" fill="none" stroke="#fff" stroke-width="1.3"/></svg>
-<svg viewBox="0 0 24 18" width="15"><path d="M12 16.5 0 4.5C3.3 1.6 7.4 0 12 0s8.7 1.6 12 4.5z" opacity=".4" fill="#fff"/><path d="M12 16.5 5 9.5C6.8 8 9.3 7 12 7s5.2 1 7 2.5z" fill="#fff"/></svg>
-<svg viewBox="0 0 16 16" width="13"><path d="M0 16 16 0v16z" opacity=".4" fill="#fff"/><path d="M0 16 10 6v10z" fill="#fff"/></svg>
-<span>40%</span><span class="bt"><i></i></span><span id="sbt">오후 12:08</span></span></div>
-<div class="wd"><div class="t"><small id="ap">오전</small><span id="tm">9:41</span></div><div class="d" id="dt"></div>
-<div class="w"><svg viewBox="0 0 32 32"><circle cx="12" cy="12" r="5.5" fill="#ffd54a"/><g stroke="#ffd54a" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v3M2 12h3M4.9 4.9 7 7M19 7l2.1-2.1"/></g><path d="M10 26a5 5 0 0 1 .8-9.9A6.5 6.5 0 0 1 23.4 17 4.5 4.5 0 0 1 23 26z" fill="#fff"/></svg><b>14°</b><span>서울</span></div></div>
+<div class="sb"><span class="l"><i class="sig"><i></i><i></i><i></i><i></i><i></i></i><span>SKT</span><svg viewBox="0 0 16 12" width="11" height="9"><path d="M8 11.5 5.6 9a3.4 3.4 0 0 1 4.8 0zM8 6.2c1.5 0 2.9.6 3.9 1.5l1.2-1.3A7.1 7.1 0 0 0 8 4.4 7.1 7.1 0 0 0 2.9 6.4l1.2 1.3c1-.9 2.4-1.5 3.9-1.5zM8 1.3c2.4 0 4.6.9 6.3 2.4l1.2-1.3A10.5 10.5 0 0 0 8 0 10.5 10.5 0 0 0 .5 2.4l1.2 1.3C3.4 2.2 5.6 1.3 8 1.3z" fill="#fff"/></svg></span><span class="c" id="sbt">오후 12:08</span><span class="r"><span>100%</span><i class="batt"><i></i></i></span></div>
 <div class="grid">
-<a class="it" href="Camera/camera.html"><div class="ic c-cream"><svg viewBox="0 0 54 54"><rect x="4" y="14" width="46" height="30" rx="6" fill="#d9d9d9"/><rect x="4" y="12" width="46" height="8" rx="4" fill="#bdbdbd"/><circle cx="27" cy="29" r="12" fill="#fff"/><circle cx="27" cy="29" r="9" fill="#2f8ff0"/><circle cx="27" cy="29" r="5.5" fill="#5a2fd0"/><circle cx="27" cy="29" r="2.5" fill="#111"/><circle cx="9" cy="10" r="1.8" fill="#ff5a3a"/></svg></div><span>카메라</span></a>
-<a class="it" href="Photos/gallery.html"><div class="ic c-gal"><svg viewBox="0 0 54 54"><g fill="#ffe21a"><ellipse cx="27" cy="16" rx="8" ry="12"/><ellipse cx="38" cy="22" rx="8" ry="12" transform="rotate(60 38 22)"/><ellipse cx="38" cy="34" rx="8" ry="12" transform="rotate(120 38 34)"/><ellipse cx="27" cy="38" rx="8" ry="12"/><ellipse cx="16" cy="34" rx="8" ry="12" transform="rotate(60 16 34)"/><ellipse cx="16" cy="22" rx="8" ry="12" transform="rotate(120 16 22)"/></g><circle cx="27" cy="27" r="4" fill="#ffd000"/></svg></div><span>갤러리</span></a>
-<a class="it" href="Notes/notes.html"><div class="ic c-memo"><svg viewBox="0 0 54 54"><path d="M4 12h46v38a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z" fill="#fffdf4"/><path d="M4 24h46M4 32h46M4 40h46M4 48h46" stroke="#e3dcc4" stroke-width="1.3"/><path d="M4 8a4 4 0 0 1 4-4h38a4 4 0 0 1 4 4v8H4z" fill="#f06a3a"/><g fill="#fff"><circle cx="12" cy="10" r="2"/><circle cx="21" cy="10" r="2"/><circle cx="30" cy="10" r="2"/><circle cx="39" cy="10" r="2"/></g></svg></div><span>메모</span></a>
-<a class="it" href="Facebook/facebook.html"><div class="ic" style="background:#3b5998;border-radius:30%"><svg viewBox="0 0 54 54" aria-hidden="true"><path fill="#fff" d="M31.5 50V29.3h7l1-8.1h-8v-5.2c0-2.3.7-3.9 4-3.9h4.3V4.9c-.8-.1-3.4-.3-6.5-.3-6.4 0-10.8 3.9-10.8 11.1v5.5h-7.2v8.1h7.2V50z"/></svg></div><span>Facebook</span></a>
+<a class="it" href="Camera/camera.html"><div class="ic c-cam"><svg viewBox="0 0 60 60"><rect x="8" y="17" width="44" height="30" rx="5" fill="#3a3a3c"/><rect x="21" y="12" width="18" height="7" rx="2" fill="#3a3a3c"/><circle cx="30" cy="32" r="10" fill="#1c1c1e"/><circle cx="30" cy="32" r="6.5" fill="#2c3e6b"/><circle cx="30" cy="32" r="2.5" fill="#0a0a0c"/><circle cx="46" cy="22" r="1.8" fill="#8e8e93"/></svg></div><span>카메라</span></a>
+<a class="it" href="Photos/gallery.html"><div class="ic c-gal"><svg viewBox="0 0 60 60"><g transform="translate(30 30)"><g transform="rotate(0)"><ellipse cx="0" cy="-13" rx="7" ry="12" fill="#f0453a"/></g><g transform="rotate(60)"><ellipse cx="0" cy="-13" rx="7" ry="12" fill="#f8a02a"/></g><g transform="rotate(120)"><ellipse cx="0" cy="-13" rx="7" ry="12" fill="#fcd53a"/></g><g transform="rotate(180)"><ellipse cx="0" cy="-13" rx="7" ry="12" fill="#4fc35a"/></g><g transform="rotate(240)"><ellipse cx="0" cy="-13" rx="7" ry="12" fill="#3aa0f0"/></g><g transform="rotate(300)"><ellipse cx="0" cy="-13" rx="7" ry="12" fill="#a866d8"/></g></g></svg></div><span>사진</span></a>
+<a class="it" href="Notes/notes.html"><div class="ic c-memo"><svg viewBox="0 0 60 60"><rect x="0" y="0" width="60" height="60" fill="#fff"/><rect x="0" y="0" width="60" height="14" fill="#fdd21f"/><path d="M0 14h60" stroke="#e0c65a" stroke-width=".8"/><g stroke="#c9c9cf" stroke-width="1"><path d="M0 24h60M0 33h60M0 42h60M0 51h60"/></g></svg></div><span>메모</span></a>
+<a class="it" href="Facebook/facebook.html"><div class="ic c-fb"><svg class="glyph" viewBox="0 0 54 54" aria-hidden="true"><path d="M31.5 50V29.3h7l1-8.1h-8v-5.2c0-2.3.7-3.9 4-3.9h4.3V4.9c-.8-.1-3.4-.3-6.5-.3-6.4 0-10.8 3.9-10.8 11.1v5.5h-7.2v8.1h7.2V50z"/></svg></div><span>Facebook</span></a>
 </div>
-<div class="pager"><i style="background:#fff"></i><i></i></div>
+<div class="pager"><i class="srch"></i><i class="on"></i><i></i></div>
 <nav class="dock">
-<a href="Phone/phone.html"><div class="ic c-phone"><svg viewBox="0 0 54 54" fill="#fff"><path transform="translate(11 11) scale(1.35)" d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" transform-origin="0 0"/></svg></div></a>
-<a href="Messages/messages.html"><div class="ic c-msg"><svg viewBox="0 0 54 54" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"><rect x="11" y="15" width="32" height="24" rx="3"/><path d="M11 17l16 12 16-12"/></svg></div></a>
-<a class="apps" href="#"><svg viewBox="0 0 24 24"><g><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></g></svg></a>
+<a href="Phone/phone.html"><div class="ic c-phone"><svg class="glyph" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></div></a>
+<a href="Messages/messages.html"><div class="ic c-msg"><svg class="glyph" viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.3 1.2 4.3 3.1 5.8L4 21l4.5-2.4c1 .3 2 .4 3.5.4 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg></div></a>
 </nav>
 </div></div>
-<button type="button" class="home-btn hw" id="hHome" aria-label="홈 버튼 (뒤로가기)"></button>
+<button type="button" class="home-btn hw" id="hHome" aria-label="홈 버튼"></button>
 </div></div>
 <script>
-(function(){const dv=document.getElementById('device'),dp=document.getElementById('disp'),hm=document.getElementById('home'),base=dp.getAttribute('src');
+(function(){const dv=document.getElementById('device'),dp=document.getElementById('disp');
 function fit(){dv.style.setProperty('--k',Math.min(innerWidth/427,innerHeight/887,1.7).toFixed(3))}addEventListener('resize',fit);fit();
 const $=id=>document.getElementById(id);
-function tick(){const d=new Date(),h=d.getHours(),t=(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0'),a=h<12?'오전':'오후';
-$('tm').textContent=t;$('ap').textContent=a;$('sbt').textContent=a+' '+t;$('dt').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일';$('cw').textContent='일월화수목금토'[d.getDay()];$('cd').textContent=d.getDate()}
+function tick(){const d=new Date(),h=d.getHours();$('sbt').textContent=(h<12?'오전 ':'오후 ')+((h%12)||12)+':'+String(d.getMinutes()).padStart(2,'0')}
 tick();setInterval(tick,10000);
-/* 앱 열기: 홈 화면 목록(#home)의 앱 아이콘과 독을 누르면 Display(iframe)에서 앱을 연다 */
-function openApp(href){dv.classList.add('app-open');hm.style.display='none';dp.src=href}
-hm.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;const h=a.getAttribute('href');if(!h||h==='#')return;e.preventDefault();openApp(a.href)});
-/* 물리 홈 버튼: 어떤 앱에서든 앱을 종료하고 홈 화면으로 바로 이동 */
-function goHome(){if(!dv.classList.contains('app-open'))return;dv.classList.remove('app-open');hm.style.display='';dp.src=base}
+/* 앱은 Display(iframe) 안에서 일반 링크로 열린다. 물리 홈 버튼: 어떤 앱에서든 iframe을 홈 화면으로 되돌린다(뒤로가기 아님) */
+const homeUrl=new URL(dp.getAttribute('src'),location.href).href;
 if(!document.documentElement.classList.contains('emb')){
-$('hHome').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();goHome()});
+$('hHome').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();let cur='';try{cur=dp.contentWindow.location.href}catch(_){}if(cur!==homeUrl)dp.src=homeUrl});
 }
 })();
 </script><script>/* iOS Safari fallback: suppress double-click zoom only. */document.addEventListener("dblclick",function(e){e.preventDefault()},{passive:false});</script><script src="../../dev-chapter-switcher.js"></script></body></html>
