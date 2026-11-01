@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="전화">
+<meta name="theme-color" content="#000000">
+<meta name="format-detection" content="telephone=no">
+<title>전화</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<style>
+@font-face{font-family:"Pretendard Variable";font-weight:45 920;font-style:normal;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2") format("woff2-variations")}
+:root{--icon: clamp(52px, 15.6vw, 66px);
+  --side: clamp(18px, 6.9vw, 28px);
+  --wallpaper: linear-gradient(160deg,#6d8dff 0%,#8b6cf0 38%,#d36cc0 72%,#ff9a8b 100%);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+html,body{height:100%;width:100%;overflow:hidden;background:#000;overscroll-behavior:none;touch-action:manipulation;font-family:var(--font);-webkit-font-smoothing:antialiased;color:#fff}
+body{position:fixed;inset:0}
+#device{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000}
+#screen{position:relative;width:100%;height:100%;overflow:hidden;background:#000}
+@media (min-width:520px) and (min-height:600px){#device{background:#0b0b0d}
+#screen{width:min(390px,calc((100vh - 32px)*390/844));height:min(844px,calc(100vh - 32px));border-radius:56px;box-shadow:0 0 0 10px #1a1a1d,0 0 0 11px #3a3a3f,0 30px 80px rgba(0,0,0,.6);font-size:calc(100% )}}
+#wallpaper{position:absolute;inset:-2px;background:var(--wallpaper);background-size:cover;background-position:center;transform:scale(1.04)}
+#wallpaper::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 0%,rgba(255,255,255,.14),transparent 60%),linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.18))}
+#statusbar{position:absolute;top:0;left:0;right:0;z-index:10;height:calc(env(safe-area-inset-top,0px) + 54px);padding-top:env(safe-area-inset-top,0px);display:flex;align-items:center;justify-content:space-between;padding-left:30px;padding-right:26px;pointer-events:none}
+#screen:has(#yt-app.show) #statusbar::before{content:"";position:absolute;z-index:-1;left:0;right:0;top:0;height:calc(env(safe-area-inset-top,0px) + 54px);background:#fff;pointer-events:none}
+#screen:has(#yt-app.show) #statusbar{isolation:isolate}
+#screen:has(#yt-app.show) #statusbar .island{z-index:2}
+#statusbar .sb-left{flex:1;display:flex;justify-content:flex-start}
+#clock{font-size:17px;font-weight:600;letter-spacing:-.3px;font-feature-settings:"tnum"}
+.island{position:absolute;left:50%;top:calc(env(safe-area-inset-top,0px) + 11px);transform:translateX(-50%);width:136px;height:35px;border-radius:20px;background:#000}
+#statusbar .sb-right{flex:1;display:flex;align-items:center;justify-content:flex-end;gap:6px}
+.island{pointer-events:auto;overflow:hidden;z-index:20;touch-action:none;user-select:none;-webkit-user-select:none;}
+.island.on{width:min(196px,calc(100% - 24px))}
+.island.ex{width:min(366px,calc(100% - 20px));height:92px;border-radius:34px}
+.isl-m,.isl-x{position:absolute;inset:0;opacity:0;pointer-events:none;color:#fff}
+.isl-m{display:flex;align-items:center;justify-content:space-between;padding:0 12px 0 10px}
+.isl-x{padding:20px 24px 14px;display:flex;flex-direction:column;gap:8px}
+.island.ex .isl-x{opacity:1;pointer-events:auto;}
+.isl-th{width:23px;height:23px;border-radius:7px;flex:none;background:linear-gradient(135deg,hsl(var(--h,200) 75% 62%),hsl(calc(var(--h,200) + 40) 70% 38%))}
+.isl-th.big{width:54px;height:54px;border-radius:12px}
+.isl-r1{display:flex;align-items:center;gap:12px}
+.isl-tx{flex:1;min-width:0}
+.isl-tx b{display:block;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.isl-tx small{display:block;font-size:13px;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.isl-bars{display:flex;align-items:center;gap:2px;height:16px}
+.isl-bars i{width:3px;height:5px;border-radius:2px;background:#1ed760}
+.island.pl .isl-bars i{}
+.isl-bars i:nth-child(2){}
+.isl-bars i:nth-child(3){}
+.isl-bars i:nth-child(4){}
+.isl-pg{display:flex;align-items:center;gap:8px}
+.isl-pg small{font-size:11px;color:rgba(255,255,255,.55);min-width:28px;font-variant-numeric:tabular-nums}
+.isl-pg small.b{text-align:right}
+.isl-bar{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden}
+.isl-bar i{display:block;height:100%;width:0;background:#fff;border-radius:2px}
+.isl-ct{display:flex;justify-content:center;gap:34px}
+.isl-ct button{width:44px;height:36px;display:grid;place-items:center;color:#fff;background:none;border:0;padding:0;cursor:pointer}
+.isl-ct svg{width:26px;height:26px;fill:currentColor}
+.isl-ct button:active{opacity:.6}
+.sb-wifi{width:18px;height:14px;display:block;flex:none;fill:#fff;overflow:visible}
+.sb-battery{display:flex;align-items:center;pointer-events:auto;cursor:pointer}
+.bat-bolt{display:none;position:absolute;left:50%;top:50%;width:6px;height:9px;transform:translate(-50%,-50%)}
+.sb-battery.charging .bat-bolt{display:block}
+.bat-body{position:relative;width:27px;height:13px;border-radius:4.5px;border:1px solid rgba(255,255,255,.4);padding:1.5px}
+.bat-body i{display:block;height:100%;width:100%;border-radius:2.5px;background:#fff;transform-origin:left;}
+.bat-cap{width:1.5px;height:4.5px;margin-left:1px;border-radius:0 1px 1px 0;background:rgba(255,255,255,.45)}
+.sb-battery.low .bat-body i{background:#ff453a}
+.sb-battery.charging .bat-body i{background:#30d158}
+#home{position:absolute;inset:0;display:flex;flex-direction:column;padding-top:calc(env(safe-area-inset-top,0px) + 54px + clamp(14px,3.2vh,30px) - 24px);}
+#home.returning{}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);row-gap:clamp(15px,2.9vh,24px);padding:0 calc(var(--side) - 6px)}
+.spacer{flex:1}
+.app{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;min-width:0;padding:0 2px}
+.app .icon{position:relative;width:var(--icon);height:var(--icon);border-radius:22.37%;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.12);}
+.app .icon::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.22);pointer-events:none}
+.app .icon{box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.app .icon::after{z-index:3;padding:0;background:none;-webkit-mask:none;mask:none;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.2),inset 0 0 3px 1px rgba(255,255,255,.22),inset 0 1.5px 4px -1px rgba(255,255,255,.28),inset 0 -1px 3px -1px rgba(255,255,255,.12)}
+.app .icon svg,.app .icon img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.app .label{font-size:11.5px;font-weight:500;letter-spacing:-.1px;line-height:1.1;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 .5px 3px rgba(0,0,0,.35)}
+.app.pressed .icon{transform:scale(.92);filter:brightness(.8)}
+.cal{position:absolute;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;color:#000;font-family:var(--font)}
+.cal .dow{margin-top:calc(var(--icon)*.1);font-size:calc(var(--icon)*.17);font-weight:600;color:#ff3b30;line-height:1}
+.cal .day{font-size:calc(var(--icon)*.52);font-weight:300;line-height:1;margin-top:calc(var(--icon)*.02);letter-spacing:-.04em}
+.page-dots{display:flex;justify-content:center;align-items:center;gap:8px;height:7px;margin-bottom:clamp(12px,2.2vh,18px)}
+.page-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4)}
+.page-dots i.on{background:#fff}
+.dock-wrap{padding:0 clamp(10px,2.8vw,14px);margin-bottom:calc(env(safe-area-inset-bottom,0px) + 46px)}
+.dock{display:flex;align-items:center;justify-content:center;gap:calc(var(--side) + 2px);width:fit-content;margin:0 auto;padding:0 calc(var(--side) + 2px);height:calc(var(--icon) + var(--icon)*.4);border-radius:calc(var(--icon)*.52);background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(26px) saturate(1.6);backdrop-filter:blur(26px) saturate(1.6);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.18)}
+.dock .app .label{display:none}
+.dock .app{padding:0}
+.dock{background:linear-gradient(135deg,rgba(255,255,255,.34),rgba(255,255,255,.12));-webkit-backdrop-filter:blur(30px) saturate(1.8);backdrop-filter:blur(30px) saturate(1.8);border:1px solid rgba(255,255,255,.38);box-shadow:0 8px 32px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(255,255,255,.12)}
+input,textarea,select{-webkit-user-select:text;user-select:text;font-family:var(--font);-webkit-appearance:none;appearance:none;border-radius:0}
+#screen.app-light #statusbar{color:#000}
+#screen.app-light .sb-wifi{fill:#000}
+#screen.app-light .bat-body{border-color:rgba(0,0,0,.35)}
+#screen.app-light .bat-body i{background:#000}
+#screen.app-light .sb-battery.low .bat-body i{background:#ff3b30}
+#screen.app-light .sb-battery.charging .bat-body i{background:#30d158}
+#screen.app-light .bat-cap{background:rgba(0,0,0,.4)}
+.ev{display:flex;gap:10px;padding:9px 20px;cursor:pointer;position:relative;align-items:stretch}
+.ev:active{background:#f2f2f7}
+.ev::after{content:"";position:absolute;left:20px;right:0;bottom:0;height:.5px;background:#e5e5ea}
+.ev .t{width:66px;flex:none;display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.25}
+.ev .t b{font-weight:500}
+.ev .t span{color:#8e8e93}
+.ev .c{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.empty{padding:36px 20px;text-align:center;color:#8e8e93;font-size:17px}
+.grp{background:#fff;border-radius:10px;margin-bottom:20px;overflow:hidden}
+.dt{width:100%;display:flex;flex-direction:column;gap:1px;padding:0 1px}
+.dt i{display:block;font-style:normal;font-size:9px;line-height:11px;border-radius:2px;padding:0 2px;background:var(--c);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:left;color:#fff}
+.dt em{font-style:normal;font-size:9px;line-height:11px;color:#8e8e93;text-align:left;padding-left:2px}
+.now{position:absolute;left:0;right:0;height:0;border-top:1.5px solid #ff3b30;z-index:2}
+.now::before{content:"";position:absolute;left:-4px;top:-5px;width:8px;height:8px;border-radius:50%;background:#ff3b30}
+@media not all{.ev:active{background:#1c1c1e}
+.ev::after{background:#2c2c2e}
+.grp{background:#1c1c1e}}
+*,*::before,*::after{letter-spacing:-.02em!important}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-synthesis:none;text-rendering:optimizeLegibility}
+button,input,textarea,select{font-family:inherit}
+
+html.pvo,html.pvo body{background:#fff!important}
+html.pvo.pvb,html.pvo.pvb body{background:#000!important}
+.tl-main{position:absolute;inset:0;display:flex;flex-direction:column;padding-top:calc(env(safe-area-inset-top,0px) + 54px)}
+.tl-tabs{flex:none;display:flex;padding:6px 0 calc(env(safe-area-inset-bottom,0px) + 28px);background:#f6f6f6;border-top:.5px solid rgba(60,60,67,.29)}
+.tl-tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:#8e8e93!important}
+.tl-tabs button.on{color:#007aff!important}
+.tl-tabs svg{width:28px;height:28px}
+.tl-bar{display:flex;align-items:center;justify-content:space-between;padding:4px 16px;min-height:40px;flex:none}
+.tl-b{color:#007aff!important;font-size:17px;display:flex;align-items:center;gap:2px;min-width:30px}
+.tl-b svg{width:24px;height:24px}
+.tl-title{font-size:34px;font-weight:700;padding:0 16px 6px;flex:none}
+.tl-seg{display:flex;margin:0 16px 8px;background:rgba(118,118,128,.12);border-radius:9px;padding:2px;flex:none}
+.tl-seg button{flex:1;height:28px;border-radius:7px;font-size:13px;font-weight:500}
+.tl-seg button.on{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.tl-search{margin:0 16px 8px;height:36px;border-radius:10px;background:rgba(118,118,128,.12);display:flex;align-items:center;gap:6px;padding:0 8px;flex:none;color:#8e8e93}
+.tl-search svg{width:17px;height:17px;stroke-width:2}
+.tl-search input{flex:1;border:0;outline:0;background:none;font-size:17px;color:#000;min-width:0}
+.tl-list{flex:1;min-height:0;overflow-y:auto;touch-action:pan-y}
+.tl-sec{background:#f6f6f6;padding:2px 16px;font-size:14px;font-weight:600;color:#3c3c43}
+.tl-r{display:flex;align-items:center;gap:10px;padding:0 4px 0 16px;min-height:56px;cursor:pointer}
+.tl-rb{flex:1;min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center;border-bottom:.5px solid rgba(60,60,67,.29)}
+.tl-r>*:last-child{margin-right:8px}
+.tl-nm{font-size:17px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl-nm.red{color:#ff3b30}
+.tl-sub{font-size:14px;color:#8e8e93}
+.tl-tm{font-size:15px;color:#8e8e93;flex:none}
+.tl-i{color:#007aff!important;width:30px;height:30px;flex:none;display:grid;place-items:center}
+.tl-i svg{width:24px;height:24px}
+.tl-dir{width:14px;color:#8e8e93;flex:none}
+.tl-dir svg{width:14px;height:14px;stroke-width:2}
+.tl-dir.red{color:#ff3b30}
+.tl-minus{width:22px;height:22px;border-radius:50%;background:#ff3b30!important;color:#fff!important;font-size:18px;line-height:20px;flex:none}
+.tl-empty{text-align:center;color:#8e8e93;padding:50px 20px;font-size:15px}
+.tl-av{width:44px;height:44px;border-radius:50%;flex:none;display:grid;place-items:center;color:#fff;font-size:19px;background:linear-gradient(#a6abb8,#858b98)}
+.tl-kd{text-align:center;height:92px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:0 20px 6px;flex:none}
+.tl-kn{font-size:38px;font-weight:400;min-height:46px;white-space:nowrap}
+.tl-ks{font-size:15px;color:#8e8e93;min-height:22px}
+.tl-ks button{color:#007aff!important}
+.tl-kp{display:grid;grid-template-columns:repeat(3,76px);gap:14px 20px;justify-content:center;margin-top:14px}
+.tl-k{width:76px;height:76px;border-radius:50%;background:#e9e9eb!important;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.tl-k:active{background:#c7c7cc!important}
+.tl-k b{font-size:34px;font-weight:400}
+.tl-k small{font-size:10px;font-weight:600;letter-spacing:.1em!important;height:12px;color:#3c3c43}
+.tl-kb{display:grid;grid-template-columns:repeat(3,76px);gap:20px;justify-content:center;margin-top:14px}
+.tl-call{width:76px;height:76px;border-radius:50%;background:#34c759!important;color:#fff!important;display:grid;place-items:center;grid-column:2}
+.tl-call svg{width:34px;height:34px;fill:#fff;stroke:none}
+.tl-kdel{width:76px;height:76px;display:grid;place-items:center;color:#8e8e93!important}
+.tl-kdel svg{width:30px;height:30px}
+.tl-ov{position:absolute;inset:0;z-index:8;display:none}
+.tl-ov.on{display:block}
+.tl-ovp{position:absolute;inset:0;background:#f2f2f7;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 54px) 0 40px;}
+.tl-hero{display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 16px 14px}
+.tl-hero .tl-av{width:96px;height:96px;font-size:40px}
+.tl-hn{font-size:28px;font-weight:600}
+.tl-hs{color:#8e8e93;font-size:15px}
+.tl-acts{display:flex;gap:10px;padding:0 16px 14px}
+.tl-acts button{flex:1;height:62px;border-radius:12px;background:#fff!important;color:#007aff!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px}
+.tl-acts svg{width:22px;height:22px}
+.tl-acts button.on svg{fill:#007aff}
+.tl-card{background:#fff;border-radius:12px;margin:0 16px 14px;overflow:hidden}
+.tl-card>*{display:flex;flex-direction:column;align-items:flex-start;width:100%;padding:10px 16px;text-align:left;border-bottom:.5px solid rgba(60,60,67,.2)}
+.tl-card>*:last-child{border-bottom:0}
+.tl-card>button[data-t=delnum] span{font-size:17px;line-height:22px}
+.tl-card small{font-size:13px;color:#8e8e93}
+.tl-card .blue{color:#007aff;font-size:17px}
+.tl-card .red{color:#ff3b30!important;font-size:17px}
+.tl-hr{flex-direction:row!important;justify-content:space-between;align-items:center!important}
+.tl-hr div{display:flex;flex-direction:column}
+.tl-hr span{color:#8e8e93;font-size:15px}
+.tl-form input{border:0;outline:0;font-size:17px;padding:12px 0;width:100%;background:none;color:#000}
+.tl-sb{position:absolute;inset:0;z-index:20;background:rgba(0,0,0,.4);display:none}
+.tl-sb.on{display:block}
+.tl-sh{position:absolute;left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom,0px) + 30px);z-index:21;display:none;flex-direction:column;gap:8px;max-height:70%}
+.tl-sh.on{display:flex}
+.tl-sg{background:rgba(255,255,255,.97);border-radius:14px;overflow:auto;display:flex;flex-direction:column}
+.tl-sg>*{padding:16px;text-align:center;font-size:17px;border-bottom:.5px solid rgba(60,60,67,.2);color:#007aff;flex:none}
+.tl-sg>*:last-child{border:0}
+.tl-sg .m{color:#8e8e93;font-size:13px}
+.tl-sg .red{color:#ff3b30}
+.tl-sg .p{display:flex;align-items:center;gap:10px;text-align:left;color:#000;padding:10px 16px}
+.tl-call-s{position:absolute;inset:0;z-index:30;display:none;flex-direction:column;align-items:center;color:#fff;background:linear-gradient(#3b4d6b,#1c2433 60%,#0d1117);padding:calc(env(safe-area-inset-top,0px) + 100px) 24px calc(env(safe-area-inset-bottom,0px) + 56px)}
+.tl-call-s.on{display:flex}
+.tl-cn{font-size:36px;font-weight:500;text-align:center}
+.tl-cs{font-size:20px;opacity:.7;margin-top:6px;min-height:26px}
+.tl-cnum{opacity:.55;font-size:15px;margin-top:2px}
+.tl-cg{display:grid;grid-template-columns:repeat(3,76px);gap:22px 28px;margin-top:auto;margin-bottom:36px;justify-content:center}
+.tl-cb{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#fff!important}
+.tl-cb i{width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.tl-cb.on i{background:#fff;color:#1c2433}
+.tl-cb svg{width:32px;height:32px}
+.tl-cdt{font-size:30px;min-height:40px;margin-top:auto;text-align:center}
+.tl-ck{display:grid;grid-template-columns:repeat(3,66px);gap:12px 24px;margin-bottom:24px}
+.tl-ck button{width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,.18)!important;font-size:28px;color:#fff!important}
+#screen.app-light.in-call #statusbar{color:#fff}
+#screen.app-light.in-call .sb-wifi{fill:#fff}
+#screen.app-light.in-call .bat-body{border-color:rgba(255,255,255,.4)}
+#screen.app-light.in-call .bat-body i{background:#fff}
+#screen.app-light.in-call .bat-cap{background:rgba(255,255,255,.4)}
+.v a{color:inherit;text-decoration:none}
+#home-indicator-zone{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 2px);width:150px;height:10px;z-index:12;display:flex;align-items:center;justify-content:center;touch-action:pan-x;cursor:pointer;pointer-events:auto}
+#home-indicator{width:138px;height:5px;border-radius:999px;background:rgba(235,235,240,.9);box-shadow:0 0 2px rgba(0,0,0,.16);pointer-events:none}
+#screen.app-light #home-indicator{background:rgba(0,0,0,.8);box-shadow:none}
+#screen:has(#cal-app.show) #home-indicator,#screen:has(#pho-app.show) #home-indicator,#screen:has(#msg-app.show) #home-indicator,#screen:has(#ig-app.show) #home-indicator,#screen:has(#x-app.show) #home-indicator,#screen:has(#et-app.show) #home-indicator,#screen:has(#gp-app.show) #home-indicator,#screen:has(#fm-app.show) #home-indicator,#screen:has(#yt-app.show) #home-indicator,#screen:has(#dg-app.show) #home-indicator,#screen:has(#bm-app.show) #home-indicator,#screen:has(#am-app.show) #home-indicator,#screen:has(#notes-app.on) #home-indicator,#screen:has(#kko-app.show) #home-indicator,#screen:has(#saf-app.show) #home-indicator,#screen:has(#tel-app.show) #home-indicator{background:#000;box-shadow:none}
+#screen:has(#clk-app.show) #home-indicator,#screen:has(#sp-app.show) #home-indicator,#screen:has(#nf-app.open) #home-indicator{background:rgba(235,235,240,.9);box-shadow:0 0 2px rgba(0,0,0,.16)}
+#screen:has(#nf-app.open) #home-indicator{background:rgba(235,235,240,.9);box-shadow:0 0 2px rgba(0,0,0,.16)}
+html.pvo.pvb #screen #home-indicator{background:rgba(235,235,240,.9)}
+#sp-app::after{content:"";position:absolute;top:0;left:0;right:0;height:calc(env(safe-area-inset-top,0px) + 54px);background:#121212;z-index:4;pointer-events:none}
+@media (min-width:520px){#screen *{scrollbar-width:none!important;}
+#screen *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;}}
+#pho-app img[data-photo]{max-width:none;max-height:none;object-fit:contain}
+#statusbar .island{left:50%!important;
+  right:auto!important;
+  margin-left:0!important;
+  transform:translateX(-50%)!important;}
+html.pvo,html.pvo body{background:#000!important}
+.dock-wrap{margin-bottom:calc(env(safe-area-inset-bottom,0px) + 40px)}
+.page-dots{display:none}
+
+#cam-app.hwaho-launching,#cal-app.hwaho-launching,#pho-app.hwaho-launching,#msg-app.hwaho-launching,#tel-app.hwaho-launching,#saf-app.hwaho-launching,#kko-app.hwaho-launching,#ig-app.hwaho-launching,#clk-app.hwaho-launching,#x-app.hwaho-launching,#et-app.hwaho-launching,#gp-app.hwaho-launching,#sp-app.hwaho-launching,#fm-app.hwaho-launching,#yt-app.hwaho-launching,#nf-app.hwaho-launching,#dg-app.hwaho-launching,#bm-app.hwaho-launching,#am-app.hwaho-launching,#notes-app.hwaho-launching,#nt-app.hwaho-launching{transform-origin:center center}
+
+#cal-app.hwaho-launching,#pho-app.hwaho-launching,#msg-app.hwaho-launching,#tel-app.hwaho-launching,#saf-app.hwaho-launching,#kko-app.hwaho-launching,#ig-app.hwaho-launching,#clk-app.hwaho-launching,#x-app.hwaho-launching,#et-app.hwaho-launching,#gp-app.hwaho-launching,#sp-app.hwaho-launching,#fm-app.hwaho-launching,#yt-app.hwaho-launching,#nf-app.hwaho-launching,#dg-app.hwaho-launching,#bm-app.hwaho-launching,#am-app.hwaho-launching,#notes-app.hwaho-launching,#nt-app.hwaho-launching{
+  transform-origin: center center;}
+@media (prefers-reduced-motion: reduce){#cal-app.hwaho-launching,#pho-app.hwaho-launching,#msg-app.hwaho-launching,#tel-app.hwaho-launching,#saf-app.hwaho-launching,#kko-app.hwaho-launching,#ig-app.hwaho-launching,#clk-app.hwaho-launching,#x-app.hwaho-launching,#et-app.hwaho-launching,#gp-app.hwaho-launching,#sp-app.hwaho-launching,#fm-app.hwaho-launching,#yt-app.hwaho-launching,#nf-app.hwaho-launching,#dg-app.hwaho-launching,#bm-app.hwaho-launching,#am-app.hwaho-launching,#notes-app.hwaho-launching,#nt-app.hwaho-launching{}}
+#cam-app.hwaho-launching{ transform-origin: center center;}
+</style>
+<script src="../../../shared/system-bar.js?v=202610252321"></script></head>
+<body>
+<div id="device">
+<div id="screen">
+<div id="wallpaper"></div>
+<header id="statusbar">
+<div class="sb-left"><span id="clock">9:41</span></div><div class="island" id="isl" role="button" aria-label="다이내믹 아일랜드"><div class="isl-m"><span class="isl-th"></span><span class="isl-bars"><i></i><i></i><i></i><i></i></span></div><div class="isl-x"><div class="isl-r1"><span class="isl-th big"></span><div class="isl-tx"><b></b><small></small></div><span class="isl-bars"><i></i><i></i><i></i><i></i></span></div><div class="isl-pg"><small class="a">0:00</small><div class="isl-bar"><i></i></div><small class="b">0:00</small></div><div class="isl-ct"><button data-i="prev" aria-label="이전 곡"></button><button data-i="pp" aria-label="재생/일시정지"></button><button data-i="next" aria-label="다음 곡"></button></div></div></div>
+<div class="sb-right"><svg class="sb-wifi" viewBox="0 0 18 14" aria-label="Wi-Fi"><path d="M1 4.2C5.5.3 12.5.3 17 4.2L15.4 5.8C11.8 2.7 6.2 2.7 2.6 5.8Z"/><path d="M4 7.2c2.9-2.5 7.1-2.5 10 0l-1.6 1.6c-2-1.7-4.8-1.7-6.8 0Z"/><path d="M7 10.2c1.2-1 2.8-1 4 0L9 12.3Z"/></svg><div class="sb-battery" aria-label="배터리"><div class="bat-body"><i id="bat-level"></i><svg class="bat-bolt" viewBox="0 0 10 14" aria-hidden="true"><path d="M6.3 0L.8 7.7h3.5L3.4 14l5.8-8.1H5.7z" fill="#000"/></svg></div><div class="bat-cap"></div></div></div>
+</header>
+<main id="home"><section class="grid" id="grid" aria-label="앱"></section><div class="spacer"></div><div class="page-dots" aria-hidden="true"><i class="on"></i><i></i></div><nav class="dock-wrap" aria-label="독"><div class="dock" id="dock"></div></nav></main>
+<div id="tel-app" aria-hidden="true"></div>
+<div id="home-indicator-zone" aria-label="홈으로 이동"><div id="home-indicator" aria-hidden="true"></div></div>
+</div></div>
+<script>
+/* ===== stability.js ===== */
+{
+/* Hwaho2 stability guard: isolated recovery, image fallback, safe storage parsing. */
+(() => {
+  "use strict";
+  const appByScript = [
+    ["instagram.js", "ig-app"], ["twitter.js", "x-app"], ["safari.js", "saf-app"],
+    ["photos.js", "pho-app"], ["chatgpt.js", "gp-app"], ["spotify.js", "sp-app"],
+    ["kakaotalk.js", "kko-app"], ["notes.js", "nt-app"], ["youtube.js", "yt-app"],
+    ["netflix.js", "nf-app"], ["baemin.js", "bm-app"], ["fromm.js", "fm-app"], ["fromm-app.js", "fm-app"],
+    ["everytime.js", "et-app"], ["calendar.js", "cal-app"], ["imessage.js", "msg-app"],
+    ["phone.js", "tel-app"], ["clock.js", "clk-app"], ["karrot.js", "dg-app"],
+    ["albamon.js", "am-app"]
+  ];
+  const root = document.getElementById("screen");
+  const home = document.getElementById("home");
+  function recover(id, reason) {
+    const layer = document.getElementById(id);
+    if (!layer) return;
+    const currentByLayer = {"ig-app":"instagram","x-app":"x","saf-app":"safari","pho-app":"photos","cam-app":"camera","gp-app":"chatgpt","sp-app":"spotify","kko-app":"kakaotalk","nt-app":"notes","yt-app":"youtube","nf-app":"netflix","bm-app":"baemin","fm-app":"fromm","et-app":"everytime","cal-app":"calendar","msg-app":"messages","tel-app":"phone","clk-app":"clock","dg-app":"danggeun","am-app":"albamon"};
+    if (!window.Home || window.Home.current !== currentByLayer[id]) {
+      console.error("[Hwaho stability] Background app error:", id, reason);
+      return;
+    }
+    console.error("[Hwaho stability] App isolated:", id, reason);
+    layer.setAttribute("aria-hidden", "true");
+    layer.style.pointerEvents = "none";
+    layer.style.display = "none";
+    layer.classList.remove("open", "show", "on", "active", "opening", "in-app");
+    const appId = currentByLayer[id];
+    if (window.Home && window.Home.current === appId) {
+      window.Home.current = null;
+      try { localStorage.removeItem("hwaho-last-screen-v1"); } catch (_) {}
+      if (home) {
+        home.style.display = "flex";
+        home.style.opacity = "1";
+        home.style.transform = "none";
+        home.style.pointerEvents = "auto";
+      }
+    }
+  }
+  window.addEventListener("error", event => {
+    if (event.target && event.target.tagName === "IMG") return;
+    const file = String(event.filename || "");
+    const match = appByScript.find(([name]) => file.includes(name));
+    if (match) {
+      const id = file.includes("photos.js") && window.Home && window.Home.current === "camera" ? "cam-app" : match[1];
+      recover(id, event.message || "runtime error");
+    }
+  }, true);
+  window.addEventListener("unhandledrejection", event => {
+    const current = window.Home && window.Home.current;
+    const map = {
+      instagram: "ig-app", x: "x-app", safari: "saf-app", photos: "pho-app", camera: "cam-app",
+      chatgpt: "gp-app", spotify: "sp-app", kakaotalk: "kko-app", notes: "nt-app",
+      youtube: "yt-app", netflix: "nf-app", baemin: "bm-app", fromm: "fm-app",
+      everytime: "et-app", calendar: "cal-app", messages: "msg-app", phone: "tel-app",
+      clock: "clk-app", danggeun: "dg-app", albamon: "am-app"
+    };
+    if (current && map[current]) recover(map[current], event.reason || "unhandled rejection");
+  });
+  const fallback = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="#eeeeef"/><rect x="13" y="15" width="38" height="34" rx="4" fill="none" stroke="#a1a1aa" stroke-width="3"/><circle cx="24" cy="26" r="4" fill="#a1a1aa"/><path d="M16 44l12-12 8 8 5-5 7 9" fill="none" stroke="#a1a1aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  function tuneImage(img) {
+    if (!img || img.tagName !== "IMG") return;
+    if (!img.hasAttribute("decoding")) img.decoding = "async";
+    if (img.closest("[id$='-app']") && !img.hasAttribute("loading")) img.loading = "lazy";
+  }
+  function tuneImages(scope) {
+    if (!scope || !scope.querySelectorAll) return;
+    if (scope.tagName === "IMG") tuneImage(scope);
+    scope.querySelectorAll("img").forEach(tuneImage);
+  }
+  if (root) {
+    tuneImages(root);
+    new MutationObserver(records => {
+      for (const record of records) for (const node of record.addedNodes) {
+        if (node.nodeType === 1) {
+          if (node.tagName === "IMG") tuneImage(node);
+          else tuneImages(node);
+        }
+      }
+    }).observe(root, { childList: true, subtree: true });
+    root.addEventListener("error", event => {
+      const img = event.target;
+      if (!img || img.tagName !== "IMG" || img.dataset.hwahoFallback) return;
+      img.dataset.hwahoFallback = "1";
+      img.src = fallback;
+    }, true);
+  }
+  window.HwahoStability = {
+    readJSON(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (raw == null) return fallback;
+        try {
+          const value = JSON.parse(raw);
+          const valid = {
+            "ios-insta-v1": v => v && typeof v === "object" && v.like && typeof v.like === "object",
+            "ios-x-v2": v => v && typeof v === "object" && !Array.isArray(v),
+            "ios-safari-v1": v => v && Array.isArray(v.tabs) && v.tabs.length > 0,
+            "ios-chatgpt-v1": v => v && Array.isArray(v.chats),
+            "ios-spotify-v1": v => v && Array.isArray(v.liked),
+            "ios-spotify-playback-v1": v => v && Array.isArray(v.Q),
+            "ios-kakao-v5": v => v && Array.isArray(v.chats) && Array.isArray(v.friends),
+            "nt.notes.v1": v => Array.isArray(v),
+            "nt.folders.v1": v => Array.isArray(v),
+            "nt.att.v1": v => v && typeof v === "object" && !Array.isArray(v),
+            "nt.tags.v1": v => Array.isArray(v),
+            "nt.prefs.v1": v => v && typeof v === "object" && !Array.isArray(v)
+          }[key];
+          if (!valid || valid(value)) return value;
+        } catch (_) {}
+        try { sessionStorage.setItem("hwaho-recovery:" + key, raw); } catch (_) {}
+        console.warn("[Hwaho stability] Invalid saved data preserved for this session:", key);
+        return fallback;
+      } catch (_) { return fallback; }
+    },
+    writeJSON(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+      catch (error) { console.warn("[Hwaho stability] Save failed; previous data retained:", key, error); return false; }
+    }
+  };
+})();
+}
+
+/* ===== home.js (shell) ===== */
+{
+/* ===== home.js (integrated) ===== */
+/**
+ * 홈 화면 설정 — 아이콘/배경 교체는 이 파일만 수정하면 됩니다.
+ *
+ * 아이콘 이미지로 교체: 앱 항목에 `img: "icons/kakaotalk.png"` 추가 (정사각형 PNG, 모서리는 자동 마스킹).
+ * 배경 이미지로 교체: WALLPAPER 에 "url(wallpapers/bg.jpg)" 지정.
+ */
+window.WALLPAPER = "url(images/wallpapers/PlanKim-iOS-18-Wallpaper-Blue-Light.jpg)"; // 홈 화면과 잠금 화면 공통 배경
+
+const g = (id, a, b) => `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="60" height="60" fill="url(#${id})"/>`;
+
+window.APPS = {
+  grid: [
+    { id: "phone", label: "전화", img: "", svg:
+      g("ph", "#6cf27f", "#17b934") +
+      `<path d="M0 0h60v28H0z" fill="#fff" opacity=".07"/><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#fff" transform="translate(12.2 12.2) scale(1.48)"/>` }
+  ],
+  dock: [],
+};
+
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const DOW = ["일요일","월요일","화요일","수요일","목요일","금요일","토요일"];
+
+  /* ---------- 확대 방지 ---------- */
+  ["gesturestart","gesturechange","gestureend"].forEach(e => document.addEventListener(e, ev => ev.preventDefault(), { passive: false }));
+  document.addEventListener("dblclick", e => e.preventDefault(), { passive: false });
+  document.addEventListener("contextmenu", e => e.preventDefault());
+  document.addEventListener("touchmove", e => { if (e.touches.length > 1 || e.scale && e.scale !== 1) e.preventDefault(); }, { passive: false });
+
+  /* ---------- 배경 ---------- */
+  if (window.WALLPAPER) $("#wallpaper").style.setProperty("background", window.WALLPAPER + " center/cover no-repeat");
+
+  /* ---------- 앱 렌더 ---------- */
+  function iconInner(app) {
+    if (app.img) return `<img src="${app.img}" alt="" draggable="false">`;
+    if (app.dynamic === "calendar") {
+      const d = new Date(2026, 9, 19);
+      return `<div class="cal"><span class="dow">${DOW[d.getDay()]}</span><span class="day">${d.getDate()}</span></div>`;
+    }
+    return `<svg viewBox="0 0 60 60" preserveAspectRatio="xMidYMid slice">${app.svg}</svg>`;
+  }
+  function renderApps(list, mount) {
+    mount.innerHTML = "";
+    list.forEach(app => {
+      const el = document.createElement("div");
+      el.className = "app"; el.dataset.app = app.id; el.setAttribute("role", "button"); el.setAttribute("aria-label", app.label);
+      el.innerHTML = `<div class="icon">${iconInner(app)}</div><span class="label">${app.label}</span>`;
+      mount.appendChild(el);
+    });
+  }
+  // 에브리타임은 앱 데이터와 구현을 유지한 채 홈 화면에서만 숨김 처리합니다. 다시 활성화하려면 필터에서 every time 제외 조건을 제거하세요.
+  const HIDDEN_HOME_APPS = new Set(["everytime"]);
+  const render = () => {
+    renderApps(APPS.grid.filter(app => !HIDDEN_HOME_APPS.has(app.id)), $("#grid"));
+    renderApps(APPS.dock, $("#dock"));
+  };
+  render();
+
+  /* ---------- 앱 열기/홈 복귀 훅 (앱 UI는 추후 구현) ---------- */
+
+  const HOME_STATE_KEY = "hwaho-last-screen-v1";
+  let closeTimer = null;
+  const Home = {
+    current: null,
+    openApp(id) {
+      if (!id || Home.current === id) return;
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
+      // Clear any stale invisible app layers left behind by a previous home-indicator gesture.
+      document.querySelectorAll("#screen [id$='-app']").forEach(app => {
+        app.style.pointerEvents = "";
+        if (app.getAttribute("aria-hidden") === "true") app.removeAttribute("aria-hidden");
+        app.style.display = "";
+      });
+      const previous = Home.current;
+      if (previous && previous !== id) document.dispatchEvent(new CustomEvent("app:close", { detail: { id: previous, next: id } }));
+      const h = $("#home");
+      h.style.display = "";
+      h.style.pointerEvents = "";
+      Home.current = id;
+      try { localStorage.setItem(HOME_STATE_KEY, id); } catch (_) {}
+      document.dispatchEvent(new CustomEvent("app:open", { detail: { id } }));
+      if (id === "instagram" && window.IgApp) window.IgApp.open();
+    },
+    goHome() {
+      if (closeTimer) return;
+      const had = Home.current; Home.current = null;
+      try { localStorage.removeItem(HOME_STATE_KEY); } catch (_) {}
+      document.dispatchEvent(new CustomEvent("app:close", { detail: { id: had } }));
+      const h = $("#home");
+      h.style.display = "flex";
+      h.style.opacity = "1";
+      h.style.transform = "none";
+      h.style.pointerEvents = "auto";
+      h.classList.remove("returning"); void h.offsetWidth; h.classList.add("returning");
+      // After the closing animation, fully deactivate every app layer so it cannot block later taps.
+      closeTimer = setTimeout(() => {
+        closeTimer = null;
+        if (Home.current !== null) return;
+        document.querySelectorAll("#screen [id$='-app']").forEach(app => {
+          app.classList.remove("open", "show", "on", "active", "opening", "in-app");
+          app.setAttribute("aria-hidden", "true");
+          app.style.pointerEvents = "none";
+          app.style.display = "none";
+        });
+        h.style.display = "flex";
+        h.style.pointerEvents = "auto";
+      }, 460);
+    },
+    refresh: render,
+  };
+  window.Home = Home;
+
+  /* ---------- 아이콘 터치 피드백 / 탭 ---------- */
+  let pressed = null, moved = false, sx = 0, sy = 0;
+  document.addEventListener("pointerdown", e => {
+    const a = e.target.closest(".app"); if (!a) return;
+    pressed = a; moved = false; sx = e.clientX; sy = e.clientY; a.classList.add("pressed");
+  });
+  document.addEventListener("pointermove", e => {
+    if (pressed && Math.hypot(e.clientX - sx, e.clientY - sy) > 10) { moved = true; pressed.classList.remove("pressed"); }
+  });
+  const release = e => {
+    if (!pressed) return;
+    const a = pressed; pressed = null; a.classList.remove("pressed");
+    if (!moved && e.type === "pointerup") Home.openApp(a.dataset.app);
+  };
+  document.addEventListener("pointerup", release);
+  document.addEventListener("pointercancel", release);
+
+  /* ---------- 가벼운 홈 인디케이터: 위로 쓸면 홈으로 ---------- */
+  const homeZone = $("#home-indicator-zone");
+  let homeTouch = null;
+  homeZone.addEventListener("pointerdown", e => {
+    homeTouch = { y: e.clientY, x: e.clientX, id: e.pointerId };
+    try { homeZone.setPointerCapture(e.pointerId); } catch (_) {}
+  });
+  homeZone.addEventListener("pointerup", e => {
+    if (!homeTouch) return;
+    const dy = homeTouch.y - e.clientY;
+    const dx = Math.abs(homeTouch.x - e.clientX);
+    const distance = Math.hypot(dx, dy);
+    homeTouch = null;
+    if (!Home.current) return;
+    // 탭하면 즉시 홈으로, 위로 쓸어도 홈으로
+    if (distance < 14 || (dy > 18 && dy > dx * 0.8)) Home.goHome();
+  });
+  homeZone.addEventListener("pointercancel", () => { homeTouch = null; });
+  homeZone.addEventListener("click", e => { if (Home.current) { e.preventDefault(); e.stopPropagation(); Home.goHome(); } });
+  /* 하단 인디케이터가 앱 레이어에 가려져도 문서 캡처 단계에서 홈 복귀 처리 */
+  let lastHomeAction = 0;
+  const homeFromBottomGesture = e => {
+    if (!e.isTrusted) return;
+    const p = e.changedTouches ? e.changedTouches[0] : e;
+    if (!p) return;
+    const r = $("#screen").getBoundingClientRect();
+    const x = p.clientX - r.left, y = p.clientY - r.top;
+    const nearIndicator = y >= r.height - 34 && Math.abs(x - r.width / 2) <= 75;
+    if (!nearIndicator || Date.now() - lastHomeAction < 500) return;
+    lastHomeAction = Date.now();
+    // Home.current가 비어 있어도 모든 앱에 app:close를 보내 강제로 홈 복귀
+    Home.goHome();
+    document.querySelectorAll("#screen [id$='-app']").forEach(app => {
+      app.classList.remove("on", "active", "opening");
+      if (app.id !== "home") app.style.display = "none";
+    });
+    $("#home").style.display = "flex";
+    $("#home").style.opacity = "1";
+    $("#home").style.transform = "none";
+    $("#home").style.pointerEvents = "auto";
+  };
+  document.addEventListener("pointerup", homeFromBottomGesture, true);
+  document.addEventListener("touchend", homeFromBottomGesture, { capture: true, passive: true });
+
+  /* ---------- 시계 ---------- */
+  /* 스토리 시계: 날짜는 2026-10-19 고정, 시각은 스토리 이벤트 기준점에서 실시간으로 흐른다 (새로고침 후에도 유지) */
+  const CK = "hwaho-story-clock-abs-v1", DAY = 86400000;
+  const dayMs = () => { const n = new Date(); return n.getTime() - new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime(); };
+  let ckOff = null; try { const v = localStorage.getItem(CK); if (v !== null && v !== "") ckOff = Number(v); } catch (e) {}
+  const ckSet = (h, m, s = 0) => { ckOff = (h * 3600 + m * 60 + s) * 1000; try { localStorage.setItem(CK, String(ckOff)); } catch (e) {} document.dispatchEvent(new CustomEvent("story:clock")); };
+  if (ckOff === null || isNaN(ckOff)) ckSet(14, 25, 0); /* 스토리 시작 시각 (오후 2:25) */
+  const ckNow = () => new Date(new Date(2026, 9, 19).getTime() + ((((ckOff) % DAY) + DAY) % DAY));
+  window.HwahoClock = { now: ckNow, set: ckSet, hm() { const d = ckNow(); return [d.getHours(), d.getMinutes()]; }, label() { const d = ckNow(); return (d.getHours() < 12 ? "오전 " : "오후 ") + (d.getHours() % 12 || 12) + ":" + String(d.getMinutes()).padStart(2, "0"); } };
+  let lastDay = 19, tickT = 0;
+  function tick() {
+    clearTimeout(tickT);
+    const d = ckNow();
+    $("#clock").textContent = `${d.getHours() % 12 || 12}:${String(d.getMinutes()).padStart(2, "0")}`;
+    if (d.getDate() !== lastDay) { lastDay = d.getDate(); render(); }
+    tickT = setTimeout(tick, 60000 - d.getSeconds() * 1000 - d.getMilliseconds() + 20);
+  }
+  document.addEventListener("story:clock", tick);
+  tick();
+
+  /* ---------- 배터리 ---------- */
+  const bat = { level: 1, charging: false, linked: false }, batBox = document.querySelector(".sb-battery");
+  const paintBat = () => {
+    const p = Math.round(bat.level * 100);
+    $("#bat-level").style.width = Math.max(8, p) + "%";
+    batBox.classList.toggle("low", p <= 20 && !bat.charging);
+    batBox.classList.toggle("charging", bat.charging);
+    batBox.setAttribute("aria-label", bat.linked
+      ? "배터리 " + p + "%" + (bat.charging ? ", 충전 중" : "")
+      : "배터리 상태는 이 브라우저에서 연동할 수 없음");
+    batBox.dataset.linked = bat.linked ? "true" : "false";
+  };
+  Home.battery = { get: () => ({ level: bat.level, charging: bat.charging, linked: bat.linked }) };
+  paintBat();
+  // Battery Status API가 지원되는 브라우저에서만 실제 기기 배터리와 연동합니다.
+  // 지원되지 않으면 충전 아이콘을 탭해서 가짜로 바뀌게 하지 않습니다.
+  if (typeof navigator.getBattery === "function") {
+    navigator.getBattery().then(b => {
+      const up = () => {
+        bat.level = b.level;
+        bat.charging = b.charging;
+        bat.linked = true;
+        paintBat();
+      };
+      up();
+      b.addEventListener("levelchange", up);
+      b.addEventListener("chargingchange", up);
+    }).catch(() => { bat.linked = false; paintBat(); });
+  }
+})();
+
+}
+
+/* ===== shared helpers (from photos.js) ===== */
+{
+window.sleep = window.sleep || (ms => new Promise(r => setTimeout(r, ms)));
+window.originFrom = (el, id) => {
+  const ic = document.querySelector(`[data-app="${id}"] .icon`), sr = document.querySelector("#screen").getBoundingClientRect();
+  if (ic) { const r = ic.getBoundingClientRect(); el.style.transformOrigin = `${r.left + r.width / 2 - sr.left}px ${r.top + r.height / 2 - sr.top}px`; }
+};
+
+
+}
+
+/* ===== phone.js ===== */
+{
+/* ===== phone.js (integrated) ===== */
+/* ===== 전화 앱 ===== */
+const PhoneApp = (() => {
+  const $ = q => document.querySelector(q), el = $("#tel-app"), screen = $("#screen");
+  const ic = p => `<svg viewBox="0 0 24 24">${p}</svg>`;
+  const PH = 'M6.600 3.500c-.8-.8-2-.8-2.800 0L2.600 4.700c-1 1-1.200 2.600-.4 3.900 3 5 6.800 8.800 11.800 11.800 1.300.8 2.900.6 3.900-.4l1.200-1.200c.8-.8.8-2 0-2.800l-2.500-2.500c-.7-.7-1.800-.8-2.600-.2l-1.200.9c-2.300-1.200-4.300-3.200-5.500-5.500l.9-1.200c.6-.8.5-1.900-.2-2.600z';
+  const dots = [4.5, 9.5, 14.5, 19.5].map(y => [6, 12, 18].map(x => `<circle cx="${x}" cy="${y}" r="1.300" fill="currentColor" stroke="none"/>`).join("")).join("");
+  const I = {
+    star: ic('<path d="M12 3.500l2.600 5.400 5.900.8-4.300 4.100 1 5.800-5.200-2.800-5.200 2.800 1-5.800L3.500 9.700l5.900-.8z"/>'), clock: ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5.500l3.500 2"/>'),
+    person: ic('<circle cx="12" cy="12" r="9.500"/><circle cx="12" cy="10" r="3"/><path d="M6 18.500c1.500-2.800 4-3.800 6-3.800s4.500 1 6 3.800"/>'), keys: ic(dots),
+    search: ic('<circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500l5 5"/>'), phone: `<svg viewBox="0 0 24 24"><path d="${PH}" fill="currentColor"/></svg>`,
+    msg: ic('<path d="M12 4c-4.700 0-8.500 3.100-8.500 7s3.800 7 8.500 7c1 0 2-.1 2.900-.4 1.200 1 2.800 1.600 4.500 1.700-.8-.9-1.300-1.900-1.500-3 1.700-1.300 2.600-3.100 2.600-5.300C20.500 7.100 16.700 4 12 4z"/>'),
+    back: ic('<path d="M15 5l-7 7 7 7" stroke-width="2.200"/>'), info: ic('<circle cx="12" cy="12" r="9.500"/><path d="M12 11v6M12 7.500v.1"/>'), plus: ic('<path d="M12 5v14M5 12h14" stroke-width="1.800"/>'),
+    inn: ic('<path d="M17 7L7 17M15 17H7V9"/>'), out: ic('<path d="M7 17L17 7M9 7h8v8"/>'), bs: ic('<path d="M9 5h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6-7z"/><path d="M12.500 9.500l5 5M17.500 9.500l-5 5"/>'),
+    mic: ic('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.500 11.500a6.500 6.500 0 0 0 13 0M12 18v3"/>'), micoff: ic('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.500 11.500a6.500 6.500 0 0 0 13 0M12 18v3M4 4l16 16"/>'),
+    spk: ic('<path d="M4 9.500h3.500L12 5.500v13L7.500 14.500H4z"/><path d="M15.500 9a4 4 0 0 1 0 6M18 6.500a8 8 0 0 1 0 11"/>'), pause: ic('<path d="M9 5v14M15 5v14" stroke-width="2.600"/>'),
+    rec: ic('<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.500" fill="currentColor"/>'), grid: ic(dots),
+  };
+  I.cam = ic('<rect x="2" y="6" width="14" height="12" rx="2.500" fill="currentColor" stroke="none"/><path d="M18 10l4-2.500v9L18 14z" fill="currentColor" stroke="none"/><path d="M8.500 10.500a1.500 1.500 0 1 1 1.800 1.500c-.4.200-.3.600-.3 1M9 15v.1" stroke="#3d5b53" stroke-width="1.600"/>');
+  I.more = ic('<circle cx="5" cy="12" r="1.700" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.700" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.700" fill="currentColor" stroke="none"/>');
+  const uid = () => Math.random().toString(36).slice(2, 9), esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const NAMES = ["윤둥이", "철수", "민기", "홍중", "엄마", "아빠", "형", "레도형", "성현이형(매니저)", "박대표", "강PD", "승호형(믹싱)", "한감독님", "소율 누나", "정팀장님", "쇼미 김작가님", "도현", "지안", "세준(사진)", "엠더스트", "블루후디", "녹스", "가온", "새벽 레코즈 대표", "녹음실 사장님", "김팀장님(레코드)", "최PD(무대감독)", "박팀장(조명)", "성민(동창)", "수아 실장"], KEY = "ios-phone-v5";
+  let D = null; try { D = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+  if (!D || !D.contacts || !D.siteCallsV1) {
+    const NUMS = ["010-3321-4408", "010-7745-0291", "010-2290-6613", "010-5518-3342", "010-5518-9027", "010-8836-1150", "010-4102-7788", "010-9937-2204", "010-6620-5581", "010-3374-9910", "010-2851-4476", "010-7219-3067", "010-4467-1203", "010-5093-7821", "010-8120-3395", "010-9645-1812", "010-3708-5524", "010-2476-9031", "010-6158-2247", "010-3902-8815", "010-7731-4096", "010-5284-6670", "010-9140-3328", "010-2667-5193", "010-8473-1026", "010-4519-7782", "010-6035-2941", "010-3817-6504", "010-7296-1138", "010-5942-8067"], FAVS = NAMES.map(n => n === "윤둥이" || n === "엄마" ? 1 : 0);
+    D = { contacts: NAMES.map((n, i) => ({ id: uid(), name: n, num: NUMS[i], email: "", fav: !!FAVS[i] })), calls: [] };
+    const c = D.contacts, mk = (nm, dir, ago, hm, dur) => { const ct = c.find(x => x.name === nm), d = new Date(2026, 9, 19); d.setDate(d.getDate() - ago); d.setHours(+hm.slice(0, 2), +hm.slice(3), 0, 0); const ts = d.getTime(); return { id: uid(), num: ct ? ct.num : nm, dir, ts, dur }; };
+    D.calls = [mk("윤둥이", "out", 0, "15:10", 0), mk("윤둥이", "out", 0, "15:12", 0), mk("윤둥이", "out", 0, "15:14", 0), mk("성현이형(매니저)", "in", 0, "15:18", 96), mk("윤둥이", "out", 0, "15:20", 0), mk("윤둥이", "out", 0, "15:22", 0), mk("윤둥이", "out", 0, "15:24", 0), mk("윤둥이", "out", 0, "15:26", 0), mk("윤둥이", "out", 0, "15:33", 412), mk("윤둥이", "in", 45, "13:40", 4980),mk("윤둥이", "out", 46, "09:15", 612),mk("승호형(믹싱)", "out", 46, "11:05", 236),mk("강PD", "miss", 47, "10:22", 0),mk("윤둥이", "out", 48, "23:20", 7860),mk("윤둥이", "in", 49, "14:05", 321),mk("엄마", "in", 50, "20:15", 305),mk("레도형", "in", 51, "18:47", 642),mk("성현이형(매니저)", "in", 51, "12:03", 125),mk("녹음실 사장님", "out", 33, "15:30", 58),mk("윤둥이", "in", 1, "21:50", 5400),mk("윤둥이", "miss", 1, "12:30", 0),mk("지안", "out", 2, "22:10", 540),mk("한감독님", "in", 3, "16:20", 198),mk("승호형(믹싱)", "in", 4, "14:05", 871),mk("엠더스트", "miss", 5, "19:36", 0),mk("윤둥이", "out", 6, "00:35", 8420),mk("윤둥이", "in", 6, "18:10", 1260),mk("성현이형(매니저)", "in", 7, "09:20", 89),mk("새벽 레코즈 대표", "in", 8, "17:44", 330),mk("소율 누나", "miss", 9, "13:28", 0),mk("윤둥이", "in", 10, "22:40", 3910),mk("철수", "out", 11, "21:03", 95),mk("김팀장님(레코드)", "in", 11, "15:17", 264),mk("홍중", "in", 12, "15:00", 76),mk("쇼미 김작가님", "out", 13, "11:50", 142),mk("윤둥이", "out", 14, "13:15", 188),mk("윤둥이", "miss", 15, "20:05", 0),mk("레도형", "miss", 16, "23:41", 0),mk("녹스", "in", 16, "20:08", 415),mk("민기", "out", 17, "18:30", 67),mk("최PD(무대감독)", "in", 18, "14:12", 180),mk("소율 누나", "out", 19, "11:20", 90),mk("윤둥이", "in", 20, "23:55", 6720),mk("아빠", "out", 21, "19:26", 44),mk("성현이형(매니저)", "out", 21, "10:15", 33),mk("윤둥이", "out", 22, "15:30", 2540),mk("박대표", "in", 23, "16:58", 226),mk("강PD", "out", 24, "13:11", 388),mk("윤둥이", "in", 25, "22:10", 4300),mk("엄마", "miss", 26, "09:52", 0),mk("윤둥이", "miss", 26, "11:45", 0),mk("홍중", "in", 27, "22:35", 152),mk("지안", "in", 28, "19:03", 310),mk("성현이형(매니저)", "out", 29, "08:50", 47),mk("윤둥이", "out", 30, "01:20", 9100),mk("도현", "miss", 31, "12:27", 0),mk("형", "in", 31, "21:20", 205),mk("엄마", "out", 32, "19:40", 612),mk("윤둥이", "in", 34, "19:30", 3600),mk("성민(동창)", "miss", 35, "18:15", 0),mk("철수", "in", 36, "20:30", 1740),mk("윤둥이", "out", 36, "21:00", 5150),mk("한감독님", "out", 37, "14:32", 121),mk("수아 실장", "out", 38, "11:09", 36),mk("블루후디", "in", 39, "20:44", 276),mk("소율 누나", "in", 40, "17:21", 167),mk("세준(사진)", "out", 41, "16:05", 89),mk("가온", "miss", 41, "23:08", 0),mk("레도형", "out", 42, "22:14", 953),mk("정팀장님", "in", 43, "10:41", 142),mk("02-3489-7720", "miss", 44, "14:55", 0)];
+    D.siteCallsV1 = 1;
+  }
+  { D.contacts.forEach(c => { if (c.name === "성현이형(매니저)") c.name = "성현이형(매니저)"; }); const y = D.contacts.find(c => c.name === "울윤호"); if (y) y.name = "윤둥이"; try { localStorage.setItem(KEY, JSON.stringify(D)); } catch(e) {} }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) {} };
+  /* 사이트는 기기의 현재 날짜·시각을 읽지 않음. 모든 표시 시각은 고정된 가상 시간 사용. */
+  if (D.v12 !== 1) {
+    const RN = { "철수": "김철수", "민기": "송민기 (FIXON)", "홍중": "김홍중 (NO1)", "레도형": "강레도", "성현이형(매니저)": "성현이형(매니저)", "박대표": "박재영(대표)", "강PD": "강민우(PD)", "승호형(믹싱)": "오승호(믹싱)", "한감독님": "한서진(감독)", "정팀장님": "정우석(팀장)", "쇼미 김작가님": "김하나(쇼미 작가)", "도현": "문도현", "지안": "한지안", "세준(사진)": "임세준(사진)", "김팀장님(레코드)": "김태훈(레코드)", "최PD(무대감독)": "최민재(무대감독)", "박팀장(조명)": "박서준(조명)", "성민(동창)": "이성민(동창)", "수아 실장": "윤수아 실장" };
+    D.contacts.forEach(c => { if (RN[c.name]) c.name = RN[c.name]; });
+    const num = n => (D.contacts.find(c => c.name === n) || {}).num || n, yn = num("윤둥이");
+    D.calls = D.calls.filter(c => !(c.num === yn && c.dir === "in" && (c.dur === 4980 || c.dur === 1260)));
+    const T = d => new Date(`2026-${d}+09:00`).getTime(), add = (nm, dir, d, dur) => D.calls.push({ id: uid(), num: num(nm), dir, ts: T(d), dur }), p2 = n => String(n).padStart(2, "0");
+    add("윤둥이", "in", "10-15T18:05:00", 3600);
+    [0, 18, 36].forEach(s => add("윤둥이", "out", `10-18T14:09:${p2(s)}`, 0));
+    for (let i = 0; i < 7; i++) add("윤둥이", "out", `10-18T15:15:${p2(i * 8)}`, 0);
+    add("성현이형(매니저)", "in", "10-18T14:08:00", 180);
+    D.v12 = 1; save();
+  }
+  if (D.v14 !== 1) {
+    const yunho = D.contacts.find(c => c.name === "윤둥이");
+    if (yunho && !D.calls.some(c => c.blueRecord === "yunho-call-17-days")) {
+      D.calls.push({ id: uid(), num: yunho.num, dir: "out", ts: new Date("2026-10-01T20:10:00+09:00").getTime(), dur: 3720, blueRecord: "yunho-call-17-days" });
+    }
+    D.v14 = 1; save();
+  }
+  if (D.v13 !== 1) {
+    const y = D.contacts.find(c => c.name === "윤둥이");
+    if (y) { const o = String(y.num).replace(/\D/g, ""); y.num = "010-1999-0323"; D.calls.forEach(c => { if (String(c.num).replace(/\D/g, "") === o) c.num = y.num; }); }
+    D.v13 = 1; save();
+  }
+  window.PhoneData = { names: () => D.contacts.map(c => c.name) };
+  const dg = x => String(x).replace(/\D/g, "");
+  const msk = n => { const t = String(n); return t.replace(/\D/g, "") === "01019990323" ? t : t.replace(/\d{4}(?=\D*$)/, "****"); };
+  function fmt(x) { const d = dg(x); if (!d) return ""; if (d.startsWith("010") || d.startsWith("011")) return d.length <= 3 ? d : d.length <= 7 ? d.slice(0, 3) + "-" + d.slice(3) : d.slice(0, 3) + "-" + d.slice(3, 7) + "-" + d.slice(7, 11); return String(x).trim(); }
+  const byNum = n => dg(n) ? D.contacts.find(c => dg(c.num) === dg(n)) : null, nameOf = n => (byNum(n) || {}).name || (fmt(n) && msk(fmt(n))) || "알 수 없음";
+  const byId = id => D.contacts.find(c => c.id === id), pad = n => String(n).padStart(2, "0");
+  const tm = d => `${d.getHours() < 12 ? "오전" : "오후"} ${d.getHours() % 12 || 12}:${pad(d.getMinutes())}`;
+  function ft(ts, c, n) { if (c && c.blueRecord === "yunho-call-17-days") return "2026. 10. 1"; if (c && c.blueRecord === "yunho-call-aug") return "2026. 8. 1"; if (c && nameOf(c.num) === "성현이형(매니저)" && (c.blueRecord || c.storyDialogue)) return "오늘"; if (c && nameOf(c.num) === "윤둥이" && (c.blueRecord || c.storyDialogue) && c.blueRecord !== "yunho-call-17-days" && c.blueRecord !== "yunho-call-aug" && c.ts === Math.max(-Infinity, ...D.calls.filter(x => nameOf(x.num) === "윤둥이" && (x.blueRecord || x.storyDialogue) && x.blueRecord !== "yunho-call-17-days" && x.blueRecord !== "yunho-call-aug").map(x => x.ts))) return "오늘"; if (c && c.dir === "out" && n === 7 && nameOf(c.num) === "윤둥이") return "오늘"; const d = new Date(ts), base = new Date(2026, 9, 19), df = Math.round((base - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / 864e5); return df <= 1 ? "어제" : df < 7 ? "월화수목금토일"[(d.getDay() + 6) % 7] + "요일" : `${d.getFullYear()}. ${d.getMonth() + 1}. ${d.getDate()}.`; }
+  const fdur = s => s >= 3600 ? `${Math.floor(s / 3600)}시간 ${Math.floor(s % 3600 / 60)}분 ${s % 60}초` : s >= 60 ? `${Math.floor(s / 60)}분 ${s % 60}초` : `${s}초`, mmss = s => `${pad(Math.floor(s / 60))}:${pad(s % 60)}`;
+  const initial = n => /[0-9+*#\s-]/.test((n || "")[0] || "#") ? "" : n[0];
+  const av = (n, c = "tl-av") => `<div class="${c}">${esc(initial(n)) || ic('<circle cx="12" cy="9" r="3.500"/><path d="M5 20c1-4 4-5.500 7-5.500s6 1.500 7 5.500" fill="currentColor"/>').replace("<svg", '<svg style="width:55%;height:55%;fill:#fff;stroke:none"')}</div>`;
+  const CHO = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ", MAP = { ㄲ: "ㄱ", ㄸ: "ㄷ", ㅃ: "ㅂ", ㅆ: "ㅅ", ㅉ: "ㅈ" };
+  function grp(n) { const c = n.charCodeAt(0) - 0xAC00; if (c >= 0 && c < 11172) { let h = CHO[Math.floor(c / 588)]; h = MAP[h] || h; return [CHO.indexOf(h), h]; } const u = n[0].toUpperCase(); return /[A-Z]/.test(u) ? [100 + u.charCodeAt(0), u] : [999, "#"]; }
+  let tab = "rec", filt = "all", edit = false, keyNum = "", conQ = "", ovs = [], call = null;
+  // 전화 앱을 단독으로 열면 스토리/잠금화면 없이 기본 전화 탭(최근 통화)부터 표시한다.
+
+  /* ---- 페이지 ---- */
+  const empty = t => `<div class="tl-empty">${t}</div>`;
+  function pFav() {
+    const l = D.contacts.filter(c => c.fav).sort((a, b) => a.name.localeCompare(b.name, "ko"));
+    return `<div class="tl-bar"><button class="tl-b" data-t="edit">${edit ? "완료" : "편집"}</button><button class="tl-b" data-t="favadd" aria-label="추가">${I.plus}</button></div><div class="tl-title">즐겨찾기</div><div class="tl-list">${l.map(c => `<div class="tl-r" data-t="callc" data-id="${c.id}">${edit ? `<button class="tl-minus" data-t="unfav" data-id="${c.id}">−</button>` : ""}<div class="tl-rb"><div class="tl-nm">${esc(c.name)}</div><div class="tl-sub">휴대전화</div></div><button class="tl-i" data-t="msg" data-n="${esc(c.name)}" aria-label="메시지">${I.msg}</button></div>`).join("") || empty("즐겨찾기가 없습니다.<br>+ 버튼으로 연락처를 추가하세요.")}</div>`;
+  }
+  function pRec() {
+    const l = D.calls.filter(c => filt === "all" || c.dir === "miss").sort((a, b) => b.ts - a.ts);
+    const G = []; l.forEach(c => { const g = G[G.length - 1]; if (g && dg(g.c.num) === dg(c.num) && g.c.dir === c.dir && !g.c.dur && !c.dur && g.last - c.ts <= 12e5) { g.n++; g.ids.push(c.id); g.last = c.ts; } else G.push({ c, n: 1, ids: [c.id], last: c.ts }); });
+    return `<div class="tl-bar"><button class="tl-b" data-t="edit">${edit ? "완료" : "편집"}</button>${edit ? `<button class="tl-b" data-t="clearall">지우기</button>` : "<span></span>"}</div><div class="tl-title">최근 통화</div><div class="tl-seg"><button class="${filt === "all" ? "on" : ""}" data-t="seg" data-k="all">전체</button><button class="${filt === "miss" ? "on" : ""}" data-t="seg" data-k="miss">부재중</button></div><div class="tl-list">${G.map(({ c, n, ids }) => { const m = c.dir === "miss"; return `<div class="tl-r" data-t="${(c.storyDialogue || (c.blueRecord && SCRIPTS[c.blueRecord])) ? "replayrecord" : "noop"}" data-id="${c.id}" data-n="${esc(c.num)}"${(c.blueRecord || c.storyDialogue) ? ` data-b="${c.blueRecord || ""}" style="color:#007aff"` : ""}>${edit ? `<button class="tl-minus" data-t="delcall" data-id="${ids.join(",")}">−</button>` : ""}<span class="tl-dir ${m ? "red" : ""}"${(c.blueRecord || c.storyDialogue) ? ' style="color:#007aff"' : ""}>${c.dir === "out" ? I.out : I.inn}</span><div class="tl-rb"><div class="tl-nm ${m ? "red" : ""}"${(c.blueRecord || c.storyDialogue) ? ' style="color:#007aff"' : ""}>${esc(nameOf(c.num))}</div><div class="tl-sub"${(c.blueRecord || c.storyDialogue) ? ' style="color:#007aff"' : ""}>${byNum(c.num) ? "휴대전화" : "알 수 없음"}${n > 1 ? " (" + n + ")" : ""}${c.dur ? " · " + fdur(c.dur) : ""}</div></div><span class="tl-tm"${(c.blueRecord || c.storyDialogue) ? ' style="color:#007aff"' : ""}>${ft(c.ts, c, n)}</span><span class="tl-i" aria-label="정보">${I.info}</span></div>`; }).join("") || empty(filt === "miss" ? "부재중 전화가 없습니다." : "최근 통화가 없습니다.")}</div>`;
+  }
+  function conList() {
+    const q = conQ.trim().toLowerCase(), l = D.contacts.filter(c => !q || c.name.toLowerCase().includes(q) || (dg(q) && dg(c.num).includes(dg(q)))).sort((a, b) => { const x = grp(a.name), y = grp(b.name); return x[0] - y[0] || a.name.localeCompare(b.name, "ko"); });
+    let h = "", last = ""; l.forEach(c => { const g = grp(c.name)[1]; if (g !== last) { h += `<div class="tl-sec">${g}</div>`; last = g; } h += `<div class="tl-r" data-t="opencon" data-id="${c.id}"><div class="tl-rb"><div class="tl-nm">${esc(c.name)}</div></div></div>`; });
+    return h ? h + `<div class="tl-empty">연락처 ${q ? l.length : l.length + 390}명</div>` : empty("검색 결과 없음");
+  }
+  const pCon = () => `<div class="tl-bar"><span></span><button class="tl-b" data-t="newcon" aria-label="새 연락처">${I.plus}</button></div><div class="tl-title">연락처</div><div class="tl-search">${I.search}<input id="tl-cq" placeholder="검색" autocomplete="off" disabled value="${esc(conQ)}"></div><div class="tl-list" id="tl-cl">${conList()}</div>`;
+  const kdisp = () => `<div class="tl-kn">${esc(fmt(keyNum))}</div><div class="tl-ks">${keyNum ? (byNum(keyNum) ? esc(byNum(keyNum).name) : `<button data-t="keyadd">연락처에 추가</button>`) : ""}</div>`;
+  function pKey() {
+    const K = [["1", ""], ["2", "ABC"], ["3", "DEF"], ["4", "GHI"], ["5", "JKL"], ["6", "MNO"], ["7", "PQRS"], ["8", "TUV"], ["9", "WXYZ"], ["*", ""], ["0", "+"], ["#", ""]];
+    return `<div class="tl-kd" id="tl-kd">${kdisp()}</div><div class="tl-kp">${K.map(k => `<button class="tl-k" data-t="key" data-k="${k[0]}"><b>${k[0]}</b><small>${k[1]}</small></button>`).join("")}</div><div class="tl-kb"><span></span><button class="tl-call" data-t="keycall" aria-label="전화">${I.phone}</button><button class="tl-kdel" id="tl-kdel" data-t="keydel" aria-label="삭제" style="visibility:${keyNum ? "visible" : "hidden"}">${I.bs}</button></div>`;
+  }
+  function results(q) {
+    q = q.trim().toLowerCase(); if (!q) return empty("연락처와 최근 통화를 검색하세요.");
+    const m = (n, num) => n.toLowerCase().includes(q) || (dg(q) && dg(num).includes(dg(q)));
+    const cs = D.contacts.filter(c => m(c.name, c.num)), rs = D.calls.filter(c => m(nameOf(c.num), c.num)).sort((a, b) => b.ts - a.ts).slice(0, 20);
+    let h = dg(q).length >= 3 ? `<div class="tl-r" data-t="recall" data-n="${esc(q)}"><div class="tl-rb"><div class="tl-nm" style="color:#007aff">${esc(fmt(q))} 전화 걸기</div></div></div>` : "";
+    if (cs.length) h += `<div class="tl-sec">연락처</div>` + cs.map(c => `<div class="tl-r" data-t="opencon" data-id="${c.id}">${av(c.name)}<div class="tl-rb"><div class="tl-nm">${esc(c.name)}</div><div class="tl-sub">${esc(msk(c.num))}</div></div></div>`).join("");
+    if (rs.length) h += `<div class="tl-sec">최근 통화</div>` + rs.map(c => `<div class="tl-r" data-t="cdet" data-id="${c.id}"><div class="tl-rb"><div class="tl-nm ${c.dir === "miss" ? "red" : ""}">${esc(nameOf(c.num))}</div><div class="tl-sub">${c.dir === "out" ? "발신" : c.dir === "in" ? "수신" : "부재중"} · ${ft(c.ts)}</div></div></div>`).join("");
+    return h || empty("검색 결과 없음");
+  }
+  const pSearch = () => `<div class="tl-bar"></div><div class="tl-title">검색</div><div class="tl-search">${I.search}<input id="tl-sq" placeholder="연락처, 최근 통화" autocomplete="off"></div><div class="tl-list" id="tl-sr">${results("")}</div>`;
+  const PAGES = { fav: pFav, rec: pRec, con: pCon, key: pKey, search: pSearch };
+  el.innerHTML = `<div class="tl-main"><div id="tl-c"></div><div class="tl-tabs" id="tl-tabs">${[["fav", "즐겨찾기", I.star], ["rec", "최근 통화", I.clock], ["con", "연락처", I.person], ["key", "키패드", I.keys], ["search", "검색", I.search]].map(t => `<button data-t="tab" data-k="${t[0]}"${(t[0] === "search" || t[0] === "con") ? ' disabled aria-disabled="true"' : ""}>${t[2]}<span>${t[1]}</span></button>`).join("")}</div></div><div class="tl-ov" id="tl-ov"></div><div class="tl-sb" id="tl-sb" data-t="sheetx"></div><div class="tl-sh" id="tl-sh"></div><div class="tl-call-s" id="tl-cs-w"></div>`;
+  const cEl = $("#tl-cs-w"), shEl = $("#tl-sh"), sbEl = $("#tl-sb"), ovEl = $("#tl-ov");
+  function render() { $("#tl-c").innerHTML = PAGES[tab](); document.querySelectorAll("#tl-tabs button").forEach(b => b.classList.toggle("on", b.dataset.k === tab)); }
+  const updKey = () => { $("#tl-kd").innerHTML = kdisp(); $("#tl-kdel").style.visibility = keyNum ? "visible" : "hidden"; };
+
+  /* ---- 오버레이 ---- */
+  function ovHtml(o) {
+    if (o.t === "contact") {
+      const c = byId(o.id); if (!c) return "";
+      return `<div class="tl-ovp"><div class="tl-bar"><button class="tl-b" data-t="back">${I.back}<span>뒤로</span></button><button class="tl-b" data-t="editcon" data-id="${c.id}">편집</button></div><div class="tl-hero">${av(c.name)}<div class="tl-hn">${esc(c.name)}</div></div><div class="tl-acts"><button data-t="msg" data-n="${esc(c.name)}">${I.msg}<span>메시지</span></button><button data-t="callc" data-id="${c.id}">${I.phone}<span>통화</span></button><button class="${c.fav ? "on" : ""}" data-t="favtoggle" data-id="${c.id}">${I.star}<span>${c.fav ? "즐겨찾기 해제" : "즐겨찾기"}</span></button></div><div class="tl-card">${c.num ? `<button data-t="callnum" data-n="${esc(c.num)}"><small>휴대전화</small><span class="blue">${esc(msk(c.num))}</span></button>` : ""}${c.email ? `<div><small>이메일</small><span class="blue">${esc(c.email)}</span></div>` : ""}</div><div class="tl-card"><button data-t="delcon" data-id="${c.id}"><span class="red">연락처 삭제</span></button></div></div>`;
+    }
+    if (o.t === "edit") {
+      const c = o.id ? byId(o.id) : null;
+      return `<div class="tl-ovp"><div class="tl-bar"><button class="tl-b" data-t="back">취소</button><b>${c ? "" : "새로운 연락처"}</b><button class="tl-b" data-t="save" data-id="${o.id || ""}" style="font-weight:600">완료</button></div><div class="tl-hero">${av(c ? c.name : "")}</div><div class="tl-card tl-form"><div><input id="tl-fn" placeholder="이름" value="${esc(c ? c.name : "")}"></div><div><input id="tl-fp" type="tel" placeholder="전화번호" value="${esc(c ? c.num : o.num || "")}"></div><div><input id="tl-fe" type="email" placeholder="이메일" value="${esc(c ? c.email : "")}"></div></div>${c ? `<div class="tl-card"><button data-t="delcon" data-id="${c.id}"><span class="red">연락처 삭제</span></button></div>` : ""}</div>`;
+    }
+    if (o.t === "cdet") {
+      const k = D.calls.find(x => x.id === o.id); if (!k) return "";
+      const h = D.calls.filter(x => dg(x.num) === dg(k.num)).sort((a, b) => b.ts - a.ts), nm = nameOf(k.num), con = byNum(k.num);
+      return `<div class="tl-ovp"><div class="tl-bar"><button class="tl-b" data-t="back">${I.back}<span>뒤로</span></button><span></span></div><div class="tl-hero">${av(con ? nm : "")}<div class="tl-hn">${esc(nm)}</div>${con ? `<div class="tl-hs">${esc(msk(k.num))}</div>` : ""}</div><div class="tl-acts"><button data-t="msg" data-n="${esc(nm)}">${I.msg}<span>메시지</span></button><button data-t="callnum" data-n="${esc(k.num)}">${I.phone}<span>통화</span></button>${con ? `<button data-t="opencon" data-id="${con.id}">${I.person}<span>연락처</span></button>` : `<button data-t="addnum" data-n="${esc(k.num)}">${I.plus}<span>연락처 추가</span></button>`}</div><div class="tl-card">${h.map(x => { const d = new Date(x.ts); return `<div class="tl-hr"><div><b${x.dir === "miss" ? ' style="color:#ff3b30;font-weight:600"' : ' style="font-weight:600"'}>${d.getFullYear()}. ${d.getMonth() + 1}. ${d.getDate()}. ${tm(d)}</b><small>${x.dir === "out" ? "발신 전화" : x.dir === "in" ? "수신 전화" : "부재중 전화"}</small></div><span>${x.dur ? fdur(x.dur) : x.dir === "out" ? "취소됨" : ""}</span></div>`; }).join("")}</div><div class="tl-card"><button data-t="delnum" data-n="${esc(k.num)}"><span class="red">통화 기록 삭제</span></button></div></div>`;
+    }
+    return "";
+  }
+  function renderOv() { ovEl.innerHTML = ovs.length ? ovHtml(ovs[ovs.length - 1]) : ""; ovEl.classList.toggle("on", ovs.length > 0); if (ovs.length && !ovEl.innerHTML) { ovs.pop(); renderOv(); } }
+  const pushOv = o => { ovs.push(o); renderOv(); };
+  const popOv = () => { ovs.pop(); renderOv(); };
+
+  /* ---- 시트 ---- */
+  const sheet = h => { shEl.innerHTML = h; shEl.classList.add("on"); sbEl.classList.add("on"); };
+  const closeSheet = () => { shEl.classList.remove("on"); sbEl.classList.remove("on"); shEl.innerHTML = ""; };
+  const confirmSheet = (msg, label, t, extra = "") => sheet(`<div class="tl-sg"><div class="m">${msg}</div><button class="red" data-t="${t}" ${extra}>${label}</button></div><div class="tl-sg"><button data-t="sheetx">취소</button></div>`);
+
+  /* ---- 통화 ---- */
+  function startCall(num, pb) {
+    if (!dg(num) || call) return;
+    call = { num, state: "dialing", mute: 0, spk: 0, hold: 0, rec: 0, keys: false, dt: "", t0: 0, pb: pb || "", pl: [], pt: [] };
+    screen.classList.add("in-call"); renderCall(); cEl.classList.add("on");
+    call.t1 = setTimeout(() => { if (!call) return; call.state = "on"; call.t0 = performance.now(); updCall(); call.iv = setInterval(updCall, 1000); if (call.pb) playScript(); }, 800 + Math.random() * 400);
+  }
+  const SCRIPTS = { "yunho-call-17-days": [["윤호", "여보세요?"], ["성화", "응 왜?"], ["윤호", "뭐해"], ["성화", "그냥 있지 왜"], ["윤호", "형 우리 반지 다시 낄까?"], ["성화", "…. 엉?"], ["윤호", "아니 전에 맞췄던 거 있는데 굳이 다시 맞춰야할까 싶어서"], ["윤호", "추억도 있고"], ["성화", "어.. 아직도 갖고있구나"], ["윤호", "서랍 열 때마다 보이던데 뭐"], ["윤호", "설마 버린 거 아니지?"], ["성화", "…"], ["성화", "아니야 ㅋㅋ 나도 있어"], ["성화", "어디 넣어놔서 그래"], ["윤호", "어디?"], ["성화", "이사하면서… 박스에 있을 걸"], ["윤호", "형 그 박스 아직도 안 풀었어?"], ["성화", "풀었는데 그 박스만 안 풀었어"], ["윤호", "ㅋㅋㅋ 이번 주말에 끼고 나와"], ["성화", "알았어 찾아볼게 (좆됐다)"]], "mom-call-jul3": [["엄마", "너는 요즘 소식없니?"], ["성화", "갑자기 무슨 소리야"], ["엄마", "그냥 궁금해서"], ["엄마", "만나는 사람 없냐고"], ["성화", "바뻐"], ["성화", "만날 시간도 없어"], ["엄마", "그래도 만날 사람은 다 만나"], ["엄마", "밥은 먹었어?"], ["성화", "먹었어"], ["엄마", "엄마는 윤호가 참 좋았는데"], ["성화", "무슨 일년 전 얘기를 해"], ["엄마", "윤호 요즘 잘나가더라"], ["성화", "알아"], ["엄마", "알아? 너 연락하니?"], ["성화", "아니 테레비에 나오잖아"], ["엄마", "영숙 아줌마도 윤호 좋아해"], ["성화", "그게 나랑 무슨 상관인데..."], ["엄마", "말도 이쁘게하고"], ["엄마", "밥도 복스럽게 잘먹고 얼마나 예뻤는데"], ["성화", "엄마"], ["엄마", "그냥 하는 말이야"], ["성화", "나 일해야 돼 끊는다"], ["엄마", "다시 잘해봐~"], ["성화", "끊는다 쉬세요"], ["엄마", "밥 챙겨 먹어"]], "yunho-call-aug": [["윤호", "술 마셨어?"], ["성화", "쪼금…"], ["윤호", "목소리가 쪼금이 아닌데"], ["윤호", "내 번호 어떻게 알았어?"], ["성화", "민기한테 물어봤지…"], ["성화", "걔 뭐라 하지 마 내가 협박했어"], ["윤호", "나 바뻐 용건만 말해"], ["성화", "어… 용건…"], ["성화", "그게… 어디서부터 말해야 되지"], ["성화", "다시 만나고 싶어…"], ["윤호", "…"], ["성화", "진심이야…"], ["성화", "맨정신이면 말 못 할 거 같아서 마신 거야"], ["성화", "많이 반성했고 다시는 그런 일 안 일어나게 잘할게"], ["윤호", "그런 일이 뭔데"], ["성화", "어… 다…? 그냥 다"], ["윤호", "어딘데?"], ["성화", "왜..?"], ["윤호", "전화로 할 얘기 아니잖아"], ["윤호", "만나서 얘기하자고"]] };
+  function playScript() { let t = 1200; SCRIPTS[call.pb].forEach(l => { call.pt.push(setTimeout(() => { if (!call) return; call.pl.push(l); const e = $("#tl-pb"); if (e) e.innerHTML = pbHtml(); }, t)); t += l[2] || (1500 + l[1].length * 90 + (/^…|…$|\.{2,}$/.test(l[1]) ? 1200 : 0)); }); call.pt.push(setTimeout(endCall, t + 1500)); }
+  const pbHtml = () => call.pl.slice(-6).map((l, i, a) => `<div class="tl-pb-line ${l[0] === "성화" || l[0] === "나" ? "me" : "them"}" style="opacity:${(0.45 + 0.55 * (i + 1) / a.length).toFixed(2)}"><span class="tl-pb-speaker">${esc(l[0])}</span><span class="tl-pb-words">${esc(l[1])}</span></div>`).join("");
+  const csec = () => call && call.state === "on" ? Math.floor((performance.now() - call.t0) / 1000) : 0;
+  function updCall() { const e = $("#tl-cst"); if (e && call) e.textContent = call.state === "dialing" ? "연결 중..." : call.hold ? "통화 보류 중" : (call.rec ? "● " : "") + mmss(csec()); }
+  function renderCall() {
+    const k = call, b = (t, on, i, l, c = "") => `<button class="tl-cb${on ? " on" : ""}${c}" data-t="${t}"><i>${i}</i><span>${l}</span></button>`;
+    cEl.innerHTML = `<div class="tl-cs" id="tl-cst"></div><div class="tl-cn">${esc(nameOf(k.num))}</div>${byNum(k.num) ? "" : `<div class="tl-cnum">대한민국</div>`}` + (k.keys
+      ? `<div class="kx-dt">${esc(k.dt)}</div><div class="kx-g">${"123456789*0#".split("").map((x, i) => `<button data-t="ckey" data-k="${x}"><b>${x}</b><small>${i < 9 ? ["", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ"][i] : x === "0" ? "+" : ""}</small></button>`).join("")}</div><div class="kx-b"><span></span><button class="kx-end" data-t="endcall" aria-label="통화 종료">${I.phone}</button><button class="kx-h" data-t="ckeyx">키패드 가리기</button></div>`
+      : (call.pb ? `<div class="tl-pb" id="tl-pb">${pbHtml()}</div>` : "") + `<div class="tl-cg">${b("cspk", k.spk, I.spk, "스피커")}${b("cft", 0, I.cam, "FaceTime")}${b("cmute", k.mute, I.micoff, "소리 끔")}${b("cmore", 0, I.more, "더 보기")}${b("endcall", 0, I.phone, "종료", " end")}${b("ckeys", 0, I.grid, "키패드")}</div>`);
+    updCall();
+  }
+  function endCall() {
+    if (!call) return; const ended = call, onEnd = call.onEnd; clearTimeout(call.t1); clearInterval(call.iv); call.pt.forEach(clearTimeout);
+    if (ended.storyDialogue && !ended.storyReplay) { const storyTs = new Date("2026-10-19T16:45:00+09:00").getTime(); D.calls.unshift({ id: uid(), num: ended.num, dir: "in", ts: storyTs, dur: Math.max(0, Math.floor((performance.now() - (ended.t0 || performance.now())) / 1000)), storyKey: ended.storyKey || "", storyDialogue: ended.storyDialogue.map(l => [l[0], l[1]]) }); save(); }
+    call = null; cEl.classList.remove("on"); screen.classList.remove("in-call"); render(); renderOv();
+    if (onEnd) { try { onEnd(); } catch (e) {} }
+  }
+  /* 스토리 통화: 기존 전화 앱의 통화 화면(성현이형 등)을 그대로 사용하고 대사만 재생 */
+  function storyCall(o) {
+    if (call || !o || !o.lines) return false;
+    const c = D.contacts.find(x => x.name === o.name); if (!c) return false;
+    const key = "story-call"; SCRIPTS[key] = o.lines;
+    if (window.Home && Home.current !== "phone") Home.openApp("phone"); else open();
+    startCall(c.num, key); if (!call) return false; call.onEnd = o.onEnd; if (!o.replay) { call.storyDialogue = o.lines.map(l => [l[0], l[1]]); call.storyKey = o.kind || ("story-" + uid()); } return true;
+  }
+  if (D.v15 !== 1) { const bl = D.calls.filter(c => c.blueRecord), r = D.calls.filter(c => !c.blueRecord).sort((a, b) => b.ts - a.ts).slice(0, 18); D.calls = bl.concat(r); D.v15 = 1; save(); }
+  if (D.v16 !== 1) { const y = D.contacts.find(c => c.name === "윤둥이"); if (y && !D.calls.some(c => c.blueRecord === "yunho-call-aug")) D.calls.push({ id: uid(), num: y.num, dir: "out", ts: new Date("2026-08-01T23:40:00+09:00").getTime(), dur: 154, blueRecord: "yunho-call-aug" }); D.v16 = 1; save(); }
+  if (D.v17 !== 1) {
+    const T = (d, h) => new Date(`2026-${d}T${h}:00+09:00`).getTime(), nm = n => (D.contacts.find(c => c.name === n) || {}).num || n;
+    const L = [["송민기 (FIXON)", "out", "07-31", "22:50", 75], ["송민기 (FIXON)", "in", "08-01", "23:55", 210], ["김철수", "in", "08-04", "18:20", 330], ["엄마", "out", "08-07", "20:10", 420], ["성현이형(매니저)", "in", "08-11", "11:05", 130], ["강민우(PD)", "miss", "08-14", "15:42", 0], ["한지안", "out", "08-18", "21:30", 560], ["오승호(믹싱)", "in", "08-22", "14:15", 905], ["김홍중 (NO1)", "in", "08-27", "23:10", 240], ["박재영(대표)", "out", "09-01", "10:30", 190], ["엄마", "in", "09-05", "19:45", 380], ["소율 누나", "miss", "09-08", "13:20", 0], ["강레도", "in", "09-12", "22:05", 1480], ["김하나(쇼미 작가)", "out", "09-15", "16:40", 145], ["아빠", "out", "09-19", "12:15", 62], ["송민기 (FIXON)", "in", "09-23", "20:35", 610], ["한서진(감독)", "miss", "09-26", "17:50", 0], ["성현이형(매니저)", "out", "09-29", "09:40", 95], ["김철수", "out", "10-04", "21:15", 780], ["엠더스트", "in", "10-06", "19:25", 320], ["최민재(무대감독)", "in", "10-09", "14:50", 175], ["엄마", "miss", "10-11", "08:55", 0], ["오승호(믹싱)", "out", "10-12", "16:10", 240]];
+    D.calls = D.calls.filter(c => c.blueRecord || c.ts >= T("10-14", "00:00")).concat(L.map(([n, dir, d, h, dur]) => ({ id: uid(), num: nm(n), dir, ts: T(d, h), dur, fixed: 1 })));
+    D.v17 = 1; save();
+  }
+  if (D.v18 !== 1) { D.v18 = 1; save(); }
+  if (D.v19 !== 1) {
+    const m = D.contacts.find(x => x.name === "엄마");
+    if (m && !D.calls.some(x => x.blueRecord === "mom-call-jul3")) D.calls.push({ id: uid(), num: m.num, dir: "in", ts: new Date("2026-07-03T20:10:00+09:00").getTime(), dur: 210, blueRecord: "mom-call-jul3", fixed: 1 });
+    D.v19 = 1; save();
+  }
+  if (D.v23 !== 1) {
+    const y = D.contacts.find(c => c.name === "윤둥이");
+    if (y && !D.calls.some(c => c.blueRecord === "yunho-call-oct15-1805")) {
+      D.calls.push({
+        id: uid(),
+        num: y.num,
+        dir: "in",
+        ts: new Date("2026-10-15T18:05:00+09:00").getTime(),
+        dur: 3741,
+        fixed: 1
+      });
+    }
+    D.v23 = 1; save();
+  }
+  if (D.v22 !== 1) {
+    const y = D.contacts.find(c => c.name === "윤둥이");
+    if (y) {
+      D.calls = D.calls.filter(c => !(String(c.num) === String(y.num) && c.dir === "in" && c.dur === 5400));
+    }
+    D.v22 = 1; save();
+  }
+  if (D.v21 !== 1) {
+    const y = D.contacts.find(c => c.name === "윤둥이");
+    const sh = D.contacts.find(c => c.name === "성현이형(매니저)");
+    if (y) {
+      const yNum = String(y.num);
+      D.calls = D.calls.filter(c => {
+        if (String(c.num) !== yNum || c.dir !== "out") return true;
+        const d = new Date(c.ts);
+        const hm = d.getHours() * 60 + d.getMinutes();
+        const sec = d.getSeconds();
+        // Remove only the crossed-out 3-call group, 4-call group, 6m52s call, and 1h30m call.
+        if (c.dur === 412) return false;
+        if (c.dur === 5400 && hm === 21 * 60 + 50) return false;
+        if (!c.dur && sec === 0 && [15*60+10,15*60+12,15*60+14,15*60+20,15*60+22,15*60+24,15*60+26].includes(hm)) return false;
+        return true;
+      });
+    }
+    if (sh) {
+      D.calls = D.calls.filter(c => !(String(c.num) === String(sh.num) && c.dir === "in" && c.dur === 96));
+    }
+    D.v21 = 1; save();
+  }
+  if (D.v20 !== 1) {
+    const sh = D.contacts.find(c => c.name === "성현이형(매니저)");
+    D.calls = D.calls.filter(c => c.blueRecord !== "sunghyun-call-today" && !(sh && c.num === sh.num && c.dir === "in" && c.dur === 180));
+    D.v20 = 1; save();
+  }
+  if (D.v24 !== 1) {
+    // The 2026-10-15 incoming Yun둥이 call (1:02:21) is a normal black call record, not a blue story call.
+    D.calls.forEach(c => {
+      if (c.dir === "in" && c.dur === 3741 && c.ts === new Date("2026-10-15T18:05:00+09:00").getTime() && String(c.num) === String((D.contacts.find(x => x.name === "윤둥이") || {}).num)) {
+        delete c.blueRecord;
+        c.fixed = 1;
+      }
+    });
+    D.v24 = 1; save();
+  }
+  if (D.v25 !== 1) {
+    const yunho = D.contacts.find(x => x.name === "윤둥이");
+    if (yunho) {
+      const yesterdayStart = new Date("2026-10-20T00:00:00+09:00").getTime();
+      const todayStart = new Date("2026-10-21T00:00:00+09:00").getTime();
+      const yesterdayCall = D.calls
+        .filter(x => String(x.num) === String(yunho.num) && x.ts >= yesterdayStart && x.ts < todayStart)
+        .sort((a, b) => b.ts - a.ts)[0];
+      if (yesterdayCall) yesterdayCall.dur = 182;
+    }
+    D.v25 = 1; save();
+  }
+  const gotoMsg = n => { closeApp(); if (window.Home) Home.openApp("messages"); setTimeout(() => window.MessagesApp && MessagesApp.chat(n), 80); };
+  function recordStoryMissedCall(name,key){if(key&&D.calls.some(x=>x.storyKey===key))return;const c=D.contacts.find(x=>x.name===name);D.calls.unshift({id:uid(),num:c?c.num:name,dir:"miss",ts:new Date("2026-10-19T16:45:00+09:00").getTime(),dur:0,storyKey:key||""});save();if(isOpen)render();}
+
+  /* ---- 이벤트 ---- */
+  el.addEventListener("click", e => {
+    const t = e.target.closest("[data-t]"); if (!t) return; const d = t.dataset;
+    switch (d.t) {
+      case "tab": if (d.k === "search" || d.k === "con") break; tab = d.k; edit = false; ovs = []; renderOv(); render(); break;
+      case "edit": edit = !edit; render(); break;
+      case "seg": filt = d.k; render(); break;
+      case "callc": { const c = byId(d.id); if (c) startCall(c.num); break; }
+      case "callnum": startCall(d.n); break;
+      case "recall": startCall(d.n, d.b); break;
+      case "replayrecord": { const x = D.calls.find(v => v.id === d.id); if (x) { const key = "saved-call-" + x.id; if (Array.isArray(x.storyDialogue)) SCRIPTS[key] = x.storyDialogue.map(l => [l[0], l[1]]); else if (x.blueRecord && SCRIPTS[x.blueRecord]) SCRIPTS[key] = SCRIPTS[x.blueRecord].map(l => [l[0], l[1]]); if (SCRIPTS[key]) { startCall(x.num, key); if (call) call.storyReplay = true; } } break; }
+      case "msg": gotoMsg(d.n); break;
+      case "cdet": pushOv({ t: "cdet", id: d.id }); break;
+      case "opencon": pushOv({ t: "contact", id: d.id }); break;
+      case "back": popOv(); render(); break;
+      case "newcon": pushOv({ t: "edit" }); break;
+      case "keyadd": pushOv({ t: "edit", num: fmt(keyNum) }); break;
+      case "addnum": pushOv({ t: "edit", num: d.n }); break;
+      case "editcon": pushOv({ t: "edit", id: d.id }); break;
+      case "save": {
+        let name = $("#tl-fn").value.trim(); const num = $("#tl-fp").value.trim(), email = $("#tl-fe").value.trim();
+        if (!name && !num) return; if (!name) name = fmt(num);
+        let id = d.id; if (id) Object.assign(byId(id), { name, num, email }); else { id = uid(); D.contacts.push({ id, name, num, email, fav: false }); }
+        save(); ovs.pop(); if (!d.id) ovs.push({ t: "contact", id }); renderOv(); render(); break;
+      }
+      case "favtoggle": { const c = byId(d.id); c.fav = !c.fav; save(); renderOv(); break; }
+      case "favadd": { const l = D.contacts.filter(c => !c.fav).sort((a, b) => a.name.localeCompare(b.name, "ko")); sheet(`<div class="tl-sg"><div class="m">즐겨찾기에 추가할 연락처</div>${l.map(c => `<button class="p" data-t="pickfav" data-id="${c.id}">${av(c.name)}<span>${esc(c.name)}</span></button>`).join("") || `<div class="m">추가할 연락처가 없습니다</div>`}</div><div class="tl-sg"><button data-t="sheetx">취소</button></div>`); break; }
+      case "pickfav": byId(d.id).fav = true; save(); closeSheet(); render(); break;
+      case "unfav": byId(d.id).fav = false; save(); render(); e.stopPropagation(); break;
+      case "delcall": { const ids = d.id.split(","); D.calls = D.calls.filter(c => !ids.includes(c.id)); } save(); render(); break;
+      case "clearall": confirmSheet("모든 최근 통화를 삭제할까요?", "모두 삭제", "doclear"); break;
+      case "doclear": D.calls = []; save(); closeSheet(); edit = false; render(); break;
+      case "delnum": confirmSheet("이 번호의 통화 기록을 삭제할까요?", "기록 삭제", "dodelnum", `data-n="${d.n}"`); break;
+      case "dodelnum": D.calls = D.calls.filter(c => dg(c.num) !== dg(d.n)); save(); closeSheet(); ovs = []; renderOv(); render(); break;
+      case "delcon": confirmSheet("이 연락처를 삭제할까요?", "연락처 삭제", "dodelcon", `data-id="${d.id}"`); break;
+      case "dodelcon": D.contacts = D.contacts.filter(c => c.id !== d.id); save(); closeSheet(); ovs = []; renderOv(); render(); break;
+      case "sheetx": closeSheet(); break;
+      case "key": break; /* 키패드 입력 고정: 아무 동작 없음 */
+      case "keydel": keyNum = keyNum.slice(0, -1); updKey(); break;
+      case "keycall": { if (!keyNum) { const l = D.calls.filter(c => c.dir === "out").sort((a, b) => b.ts - a.ts)[0]; if (l) { keyNum = l.num; updKey(); } break; } const n = keyNum; startCall(n); break; }
+      case "cmute": call.mute ^= 1; renderCall(); break;
+      case "cspk": call.spk ^= 1; renderCall(); break;
+      case "chold": call.hold ^= 1; renderCall(); break;
+      case "crec": call.rec ^= 1; renderCall(); break;
+      case "ckeys": call.keys = true; renderCall(); break;
+      case "ckeyx": call.keys = false; renderCall(); break;
+      case "ckey": break; /* 통화 중 키패드 입력 고정 */
+      case "endcall": endCall(); break;
+    }
+  });
+  el.addEventListener("input", e => { if (e.target.id === "tl-cq" || e.target.id === "tl-sq") return; if (false) { conQ = e.target.value; $("#tl-cl").innerHTML = conList(); } else if (e.target.id === "tl-sq") $("#tl-sr").innerHTML = results(e.target.value); });
+  document.addEventListener("keydown", e => {
+    if (!isOpen || tab !== "key" || ovs.length || call || /INPUT|TEXTAREA/.test((e.target || {}).tagName || "")) return;
+    if (/^[0-9*#+]$/.test(e.key) && keyNum.length < 20) { keyNum += e.key; updKey(); } else if (e.key === "Backspace") { keyNum = keyNum.slice(0, -1); updKey(); } else if (e.key === "Enter" && keyNum) startCall(keyNum);
+  });
+
+  let isOpen = false;
+  function open() {
+    if (isOpen) return;
+    // 독립적으로 전화 앱을 열 때는 스토리/잠금화면을 거치지 않고 기본 전화 탭으로 진입한다.
+    isOpen = true;
+    tab = "rec"; filt = "all"; keyNum = ""; ovs = []; call = null;
+    render(); renderOv(); closeSheet(); originFrom(el, "phone");
+    el.classList.add("show"); void el.offsetWidth; el.classList.add("open"); el.setAttribute("aria-hidden", "false");
+    setTimeout(() => { if (isOpen) screen.classList.add("app-light"); }, 140);
+  }
+  function closeApp() {
+    if (!isOpen) return; endCall(); isOpen = false; screen.classList.remove("app-light", "in-call"); el.classList.remove("open"); el.setAttribute("aria-hidden", "true");
+    document.activeElement && document.activeElement.blur();
+    setTimeout(() => { if (!isOpen) { el.classList.remove("show"); ovs = []; renderOv(); closeSheet(); edit = false; } }, 430);
+  }
+  document.addEventListener("app:open", e => { if (e.detail.id === "phone") open(); });
+  document.addEventListener("app:close", closeApp);
+  return { open, close: closeApp, startCall, recordStoryMissedCall, storyCall };
+})();
+
+(()=>{const s=document.createElement("style");s.textContent="#tel-app{position:absolute;inset:0;z-index:5;display:none;background:#fff;color:#000;overflow:hidden;opacity:0;transform:scale(.15);border-radius:44px;font-family:var(--font)}\n#tel-app.show{display:block}\n#tel-app.open{opacity:1;transform:none;border-radius:0}\n#tel-app button{font-family:var(--font);background:none;border:0;padding:0;cursor:pointer;color:inherit}\n#tel-app svg{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}\n#tel-app .tl-card>button[data-t=delnum]{min-height:52px;justify-content:center;align-items:flex-start;padding:0 16px!important}\n/* ===== 11차: 키패드 취소선 제거 ===== */\n#tel-app .tl-kd,#tel-app .tl-kn,#tel-app .tl-kn *,#tel-app .tl-k,#tel-app .tl-k *{text-decoration:none!important;-webkit-text-decoration:none!important;border-image:none;background-image:none}\n#tel-app .tl-kn{line-height:1.25;overflow:visible}\n#tel-app .tl-kp{margin-top:clamp(24px,7vh,64px)}\n#tel-app .tl-tabs button[data-k=search]{opacity:.4;pointer-events:none}\n#tel-app .tl-search{opacity:.6;pointer-events:none}";s.textContent += "\\n#tel-app .tl-saved-dialogue{display:flex;flex-direction:column;gap:9px;padding:14px!important;background:#f5f5f7;border-radius:14px}\\n#tel-app .tl-saved-line{max-width:88%;display:flex;flex-direction:column;gap:3px;padding:9px 12px;border-radius:16px;font-size:14px;line-height:1.4;overflow-wrap:anywhere}\\n#tel-app .tl-saved-line small{font-size:10px;color:inherit;opacity:.62}\\n#tel-app .tl-saved-line.me{align-self:flex-end;background:#007aff;color:white;border-bottom-right-radius:5px}\\n#tel-app .tl-saved-line.them{align-self:flex-start;background:#e5e5ea;color:#111;border-bottom-left-radius:5px}";document.head.appendChild(s);})();
+
+/* App-specific styles moved from base.css */
+(()=>{const s=document.createElement("style");s.textContent="#tl-c{flex:1;min-height:0;display:flex;flex-direction:column}";document.head.appendChild(s);})();
+
+/* 통화 화면 (iOS 스타일) */
+(()=>{const s=document.createElement("style");s.textContent=`
+#tel-app .tl-call-s{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:100!important;display:none;background:linear-gradient(180deg,#24252a 0%,#111216 48%,#050506 100%)!important;color:#fff!important;flex-direction:column;align-items:center;padding:0!important;overflow:hidden;box-sizing:border-box;pointer-events:auto}
+#tel-app .tl-call-s.on{display:flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+#tel-app .tl-cs{margin-top:calc(env(safe-area-inset-top,0px) + 13%)!important;font-size:20px!important;font-weight:500;color:rgba(255,255,255,.45)!important}
+#tel-app .tl-cn{margin-top:8px!important;font-size:34px!important;font-weight:600!important;letter-spacing:-1px;color:#fff!important}
+#tel-app .tl-cnum{margin-top:8px;font-size:20px;font-weight:500;color:rgba(255,255,255,.45)}
+#tel-app .tl-cg{position:absolute!important;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 7%)!important;margin:0!important;padding:0 10%;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));justify-items:center;gap:22px 0}
+#tel-app .tl-cb{display:flex!important;flex-direction:column;align-items:center;gap:10px;font-size:15px!important;color:#fff!important;background:none!important}
+#tel-app .tl-cb i{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);box-shadow:inset 0 1px 1px rgba(255,255,255,.2)}
+#tel-app .tl-cb i svg{width:30px;height:30px}
+#tel-app .tl-cb.on i{background:#fff;color:#254138}
+#tel-app .tl-cb.end i{background:#c62a22;border-color:#e0453c}
+#tel-app .tl-cb.end svg{transform:rotate(135deg)}
+#tel-app .tl-cdt{margin-top:18px;font-size:34px;min-height:42px}
+#tel-app .tl-ck{display:grid;grid-template-columns:repeat(3,64px);gap:12px;margin:18px 0 90px}
+#tel-app .tl-ck button{height:64px;border-radius:50%;background:rgba(255,255,255,.12)!important;color:#fff;font-size:26px}`;document.head.appendChild(s);})();
+
+/* 통화 중 키패드 화면 */
+(()=>{const s=document.createElement("style");s.textContent="#tel-app .tl-call-s .kx-dt{min-height:24px;font-size:22px;margin-top:6px;word-break:break-all;text-align:center}#tel-app .kx-g,#tel-app .kx-b{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;justify-items:center;padding:0 clamp(16px,6vw,28px);box-sizing:border-box}#tel-app .kx-g{margin-top:clamp(16px,5vh,56px)}#tel-app .kx-g button{width:100%;max-width:92px;aspect-ratio:1;border-radius:50%;background:#06140f;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center}#tel-app .kx-g b{font-size:34px;font-weight:400;line-height:1}#tel-app .kx-g small{font-size:10px;font-weight:600;letter-spacing:.2em;height:12px;margin-top:3px}#tel-app .kx-b{margin-top:22px;align-items:center}#tel-app .kx-end{grid-column:2;width:72px;height:72px;border-radius:50%;background:#ff3b30;color:#fff;display:flex;align-items:center;justify-content:center}#tel-app .kx-end svg{width:32px;height:32px;fill:#fff;stroke:none;transform:rotate(135deg)}#tel-app .kx-h{justify-self:end;font-size:16px;color:#fff;white-space:nowrap}";document.head.appendChild(s);})();
+
+(()=>{const s=document.createElement("style");s.textContent="#tel-app .tl-pb{position:absolute;top:clamp(180px,24%,250px);bottom:calc(env(safe-area-inset-bottom,0px) + clamp(340px,39%,430px));left:0;width:100%;box-sizing:border-box;padding:12px 22px;margin:0;text-align:left;color:#fff;font-size:15px;line-height:1.4;min-height:0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:10px}#tel-app .tl-pb-line{max-width:88%;padding:10px 13px;border-radius:17px;display:flex;flex-direction:column;gap:3px;overflow-wrap:anywhere;box-shadow:0 1px 1px #0001}#tel-app .tl-pb-line.me{align-self:flex-end;background:#0a84ff;border-bottom-right-radius:5px}#tel-app .tl-pb-line.them{align-self:flex-start;background:#343438;border-bottom-left-radius:5px}#tel-app .tl-pb-speaker{font-size:10px;opacity:.65}#tel-app .tl-pb-words{font-size:15px;color:#fff}";document.head.appendChild(s);})();
+
+window.PhoneApp = PhoneApp;
+
+}
+
+/* ===== phone-layout-fix.js ===== */
+{
+/* ===== phone-layout-fix.js =====
+ * 통화 화면 레이아웃 수정 패치
+ * - 적용: phone.js 파일 맨 끝에 붙여넣거나, phone.js 다음에 <script src="js/phone-layout-fix.js?v=202610252321"><\/script> 로 로드
+ * - 원인: .tl-pb(메시지 카드)가 absolute + 고정 top/bottom 이라 통화 제어 버튼과 겹침
+ * - 해결: 통화 화면 전체를 flex 세로 배치로 바꿈 (상단 정보 → 메시지 카드(남는 공간) → 제어 버튼)
+ * - 안전 영역(상단 노치, 하단 홈 인디케이터) 반영
+ */
+(() => {
+  const s = document.createElement("style");
+  s.id = "phone-call-layout-fix";
+  s.textContent = `
+#tel-app .tl-call-s.on {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0 0 calc(env(safe-area-inset-bottom, 0px) + 24px) !important;
+  overflow: hidden;
+}
+/* 상단: 통화 시간 + 상대방 이름 */
+#tel-app .tl-cs,
+#tel-app .tl-cn,
+#tel-app .tl-cnum {
+  position: static !important;
+  flex: 0 0 auto;
+  max-width: 90%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#tel-app .tl-cs {
+  margin-top: calc(env(safe-area-inset-top, 0px) + 13%) !important;
+}
+/* 중앙: 메시지 카드 (남는 공간을 채우고, 버튼과 겹치지 않음) */
+#tel-app .tl-pb {
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  margin: 12px 0;
+  padding: 12px 22px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+/* 하단: 통화 제어 버튼 (항상 메시지 카드 아래) */
+#tel-app .tl-cg {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  flex: 0 0 auto;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 10%;
+  box-sizing: border-box;
+}
+/* 통화 중 키패드 화면은 기존 레이아웃 유지 */
+#tel-app .tl-call-s .kx-b,
+#tel-app .tl-call-s .kx-g {
+  position: relative;
+}
+`;
+  document.head.appendChild(s);
+})();
+
+}
+
+/* ===== view-only.js ===== */
+{
+/* ===== view-only.js (integrated) ===== */
+/**
+ * 보기 전용 모드
+ * 앱 화면과 버튼은 볼 수 있지만 텍스트 입력/편집은 허용하지 않습니다.
+ */
+(() => {
+  "use strict";
+
+  const TEXT_INPUT_TYPES = new Set([
+    "text", "search", "email", "password", "tel", "url", "number"
+  ]);
+
+  /* 트위터 검색 입력창은 입력 허용 */
+  const isAllowed = t => t instanceof Element && t.id === "x-q";
+
+  function lockElement(el) {
+    if (!(el instanceof HTMLElement) || isAllowed(el)) return;
+
+    if (el instanceof HTMLInputElement && TEXT_INPUT_TYPES.has(el.type)) {
+      el.readOnly = true;
+      el.setAttribute("aria-readonly", "true");
+      el.setAttribute("autocomplete", "off");
+      el.setAttribute("autocorrect", "off");
+      el.setAttribute("spellcheck", "false");
+    } else if (el instanceof HTMLTextAreaElement) {
+      el.readOnly = true;
+      el.setAttribute("aria-readonly", "true");
+      el.setAttribute("spellcheck", "false");
+    }
+
+    if (el.isContentEditable || el.hasAttribute("contenteditable")) {
+      el.setAttribute("contenteditable", "false");
+      el.setAttribute("aria-readonly", "true");
+    }
+  }
+
+  function lockTree(root) {
+    if (!(root instanceof Element || root instanceof Document)) return;
+    if (root instanceof Element) lockElement(root);
+    root.querySelectorAll?.(
+      'input, textarea, [contenteditable]:not([contenteditable="false"])'
+    ).forEach(lockElement);
+  }
+
+  // 최초 화면과 이후 앱에서 동적으로 생성되는 화면 모두 잠금
+  const start = () => {
+    lockTree(document);
+    new MutationObserver(records => {
+      for (const record of records) {
+        for (const node of record.addedNodes) {
+          if (node instanceof Element) lockTree(node);
+        }
+      }
+    }).observe(document.documentElement, { childList: true, subtree: true });
+  };
+
+  // 브라우저가 입력을 반영하기 전 단계에서 편집 동작 차단
+  document.addEventListener("beforeinput", event => {
+    const target = event.target;
+    if (isAllowed(target)) return;
+    if (target instanceof HTMLInputElement &&
+        TEXT_INPUT_TYPES.has(target.type)) event.preventDefault();
+    if (target instanceof HTMLTextAreaElement) event.preventDefault();
+    if (target instanceof HTMLElement &&
+        (target.isContentEditable || target.closest('[contenteditable="true"]'))) {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener("paste", event => {
+    if (event.target instanceof HTMLInputElement ||
+        event.target instanceof HTMLTextAreaElement ||
+        (event.target instanceof HTMLElement &&
+         event.target.closest('[contenteditable="true"]'))) {
+      event.preventDefault();
+    }
+  }, true);
+
+  document.addEventListener("drop", event => {
+    if (event.target instanceof HTMLInputElement ||
+        event.target instanceof HTMLTextAreaElement ||
+        (event.target instanceof HTMLElement &&
+         event.target.closest('[contenteditable="true"]'))) {
+      event.preventDefault();
+    }
+  }, true);
+
+  // select 메뉴의 키보드 문자 검색 등 텍스트 입력성 키 조작 차단
+  document.addEventListener("keydown", event => {
+    if (isAllowed(event.target)) return;
+    if (event.isComposing) {
+      event.preventDefault();
+      return;
+    }
+    const target = event.target;
+    const typingTarget =
+      target instanceof HTMLInputElement && TEXT_INPUT_TYPES.has(target.type) ||
+      target instanceof HTMLTextAreaElement ||
+      target instanceof HTMLElement &&
+        (target.isContentEditable || target.closest('[contenteditable="true"]'));
+    if (typingTarget) {
+      if (event.key.length === 1 || event.key === "Backspace" ||
+          event.key === "Delete" || event.key === "Enter") {
+        event.preventDefault();
+      }
+    }
+  }, true);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  } else {
+    start();
+  }
+})();
+
+}
+
+/* ===== launch-motion.js ===== */
+{
+/* Shared app launch 's existing visible/open state. */
+(() => {
+  const ids = ["cam-app","cal-app","pho-app","msg-app","tel-app","saf-app","kko-app","ig-app","clk-app","x-app","et-app","gp-app","sp-app","fm-app","yt-app","nf-app","dg-app","bm-app","am-app","notes-app","nt-app"];
+  const roots = ids.map(id => document.getElementById(id)).filter(Boolean);
+  const wasActive = new WeakMap();
+  const timers = new WeakMap();
+  const active = el => {
+    const c = el.classList;
+    if (el.id === "notes-app") return c.contains("on");
+    return c.contains("show") || c.contains("open") || c.contains("on") || c.contains("active");
+  };
+  const animate = el => {
+    if (!el.isConnected) return;
+    clearTimeout(timers.get(el));
+    el.classList.remove("hwaho-launching");
+    void el.offsetWidth;
+    el.classList.add("hwaho-launching");
+    const finish = e => {
+      if (e.target !== el || e.animationName !== "hwahoFrommStyleLaunch") return;
+      el.classList.remove("hwaho-launching");
+      el.removeEventListener("animationend", finish);
+    };
+    el.addEventListener("animationend", finish);
+    timers.set(el, setTimeout(() => {
+      el.classList.remove("hwaho-launching");
+      el.removeEventListener("animationend", finish);
+    }, 650));
+  };
+  const check = el => {
+    const now = active(el), before = wasActive.get(el) || false;
+    if (now && !before) animate(el);
+    wasActive.set(el, now);
+  };
+  roots.forEach(el => {
+    wasActive.set(el, active(el));
+    new MutationObserver(() => check(el)).observe(el, { attributes: true, attributeFilter: ["class", "style", "aria-hidden"] });
+  });
+  document.addEventListener("app:close", () => {
+    roots.forEach(el => {
+      el.classList.remove("hwaho-launching");
+      wasActive.set(el, false);
+    });
+  });
+})();
+}
+
+/* ===== boot ===== */
+Home.openApp("phone");
+</script>
+<script src="../../../shared/i18n.js?v=202610252321"></script></body></html>
