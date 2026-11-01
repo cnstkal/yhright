@@ -1,29 +1,30 @@
-/* Galaxy S7 (SM-G930) 외형: 1mm ≈ 5.68px (화면 63.4mm = 360px) */
+/* iPhone 6s (Space Gray) 외형: 화면 4.7" 375x667 (16:9), 1mm ≈ 6.4px. 기기 427x887 */
 html,body{margin:0;height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#e4e7eb,#a9aeb6)}
 .stage{position:fixed;inset:0}
-.device{position:absolute;left:50%;top:50%;width:395px;height:809px;margin:-404.5px 0 0 -197.5px;transform:scale(var(--k,1));border-radius:52px;
- background:linear-gradient(135deg,#7b8088,#2b2e33 28%,#9aa0a7 50%,#2b2e33 72%,#6a6f76);
- box-shadow:0 28px 60px #0005,0 2px 6px #0004,inset 0 0 0 1px #ffffff40,inset 0 0 0 3px #15161a}
-.glass{position:absolute;inset:6px;border-radius:46px;background:#050506;box-shadow:inset 0 0 0 1px #202228,inset 0 0 10px #000}
+.device{position:absolute;left:50%;top:50%;width:427px;height:887px;margin:-443.5px 0 0 -213.5px;transform:scale(var(--k,1));border-radius:62px;
+ background:linear-gradient(135deg,#8d9199,#3b3e44 26%,#a4a9b0 50%,#3b3e44 74%,#7d8189);
+ box-shadow:0 28px 60px #0005,0 2px 6px #0004,inset 0 0 0 1px #ffffff55,inset 0 0 0 3px #1b1c20}
+/* 무음 스위치 */
+.device::before{content:"";position:absolute;left:-3px;top:150px;width:4px;height:28px;border-radius:2px;background:linear-gradient(90deg,#5a5e65,#9aa0a7,#5a5e65)}
+.glass{position:absolute;inset:5px;border-radius:57px;background:#050506;box-shadow:inset 0 0 0 1px #202228,inset 0 0 10px #000}
 .side{position:absolute;width:4px;border-radius:2px;background:linear-gradient(90deg,#5a5e65,#9aa0a7,#5a5e65)}
-.side.pw{right:-3px;top:210px;height:70px}.side.vu{left:-3px;top:176px;height:50px}.side.vd{left:-3px;top:236px;height:50px}
-.earpiece{position:absolute;left:175px;top:38px;width:44px;height:5px;border-radius:3px;background:#0d0e11;box-shadow:inset 0 1px 1px #000,0 0 0 1px #1b1d22}
-.cam{position:absolute;left:246px;top:32px;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#3a3f78,#0b0c1c 60%,#000);box-shadow:0 0 0 2px #14151a}
-.sens{position:absolute;top:36px;width:5px;height:5px;border-radius:50%;background:#0f1013;box-shadow:0 0 0 1px #1a1c21}
-.sens.a{left:228px;top:37px}.sens.b{left:150px}.sens.c{left:140px;top:38px;width:4px;height:4px}
-.screen{position:absolute;left:17.5px;top:84px;width:360px;height:640px;border-radius:8px;overflow:hidden;background:#000;box-shadow:0 0 0 1px #000}
-.home-btn{position:absolute;left:164.5px;top:754px;width:66px;height:24px;border-radius:12px;background:linear-gradient(#1c1d21,#0a0a0c);box-shadow:inset 0 0 0 1px #34363c,inset 0 1px 2px #0008,0 0 0 1px #000}
-.key{position:absolute;top:754px;width:24px;height:24px;display:grid;place-items:center}
-.key.recent{left:79px}.key.back{left:292px}
-.key svg{width:20px;height:20px;fill:none;stroke:#5d616a;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-button.home-btn,button.key{border:0;padding:0;cursor:pointer;font:inherit}
-button.key{background:none}
+.side.pw{right:-3px;top:210px;height:72px}.side.vu{left:-3px;top:210px;height:54px}.side.vd{left:-3px;top:278px;height:54px}
+.earpiece{position:absolute;left:185.5px;top:56px;width:56px;height:7px;border-radius:4px;background:#0d0e11;box-shadow:inset 0 1px 1px #000,0 0 0 1px #1b1d22}
+.cam{position:absolute;left:148px;top:52px;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#3a3f78,#0b0c1c 60%,#000);box-shadow:0 0 0 2px #14151a}
+.sens{position:absolute;top:57px;width:5px;height:5px;border-radius:50%;background:#0f1013;box-shadow:0 0 0 1px #1a1c21}
+.sens.a{left:262px}.sens.b{left:120px;top:58px;width:4px;height:4px}.sens.c{display:none}
+.screen{position:absolute;left:26px;top:110px;width:375px;height:667px;border-radius:6px;overflow:hidden;background:#000;box-shadow:0 0 0 1px #000}
+/* 물리 홈 버튼 + Touch ID 링 (누르면 뒤로가기) */
+.home-btn{position:absolute;left:190.5px;top:809px;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#16171b,#050506);box-shadow:inset 0 0 0 2px #3a3d44,inset 0 2px 3px #0008,0 0 0 1px #000}
+.home-btn::after{content:"";position:absolute;left:15px;top:15px;width:16px;height:16px;border-radius:4px;box-sizing:border-box;border:1.5px solid #5d616a}
+button.home-btn{border:0;padding:0;cursor:pointer;font:inherit}
+.key{display:none}
 .screen iframe{display:block;width:100%;height:100%;border:0;background:#000}
 html:not(.emb) .tw{display:none}
 /* 앱이 iframe(디스플레이) 안에서 열릴 때: 기기 외형 없이 화면 내용만 */
 html.emb,html.emb body{background:#000}
 html.emb .device{inset:0;left:0;top:0;margin:0;width:100%;height:100%;transform:none;border-radius:0;background:none;box-shadow:none}
-html.emb .device>i,html.emb .glass,html.emb .hw{display:none}
+html.emb .device>i,html.emb .glass,html.emb .hw,html.emb .device::before{display:none}
 html.emb .screen{left:0;top:0;width:100%;height:100%;border-radius:0;box-shadow:none}
 html.emb .screen iframe{display:none}
 html.emb .tw{width:100%;height:100%}
@@ -32,5 +33,5 @@ html.emb .tw{width:100%;height:100%}
 *{scrollbar-width:none!important;-ms-overflow-style:none!important}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
 
-/* 하단 물리 버튼은 항상 최상단에서 클릭 */
-.home-btn,.key{z-index:60}
+/* 홈 버튼은 항상 최상단에서 클릭 (누르면 뒤로가기) */
+.home-btn{z-index:60}
