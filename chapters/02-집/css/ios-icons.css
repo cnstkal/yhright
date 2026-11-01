@@ -20,3 +20,5 @@
 .it{padding-top:0;font-size:11px;line-height:13px}
 .it span{margin-top:5px}
 .c-cream{background:linear-gradient(#f4f4f4,#a9a9ae)!important}
+/* 아이콘 위치를 위로 올려 상단 빈 공간 줄임 */
+.grid{top:60px!important}
