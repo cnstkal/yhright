@@ -104,3 +104,7 @@ svg{display:block}
 #tray{display:none;flex:none;background:#fff;height:130px;padding:10px;gap:10px;justify-content:center;align-items:center}
 #tray.on{display:flex}
 #tray button{width:100px;height:100px;border-radius:14px;background:#f5f6f8;padding:8px}
+
+/* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
+*{scrollbar-width:none!important;-ms-overflow-style:none!important}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
