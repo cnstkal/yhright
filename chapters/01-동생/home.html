@@ -38,7 +38,7 @@
 </div></div>
 <script>
 (function(){const dv=document.getElementById('device');
-function fit(){dv.style.setProperty('--k',Math.min(innerWidth/435,innerHeight/849,1.5).toFixed(3))}addEventListener('resize',fit);fit();
+function fit(){dv.style.setProperty('--k',Math.min(innerWidth/405,innerHeight/821,1.6).toFixed(3))}addEventListener('resize',fit);fit();
 const $=id=>document.getElementById(id);
 function tick(){const d=new Date(),h=d.getHours(),t=(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0'),a=h<12?'오전':'오후';
 $('tm').textContent=t;$('ap').textContent=a;$('sbt').textContent=a+' '+t;$('dt').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일'}

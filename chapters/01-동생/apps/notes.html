@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#f2f1f6">
+<meta name="theme-color" content="#ffffff">
 <title>메모</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -174,6 +174,75 @@ position:absolute;inset:0;z-index:8;overflow:hidden;background:var(--bg);color:v
 #notes-app .nt-pe .nt-es{position:relative;min-height:0;flex:1;margin:0;padding:0 20px 24px;background:none;border-radius:0;box-shadow:none}
 #notes-app .nt-pe .nt-dt{display:block;text-align:center;font-size:13px;color:var(--sc);padding:8px 0 14px;margin:0}
 
+
+/* ===== 2016 삼성 TouchWiz 메모(Android 6.0) 스타일: 평면 + 약한 입체감, 직각에 가까운 모서리 ===== */
+html,body{background:#fff}
+body{--font:Roboto,"Noto Sans KR","Noto Sans CJK KR","Droid Sans Fallback",sans-serif}
+#notes-app{--bg:#fff;--bg2:#fff;--cd:#fff;--tx:#252525;--sc:#7d7d7d;--ln:#dedede;--ac:#f08a00;--fl:#eeeeee;--sh:#fff;--hl:#ffe082;font-size:15px;border-radius:0!important}
+.nt-pane{padding-top:0;transform:none!important}
+.nt-pf{background:#fff}
+#notes-app .nt-pf,#notes-app .nt-pl,#notes-app .nt-pe{background:#fff;box-shadow:none}
+.nt-hd{height:56px;padding:0 6px 0 16px;color:#4a4a4a;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.28);position:relative;z-index:2}
+.nt-hd button{color:#4a4a4a;font-size:15px;font-weight:500;height:48px;min-width:44px}
+.nt-hr button{color:#4a4a4a}
+#notes-app .nt-i{width:24px;height:24px}
+.nt-lt{font-size:20px;font-weight:500;letter-spacing:0;padding:14px 16px 4px;color:#252525}
+.nt-sb{margin:4px 16px 8px;height:40px;border-radius:0;background:none;border-bottom:1px solid #bdbdbd;padding:0 2px}
+.nt-sb input{font-size:15px}.nt-sx{border-radius:50%}
+.nt-sec{font-size:12px;font-weight:500;color:var(--ac);padding:14px 16px 6px}
+.nt-card{margin:0;border-radius:0;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.nt-card.mt{margin-top:16px}
+.nt-fr{height:52px;padding:0 16px}
+.nt-fr+.nt-fr::before{left:16px}
+.nt-fr .nt-i{color:#7d7d7d}.nt-fr b{font-size:15px}
+.nt-ft{background:#f7f7f7!important;border-top:1px solid #d6d6d6!important;padding:4px 12px;min-height:52px}
+.nt-ft button{color:#4a4a4a;font-size:15px;font-weight:500;height:44px;min-width:44px}
+.nt-cnt{font-size:12px}
+.nt-sh,#notes-app .nt-pl .nt-llist .nt-sh{font-size:12px;font-weight:500;color:var(--ac);background:#f7f7f7;border-bottom:1px solid var(--ln);padding:7px 16px!important}
+#notes-app .nt-pl .nt-sc{padding:0}
+#notes-app .nt-pl .nt-sc>.nt-lt{padding:14px 16px 4px}
+#notes-app .nt-pl .nt-sc>.nt-sb{margin:4px 16px 8px;background:none}
+#notes-app .nt-pl .nt-llist .nt-sh+div:not(.nt-gal){background:none;border-radius:0;padding:0}
+#notes-app .nt-pl .nt-llist .nt-row{padding:11px 16px;min-height:62px}
+#notes-app .nt-pl .nt-llist .nt-row+.nt-row::before{left:16px;right:0;border-color:#e6e6e6}
+#notes-app .nt-pl .nt-ft{background:#f7f7f7}
+.nt-rm b{font-size:16px;font-weight:400}.nt-rm span{font-size:13px}.nt-rm span em{color:var(--sc)}
+.nt-cc{border-radius:2px;border:2px solid #9e9e9e;width:20px;height:20px}.nt-cc.on{background:var(--ac);border-color:var(--ac)}.nt-cc.on svg{color:#fff}
+.nt-gal{gap:10px;padding:10px 12px;background:#f2f2f2}
+.nt-g .pv{border:0;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.nt-es,#notes-app .nt-pe .nt-es{padding:0 16px 24px}
+#notes-app .nt-pe .nt-dt{text-align:left;font-size:12px;padding:10px 0 4px}
+.nt-title{font-size:20px;font-weight:500;letter-spacing:0;border-bottom:1px solid #e0e0e0;padding:6px 0 10px;margin-bottom:8px}
+.nt-body{font-size:16px;line-height:1.55}
+.nt-body h1{font-size:22px;font-weight:500}.nt-body h2{font-size:18px;font-weight:500}
+.nt-body .nt-ck::before{border-radius:2px;border-color:#9e9e9e;border-width:2px;width:20px;height:20px}
+.nt-body .nt-ck[data-c="1"]::before{background-color:var(--ac);border-color:var(--ac)}
+.nt-body img,.nt-g .pv{border-radius:2px}
+.nt-tg button{border-radius:2px;background:#eee;color:#4a4a4a}
+.nt-tbar{background:#f7f7f7!important;border-top:1px solid #d6d6d6;padding-bottom:0}
+#notes-app .nt-pe .nt-tbar{background:#f7f7f7}
+.nt-tools button,.nt-fmt button,.nt-tbl button{color:#4a4a4a;border-radius:2px}
+.nt-rb{background:#fff3e0;color:#6d4c00}
+.nt-bg{background:rgba(0,0,0,.5)}
+.nt-as{left:0;right:0;bottom:0}
+.nt-asg,.nt-asc{border-radius:0;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 -2px 8px rgba(0,0,0,.35)}
+.nt-asg button,.nt-asc{height:48px;font-size:16px;color:#252525;justify-content:flex-start;padding:0 20px;font-weight:400}
+.nt-asc{margin-top:0;border-top:1px solid var(--ln);width:100%}
+.nt-asg p{text-align:left;padding:14px 20px 6px;font-size:13px}
+.nt-asg button.red{color:#d32f2f}
+.nt-dlg{width:296px;background:#fff;border-radius:2px;text-align:left;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.nt-dlg h4{font-size:18px;font-weight:500;padding:20px 24px 8px}.nt-dlg p{font-size:14px;padding:0 24px 12px}
+.nt-dlg input{margin:4px 24px 12px;width:calc(100% - 48px);border:0;border-bottom:2px solid var(--ac);border-radius:0;background:none}
+.nt-dlg .bs{border:0;justify-content:flex-end;padding:0 8px 8px}
+.nt-dlg .bs button{flex:none;min-width:64px;height:40px;padding:0 14px;font-size:15px;font-weight:500;color:var(--ac)}
+.nt-dlg .bs button+button{border:0}
+.nt-toast{background:#424242;border-radius:2px;font-size:13px}
+.nt-dr .nt-dc{border-radius:0}
+.sys-bar{justify-content:flex-start!important;height:24px!important;padding:0 8px!important;flex-direction:row-reverse;background:#f2f2f2;color:#4a4a4a!important;font-family:Roboto,"Noto Sans KR",sans-serif!important}
+.sys-bar .sb-t{font-size:12px!important;font-weight:400!important;letter-spacing:0!important;margin-left:6px}
+.sys-bar .sb-wifi{width:14px;height:11px}.sys-bar .sb-bat{width:9px;height:14px;border-width:1px;border-radius:1px;padding:1px}
+.sys-bar .sb-bat i{width:100%;height:70%;margin-top:30%}.sys-bar .sb-bat:after{right:auto;left:2px;top:-3px;width:3px;height:2px}
+#notes-app .nt-rm b .nt-pn{display:inline-block;vertical-align:-2px;width:14px;height:14px}
 </style>
 <script src="../system-bar.js?v=202610252321"></script></head>
 <body>
@@ -260,7 +329,7 @@ function gcAtt(){var u={};S.n.forEach(function(n){(n.html.match(/data-att="[^"]+
 var R=document.createElement('div');R.id='notes-app';R.dataset.s='f';R.setAttribute('aria-hidden','true');
 var SB=function(k){return '<div class="nt-sb" data-sb="'+k+'">'+I('srch')+'<input data-q="'+k+'" placeholder="검색" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="nt-sx" data-act="sclr" data-k="'+k+'" aria-label="지우기">'+I('x')+'</button></div>'};
 R.innerHTML=
-'<section class="nt-pane nt-pf"><div class="nt-hd"><span></span><button data-act="fedit"></button></div><div class="nt-sc"><div class="nt-lt">폴더</div>'+SB('f')+'<div class="nt-flist"></div></div><div class="nt-ft"><button data-act="fnew">'+I('folder')+'</button><button data-act="compose" aria-label="새 메모">'+I('comp')+'</button></div></section>'+
+'<section class="nt-pane nt-pf"><div class="nt-hd"><span></span><button data-act="fedit"></button></div><div class="nt-sc"><div class="nt-lt">메모</div>'+SB('f')+'<div class="nt-flist"></div></div><div class="nt-ft"><button data-act="fnew">'+I('folder')+'</button><button data-act="compose" aria-label="새 메모">'+I('comp')+'</button></div></section>'+
 '<section class="nt-pane nt-pl"><div class="nt-hd"><button data-act="lback">'+I('back')+'폴더</button><button data-act="lmenu"></button></div><div class="nt-sc"><div class="nt-lt"></div>'+SB('l')+'<div class="nt-llist"></div></div><div class="nt-ft"></div></section>'+
 '<section class="nt-pane nt-pe"><div class="nt-hd"><button data-act="eback">'+I('back')+'<span class="nt-bkt">폴더</span></button><div class="nt-hr"><button data-act="share" aria-label="공유">'+I('share')+'</button><button data-act="emenu" aria-label="더 보기">'+I('more')+'</button><button class="nt-done" data-act="done">완료</button></div></div>'+
 '<div class="nt-fb" hidden><div class="nt-sb">'+I('srch')+'<input class="nt-fi" placeholder="메모에서 찾기" autocomplete="off" spellcheck="false"><span class="nt-fc"></span></div><button data-act="fp">'+I('up')+'</button><button data-act="fn">'+I('dn')+'</button><button data-act="fx">완료</button></div>'+
@@ -291,7 +360,7 @@ return '<div class="nt-fr" data-act="'+(u?'frename':'scope')+'" data-id="'+esc(i
 function renderF(){var h='',e=S.fedit;$('.nt-pf .nt-hd button').textContent=e?'완료':'편집';
 if(S.fq.trim()){FL.innerHTML=rowsH(search(S.fq),{flat:1});return}
 var c=function(s){return S.n.filter(function(n){return inScope(n,s)}).length};
-h+='<div class="nt-sec">내 iPhone</div><div class="nt-card">'+frow('all','전체 메모',c('all'),'tray',e)+S.f.map(function(f){return frow(f.id,f.name,c(f.id),'folder',e)}).join('')+'</div>';
+h+='<div class="nt-sec">카테고리</div><div class="nt-card">'+frow('all','전체 메모',c('all'),'tray',e)+S.f.map(function(f){return frow(f.id,f.name,c(f.id),'folder',e)}).join('')+'</div>';
 var tg={};S.n.forEach(function(n){if(!n.del)n.tags.forEach(function(t){tg[t]=(tg[t]||0)+1})});var ks=Object.keys(tg).sort();
 if(false)h+='<div class="nt-sec">태그</div><div class="nt-card">'+ks.map(function(t){return frow('tag:'+t,'#'+t,tg[t],'tag',e)}).join('')+'</div>';
 h+='<div class="nt-card mt">'+frow('trash','최근 삭제된 항목',c('trash'),'trash',e)+'</div>';FL.innerHTML=h}
