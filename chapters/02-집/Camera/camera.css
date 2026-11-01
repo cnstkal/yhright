@@ -48,3 +48,24 @@ svg{width:24px;height:24px;fill:currentColor;vertical-align:middle}
 /* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
 *{scrollbar-width:none!important;-ms-overflow-style:none!important}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+
+/* ===== Galaxy S8 · Samsung Experience 9.0 카메라 ===== */
+.top{justify-content:space-between;padding:0 6px}.top button{width:40px}.top .on{color:#ffc107}
+#md{flex:none;display:flex;gap:22px;overflow-x:auto;padding:8px 150px 6px;background:#000;font-size:13px;white-space:nowrap}
+#md button{flex:none;color:#fff9;font-size:13px;padding:2px 0}#md button.on{color:#ffc107;font-weight:700}
+#pt button{display:flex;flex-direction:column;align-items:center;font-size:12px;color:#fff;border-bottom:2px solid transparent;padding:4px 2px}#pt small{font-size:10px;color:#fff9}
+#pt .on,#fx .on{border-color:#ffc107;color:#ffc107}#pt .on small{color:#ffc107}
+#pp input,#zm input{accent-color:#ffc107}
+.bot{height:88px;padding:0 6px}
+#th{width:46px;height:46px;border:2px solid #fff9}
+#sh{width:66px;height:66px;border:3px solid #fff}#sh i{width:52px;height:52px}
+#rec{width:44px;height:44px;border:0;background:#f44336}#rec i{background:#fff}
+#sw{width:46px;height:46px;display:grid;place-items:center}#sw svg{width:30px;height:30px}
+/* 카메라 설정: 삼성 경험 9.0 밝은 설정 화면 */
+#st,#dl{background:#fafafa;color:#212121}
+#st h2,#dl h2{font-weight:400;font-size:19px;border-bottom:0;padding:16px 14px}
+#st .sl{overflow-y:auto}#st h3{margin:0;padding:14px 18px 6px;font-size:13px;font-weight:400;color:#3e91ff}
+#st .row,#dl .row{border-bottom:0;padding:14px 18px;align-items:center;font-size:16px}#st .row em,#dl .row em{color:#757575;font-size:13px}
+.tg{width:40px;height:16px;border-radius:8px;background:#bdbdbd;position:relative}.tg:after{content:"";position:absolute;left:-2px;top:-3px;width:22px;height:22px;border-radius:50%;background:#f5f5f5;box-shadow:0 1px 3px #0006;transition:left .15s}
+.tg.on{background:#9cc5ff}.tg.on:after{left:20px;background:#3e91ff}
+#md{position:relative;align-self:stretch;margin:0;border:0;border-radius:0}
