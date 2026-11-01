@@ -168,6 +168,13 @@ ul{list-style:none;padding:0}
 .rb,.gb{width:75px;height:75px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff}
 .rb{background:var(--red)}.gb{background:var(--green)}
 .rb svg,.gb svg{width:34px;height:34px}
+/* 수신 화면 (참고 이미지 방식): 위에 이름, 가운데 메시지/알림 버튼, 아래 거절/응답 */
+.incoming #iAv,.incoming #iNum{display:none}
+.incoming .iq{position:absolute;left:0;right:0;bottom:calc(210px + env(safe-area-inset-bottom));margin-top:0;justify-content:center;gap:70px}
+.incoming .iq svg{width:40px;height:40px;padding:0;border-radius:0;background:none;stroke:#fff}
+.incoming .iq button{font-size:15px}
+.incoming .ia{bottom:calc(60px + env(safe-area-inset-bottom))}
+.incoming .ia div{gap:12px}
 
 /* 시트 · 알림 · 토스트 */
 .dim{position:absolute;inset:0;z-index:50;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
