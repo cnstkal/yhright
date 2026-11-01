@@ -1,0 +1,12 @@
+/* iPhone(iOS) 앱 아이콘 스타일: 평면 색, 연속 곡선 모서리, 그림자 없음 */
+.ic{border-radius:22.37%!important;box-shadow:none!important;background-image:none!important}
+.dock .ic{box-shadow:none!important}
+.it,.it span{text-shadow:none!important}
+.it span{color:#fff;font-size:11px;letter-spacing:0}
+.ic svg{width:100%!important;height:100%!important}
+/* 기존 갤럭시 색을 iOS 기본 앱 색으로 교체 */
+.c-cream{background:#8e8e93!important}
+.c-gal{background:#fff!important}
+.c-memo{background:#fff!important}
+.c-phone{background:#4cd964!important}
+.c-msg{background:#4cd964!important}
