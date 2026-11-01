@@ -53,7 +53,7 @@ function ic(n,s,c,w){return '<svg class="vi" viewBox="0 0 24 24" width="'+s+'" h
 var COL={mail:'#1ec800',cafe:'#ff8a00',blog:'#2db400',kin:'#3b8bff',shop:'#f5426c',toon:'#00c9a7',map:'#4a90e2',dict:'#7b61ff',news:'#5b6370',stock:'#e53935',estate:'#8d6e63',movie:'#ab47bc',music:'#ec407a',book:'#26a69a',life:'#ef6c8a',sports:'#2e7dd7',tech:'#455a64',game:'#7e57c2',tv:'#d84315'};
 function sv(k){return '<i class="sv" style="background:'+(COL[k]||'#888')+'">'+ic(k,22,'#fff',1.8)+'</i>'}
 /* ───────── 데이터 (2018년 10월 설정) ───────── */
-var SVC=[['메일','mail'],['카페','cafe'],['블로그','blog'],['지식iN','kin'],['쇼핑','shop'],['웹툰','toon'],['지도','map'],['사전','dict'],['뉴스','news'],['증권','stock'],['영화','movie'],['뮤직','music']];
+var SVC=[['메일','mail'],['카페','cafe'],['블로그','blog'],['지식iN','kin'],['쇼핑','shop'],['웹툰','toon'],['사전','dict'],['뉴스','news'],['증권','stock'],['영화','movie'],['뮤직','music']];
 var TOPIC=[['라이프','life'],['스포츠','sports'],['차·테크','tech'],['웹툰','toon'],['게임','game'],['TV·동영상','tv'],['뮤직','music'],['영화','movie'],['책·공연','book']];
 var TABS=[['뉴스',0,6],['연예',6,11],['스포츠',11,16],['웹툰·뿜',16,19],['차·테크',19,24]];
 var CATS=['주요뉴스','정치','경제','사회','생활/문화','IT/과학','스포츠','연예'];
@@ -86,8 +86,8 @@ var PRESS=[['한겨레','#1b6e3c'],['동아일보','#1b4f9c'],['이데일리','#
 var PROD=[['shirt','#ffe3ec','가을 맨투맨 티셔츠','19,900'],['bag','#e5f0ff','데일리 숄더백','39,000'],['shoe','#e6f7e1','캔버스 스니커즈','24,900'],['watch','#fff1d6','메탈 손목시계','58,000']];
 var RT=['통합','VIEW','이미지','동영상','뉴스','지식iN','쇼핑'];
 var BL=['맛있는 하루','일상다반사','여행의 기록','리뷰하는 곰','소소한 생활','주말 나들이'],CF=['맘스홀릭 카페','자취생 모임','여행 동호회','중고 장터'],CH=['오늘의 영상','브이로그 연구소','뮤직 라이브','먹방 일기'];
-var WI=[['음성','mic','voice'],['이미지','camera','lens'],['음악','music','music'],['주변','pin','svc','map']];
-var WO=[['메일','mail','svc','mail'],['뉴스','news','news','0'],['카페','cafe','svc','cafe'],['블로그','blog','svc','blog'],['지식iN','kin','svc','kin'],['지도','map','svc','map']];
+var WI=[['음성','mic','voice'],['이미지','camera','lens'],['음악','music','music']];
+var WO=[['메일','mail','svc','mail'],['뉴스','news','news','0'],['카페','cafe','svc','cafe'],['블로그','blog','svc','blog'],['지식iN','kin','svc','kin']];
 /* ───────── 공통 조각 ───────── */
 function scene(id,a,b,k){
 var g='<defs><linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="'+b+'"/></linearGradient></defs><rect width="320" height="180" fill="url(#'+id+')"/>';
@@ -135,7 +135,7 @@ return o}
 /* ───────── 화면 ───────── */
 function homePane(){
 var svc='';SVC.forEach(function(v){svc+='<div data-go="'+(v[1]=='news'?'news':'svc')+'" data-a="'+v[1]+'">'+sv(v[1])+v[0]+'</div>'});
-return '<section class="pn"><div class="body"><div class="hero"><div class="gw" data-go="search"><b class="lg">NAVER</b><input readonly aria-label="검색" placeholder="검색어를 입력하세요"><button class="cam" data-go="lens" aria-label="스마트렌즈">'+ic('camera',24,'#1ec800',2)+'</button></div></div>'
+return '<section class="pn"><div class="body"><div class="hero"><div class="gw" style="opacity:.45" data-go="search"><b class="lg">NAVER</b><input readonly aria-label="검색" placeholder="검색어를 입력하세요"><button class="cam" data-go="lens" aria-label="스마트렌즈">'+ic('camera',24,'#1ec800',2)+'</button></div></div>'
 +'<div class="gap"></div><div class="sec">날씨<small>서울'+ic('chevD',12,'#999',2)+'</small></div>'
 +'<div class="wx"><div><span>현재</span>'+ic('sun',34,'#ffb300',1.8)+'<b>19°</b></div><div><span>내일 오전</span>'+ic('cloudsun',34,'#90a4ae',1.8)+'<b>14°</b></div><div><span>내일 오후</span>'+ic('sun',34,'#ffb300',1.8)+'<b>22°</b></div></div>'
 +'<div class="dust">미세먼지 <b>보통</b> 초미세먼지 <b>좋음</b></div><div class="wl"><span data-go="det" data-a="지역별 내일 날씨">지역별 내일 날씨</span><span data-go="det" data-a="주간 예보">주간 예보</span></div>'
@@ -194,10 +194,19 @@ function up(e){if(id!==e.pointerId)return;id=null;
 if(m===1){var v=dx/Math.max(1,Date.now()-t0);d._drag=1;setTimeout(function(){d._drag=0},60);
 if((dx>W*.2||v>.4)&&pg>0)pg--;else if((dx<-W*.2||v<-.4)&&pg<2)pg++;set(0,1)}m=0}
 p.onpointerup=up;p.onpointercancel=up;window.onresize=fit}
+/* 비활성화 목록: 눌러도 아무 일도 일어나지 않음 */
+var DEAD_GO={search:1,lens:1,voice:1,music:1,news:1,art:1};
+var DEAD_SVC={mail:1,cafe:1,blog:1};
+function blocked(D,t){
+if(D.go&&DEAD_GO[D.go])return true;
+if(D.go=='svc'&&DEAD_SVC[D.a])return true;
+if(D.go=='det'&&t.v=='svc'&&t.a=='kin')return true;
+return false}
 function bind(d,t){
 d.onclick=function(e){
 if(d._drag)return;
 var el=e.target.closest('[data-back],[data-go],[data-q],[data-do],[data-clr],[data-del],[data-tab],[data-ac],[data-pt],[data-rt],[data-dot]');if(!el)return;var D=el.dataset;
+if(blocked(D,t))return;
 if('dot' in D)d.classList.toggle('wo');
 else if('back' in D)back();
 else if(D.q)doSearch(D.q);
