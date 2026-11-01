@@ -70,3 +70,7 @@ h4{margin:0;padding:14px 12px 6px;font-size:13px;font-weight:500;color:#666}
 #dlg .bt{display:flex;justify-content:flex-end;gap:4px;margin-top:6px}#dlg .bt button{padding:12px;font-size:15px;color:#1ba39b}
 #toast{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);background:#444e;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:40;white-space:nowrap;max-width:90%}
 #toast.on{opacity:1}
+
+/* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
+*{scrollbar-width:none!important;-ms-overflow-style:none!important}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
