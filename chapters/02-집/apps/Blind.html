@@ -40,7 +40,7 @@ button{background:none;border:0;color:inherit;cursor:pointer;font-size:inherit}
 .toast{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);background:#222;color:#fff;font-size:12px;padding:10px 14px;border-radius:8px;z-index:9}
 .chat{display:flex;gap:10px;padding:14px;border-bottom:1px solid var(--l);font-size:13px}.chat p{color:var(--g);font-size:12px;margin-top:3px}
 .e{padding:60px 20px;text-align:center;color:var(--g);font-size:13px}
-</style></head><body><div id="app"></div><script>
+</style><style>/* Hide scrollbar UI globally while preserving scroll gestures and wheel scrolling. */*{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}</style></head><body><div id="app"></div><script>
 const K='blindv2',C=['#cfe0ff','#ffd9d4','#d8f0d0','#fff0b8','#e3d6f5','#cdeef0'];
 const IM=['linear-gradient(#5b8fd6,#cfe0f5 55%,#c9a57a)','linear-gradient(#27406b,#7a5f7a 60%,#c88b5a)','linear-gradient(#8fbf8f,#d8ecc8)','linear-gradient(#444,#bbb)','linear-gradient(135deg,#f3c9a0,#7fa8c9)'];
 const CH=['블라블라','주식·투자','부동산','여행·먹방','게임','시사토크','IT·기술','자유'];
