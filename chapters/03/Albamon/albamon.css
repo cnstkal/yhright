@@ -43,3 +43,7 @@ button,input,select{font:inherit;color:inherit}button{border:0;background:none;p
 .bt{display:flex;gap:8px;padding:10px;background:#fff;border-top:1px solid #eee}.bt button{height:44px;flex:1;border:1px solid #ddd;color:#666}.bt .p{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:700}.bt .d{background:#aaa;border-color:#aaa}
 #toast{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);background:#333e;color:#fff;padding:10px 16px;border-radius:20px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:50}#toast.on{opacity:1}
 *{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+
+/* iPhone 11 상단 노치 안전 영역 */
+html.emb #app{padding-top:44px}
+html.emb .hd .top{height:56px}
