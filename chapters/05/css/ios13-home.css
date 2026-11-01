@@ -136,3 +136,5 @@ html.emb #home .it .ic{flex-basis:68px}
 html.emb #home .it>span{font-size:12px;margin-top:7px}
 html.emb #home .dock{height:104px!important;bottom:22px!important;left:9px!important;right:9px!important;border-radius:34px}
 html.emb #home .dock .ic{width:68px;height:68px;flex-basis:68px}
+
+.c-blind{background:#242424;color:#fff;font-size:38px;font-weight:800}.c-baemin{background:#2ac1bc;color:#fff;font-size:32px;font-weight:800}.c-map{background:#fff;color:#e65b4f;font-size:42px;font-weight:700}
