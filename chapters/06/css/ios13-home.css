@@ -140,12 +140,8 @@ html.emb #home .dock .ic{width:68px;height:68px;flex-basis:68px}
 .c-blind{background:#242424;color:#fff;font-size:38px;font-weight:800}.c-baemin{background:#2ac1bc;color:#fff;font-size:32px;font-weight:800}.c-map{background:#fff;color:#e65b4f;font-size:42px;font-weight:700}
 
 
-/* 앱 아이콘 정사각형 비율 고정 */
-html.emb #home .ic{aspect-ratio:1/1;width:68px;height:auto;flex:0 0 68px;}
-html.emb #home .ic svg{width:100%;height:100%;object-fit:contain}
-
-/* 이전 챕터에서 이어지는 앱 아이콘 */
-.c-hotel{background:#fff;color:#3974a8;font-size:38px;font-weight:800;border:1px solid #e5e5e5;display:flex;align-items:center;justify-content:center}
-.c-music{background:linear-gradient(145deg,#f9a1c7,#9a75e8);color:#fff;font-size:42px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.c-youtube{background:#ff0033;color:#fff;font-size:35px;font-weight:800;display:flex;align-items:center;justify-content:center}
-.c-translate{background:#4285f4;color:#fff;font-size:34px;font-weight:700;display:flex;align-items:center;justify-content:center}
+/* 앱 아이콘은 항상 정사각형 */
+html.emb #home .grid .it .ic,
+html.emb #home .dock .ic{box-sizing:border-box!important;width:68px!important;height:68px!important;min-width:68px!important;min-height:68px!important;max-width:68px!important;max-height:68px!important;aspect-ratio:1/1!important;flex:0 0 68px!important;}
+html.emb #home .grid .it .ic svg,
+html.emb #home .dock .ic svg{width:100%!important;height:100%!important;aspect-ratio:1/1!important;object-fit:contain!important;}
