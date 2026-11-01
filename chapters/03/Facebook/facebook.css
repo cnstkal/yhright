@@ -93,3 +93,8 @@ h5{margin:0;padding:12px 12px 6px;color:#1d2129;font-size:17px;font-weight:700}
 #tt{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:10px 18px;border-radius:18px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:30;white-space:nowrap;font-size:13px}#tt.on{opacity:1}
 *{scrollbar-width:none!important;-ms-overflow-style:none!important}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+
+
+/* iPhone 11 상단 노치 안전 영역 */
+html.emb #st{height:44px;padding-top:22px;align-items:center}
+html.emb #st .t{left:54px;right:auto;text-align:left}
