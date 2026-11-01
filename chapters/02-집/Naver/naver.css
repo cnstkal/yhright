@@ -79,7 +79,6 @@ input::placeholder{color:#b5b5b5}
 /* 검색 */
 .ac div,.rc div{padding:12px 14px;border-bottom:1px solid #eee;display:flex;align-items:center;font-size:15px}
 .ac div span,.rc div span{flex:1}.rc div em,.ac div em{display:grid;place-items:center;font-style:normal}
-.hot{display:grid;grid-template-columns:1fr 1fr;background:#fff}
 .hot div{padding:11px 14px;font-size:14px;border-bottom:1px solid #f0f0f0;display:flex;gap:8px}.hot b{color:#1ec800;width:16px}
 .rr{display:flex;align-items:center;padding:13px 14px;border-bottom:1px solid #eee;font-size:15px}.rr b{color:#1ec800;width:24px}
 /* 검색 결과 */
