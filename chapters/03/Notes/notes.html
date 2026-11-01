@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>메모</title>
+<link rel="stylesheet" href="notes.css?v=ios12-1"><style>@import url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css");*,*::before,*::after{font-family:"Pretendard",sans-serif!important}</style></head><body>
+<div id="app">
+<div class="status"><span>●●●●● SKT</span><span id="clk"></span><span>100%</span></div>
+<div id="vw">
+<section class="view" id="vF">
+<div class="bar"><button class="tx r" id="fEdit">편집</button></div>
+<div class="scroll"><div class="lt">폴더</div><div id="fList"></div></div>
+<div class="tb"><button class="tx" id="fNew">새로운 폴더</button></div>
+</section>
+<section class="view show" id="vL">
+<div class="bar"><button class="tx l" id="lBack"><svg class="chv" viewBox="0 0 12 22"><path d="M10 2 2 11l8 9"/></svg>폴더</button><button class="tx r" id="lEdit">편집</button></div>
+<div class="scroll">
+<div class="lt" id="lT">메모</div>
+<div class="sb"><div class="sbx"><svg viewBox="0 0 20 20"><circle cx="8" cy="8" r="5.5"/><path d="m12 12 5 5"/></svg><input id="q" placeholder="검색"></div><button class="tx" id="qC">취소</button></div>
+<div id="nList"></div><div class="empty" id="empty">메모 없음</div>
+</div>
+<div class="tb"><button class="tx" id="lMv">이동</button><span id="lCnt">0개의 메모</span><button class="ic" id="lNew"><svg viewBox="0 0 24 24"><path d="M4 20h4L19.5 8.5l-4-4L4 16zM13.5 6.5l4 4"/></svg></button><button class="tx red" id="lDel">삭제</button></div>
+</section>
+<section class="view" id="vE">
+<div class="bar"><button class="tx l" id="eBack"><svg class="chv" viewBox="0 0 12 22"><path d="M10 2 2 11l8 9"/></svg><span id="eBackT">메모</span></button><button class="ic" id="eShare"><svg viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M7 10H5v11h14V10h-2"/></svg></button><button class="tx r" id="eDone">완료</button></div>
+<div class="body"><div id="edate"></div><div id="ebody" contenteditable="true"></div><div class="att" id="eatt"></div></div>
+<div class="tb" id="eTb"><button class="ic" id="eDel"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/></svg></button><button class="tx" id="eMv">이동</button><button class="ic" id="eNew"><svg viewBox="0 0 24 24"><path d="M4 20h4L19.5 8.5l-4-4L4 16zM13.5 6.5l4 4"/></svg></button></div>
+<div id="aaP"><div class="r1"><button data-b="h1">제목</button><button data-b="h2">머리말</button><button data-b="div">본문</button></div><div class="r2"><button data-c="bold"><b>B</b></button><button data-c="italic"><i>I</i></button><button data-c="underline"><u>U</u></button></div><div class="r3"><button data-c="insertUnorderedList">• 글머리 기호</button><button data-c="insertOrderedList">1. 번호</button></div><div class="r3"><button data-c="undo">실행 취소</button><button data-c="redo">다시 실행</button></div></div>
+<div class="ftb" id="fTb"><button class="ic" id="tCk"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></svg></button><button class="ic" id="tAa">Aa</button><button class="ic" id="tCam"><svg viewBox="0 0 24 24"><path d="M3 8h4l2-3h6l2 3h4v12H3z"/><circle cx="12" cy="13.5" r="3.8"/></svg></button><button class="ic" id="tSk"><svg viewBox="0 0 24 24"><path d="M4 19c3 1 4-3 6-6s3 1 5-3 3-5 5-6M14 14l4 4"/></svg></button><button class="ic x" id="tX"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+</section>
+<section class="view" id="vS">
+<div class="bar"><button class="tx l" id="sC">취소</button><div class="mid"><button class="tx" id="sU">실행 취소</button><button class="tx" id="sR">다시 실행</button></div><button class="tx r" id="sD">완료</button></div>
+<div id="cw"><canvas id="cv"></canvas></div>
+<div class="stl"><div id="tools"><button data-t="pen" class="on">펜</button><button data-t="marker">마커</button><button data-t="pencil">연필</button><button data-t="eraser">지우개</button></div><div id="cols"></div></div>
+</section>
+<div id="shw"><div id="shb"></div></div>
+</div>
+<input type="file" id="fCam" accept="image/*" capture="environment" hidden>
+<input type="file" id="fLib" accept="image/*" hidden>
+</div>
+<script>if(window.visualViewport){var vv=visualViewport,ap=document.getElementById('app');function fit(){ap.style.height=vv.height+'px';scrollTo(0,0)}vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit)}</script>
+<script src="notes.js?v=ios12-1"></script></body></html>

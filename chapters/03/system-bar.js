@@ -1,11 +1,11 @@
-/* 공용 상단 시스템 바 (iOS 12, iPhone 6s 20pt 상태 바): 왼쪽 신호·통신사·Wi-Fi / 가운데 시간(실시간) / 오른쪽 배터리
+/* 공용 상단 시스템 바 (iOS 13, iPhone 11 44pt 상태 바): 왼쪽 신호·통신사·Wi-Fi / 가운데 시간(실시간) / 오른쪽 배터리
 이 챕터의 각 앱 HTML에서 <script src="../system-bar.js"></script> 로 불러옵니다 (챕터 내부 파일).
 */
 (function () {
 if (window.top !== window.self && document.documentElement.hasAttribute("data-selfpad-ok")) document.documentElement.setAttribute("data-selfpad", "");
 if (window.__sysBar) return; window.__sysBar = true;
 const css = `
-.sys-bar{position:relative;z-index:50;flex:none;box-sizing:border-box;height:calc(env(safe-area-inset-top,0px) + 20px);
+.sys-bar{position:relative;z-index:50;flex:none;box-sizing:border-box;height:calc(env(safe-area-inset-top,0px) + 44px);
 padding:env(safe-area-inset-top,0px) 7px 0 7px;display:flex;align-items:center;justify-content:space-between;
 pointer-events:none;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Pretendard",sans-serif;color:#000;}
 .sys-bar.sys-overlay{position:absolute;top:0;left:0;right:0}

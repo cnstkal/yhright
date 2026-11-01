@@ -1,0 +1,31 @@
+/* 카메라 - iPhone 6s / iOS 9.3 (사진 촬영 전용) */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:"Helvetica Neue","Apple SD Gothic Neo","Noto Sans KR",sans-serif;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+#app{height:100%;height:100dvh;display:flex;flex-direction:column;background:#000;overflow:hidden;position:relative}
+button{border:0;padding:0;background:none;color:inherit;font:inherit;cursor:pointer}
+.top{height:44px;flex:none;background:#000}
+#preview{position:relative;flex:none;width:100%;aspect-ratio:3/4;max-height:calc(100% - 44px - 100px);background:#111;overflow:hidden;margin:0 auto}
+#live{width:100%;height:100%;object-fit:cover;display:block}
+#live.front{transform:scaleX(-1)}
+#fallback{position:absolute;inset:0;display:grid;place-items:center;color:#aaa;font-size:14px;text-align:center;padding:24px;background:#111}
+#fallback[hidden]{display:none}
+#flash{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+#flash.on{opacity:1}
+#bottom{flex:1;min-height:0;background:#000;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px)}
+#label{height:36px;display:flex;align-items:center;justify-content:center;color:#ffcc00;font-size:15px;letter-spacing:1px}
+.controls{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 24px 8px}
+#thumbnail{width:48px;height:48px;border:1px solid #666;border-radius:4px;background:#222 center/cover no-repeat}
+#shutter{width:66px;height:66px;border-radius:50%;background:#fff;border:0;box-shadow:0 0 0 3px #000,0 0 0 5px #fff;display:block}
+#shutter:active{background:#ccc}
+#switch{width:48px;height:48px;display:grid;place-items:center;color:#fff}
+#switch svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#review{position:absolute;inset:0;background:#000;z-index:8;display:flex;flex-direction:column}
+#review[hidden]{display:none}
+#review .bar{height:44px;display:flex;align-items:center;padding:0 12px;flex:none}
+#review .bar button{font-size:17px;color:#ffcc00}
+#review img{flex:1;min-height:0;width:100%;object-fit:contain}
+#review .ft{height:56px;flex:none;display:flex;align-items:center;justify-content:center}
+#review .ft button{font-size:17px;color:#ffcc00}
+#toast{position:absolute;left:50%;bottom:130px;transform:translateX(-50%);background:#333e;border-radius:16px;padding:8px 14px;font-size:13px;white-space:nowrap;opacity:0;pointer-events:none;z-index:10}
+#toast.show{opacity:1}
+*{scrollbar-width:none!important}*::-webkit-scrollbar{display:none!important}
