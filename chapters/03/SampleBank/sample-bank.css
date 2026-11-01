@@ -30,3 +30,8 @@ body{font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
 .amt{font-size:14px;color:#5a6373}
 .tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:375px;display:flex;justify-content:space-around;background:#fff;border-top:1px solid #e6eaf0;padding:10px 0 14px;font-size:12px;color:#8a93a3}
 .tabbar .on{color:#2457d6;font-weight:700}
+
+/* iPhone 11 상단 노치 안전 영역 및 컨트롤 가독성 */
+html.emb .app{padding-top:44px}
+html.emb .ti{font-size:19px}
+html.emb .qb i{font-size:19px}
