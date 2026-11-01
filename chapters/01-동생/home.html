@@ -32,16 +32,19 @@
 <button type="button" class="home-btn hw" id="hHome" aria-label="홈 버튼 (뒤로가기)"></button>
 </div></div>
 <script>
-(function(){const dv=document.getElementById('device'),dp=document.getElementById('disp');
+(function(){const dv=document.getElementById('device'),dp=document.getElementById('disp'),hm=document.getElementById('home'),base=dp.getAttribute('src');
 function fit(){dv.style.setProperty('--k',Math.min(innerWidth/427,innerHeight/887,1.7).toFixed(3))}addEventListener('resize',fit);fit();
 const $=id=>document.getElementById(id);
 function tick(){const d=new Date(),h=d.getHours(),t=(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0'),a=h<12?'오전':'오후';
 $('tm').textContent=t;$('ap').textContent=a;$('sbt').textContent=a+' '+t;$('dt').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일';$('cw').textContent='일월화수목금토'[d.getDay()];$('cd').textContent=d.getDate()}
 tick();setInterval(tick,10000);
-/* 물리 홈 버튼: 누르면 한 단계 뒤로 */
+/* 앱 열기: 홈 화면 목록(#home)의 앱 아이콘과 독을 누르면 Display(iframe)에서 앱을 연다 */
+function openApp(href){dv.classList.add('app-open');hm.style.display='none';dp.src=href}
+hm.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;const h=a.getAttribute('href');if(!h||h==='#')return;e.preventDefault();openApp(a.href)});
+/* 물리 홈 버튼: 어떤 앱에서든 앱을 종료하고 홈 화면으로 바로 이동 */
+function goHome(){if(!dv.classList.contains('app-open'))return;dv.classList.remove('app-open');hm.style.display='';dp.src=base}
 if(!document.documentElement.classList.contains('emb')){
-const hb=$('hHome');
-hb.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow;if(w.location.href!==new URL('home.html',location.href).href&&w.history.length>1)w.history.back();}catch(err){try{dp.contentWindow.history.back()}catch(_){}}});
+$('hHome').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();goHome()});
 }
 })();
 </script><script>/* iOS Safari fallback: suppress double-click zoom only. */document.addEventListener("dblclick",function(e){e.preventDefault()},{passive:false});</script><script src="../../dev-chapter-switcher.js"></script></body></html>
