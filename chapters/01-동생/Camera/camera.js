@@ -19,12 +19,7 @@ const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearT
 function beep(f=1200,d=.08){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;g.gain.value=.15;o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}}
 /* 실제 기기 카메라 */
 let cameraStream=null,cameraReady=false,cameraError="";
-const liveVideo=document.createElement("video");
-liveVideo.id="live-camera";
-liveVideo.autoplay=true;
-liveVideo.muted=true;
-liveVideo.playsInline=true;
-liveVideo.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#111";
+let liveVideo;
 async function startCamera(){
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
     cameraError="이 브라우저에서는 카메라를 사용할 수 없습니다. HTTPS로 접속해 주세요.";
@@ -135,4 +130,4 @@ $('#app').innerHTML=`<div class="top"></div><div id="vfw"><div id="box"><video i
 <div id="fx" hidden></div><div id="pp" hidden></div><button id="md" data-a="md"></button>
 <div class="bot"><button id="th" data-a="gal"></button><button id="sh" data-a="shut"><i></i></button><button id="rec" data-a="rec"><i></i></button></div>
 <div id="mdl" class="ov" hidden></div><div id="st" class="ov" hidden></div><div id="dl" class="ov" hidden></div><div id="rv" class="ov" data-a="rvc" hidden><img alt=""></div><div id="toast"></div>`;
-addEventListener('resize',fit);apply();thumb();startCamera();requestAnimationFrame(loop);addEventListener('pagehide',stopCamera);
+liveVideo=$('#live-camera');addEventListener('resize',fit);apply();thumb();startCamera();requestAnimationFrame(loop);addEventListener('pagehide',stopCamera);
