@@ -91,7 +91,7 @@
       const l = lum(bg);
       bar.classList.toggle("sys-dark", l !== null && l < 0.5);
     };
-    paint(); window.addEventListener("load", paint);
+    paint(); window.addEventListener("load", paint); window.__sysBarPaint = paint;
 
     if (navigator.getBattery) navigator.getBattery().then(b => {
       const fill = bar.querySelector("#battery-fill");

@@ -51,7 +51,7 @@
 function fit(){dv.style.setProperty('--k',Math.min(innerWidth/399,innerHeight/813,1.7).toFixed(3))}addEventListener('resize',fit);fit();
 const $=id=>document.getElementById(id);
 function tick(){const d=new Date(),h=d.getHours(),t=(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0'),a=h<12?'오전':'오후';
-$('tm').textContent=t;$('ap').textContent=a;$('sbt').textContent=a+' '+t;$('dt').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일';$('cw').textContent='일월화수목금토'[d.getDay()];$('cd').textContent=d.getDate()}
+$('tm').textContent=t;$('ap').textContent=a;$('sbt').textContent=a+' '+t;$('dt').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일';if($('cw'))$('cw').textContent='일월화수목금토'[d.getDay()];if($('cd'))$('cd').textContent=d.getDate()}
 tick();setInterval(tick,10000);
 /* 물리 버튼: 가운데 홈은 홈 화면으로, 오른쪽은 한 단계 뒤로 */
 if(!document.documentElement.classList.contains('emb')){
