@@ -55,7 +55,6 @@ function sv(k){return '<i class="sv" style="background:'+(COL[k]||'#888')+'">'+i
 /* ───────── 데이터 (2018년 10월 설정) ───────── */
 var SVC=[['메일','mail'],['카페','cafe'],['블로그','blog'],['지식iN','kin'],['쇼핑','shop'],['웹툰','toon'],['지도','map'],['사전','dict'],['뉴스','news'],['증권','stock'],['영화','movie'],['뮤직','music']];
 var TOPIC=[['라이프','life'],['스포츠','sports'],['차·테크','tech'],['웹툰','toon'],['게임','game'],['TV·동영상','tv'],['뮤직','music'],['영화','movie'],['책·공연','book']];
-var HOT=['국정감사','한글날','아이폰XS','태풍 콩레이','단풍 명소','프로야구 포스트시즌','갤럭시 노트9','아이유','환절기 감기','보헤미안 랩소디'];
 var TABS=[['뉴스',0,6],['연예',6,11],['스포츠',11,16],['웹툰·뿜',16,19],['차·테크',19,24]];
 var CATS=['주요뉴스','정치','경제','사회','생활/문화','IT/과학','스포츠','연예'];
 var NEWS=[
@@ -158,7 +157,6 @@ noti:function(){return hd('알림')+'<div class="body"><div class="emp">'+ic('be
 lens:function(){return hd('스마트렌즈')+'<div class="lens"><svg viewBox="0 0 200 200" width="220" height="220" aria-hidden="true"><path d="M20 70V30a10 10 0 0 1 10-10h40M130 20h40a10 10 0 0 1 10 10v40M180 130v40a10 10 0 0 1-10 10h-40M70 180H30a10 10 0 0 1-10-10v-40" fill="none" stroke="#1ec800" stroke-width="6" stroke-linecap="round"/></svg><p>사물을 비춰 보세요</p></div>'},
 voice:function(){return hd('음성 검색')+'<div class="vo"><div class="mic" data-q="오늘 날씨">'+ic('mic',38,'#fff',2)+'</div><p>말씀해 주세요</p></div>'},
 music:function(){return hd('음악 검색')+'<div class="vo"><div class="mic" data-q="보헤미안 랩소디">'+ic('music',38,'#fff',2)+'</div><p>들려주세요</p></div>'},
-rank:function(){var h='';HOT.forEach(function(k,i){h+='<div class="rr" data-q="'+k+'"><b>'+(i+1)+'</b><span>'+k+'</span></div>'});return hd('급상승 검색어')+'<div class="body">'+h+'</div>'},
 search:function(){return '<div class="hd"><button class="hb" data-back aria-label="뒤로">'+ic('back',22,'#222',2.2)+'</button><div class="sin sm"><input id="q" autofocus placeholder="검색어를 입력하세요"><button class="x" id="clr" data-clr aria-label="지우기">'+ic('close',16,'#999',2)+'</button></div><button class="hb" data-do aria-label="검색">'+ic('search',22,'#1ec800',2.4)+'</button></div><div class="body"><div id="ac" class="ac"></div><div id="rc"></div></div>'},
 news:function(a){var c=+a||0,t='';CATS.forEach(function(x,i){t+='<div class="'+(i==c?'on':'')+'" data-go="news" data-a="'+i+'" data-rep>'+x+'</div>'});var n='';for(var i=0;i<6;i++)n+=newsLi(i+c);return hd('뉴스')+'<div class="tabs">'+t+'</div><div class="body">'+n+'</div>'},
 art:function(a){var n=NEWS[+a],rel='<div class="sec">관련 기사</div>';for(var i=0;i<3;i++)rel+=newsLi(+a+i+1);
@@ -221,8 +219,6 @@ ac.innerHTML='';
 var r='<div class="sec">최근 검색어</div>';
 if(!recent.length)r+='<div class="ft">최근 검색 내역이 없습니다.</div>';
 recent.forEach(function(k,i){r+='<div data-q="'+E(k)+'"><span>'+E(k)+'</span><em data-del="'+i+'">'+ic('close',16,'#aaa',2)+'</em></div>'});
-r+='<div class="sec" data-go="rank">급상승 검색어<small>더보기'+ic('chevR',12,'#999',2)+'</small></div><div class="hot">';
-HOT.forEach(function(k,i){r+='<div data-q="'+k+'"><b>'+(i+1)+'</b><span>'+k+'</span></div>'});
 rc.className='rc';rc.innerHTML=r+'</div>'}
 /* ───────── 시작 ───────── */
 $('#app').innerHTML='<div class="stb" id="stb">'+stbar()+'</div><div id="view"></div>';
