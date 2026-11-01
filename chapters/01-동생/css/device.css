@@ -1,0 +1,18 @@
+/* Galaxy S7 (SM-G930) 외형: 1mm ≈ 5.68px (화면 63.4mm = 360px) */
+html,body{margin:0;height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#e4e7eb,#a9aeb6)}
+.stage{position:fixed;inset:0}
+.device{position:absolute;left:50%;top:50%;width:395px;height:809px;margin:-404.5px 0 0 -197.5px;transform:scale(var(--k,1));border-radius:52px;
+ background:linear-gradient(135deg,#7b8088,#2b2e33 28%,#9aa0a7 50%,#2b2e33 72%,#6a6f76);
+ box-shadow:0 28px 60px #0005,0 2px 6px #0004,inset 0 0 0 1px #ffffff40,inset 0 0 0 3px #15161a}
+.glass{position:absolute;inset:6px;border-radius:46px;background:#050506;box-shadow:inset 0 0 0 1px #202228,inset 0 0 10px #000}
+.side{position:absolute;width:4px;border-radius:2px;background:linear-gradient(90deg,#5a5e65,#9aa0a7,#5a5e65)}
+.side.pw{right:-3px;top:210px;height:70px}.side.vu{left:-3px;top:176px;height:50px}.side.vd{left:-3px;top:236px;height:50px}
+.earpiece{position:absolute;left:175px;top:38px;width:44px;height:5px;border-radius:3px;background:#0d0e11;box-shadow:inset 0 1px 1px #000,0 0 0 1px #1b1d22}
+.cam{position:absolute;left:246px;top:32px;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#3a3f78,#0b0c1c 60%,#000);box-shadow:0 0 0 2px #14151a}
+.sens{position:absolute;top:36px;width:5px;height:5px;border-radius:50%;background:#0f1013;box-shadow:0 0 0 1px #1a1c21}
+.sens.a{left:228px;top:37px}.sens.b{left:150px}.sens.c{left:140px;top:38px;width:4px;height:4px}
+.screen{position:absolute;left:17.5px;top:84px;width:360px;height:640px;border-radius:8px;overflow:hidden;background:#000;box-shadow:0 0 0 1px #000}
+.home-btn{position:absolute;left:164.5px;top:754px;width:66px;height:24px;border-radius:12px;background:linear-gradient(#1c1d21,#0a0a0c);box-shadow:inset 0 0 0 1px #34363c,inset 0 1px 2px #0008,0 0 0 1px #000}
+.key{position:absolute;top:754px;width:24px;height:24px;display:grid;place-items:center}
+.key.recent{left:79px}.key.back{left:292px}
+.key svg{width:20px;height:20px;fill:none;stroke:#5d616a;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
