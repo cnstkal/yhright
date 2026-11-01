@@ -11,7 +11,7 @@ function seed(){
   const now=Date.now();
   const m=(me,text,ago)=>({id:uid(),me,text,img:'',ts:now-ago});
   return{
-    contacts:[{id:'c1',name:'엄마'},{id:'c2',name:'형'},{id:'c3',name:'민준'},{id:'c4',name:'지수'}],
+    contacts:[{id:'c1',name:'엄마',phone:'010-3960-2207'},{id:'c2',name:'형',phone:'010-2394-7716'},{id:'c3',name:'민준',phone:'010-3347-8850'},{id:'c4',name:'지수',phone:'010-7316-8842'}],
     threads:[
       {id:'t1',ids:['c1'],unread:2,msgs:[m(false,'저녁 뭐 먹을 거니?',5*HOUR),m(true,'아직 못 정했어요',4.5*HOUR),m(false,'그럼 같이 먹자',HOUR)]},
       {id:'t2',ids:['c2'],unread:0,msgs:[m(false,'내일 시간 돼?',DAY+2*HOUR),m(true,'응 오후에 괜찮아',DAY+HOUR)]},
@@ -257,7 +257,7 @@ const A={
     openMenu(cur==='thread'?'thread':'list');
   },
   back:()=>openList(),
-  call:()=>toast('통화 기능은 시뮬레이션입니다'),
+  call:()=>{const t=curThread();if(!t)return;const c=cById(t.ids[0]);const number=c?.phone||'';location.href='../Phone/phone.html?number='+encodeURIComponent(number)+'&name='+encodeURIComponent(c?.name||names(t))+'&call=1'},
   attach:()=>attach('t'),
   cattach:()=>attach('c'),
   csend:()=>sendCompose(),
@@ -297,4 +297,11 @@ save();
 renderList();
 show('list');
 fitVV();
+const params=new URLSearchParams(location.search);
+const incoming=params.get('to');
+if(incoming){
+  let c=S.contacts.find(x=>(x.phone||'').replace(/\D/g,'')===incoming.replace(/\D/g,''));
+  if(!c){c={id:uid(),name:params.get('name')||incoming,phone:incoming};S.contacts.push(c);save()}
+  openCompose();addRecip(c.id);
+}
 })();
