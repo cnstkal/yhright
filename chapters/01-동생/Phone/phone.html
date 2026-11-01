@@ -1,8 +1,103 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><title>전화</title><link rel="stylesheet" href="phone.css"></head><body><main id="app">
-<header class="top"><div class="status">오전 9:41　　● ● ●　100%</div><div class="head"><b>전화</b><button id="more">⋮</button></div><nav class="tabs"><button data-tab="log" class="on">최근기록</button><button data-tab="fav">즐겨찾기</button><button data-tab="contacts">연락처</button></nav></header>
-<section id="log" class="page on"><div id="loglist"></div></section><section id="fav" class="page"><div id="favlist"></div></section><section id="contacts" class="page"><input id="search" placeholder="연락처 검색"><div id="contactlist"></div></section>
-<section id="keypad" class="page"><div class="number" id="number"></div><div class="keys" id="keys"></div><div class="actions"><button class="message" id="sms" disabled>메시지</button><button class="dial" id="dial" disabled>☎</button><button class="erase" id="erase">⌫</button></div></section>
-<section id="detail" class="overlay" hidden><button class="back" data-close>‹</button><div class="avatar" id="dAvatar">?</div><h2 id="dName"></h2><p id="dNumber"></p><div class="detail-actions"><button id="dCall">전화</button><button id="dSms">메시지</button></div><div id="dHistory"></div></section>
-<section id="calling" class="overlay call" hidden><div class="call-avatar" id="cAvatar">?</div><h2 id="cName"></h2><p id="cNumber"></p><p id="callState">통화 연결 중…</p><div class="call-controls"><button id="mute">음소거</button><button id="speaker">스피커</button><button id="keyToggle">키패드</button></div><button class="end" id="end">통화 종료</button></section>
-<div id="menu" hidden><button id="menuDelete">통화기록 삭제</button><button id="menuSettings">설정</button></div><div id="toast" hidden></div>
-<nav class="bottom"><button data-tab="log">최근기록</button><button data-tab="contacts">연락처</button><button data-tab="keypad">키패드</button><button id="openMessages">메시지</button></nav></main><script src="phone.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>전화</title>
+<link rel="stylesheet" href="phone.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- 메인: 탭 + 다이얼러 -->
+  <section class="view" id="vMain">
+    <header class="gbar"><h1>전화</h1><button class="txtbtn" data-act="more">더보기</button></header>
+    <nav class="tabs" id="tabs">
+      <button data-tab="log" class="on">최근기록</button>
+      <button data-tab="fav">즐겨찾기</button>
+      <button data-tab="con">연락처</button>
+    </nav>
+    <div class="pages" id="pages">
+      <div class="pg" id="pgLog"></div>
+      <div class="pg" id="pgFav" hidden></div>
+      <div class="pg" id="pgCon" hidden>
+        <div class="srch"><input id="cq" placeholder="검색" autocomplete="off"></div>
+        <div id="conList"></div>
+      </div>
+      <div class="dispnum" id="disp" hidden>
+        <div class="dn" id="dn"></div><div class="dname" id="dname"></div>
+        <button class="bs" id="bs" data-act="bs" aria-label="지우기" hidden><svg viewBox="0 0 24 24"><path d="M21 5H9l-6 7 6 7h12zM12 9l6 6M18 9l-6 6"/></svg></button>
+      </div>
+      <button class="fab" id="fab" data-act="showpad" aria-label="키패드"><svg viewBox="0 0 24 24" class="f"><use href="#kp"/></svg></button>
+    </div>
+    <div class="dialer" id="dialer">
+      <div class="keys" id="keys"></div>
+      <div class="dbar" id="dbar"></div>
+    </div>
+  </section>
+
+  <!-- 최근기록 상세 -->
+  <section class="view" id="vLog" hidden>
+    <header class="gbar"><button class="ibw" data-act="back">‹</button><h1>통화 상세</h1></header>
+    <div class="det" id="logDet"></div>
+  </section>
+
+  <!-- 연락처 상세 -->
+  <section class="view" id="vCon" hidden>
+    <header class="gbar"><button class="ibw" data-act="back">‹</button><h1>연락처</h1><button class="txtbtn" data-act="editcon">편집</button></header>
+    <div class="det" id="conDet"></div>
+  </section>
+
+  <!-- 연락처 추가/편집 -->
+  <section class="view" id="vEdit" hidden>
+    <header class="gbar"><h1 id="edTitle">연락처 추가</h1></header>
+    <div class="form">
+      <label>이름<input id="edName" placeholder="이름" autocomplete="off"></label>
+      <label>전화번호<input id="edNum" placeholder="전화번호" inputmode="tel" autocomplete="off"></label>
+    </div>
+    <div class="foot2"><button class="b2" data-act="edcancel">취소</button><button class="b2 pri" data-act="edsave">저장</button></div>
+  </section>
+
+  <!-- 통화 중 -->
+  <section class="view" id="vCall" hidden>
+    <div class="cgreen">
+      <div class="crow"><span id="cTime">00:00</span><button class="txtbtn" data-act="hold" id="holdBtn">보류</button></div>
+      <div class="cname" id="cName"></div>
+      <div class="csub" id="cSub"></div>
+      <div class="cav" id="cAv"></div>
+    </div>
+    <div class="dots"><i class="on"></i><i></i></div>
+    <div class="cgrid" id="cGrid"></div>
+    <button class="endb" data-act="end" aria-label="통화 종료"><svg viewBox="0 0 24 24" class="f" style="transform:rotate(135deg)"><use href="#ph"/></svg></button>
+    <div class="endl">통화 종료</div>
+  </section>
+
+  <!-- 단축번호 -->
+  <section class="view" id="vSpeed" hidden>
+    <header class="gbar"><button class="ibw" data-act="back">‹</button><h1>단축번호</h1></header>
+    <ul class="list" id="speedList"></ul>
+  </section>
+
+  <!-- 설정 -->
+  <section class="view" id="vSet" hidden>
+    <header class="gbar"><button class="ibw" data-act="back">‹</button><h1>설정</h1></header>
+    <ul class="list" id="setList"></ul>
+  </section>
+
+  <!-- 연락처 선택 시트 -->
+  <div class="dim" id="sheet" hidden><div class="dlg tall"><p id="shTitle">연락처 선택</p><ul class="list" id="shList"></ul><div class="dlgbtns"><button data-act="shclose">취소</button></div></div></div>
+
+  <div class="pop" id="pop" hidden></div>
+  <div class="dim" id="dlg" hidden><div class="dlg"><p id="dlgMsg"></p><div class="dlgbtns"><button id="dlgNo">취소</button><button id="dlgOk">확인</button></div></div></div>
+  <div class="toast" id="toast" hidden></div>
+
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="ph" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></symbol>
+      <symbol id="kp" viewBox="0 0 24 24"><g><circle cx="5" cy="4" r="1.7"/><circle cx="12" cy="4" r="1.7"/><circle cx="19" cy="4" r="1.7"/><circle cx="5" cy="10" r="1.7"/><circle cx="12" cy="10" r="1.7"/><circle cx="19" cy="10" r="1.7"/><circle cx="5" cy="16" r="1.7"/><circle cx="12" cy="16" r="1.7"/><circle cx="19" cy="16" r="1.7"/><circle cx="12" cy="22" r="1.7"/></g></symbol>
+    </defs>
+  </svg>
+</div>
+<script src="phone.js"></script>
+</body>
+</html>
