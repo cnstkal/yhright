@@ -1,0 +1,36 @@
+/* iPhone 6s / iOS 9.3 홈 화면 (4.7인치 375x667 기준, 4열 그리드, 반투명 Dock) */
+html.emb #home{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;z-index:2;color:#fff;font-family:"Helvetica Neue","Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:#3a7fae url(../assets/ios9-wallpaper.svg) center/cover no-repeat}
+/* 상태 표시줄 */
+#home .sb{height:20px;flex:none;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 7px;font-size:12px;font-weight:600;line-height:20px;text-shadow:0 1px 1px rgba(0,0,0,.15)}
+#home .sb .l{display:flex;align-items:center;gap:4px;justify-self:start}
+#home .sb .r{display:flex;align-items:center;gap:4px;justify-self:end}
+#home .sb .sig{display:flex;align-items:flex-end;gap:2px;height:9px}
+#home .sb .sig i{width:3px;background:#fff;border-radius:1px;display:block}
+#home .sb .sig i:nth-child(1){height:3px}#home .sb .sig i:nth-child(2){height:4.5px}#home .sb .sig i:nth-child(3){height:6px}#home .sb .sig i:nth-child(4){height:7.5px}#home .sb .sig i:nth-child(5){height:9px}
+#home .sb .batt{width:22px;height:10px;border:1px solid #fff;border-radius:2.5px;padding:1px;display:block;position:relative;margin-left:2px}
+#home .sb .batt:after{content:"";position:absolute;right:-3px;top:2.5px;width:1.5px;height:3.5px;background:#fff;border-radius:0 1px 1px 0}
+#home .sb .batt i{display:block;height:100%;width:100%;background:#fff;border-radius:1px}
+#home .sb .c{justify-self:center}
+/* 앱 그리드: 4열, 행 높이 88pt */
+#home .grid{flex:none;margin-top:6px;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:88px;padding:0 14px;align-content:start}
+#home .it{display:flex;flex-direction:column;align-items:center;color:#fff;text-decoration:none;font-size:11px;line-height:13px}
+#home .ic{width:60px;height:60px;border-radius:13.5px;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 .5px rgba(0,0,0,.12)}
+#home .ic svg{width:60px;height:60px;display:block}
+#home .ic svg.glyph{width:32px;height:32px;fill:#fff}
+#home .it span{margin-top:5px;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+#home .c-cam{background:linear-gradient(#f4f4f4,#a9a9ae)}
+#home .c-gal{background:#fff}
+#home .c-memo{background:#fff}
+#home .c-msg{background:linear-gradient(#66ea6e,#1cc23f)}
+#home .c-phone{background:linear-gradient(#66ea6e,#1cc23f)}
+#home .c-fb{background:#3b5998}
+/* 페이지 인디케이터 */
+#home .pager{position:absolute;left:0;right:0;bottom:104px;height:8px;display:flex;align-items:center;justify-content:center;gap:9px;pointer-events:none}
+#home .pager i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);display:block}
+#home .pager i.on{background:#fff}
+#home .pager i.srch{background:none;width:8px;height:8px;border:1.2px solid rgba(255,255,255,.75);border-radius:50%;position:relative}
+/* 하단 반투명 Dock (95pt) */
+#home .dock{position:absolute;left:0;right:0;bottom:0;height:95px;padding:14px 14px 0;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,.25);-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4)}
+#home .dock a{display:flex;justify-content:center;align-items:flex-start;text-decoration:none}
+#home .dock a:nth-child(1){grid-column:2}
+#home .dock a:nth-child(2){grid-column:3}
