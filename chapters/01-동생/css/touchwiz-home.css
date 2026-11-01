@@ -1,5 +1,5 @@
 /* TouchWiz (Android 6.0) 홈 화면 — 360×640dp */
-.tw{position:relative;width:360px;height:640px;font-family:Roboto,"Noto Sans KR","Noto Sans CJK KR",sans-serif;color:#fff;background:#0c3a73 url(../assets/wallpaper.svg) center/cover no-repeat;user-select:none;-webkit-user-select:none}
+.tw{position:relative;width:360px;height:640px;font-family:Roboto,"Noto Sans KR","Noto Sans CJK KR",sans-serif;color:#fff;background:#020611 url(../assets/wallpaper.svg) center/cover no-repeat;user-select:none;-webkit-user-select:none}
 .tw a{color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 .sb{position:absolute;top:0;left:0;right:0;height:24px;padding:0 8px;display:flex;align-items:center;justify-content:flex-end;gap:5px;font-size:12px;background:linear-gradient(rgba(0,0,0,.38),rgba(0,0,0,0));z-index:5}
 .sb svg{height:12px;fill:#fff}.sb .pct{margin-left:-1px}.sb .tm{margin-left:2px}
@@ -18,3 +18,19 @@
 .apps svg{width:34px;height:34px;fill:#fff}
 .c-phone{background:linear-gradient(#5ccb62,#2ea84b)}.c-contact{background:linear-gradient(#ffa94d,#f57c00)}.c-msg{background:linear-gradient(#ffc83d,#f5a000)}.c-web{background:linear-gradient(#4aa8f2,#1e6fd0)}
 .c-white{background:linear-gradient(#fff,#e9ecef)}.c-cam{background:linear-gradient(#6b7c93,#35414f)}.c-memo{background:linear-gradient(#ffe066,#f7c61e)}
+
+/* ===== S7 실물 기준 보정 ===== */
+.sb{font-size:12px;gap:6px;justify-content:space-between;padding:0 8px}.sb .r{display:flex;align-items:center;gap:6px}.sb svg{height:13px}
+.sb .bt{width:8px;height:13px;border:1.2px solid #fff;border-radius:1px;position:relative;padding:1px}.sb .bt i{position:absolute;left:1px;right:1px;bottom:1px;height:35%;background:#fff}
+.wd{top:34px}.wd .t{font-size:46px;line-height:46px;font-weight:300}.wd .t small{font-size:13px}.wd .d{margin-top:4px;font-size:13px}.wd .w{margin-top:6px;font-size:13px}.wd .w svg{width:20px;height:20px}.wd .w b{font-size:18px}
+.grid{top:148px}
+.it{padding-top:10px;font-size:12px;text-shadow:0 1px 2px #000a}.it span{margin-top:6px;letter-spacing:-.2px}
+.ic{width:54px;height:54px;border-radius:32%;box-shadow:0 1px 2px #0007,inset 0 -2px 3px #0002,inset 0 1px 1px #fff9}
+.ic svg{width:100%;height:100%}
+.fold{background:linear-gradient(#fbf8ec,#e6dfc6);box-shadow:0 1px 2px #0007,inset 0 -2px 3px #0002;display:block;position:relative}
+.fold svg{position:absolute;inset:0}
+.c-phone{background:linear-gradient(#86e84e,#2c9c1c)}.c-contact{background:linear-gradient(#f5a43a,#e0700d)}.c-msg{background:linear-gradient(#ffd23a,#f6a800)}.c-web{background:linear-gradient(#5aa9f5,#2a63d6)}
+.c-cream{background:linear-gradient(#fff,#e9e9e9)}.c-calc{background:linear-gradient(#4fdc3f,#1f9d2c)}.c-gal{background:linear-gradient(#35a0f0,#1f66d6)}.c-set{background:linear-gradient(#4a9cf7,#2a5fd8)}.c-pay{background:linear-gradient(#2253c4,#10308a)}
+.c-memo{background:linear-gradient(#fffdf2,#efe9d2)}
+.dock .ic{box-shadow:0 1px 2px #0007,inset 0 -2px 3px #0002,inset 0 1px 1px #fff9}
+.pager{top:526px}
