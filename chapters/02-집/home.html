@@ -40,7 +40,7 @@ function tick(){const d=new Date(),h=d.getHours(),t=(h%12||12)+':'+String(d.getM
 $('sbt').textContent=a+' '+t}
 tick();setInterval(tick,10000);
 /* 앱 열기: 홈 화면 목록(#home)의 앱 아이콘과 독을 누르면 Display(iframe)에서 앱을 연다 */
-function openApp(href){dv.classList.add('app-open');hm.style.display='none';dp.src=href}
+function openApp(href){if(document.documentElement.classList.contains('emb')){window.location.href=href;return}dv.classList.add('app-open');hm.style.display='none';dp.src=href}
 hm.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;const h=a.getAttribute('href');if(!h||h==='#')return;e.preventDefault();openApp(a.href)});
 /* 물리 홈 버튼: 어떤 앱에서든 앱을 종료하고 홈 화면으로 바로 이동 */
 function goHome(){dv.classList.remove('app-open');hm.style.display='';dp.src=base}
