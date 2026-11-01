@@ -1,0 +1,46 @@
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:#fff;font-family:'Noto Sans KR','Roboto',sans-serif;color:#222;font-size:14px}
+#app{height:100%;position:relative}
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;background:#fff;animation:in .15s linear}
+@keyframes in{from{opacity:.4;transform:translateX(16px)}to{opacity:1;transform:none}}
+.body{flex:1;overflow-y:auto;scrollbar-width:none}.body::-webkit-scrollbar{display:none}
+.hd{background:#1ec800;height:48px;display:flex;align-items:center;padding:0 12px;color:#fff;flex-shrink:0}
+.logo{font-weight:900;font-size:22px;letter-spacing:-1px;color:#fff;font-family:Arial,sans-serif}
+.hd .sp{flex:1}.hd .ic{width:36px;text-align:center;font-size:18px}
+.hd.t{background:#fff;color:#222;border-bottom:1px solid #ddd}.hd.t h1{font-size:17px;font-weight:500;flex:1}
+.hd .bk{width:32px;font-size:20px}
+.sbox{background:#1ec800;padding:0 10px 10px}
+.sin{background:#fff;height:42px;display:flex;align-items:center;border:1px solid #17a800}
+.sin span{width:36px;text-align:center;color:#1ec800;font-weight:bold}
+.sin input{flex:1;border:0;outline:0;font-size:15px;height:100%;min-width:0;font-family:inherit}
+.sin input::placeholder{color:#aaa}
+.svc{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #e5e5e5}
+.svc div{text-align:center;padding:12px 0 8px;font-size:12px;color:#444;border-right:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0}
+.svc i{display:block;width:34px;height:34px;margin:0 auto 5px;color:#fff;font-style:normal;font-weight:bold;line-height:34px;font-size:16px}
+.sec{padding:10px 12px;font-size:14px;font-weight:bold;border-bottom:1px solid #e5e5e5;background:#fafafa;display:flex;justify-content:space-between}
+.sec small{font-weight:normal;color:#999;font-size:11px}
+.rk{display:grid;grid-template-columns:1fr 1fr}
+.rk div{padding:10px 12px;border-bottom:1px solid #eee;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk b{color:#1ec800;margin-right:8px;display:inline-block;width:14px}
+.li{display:flex;padding:12px;border-bottom:1px solid #e5e5e5;gap:10px}
+.li .tx{flex:1;min-width:0}.li h3{font-size:15px;font-weight:500;line-height:1.35;margin-bottom:3px}
+.li p{font-size:12px;color:#777;line-height:1.4}.li .m{font-size:11px;color:#999;margin-top:3px}
+.th{width:76px;height:56px;background:#ddd;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px}
+.tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:1px solid #ddd;flex-shrink:0;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs div{padding:11px 13px;white-space:nowrap;font-size:14px;color:#666;border-bottom:2px solid transparent}
+.tabs .on{color:#1ec800;border-color:#1ec800;font-weight:bold}
+.ac div,.rc div{padding:12px;border-bottom:1px solid #eee;display:flex;font-size:15px}
+.ac div span,.rc div span{flex:1}.rc div em{color:#aaa;font-style:normal}
+.res .u{font-size:11px;color:#1ec800}.res .s{font-size:12px;color:#555}
+.art{padding:14px}.art h2{font-size:19px;line-height:1.35;margin-bottom:8px}
+.art .m{font-size:12px;color:#999;padding-bottom:10px;border-bottom:1px solid #ddd;margin-bottom:12px}
+.art p{font-size:15px;line-height:1.7;margin-bottom:12px;color:#333}
+.art .img{height:180px;background:#ccc;margin:10px 0;display:flex;align-items:center;justify-content:center;color:#fff}
+.btn{display:inline-block;border:1px solid #ccc;padding:8px 16px;font-size:13px;margin-right:6px;background:#fff}
+.map{flex:1;background:#e8efe0 repeating-linear-gradient(0deg,transparent 0 38px,#fff 38px 42px),repeating-linear-gradient(90deg,transparent 0 58px,#f6e8b8 58px 62px);position:relative}
+.map i{position:absolute;left:50%;top:45%;color:#e53935;font-size:30px;font-style:normal}
+.ft{text-align:center;padding:14px;font-size:11px;color:#999}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e5e5e5}
+.grid2 div{background:#fff;padding:8px}.grid2 .th{width:100%;height:100px}.grid2 h3{font-size:13px;font-weight:500;margin-top:6px}
+.grid2 b{font-size:14px}
