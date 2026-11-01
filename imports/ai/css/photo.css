@@ -1,0 +1,45 @@
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#000}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+#pa{position:relative;width:100%;height:100%;max-width:520px;margin:0 auto;overflow:hidden;background:#fff}
+.view{position:absolute;inset:0;display:flex;flex-direction:column;background:#fff}
+.view[hidden]{display:none}
+.circ{flex:none;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #d8d8dc;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.circ svg,.pill svg{display:block}
+/* 보관함 */
+.lh{flex:none;display:flex;align-items:flex-end;justify-content:space-between;padding:6px 16px 8px 16px}
+.lh h1{margin:0;font-size:39px;font-weight:800;letter-spacing:-1.2px;line-height:1.08}
+.lh p{margin:1px 0 0;font-size:17px;font-weight:700;letter-spacing:-.3px}
+.lh .r{display:flex;gap:11px;padding-bottom:4px}
+.pill{height:44px;min-width:44px;border-radius:22px;background:#fff;border:1px solid #d8d8dc;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:500;padding:0 16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.pill.ic{padding:0;width:46px}
+.grid{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;align-content:start;padding-bottom:120px;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior:contain;transform:translateZ(0);contain:content}
+.grid::-webkit-scrollbar{display:none}
+.cell{position:relative;height:0;padding:0 0 100%;align-self:start;min-width:0;overflow:hidden;background:#e9e9ed;display:block;width:100%}
+.cell img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:translateZ(0)}
+.dur{position:absolute;right:6px;bottom:4px;color:#fff;font-size:15px;font-weight:600;text-shadow:0 0 4px rgba(0,0,0,.45)}
+.nav{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;padding:0 16px 22px 18px;pointer-events:none}
+.nav>*{pointer-events:auto}
+.cap{display:flex;height:62px;border-radius:31px;padding:4px;background:rgba(255,255,255,.78);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);border:1px solid rgba(0,0,0,.1);width:min(64%,300px)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:27px;font-size:12px;font-weight:600;color:#000}
+.tab.on{background:rgba(120,120,128,.14);color:#0a7aff}
+.sbtn{width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.78);backdrop-filter:blur(20px) saturate(1.6);-webkit-backdrop-filter:blur(20px) saturate(1.6);border:1px solid rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center}
+/* 상세 */
+.dh{flex:none;display:flex;align-items:center;justify-content:space-between;padding:4px 16px 12px;border-bottom:1px solid #ececef}
+.dt{height:54px;min-width:170px;padding:0 28px;border-radius:27px;background:#fff;border:1px solid #d8d8dc;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.dt b{font-size:17px;font-weight:700;line-height:1.15}
+.dt span{font-size:14px;font-weight:600;line-height:1.15}
+.stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;background:#fff;position:relative;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;pointer-events:none}
+.strip{flex:none;height:60px;border-top:1px solid #ececef;background:#fff;display:flex;align-items:center;overflow-x:auto;gap:3px;padding:0 12px;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip button{flex:none;width:24px;height:34px;border-radius:3px;overflow:hidden;opacity:.95}
+.strip button.cur{width:38px;opacity:1}
+.strip img{width:100%;height:100%;object-fit:cover;display:block}
+.act{flex:none;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 18px 22px;border-top:1px solid #ececef;background:#fff}
+.act .circ{width:50px;height:50px}
+.act .mid{flex:1;max-width:200px;height:50px;border-radius:25px;background:#fff;border:1px solid #d8d8dc;display:flex;align-items:center;justify-content:space-around;padding:0 8px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.act svg{width:24px;height:24px}
+.act .circ svg{width:22px;height:26px}
+@media (max-width:360px){.lh h1{font-size:34px}}
