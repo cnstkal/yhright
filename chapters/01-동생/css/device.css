@@ -27,3 +27,7 @@ html.emb .device>i,html.emb .glass,html.emb .hw{display:none}
 html.emb .screen{left:0;top:0;width:100%;height:100%;border-radius:0;box-shadow:none}
 html.emb .screen iframe{display:none}
 html.emb .tw{width:100%;height:100%}
+
+/* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
+*{scrollbar-width:none!important;-ms-overflow-style:none!important}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
