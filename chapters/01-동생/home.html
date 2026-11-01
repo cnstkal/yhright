@@ -19,6 +19,7 @@
  <div class="grid">
   <a class="it" href="Camera/camera.html"><div class="ic c-cream"><svg viewBox="0 0 54 54"><rect x="4" y="14" width="46" height="30" rx="6" fill="#d9d9d9"/><rect x="4" y="12" width="46" height="8" rx="4" fill="#bdbdbd"/><circle cx="27" cy="29" r="12" fill="#fff"/><circle cx="27" cy="29" r="9" fill="#2f8ff0"/><circle cx="27" cy="29" r="5.500" fill="#5a2fd0"/><circle cx="27" cy="29" r="2.500" fill="#111"/><circle cx="9" cy="10" r="1.800" fill="#ff5a3a"/></svg></div><span>카메라</span></a>
   <a class="it" href="Photos/gallery.html"><div class="ic c-gal"><svg viewBox="0 0 54 54"><g fill="#ffe21a"><ellipse cx="27" cy="16" rx="8" ry="12"/><ellipse cx="38" cy="22" rx="8" ry="12" transform="rotate(60 38 22)"/><ellipse cx="38" cy="34" rx="8" ry="12" transform="rotate(120 38 34)"/><ellipse cx="27" cy="38" rx="8" ry="12"/><ellipse cx="16" cy="34" rx="8" ry="12" transform="rotate(60 16 34)"/><ellipse cx="16" cy="22" rx="8" ry="12" transform="rotate(120 16 22)"/></g><circle cx="27" cy="27" r="4" fill="#ffd000"/></svg></div><span>갤러리</span></a>
+  <a class="it" href="Naver/naver.html"><div class="ic" style="background:#1ec800;border-radius:30%"><svg viewBox="0 0 54 54" aria-hidden="true"><path fill="#fff" d="M13 10h9l10 17V10h9v34h-9L22 27v17h-9z"/></svg></div><span>네이버</span></a>
   
   
   
@@ -56,7 +57,7 @@ tick();setInterval(tick,10000);
 if(!document.documentElement.classList.contains('emb')){
  const home=$('hHome'),back=$('hBack');
  home.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();dp.src='home.html';});
- back.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow;if(w.location.href!==new URL('home.html',location.href).href&&w.history.length>1)w.history.back();}catch(err){try{dp.contentWindow.history.back()}catch(_){}}});
+ back.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow,homeUrl=new URL('home.html',location.href).href;if(w.location.href===homeUrl)return;let settled=false;const finish=handled=>{if(settled)return;settled=true;removeEventListener('message',onReply);clearTimeout(timer);if(!handled){try{if(w.history.length>1)w.history.back();else dp.src='home.html';}catch(_){dp.src='home.html';}}};const onReply=ev=>{if(ev.source===w&&ev.data&&ev.data.type==='backHandled')finish(!!ev.data.handled)};addEventListener('message',onReply);const timer=setTimeout(()=>finish(false),120);w.postMessage({type:'back'},'*');}catch(err){try{dp.contentWindow.history.back()}catch(_){dp.src='home.html';}}});
 }
 })();
 </script></body></html>
