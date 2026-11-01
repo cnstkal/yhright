@@ -100,8 +100,8 @@ svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-l
 #strip{flex:none;height:46px;background:#fff;display:flex;gap:1px;overflow-x:auto;padding:3px 0;align-items:center}
 #strip img{flex:none;height:40px;width:22px;object-fit:cover;opacity:.9}
 #strip img.on{width:40px}
-.vb{flex:none;height:44px;background:var(--navbg);border-top:.5px solid #b2b2b2;display:flex;align-items:center;justify-content:space-around}
-.vb button{width:60px;height:44px;display:grid;place-items:center;color:var(--blue)}
+.vb{flex:none;height:54px;min-height:54px;padding:0 0 5px;background:var(--navbg);border-top:.5px solid #b2b2b2;display:flex;align-items:center;justify-content:space-around;position:relative;z-index:2}
+.vb button{flex:1;height:100%;display:grid;place-items:center;color:var(--blue)}
 .vb svg{width:26px;height:26px}
 .vb .on svg{fill:var(--blue)}
 /* 편집 */
