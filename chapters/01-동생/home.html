@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><title>2015 · iPhone 6s</title>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"><title>2015 · iPhone 6s</title>
 <script>try{if(top!==self)document.documentElement.className='emb'}catch(e){document.documentElement.className='emb'}</script>
 <link rel="stylesheet" href="css/device.css"><link rel="stylesheet" href="css/touchwiz-home.css">
-<style>/* Hide scrollbar UI globally while preserving scroll gestures and wheel scrolling. */*{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}</style></head><body><div class="stage"><div class="device" id="device">
+<style>/* Prevent iOS double-tap zoom without blocking ordinary taps or scrolling. */html,body,*{touch-action:manipulation}html,body{-webkit-text-size-adjust:100%}/* Hide scrollbar UI globally while preserving scroll gestures and wheel scrolling. */*{scrollbar-width:none!important;-ms-overflow-style:none!important}*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}</style></head><body><div class="stage"><div class="device" id="device">
 <i class="side pw"></i><i class="side vu"></i><i class="side vd"></i>
 <div class="glass"></div>
 <i class="earpiece"></i><i class="sens b"></i><i class="sens c"></i><i class="cam"></i><i class="sens a"></i>
@@ -44,4 +44,4 @@ const hb=$('hHome');
 hb.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();try{const w=dp.contentWindow;if(w.location.href!==new URL('home.html',location.href).href&&w.history.length>1)w.history.back();}catch(err){try{dp.contentWindow.history.back()}catch(_){}}});
 }
 })();
-</script></body></html>
+</script><script>/* iOS Safari fallback: suppress double-click zoom only. */document.addEventListener("dblclick",function(e){e.preventDefault()},{passive:false});</script><script src="../../dev-chapter-switcher.js"></script></body></html>
