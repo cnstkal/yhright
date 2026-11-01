@@ -37,3 +37,92 @@ html.emb #home{position:absolute;inset:0;overflow:hidden;color:#fff;background:#
 .c-bank{background:#2457d6}
 .c-ig{background:linear-gradient(45deg,#feda75,#d62976 55%,#4f5bd5)}
 .c-td{background:linear-gradient(#ff7854,#fe3c72)}
+
+
+/* 홈 화면 레이아웃 안정화: 앱 격자와 하단 독의 영역을 분리 */
+html.emb, html.emb body {
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+}
+html.emb #home {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background-color:#ff6a1c;
+  background-image:url("../assets/ios13-wallpaper.svg");
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+html.emb #home .sb { top:0; height:44px; }
+html.emb #home .grid {
+  position:absolute;
+  top:78px;
+  left:0;
+  right:0;
+  bottom:150px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-auto-rows:100px;
+  align-content:start;
+  padding:0 24px;
+  z-index:2;
+}
+html.emb #home .it {
+  min-width:0;
+  width:100%;
+  height:100px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+}
+html.emb #home .it .ic {
+  flex:0 0 60px;
+  width:60px;
+  height:60px;
+}
+html.emb #home .it>span {
+  display:block;
+  max-width:100%;
+  margin-top:6px;
+  line-height:14px;
+}
+html.emb #home .pager {
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:132px;
+  z-index:3;
+}
+html.emb #home .dock {
+  position:absolute!important;
+  top:auto!important;
+  left:11px!important;
+  right:11px!important;
+  bottom:24px!important;
+  height:94px!important;
+  z-index:4;
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  align-items:center!important;
+  justify-items:center!important;
+  margin:0!important;
+  transform:none!important;
+}
+html.emb #home .dock>a {
+  display:flex;
+  width:100%;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+}
+html.emb #home .dock .ic {
+  flex:0 0 60px;
+  width:60px;
+  height:60px;
+}
