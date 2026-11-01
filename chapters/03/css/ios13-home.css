@@ -126,3 +126,13 @@ html.emb #home .dock .ic {
   width:60px;
   height:60px;
 }
+
+
+/* 03 공통 홈 화면 비율 보정 */
+html.emb #home .ic{width:68px;height:68px;border-radius:15px}
+html.emb #home .grid{top:82px;grid-auto-rows:112px;padding-left:18px;padding-right:18px}
+html.emb #home .it{height:112px}
+html.emb #home .it .ic{flex-basis:68px}
+html.emb #home .it>span{font-size:12px;margin-top:7px}
+html.emb #home .dock{height:104px!important;bottom:22px!important;left:9px!important;right:9px!important;border-radius:34px}
+html.emb #home .dock .ic{width:68px;height:68px;flex-basis:68px}
