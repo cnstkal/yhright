@@ -55,3 +55,8 @@ h5{margin:0;padding:10px 12px 6px;color:#90949c;font-size:13px;font-weight:500}
 /* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
 *{scrollbar-width:none!important;-ms-overflow-style:none!important}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+
+/* Chapter 2: make the main search/Messenger header row flush with both screen edges. */
+.hb:has(.sb){padding:0;gap:0}
+.hb .sb{flex:1;min-width:0;height:44px;border-radius:0;margin:0}
+.hb:has(.sb)>button[data-a="msgs"]{width:52px;min-width:52px;height:48px;flex:none}
