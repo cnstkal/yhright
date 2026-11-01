@@ -34,3 +34,7 @@
 .c-memo{background:linear-gradient(#fffdf2,#efe9d2)}
 .dock .ic{box-shadow:0 1px 2px #0007,inset 0 -2px 3px #0002,inset 0 1px 1px #fff9}
 .pager{top:526px}
+
+/* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
+*{scrollbar-width:none!important;-ms-overflow-style:none!important}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
