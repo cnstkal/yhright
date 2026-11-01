@@ -20,7 +20,6 @@
 
 <a class="it" href="Naver/naver.html"><div class="ic" style="background:#1ec800;border-radius:30%"><svg viewBox="0 0 54 54"><path fill="#fff" d="M13 10h9l10 17V10h9v34h-9L22 27v17h-9z"/></svg></div><span>네이버</span></a>
 <a class="it" href="apps/Kakaotalk.html"><div class="ic" style="background:#fee500;border-radius:30%"><svg viewBox="0 0 54 54"><path fill="#3c1e1e" d="M27 12C16.5 12 8 18.7 8 27c0 5.3 3.5 9.9 8.8 12.5l-2.2 8 8.7-4.8c.9.1 1.8.2 2.7.2 10.5 0 19-6.7 19-15S37.5 12 27 12z"/></svg></div><span>카카오톡</span></a>
-<a class="it" href="apps/Blind.html"><div class="ic" style="background:#222;border-radius:30%"><svg viewBox="0 0 54 54"><circle cx="27" cy="27" r="12" fill="none" stroke="#fff" stroke-width="3"/><path d="M15 27h24" stroke="#fff" stroke-width="3"/></svg></div><span>블라인드</span></a>
 <a class="it" href="Albamon/Albamon.html"><div class="ic" style="background:#ff6428;border-radius:30%"><svg viewBox="0 0 54 54"><text x="27" y="35" text-anchor="middle" font-family="Arial" font-weight="700" font-size="22" fill="#fff">alba</text></svg></div><span>알바몬</span></a>
 <a class="it" href="ShinhanSOL/shinhan.html"><div class="ic" style="background:#0046ff;border-radius:30%"><svg viewBox="0 0 54 54"><text x="27" y="33" text-anchor="middle" font-family="Arial" font-weight="900" font-size="17" fill="#fff">SOL</text></svg></div><span>신한 SOL</span></a>
 </div>
@@ -38,15 +37,16 @@
 function fit(){dv.style.setProperty('--k',Math.min(innerWidth/427,innerHeight/887,1.7).toFixed(3))}addEventListener('resize',fit);fit();
 const $=id=>document.getElementById(id);
 function tick(){const d=new Date(),h=d.getHours(),t=(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0'),a=h<12?'오전':'오후';
-$('tm').textContent=t;$('ap').textContent=a;$('sbt').textContent=a+' '+t;$('dt').textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일';$('cw').textContent='일월화수목금토'[d.getDay()];$('cd').textContent=d.getDate()}
+$('sbt').textContent=a+' '+t}
 tick();setInterval(tick,10000);
 /* 앱 열기: 홈 화면 목록(#home)의 앱 아이콘과 독을 누르면 Display(iframe)에서 앱을 연다 */
 function openApp(href){dv.classList.add('app-open');hm.style.display='none';dp.src=href}
 hm.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a)return;const h=a.getAttribute('href');if(!h||h==='#')return;e.preventDefault();openApp(a.href)});
 /* 물리 홈 버튼: 어떤 앱에서든 앱을 종료하고 홈 화면으로 바로 이동 */
-function goHome(){if(!dv.classList.contains('app-open'))return;dv.classList.remove('app-open');hm.style.display='';dp.src=base}
+function goHome(){dv.classList.remove('app-open');hm.style.display='';dp.src=base}
 if(!document.documentElement.classList.contains('emb')){
-$('hHome').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();goHome()});
+const homeButton=$('hHome');
+['pointerdown','click'].forEach(type=>homeButton.addEventListener(type,e=>{e.preventDefault();e.stopPropagation();if(type==='click')goHome()},{capture:true}));
 }
 })();
 </script><script>/* iOS Safari fallback: suppress double-click zoom only. */document.addEventListener("dblclick",function(e){e.preventDefault()},{passive:false});</script><script src="../../dev-chapter-switcher.js"></script></body></html>
