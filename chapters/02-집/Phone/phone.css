@@ -66,7 +66,13 @@ ul{list-style:none;padding:0}
 .n1.miss{color:var(--red)}
 .n2{font-size:15px;line-height:20px;color:var(--g);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tm{flex:none;margin:0 10px 0 8px;font-size:15px;color:var(--g)}
-.info{flex:none;width:22px;height:22px;border:1.5px solid var(--blue);border-radius:50%;color:var(--blue);font:italic 600 14px/19px Georgia,serif;text-align:center}
+/* iOS 12 큰 제목 (메인 화면 상단) */
+#mainBar{height:auto;display:grid;grid-template-columns:1fr auto;padding:0 8px;background:#fff;border-bottom:0}
+#mainBar .l,#mainBar .r{position:static}
+#mainBar .l{grid-column:1;grid-row:1;justify-self:start}
+#mainBar .r{grid-column:2;grid-row:1}
+#mainBar h1{grid-column:1/-1;grid-row:2;justify-self:start;font-size:34px;line-height:41px;font-weight:700;letter-spacing:.37px;padding:0 8px 4px}
+.info{flex:none;width:22px;height:22px;border:1.5px solid var(--blue);border-radius:50%;color:var(--blue);font:600 14px/19px -apple-system,"Helvetica Neue",Arial,sans-serif;text-align:center}
 .minus{flex:none;width:22px;height:22px;margin-right:12px;border-radius:50%;background:var(--red);position:relative}
 .minus:after{content:"";position:absolute;left:5px;right:5px;top:10px;height:2px;background:#fff}
 .sec{position:sticky;top:0;z-index:1;padding:3px 16px;background:#f7f7f7;font-size:15px;font-weight:600;color:#000}
