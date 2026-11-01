@@ -1,16 +1,34 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><title>2016 · 홈 화면</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:white}body{background:#1a237e url(assets/wallpaper.svg) center/cover no-repeat}main{height:100%;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 18px env(safe-area-inset-bottom)}header{height:34px;display:flex;justify-content:space-between;align-items:center;padding:0 8px;font-size:14px;font-weight:600}.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 8px;padding:24px 0}.app{color:white;text-decoration:none;text-align:center;font-size:11px;text-shadow:0 1px 3px #0006}.ico{width:min(17vw,66px);height:min(17vw,66px);margin:0 auto 6px;border-radius:15px;display:grid;place-items:center;font-size:29px;box-shadow:0 2px 5px #0003;background:linear-gradient(145deg,#ffffffaa,#ffffff44)}.green{background:linear-gradient(#b8ed9c,#69bf50)}.phone{background:linear-gradient(#8be0a4,#31b765)}.photo{background:linear-gradient(145deg,#fff,#e8e8f4)}.note{background:linear-gradient(#fff6b8,#f4d95b)}.spacer{flex:1}.dots{text-align:center;font-size:10px;letter-spacing:5px;margin-bottom:14px}.dock{height:88px;border-radius:25px;background:#ffffff45;backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:space-evenly;margin-bottom:12px}.dock .ico{width:54px;height:54px;margin:0}.indicator{height:5px;width:108px;background:#fff;border-radius:9px;margin:0 auto 4px}
-</style></head><body><main><header><span id="clock">9:41</span><span>●●● ◉ ▰</span></header><section class="apps">
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Roboto,"Noto Sans KR","Noto Sans CJK KR",sans-serif;color:#fff}body{background:#1a237e url(assets/wallpaper.svg) center/cover no-repeat}
+main{height:100%;display:flex;flex-direction:column}
+.status{height:24px;padding:0 10px;display:flex;justify-content:space-between;align-items:center;font-size:12px;background:linear-gradient(#0006,#0000)}.status .r{display:flex;gap:6px;align-items:center}.bat{width:7px;height:12px;border:1px solid #fff;border-radius:1px;position:relative}.bat i{position:absolute;left:0;right:0;bottom:0;height:70%;background:#fff}
+.clockw{text-align:center;margin-top:26px;text-shadow:0 1px 4px #0006}.clockw b{display:block;font-size:64px;font-weight:300;line-height:1}.clockw span{font-size:14px;opacity:.95}
+.search{margin:22px 10px 0;height:44px;background:#fff;border-radius:2px;box-shadow:0 2px 4px #0005;display:flex;align-items:center;padding:0 14px;color:#757575;font-size:15px;gap:12px}.search .g{font-weight:700;font-size:18px;color:#4285f4}.search .m{margin-left:auto;color:#757575}
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 4px;padding:26px 6px 0}
+.app{color:#fff;text-decoration:none;text-align:center;font-size:12px;text-shadow:0 1px 3px #000a}
+.ico{width:52px;height:52px;margin:0 auto 5px;border-radius:50%;display:grid;place-items:center;font-size:26px;box-shadow:0 2px 3px #0006,0 0 1px #0004;color:#fff}
+.green{background:#4caf50}.phone{background:#009688}.photo{background:#ff9800}.note{background:#fbc02d}
+.spacer{flex:1}.dots{display:flex;justify-content:center;gap:7px;margin-bottom:8px}.dots i{width:6px;height:6px;border-radius:50%;background:#fff8}.dots i:first-child{background:#fff}
+.dock{height:76px;background:#0003;display:flex;align-items:center;justify-content:space-evenly}.dock .ico{margin:0}
+.nav{height:48px;background:#000;display:flex;align-items:center;justify-content:center;gap:68px;padding-bottom:env(safe-area-inset-bottom)}.nav svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linejoin:round;opacity:.9}
+</style></head><body><main>
+<div class="status"><span id="clock">9:41</span><span class="r"><span>LTE</span><span>▂▄▆</span><span>82%</span><span class="bat"><i></i></span></span></div>
+<div class="clockw"><b id="big">9:41</b><span id="date"></span></div>
+<div class="search"><span class="g">G</span><span>Google</span><span class="m">🎤</span></div>
+<section class="apps">
 <a class="app" href="apps/messages.html"><div class="ico green">✉</div>메시지</a>
 <a class="app" href="apps/phone.html"><div class="ico phone">☎</div>전화</a>
 <a class="app" href="apps/photos.html"><div class="ico photo">🌼</div>사진</a>
 <a class="app" href="apps/notes.html"><div class="ico note">▤</div>메모</a>
-</section><div class="spacer"></div><div class="dots">● ○</div><nav class="dock"><a class="app" href="apps/phone.html"><div class="ico phone">☎</div></a><a class="app" href="apps/messages.html"><div class="ico green">✉</div></a><a class="app" href="apps/photos.html"><div class="ico photo">🌼</div></a><a class="app" href="apps/notes.html"><div class="ico note">▤</div></a></nav><div class="indicator"></div></main><script>const c=document.getElementById('clock');function tick(){const d=new Date();c.textContent=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0')}tick();setInterval(tick,10000)</script>
+</section><div class="spacer"></div><div class="dots"><i></i><i></i><i></i></div>
+<nav class="dock"><a class="app" href="apps/phone.html"><div class="ico phone">☎</div></a><a class="app" href="apps/messages.html"><div class="ico green">✉</div></a><a class="app" href="apps/photos.html"><div class="ico photo">🌼</div></a><a class="app" href="apps/notes.html"><div class="ico note">▤</div></a></nav>
+<div class="nav"><svg viewBox="0 0 24 24"><path d="M19 4 5 12l14 8z"/></svg><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14"/></svg></div>
+</main><script>const c=document.getElementById('clock'),b=document.getElementById('big'),dt=document.getElementById('date');function tick(){const d=new Date(),t=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0');c.textContent=b.textContent=t;dt.textContent=(d.getMonth()+1)+'월 '+d.getDate()+'일 '+'일월화수목금토'[d.getDay()]+'요일'}tick();setInterval(tick,10000)</script>
 <!-- chapter-switcher -->
 <style>
-#chapter-switch{position:fixed;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);z-index:2147483000;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+#chapter-switch{position:fixed;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 132px);z-index:2147483000;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
 #chapter-switch button{border:1px solid rgba(255,255,255,.28);background:rgba(28,30,36,.48);color:#fff;border-radius:18px;padding:6px 10px;font-size:10px;font-weight:650;letter-spacing:.04em;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 2px 10px #0002}
 #chapter-switch-panel{display:none;position:absolute;right:0;bottom:36px;min-width:142px;padding:6px;border:1px solid #ffffff24;border-radius:14px;background:rgba(28,30,36,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 8px 28px #0004}
 #chapter-switch-panel.open{display:block}
