@@ -202,8 +202,9 @@ ${same.map(x=>`<div class="row"><span class="k" style="${x.type==='miss'?'color:
 function renderConDet(){
 const c=byId(selCon);if(!c)return;
 $('#conDet').innerHTML=`<div class="hero">${avHtml(c)}<h2>${esc(c.name)}</h2></div>
-<div class="acts"><button data-act="dcall" data-n="${esc(c.num)}">${PH_ICON}통화</button><button data-act="dmsg" data-n="${esc(c.num)}">${MSG_ICON}메시지</button><button data-act="togfav">${STAR_ICON}${c.fav?'즐겨찾기 해제':'즐겨찾기에 추가'}</button></div>
-<div class="row"><span class="k">휴대전화</span><span style="color:var(--blue);font-size:17px">${esc(fmtNum(c.num))}</span></div>`;
+<div class="acts"><button data-act="dmsg" data-n="${esc(c.num)}">${MSG_ICON}메시지</button><button data-act="dcall" data-n="${esc(c.num)}">${PH_ICON}통화</button><button data-act="togfav">${STAR_ICON}${c.fav?'즐겨찾기 해제':'즐겨찾기'}</button></div>
+<div class="card"><div class="cl">휴대전화</div><div class="cv">${esc(fmtNum(c.num))}</div></div>
+<div class="card list2"><button data-act="dmsg" data-n="${esc(c.num)}">메시지 보내기</button></div>`;
 }
 /* ---------- 연락처 추가/편집 ---------- */
 function openEdit(id,presetNum){
