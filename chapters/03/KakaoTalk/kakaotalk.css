@@ -116,3 +116,9 @@ svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-l
 .kt-comp.has .kt-send{display:block}
 .kt-comp.has .kt-emo,.kt-comp.has .kt-hash{display:none}
 .kt-comp.has .kt-field textarea{padding-right:12px}
+
+
+/* iPhone 11 상단 노치 안전 영역 */
+html.emb .kt-sbar{height:44px;padding-top:22px}
+html.emb .kt-sbar b{left:54px;right:auto;top:22px;text-align:left}
+html.emb .kt-view{top:44px}
