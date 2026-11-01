@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>메시지</title>
-<link rel="stylesheet" href="messages.css?v=20261101-2">
+<link rel="stylesheet" href="messages.css?v=20261101-3">
 </head>
 <body>
 <div id="app">
@@ -16,13 +16,13 @@
   <section class="view" id="vList">
     <header class="bar">
       <h1>메시지</h1>
+      <button class="ib" data-act="compose" aria-label="새 메시지"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></button>
       <button class="ib" data-act="search" aria-label="검색"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></button>
       <button class="ib" data-act="more" aria-label="더보기"><svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg></button>
     </header>
     <div class="searchbar" id="searchBar" hidden><input id="q" placeholder="검색" autocomplete="off"></div>
     <ul class="list" id="list"></ul>
     <p class="empty" id="empty" hidden>대화가 없습니다.</p>
-    <div class="foot" id="foot"><button class="btn" data-act="compose">새 메시지</button></div>
     <div class="foot" id="selBar" hidden>
       <span class="selc">선택 <b id="selCount">0</b>개</span>
       <button class="btn2" data-act="cancelsel">취소</button>
@@ -34,16 +34,18 @@
   <section class="view" id="vThread" hidden>
     <header class="bar">
       <button class="ib" data-act="back" aria-label="뒤로"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <h1 id="tName"></h1>
+      <div class="ttl"><h1 id="tName"></h1><span class="sub" id="tSub"></span></div>
       <button class="ib" data-act="call" aria-label="전화"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/></svg></button>
       <button class="ib" data-act="more" aria-label="더보기"><svg viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg></button>
     </header>
+    <div class="searchbar" id="tSearch" hidden><input id="tq" placeholder="대화 내용 검색" autocomplete="off"></div>
     <div class="msgs" id="msgs"></div>
     <div class="pend" id="tPend"></div>
     <form class="composer" id="tForm">
-      <button type="button" class="ib" data-act="attach" aria-label="첨부"><svg viewBox="0 0 24 24"><path d="M19 11l-7.5 7.5a4.5 4.5 0 0 1-6.4-6.4L13 4.6a3 3 0 0 1 4.2 4.2L9.8 17a1.5 1.5 0 0 1-2.1-2.1L15 8.6"/></svg></button>
+      <button type="button" class="ib" data-act="attach" aria-label="첨부"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
       <textarea id="tIn" rows="1" placeholder="메시지 입력"></textarea>
-      <button class="send" type="submit">보내기</button>
+      <button type="button" class="ib" data-act="temoji" aria-label="이모티콘"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="10" r=".6"/><circle cx="15" cy="10" r=".6"/><path d="M8.5 14c1 1.8 5.9 1.8 7 0"/></svg></button>
+      <button class="send" type="submit" aria-label="보내기"><svg viewBox="0 0 24 24"><path d="M3 11.5 21 3l-5.5 18-3.8-6.7z"/></svg></button>
     </form>
   </section>
 
@@ -58,12 +60,14 @@
       <button class="ib" data-act="pick" aria-label="연락처 선택"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c1-3.5 3.8-5 7-5s6 1.5 7 5"/></svg></button>
     </div>
     <div class="recips" id="recips"></div>
-    <div class="cbody"><textarea id="cIn" placeholder="메시지 입력"></textarea></div>
+    <ul class="sugg" id="sugg" hidden></ul>
+    <div class="cbody"><span class="count" id="cCount">0/70</span></div>
     <div class="pend" id="cPend"></div>
     <div class="composer">
-      <button type="button" class="ib" data-act="cattach" aria-label="첨부"><svg viewBox="0 0 24 24"><path d="M19 11l-7.5 7.5a4.5 4.5 0 0 1-6.4-6.4L13 4.6a3 3 0 0 1 4.2 4.2L9.8 17a1.5 1.5 0 0 1-2.1-2.1L15 8.6"/></svg></button>
-      <span class="count" id="cCount">0/70</span>
-      <button class="send" data-act="csend">보내기</button>
+      <button type="button" class="ib" data-act="cattach" aria-label="첨부"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      <textarea id="cIn" rows="1" placeholder="메시지 입력"></textarea>
+      <button type="button" class="ib" data-act="cemoji" aria-label="이모티콘"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="10" r=".6"/><circle cx="15" cy="10" r=".6"/><path d="M8.5 14c1 1.8 5.9 1.8 7 0"/></svg></button>
+      <button class="send" type="button" data-act="csend" aria-label="보내기"><svg viewBox="0 0 24 24"><path d="M3 11.5 21 3l-5.5 18-3.8-6.7z"/></svg></button>
     </div>
   </section>
 
@@ -77,6 +81,17 @@
     <div class="foot"><button class="btn" data-act="pickdone">완료</button></div>
   </section>
 
+  <!-- 스팸 번호 차단 -->
+  <section class="view" id="vSpam" hidden>
+    <header class="bar">
+      <button class="ib" data-act="spamback" aria-label="뒤로"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <h1>스팸 번호 차단</h1>
+    </header>
+    <div class="to"><input id="spIn" inputmode="tel" placeholder="차단할 번호 입력" autocomplete="off"><button class="addb" data-act="spamadd">추가</button></div>
+    <ul class="list" id="spList"></ul>
+    <p class="empty" id="spEmpty" hidden>차단된 번호가 없습니다.</p>
+  </section>
+
   <!-- 더보기 메뉴 -->
   <div class="pop" id="pop" hidden></div>
 
@@ -88,9 +103,11 @@
     </div>
   </div>
 
+  <div class="notif" id="notif" hidden></div>
   <div class="toast" id="toast" hidden></div>
   <input type="file" id="fileIn" accept="image/*" hidden>
+  <input type="file" id="docIn" hidden>
 </div>
-<script src="messages.js?v=20261101-2"></script>
+<script src="messages.js?v=20261101-3"></script>
 </body>
 </html>
