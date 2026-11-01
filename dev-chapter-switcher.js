@@ -4,7 +4,7 @@
   if (document.getElementById("dev-chapter-switcher")) return;
   const match = decodeURIComponent(location.pathname).match(/\/chapters\/(\d{2})\//);
   const current = match ? match[1] : "01";
-  const chapters = ["01", "02", "03"];
+  const chapters = ["01", "02", "03", "04", "05", "06", "07"];
   const rootPath = location.pathname.slice(0, location.pathname.indexOf("/chapters/"));
   const root = document.createElement("div");
   root.id = "dev-chapter-switcher";
