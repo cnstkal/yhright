@@ -1,0 +1,58 @@
+/* Memo app (2016 TouchWiz-era). App content only: fills the shared Display, no mockup of its own. */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;font-family:"Roboto","Noto Sans KR","Malgun Gothic",sans-serif;background:#e6e9ea;color:#555}
+#app{position:relative;width:100%;height:100%;display:flex;flex-direction:column;overflow:hidden}
+.status{height:24px;background:#2b2b2b;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;flex:none}
+body.embedded .status{display:none}
+.status .r{display:flex;gap:6px;align-items:center}
+.bar{height:56px;background:#dde1e3;display:flex;align-items:center;padding:0 4px;flex:none;position:relative}
+.ib{width:40px;height:40px;border:0;background:none;display:flex;align-items:center;justify-content:center;color:#777;border-radius:50%}
+.ib:active{background:rgba(0,0,0,.1)}
+.ib svg{width:24px;height:24px;fill:currentColor}
+.bulb{width:34px;height:34px;background:#f9e51d;box-shadow:0 1px 2px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;margin:0 10px 0 2px;transform:rotate(-3deg)}
+.bulb svg{width:20px;height:20px;fill:none;stroke:#7a6a00;stroke-width:1.6}
+.title{font-size:18px;color:#444;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#searchBox{display:none;flex:1}#searchBox input{width:100%;border:0;background:transparent;font-size:17px;outline:0;color:#333}
+.searching .title{display:none}.searching #searchBox{display:block}
+.scroll{flex:1;overflow-y:auto;padding:8px 8px 20px}
+.quick{background:#f7f7f7;box-shadow:0 1px 1.5px rgba(0,0,0,.25);margin-bottom:1px}
+.quick input{width:100%;border:0;background:none;padding:14px 12px;font-size:16px;font-style:italic;color:#444;outline:0}
+.quick input::placeholder{color:#aaa;font-style:italic}
+.tools{display:flex;justify-content:space-around;background:#f7f7f7;box-shadow:0 1px 1.5px rgba(0,0,0,.25);margin-bottom:8px;border-top:1px solid #e4e4e4}
+.tools .ib{width:56px;height:44px;border-radius:0;color:#8a8a8a}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:0 0 8px}
+.chip{flex:none;padding:5px 12px;background:#f7f7f7;font-size:13px;color:#666;box-shadow:0 1px 1px rgba(0,0,0,.2)}
+.chip.on{background:#f9e51d;color:#333}
+.grid{column-count:2;column-gap:8px}
+.card{background:#f7f7f7;box-shadow:0 1px 2px rgba(0,0,0,.3);margin:0 0 8px;padding:10px 10px 12px;break-inside:avoid;overflow:hidden;max-height:230px;position:relative;color:#555}
+.card .t{font-size:14px;line-height:1.35;white-space:pre-wrap;word-break:break-all}
+.card .t.big{font-size:22px;line-height:1.4;color:#505050}
+.card .t.mid{font-size:17px}
+.card .cl{font-size:13px;line-height:1.7}
+.card img{width:100%;display:block;margin-bottom:6px}
+.card .cat{font-size:10px;color:#999;margin-top:6px}
+.card .fade{position:absolute;left:0;right:0;bottom:0;height:20px;background:linear-gradient(transparent,#f7f7f7)}
+.empty{text-align:center;color:#999;padding:40px 0;font-size:14px}
+/* editor */
+#editor{position:absolute;inset:0;background:#f7f7f7;display:none;flex-direction:column;z-index:5}
+#editor.show{display:flex}
+#editor .bar{background:#dde1e3}
+#editor .body{flex:1;overflow-y:auto;padding:10px 14px}
+#etitle{width:100%;border:0;background:none;font-size:20px;outline:0;padding:6px 0;color:#444;border-bottom:1px solid #ddd}
+#etext{width:100%;border:0;background:none;font-size:16px;outline:0;min-height:120px;resize:none;margin-top:8px;color:#444;font-family:inherit}
+.row{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:16px;color:#444}
+.row input[type=text]{flex:1;border:0;border-bottom:1px solid #e3e3e3;background:none;font-size:16px;padding:4px 0;outline:0;color:#444}
+.row.done input[type=text]{text-decoration:line-through;color:#aaa}
+.att img{max-width:100%;margin:8px 0;display:block}.att audio{width:100%;margin:8px 0}
+.etools{display:flex;border-top:1px solid #ddd;background:#eef0f1;align-items:center}
+.etools select{flex:1;border:0;background:none;font-size:14px;padding:10px;color:#555}
+canvas#cv{background:#fff;width:100%;touch-action:none;border:1px solid #ddd;display:block}
+#draw{position:absolute;inset:0;background:#fff;z-index:8;display:none;flex-direction:column}
+#draw.show{display:flex}#draw .cw{flex:1;padding:8px;overflow:hidden}
+.sheet{position:absolute;right:6px;top:80px;background:#fafafa;box-shadow:0 2px 8px rgba(0,0,0,.4);z-index:9;display:none;min-width:150px}
+.sheet.show{display:block}.sheet div{padding:13px 16px;font-size:15px;color:#444}.sheet div:active{background:#e5e5e5}
+.drawer{position:absolute;inset:0;z-index:10;display:none}.drawer.show{display:block}
+.drawer .bg{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.drawer .p{position:absolute;left:0;top:0;bottom:0;width:75%;background:#f7f7f7;padding-top:30px;box-shadow:2px 0 8px rgba(0,0,0,.4)}
+.drawer .p div{padding:14px 20px;font-size:15px;color:#444}.drawer .p div.on{background:#f9e51d33;font-weight:bold}
+.drawer .p h4{margin:0;padding:10px 20px;color:#888;font-size:12px;font-weight:normal}

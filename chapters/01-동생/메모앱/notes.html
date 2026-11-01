@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>메모</title>
+<link rel="stylesheet" href="notes.css"></head><body>
+<div id="app">
+ <div class="status"><span>🔔 ✉</span><span class="r"><span>LTE</span><span>▂▄▆█</span><span>68%</span><span id="clk"></span></span></div>
+ <div class="bar" id="bar">
+  <button class="ib" id="menuBtn"><svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg></button>
+  <div class="bulb"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></div>
+  <div class="title" id="ttl">메모</div>
+  <div id="searchBox"><input id="q" placeholder="검색"></div>
+  <button class="ib" id="sBtn"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg></button>
+  <button class="ib" id="mBtn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
+ </div>
+ <div class="sheet" id="sheet"><div id="mCat">카테고리 추가</div><div id="mDelCat">카테고리 삭제</div><div id="mClear">전체 삭제</div></div>
+ <div class="scroll">
+  <div class="quick"><input id="quick" placeholder="빠른 메모 추가" enterkeyhint="done"></div>
+  <div class="tools">
+   <button class="ib" data-n="text"><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5zm2 3v2h10V6zm0 4v2h10v-2zm0 4v2h10v-2z"/></svg></button>
+   <button class="ib" data-n="list"><svg viewBox="0 0 24 24"><path d="M3 5h3v3H3zm5 0h13v3H8zm-5 5.5h3v3H3zm5 0h13v3H8zM3 16h3v3H3zm5 0h13v3H8z"/></svg></button>
+   <button class="ib" data-n="voice"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11z"/></svg></button>
+   <button class="ib" data-n="photo"><svg viewBox="0 0 24 24"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3zm3 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></button>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none">메모가 없습니다.</div>
+ </div>
+ <div class="drawer" id="drawer"><div class="bg"></div><div class="p" id="dp"></div></div>
+
+ <div id="editor">
+  <div class="bar"><button class="ib" id="eBack"><svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg></button>
+   <div class="title">메모</div>
+   <button class="ib" id="eDraw" title="그리기"><svg viewBox="0 0 24 24"><path d="M3 17.2V21h3.8L18 9.8 14.2 6zM20.7 7a1 1 0 0 0 0-1.4l-2.3-2.3a1 1 0 0 0-1.4 0l-1.8 1.8 3.8 3.8z"/></svg></button>
+   <button class="ib" id="eDel"><svg viewBox="0 0 24 24"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"/></svg></button>
+   <button class="ib" id="eSave" style="width:auto;padding:0 12px;border-radius:0;font-size:15px">저장</button></div>
+  <div class="body"><input id="etitle" placeholder="제목"><div id="ebody"></div><div class="att" id="eatt"></div></div>
+  <div class="etools"><select id="ecat"></select>
+   <button class="ib" id="eList" title="체크리스트"><svg viewBox="0 0 24 24"><path d="M3 5h3v3H3zm5 0h13v3H8zm-5 5.5h3v3H3zm5 0h13v3H8zM3 16h3v3H3zm5 0h13v3H8z"/></svg></button>
+   <button class="ib" id="ePhoto"><svg viewBox="0 0 24 24"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3zm3 5a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg></button>
+   <button class="ib" id="eVoice"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11z"/></svg></button></div>
+ </div>
+ <div id="draw"><div class="bar"><button class="ib" id="dCancel"><svg viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></svg></button><div class="title">그리기</div>
+  <button class="ib" id="dClear" style="width:auto;padding:0 10px;border-radius:0;font-size:14px">지우기</button><button class="ib" id="dOk" style="width:auto;padding:0 12px;border-radius:0;font-size:15px">완료</button></div>
+  <div class="cw"><canvas id="cv"></canvas></div></div>
+ <input type="file" id="file" accept="image/*" hidden>
+</div>
+<script src="notes.js"></script></body></html>
