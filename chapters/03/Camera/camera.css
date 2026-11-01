@@ -29,3 +29,8 @@ button{border:0;padding:0;background:none;color:inherit;font:inherit;cursor:poin
 #toast{position:absolute;left:50%;bottom:130px;transform:translateX(-50%);background:#333e;border-radius:16px;padding:8px 14px;font-size:13px;white-space:nowrap;opacity:0;pointer-events:none;z-index:10}
 #toast.show{opacity:1}
 *{scrollbar-width:none!important}*::-webkit-scrollbar{display:none!important}
+
+
+/* iPhone 11 상단 노치 안전 영역 */
+html.emb #app{padding-top:44px}
+html.emb .top{height:44px;flex-basis:44px}
