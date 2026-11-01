@@ -31,3 +31,6 @@ html.emb .tw{width:100%;height:100%}
 /* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
 *{scrollbar-width:none!important;-ms-overflow-style:none!important}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
+
+/* 하단 물리 버튼은 항상 최상단에서 클릭 */
+.home-btn,.key{z-index:60}
