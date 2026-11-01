@@ -11,7 +11,11 @@ input,textarea{font:inherit;border:0;outline:0;background:none;color:inherit}
 svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 ul{list-style:none;padding:0}
 
-#app{position:relative;height:var(--vvh,100%);padding-top:env(safe-area-inset-top);overflow:hidden}
+/* 스크롤바 숨김 (가로 스크롤바가 화면에 보이지 않도록) */
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+*{scrollbar-width:none!important}
+html,body,#app,.msgs,.list{overflow-x:hidden}
+#app{position:fixed;left:0;right:0;top:0;bottom:0;height:auto;padding-top:env(safe-area-inset-top);overflow:hidden}
 .view{position:absolute;inset:0;padding-top:inherit;display:flex;flex-direction:column;background:#fff}
 
 /* 내비게이션 바 */
@@ -82,7 +86,7 @@ ul{list-style:none;padding:0}
 .pimg{position:relative;display:inline-block}
 .pimg img{height:64px;border-radius:10px;display:block}
 .pimg button{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#8e8e93;color:#fff;font-size:11px}
-.composer{flex:none;display:flex;align-items:flex-end;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:rgba(247,247,247,.94);border-top:.5px solid rgba(0,0,0,.3)}
+.composer{flex:none;display:flex;align-items:flex-end;padding:8px 8px calc(22px + env(safe-area-inset-bottom));background:rgba(247,247,247,.94);border-top:.5px solid rgba(0,0,0,.3)}
 .cam{color:var(--gy);height:36px;padding:0 10px 0 4px}
 .cam svg{width:26px;height:22px}
 .field{position:relative;flex:1;background:#fff;border:1px solid #c8c7cc;border-radius:18px;min-height:36px}
