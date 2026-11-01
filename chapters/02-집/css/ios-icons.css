@@ -10,3 +10,7 @@
 .c-memo{background:#fff!important}
 .c-phone{background:#4cd964!important}
 .c-msg{background:#4cd964!important}
+/* 아이폰 독: 반투명 둥근 바탕, 앱 서랍(점 9개) 버튼 없음 */
+.dock{left:10px;right:10px;bottom:12px;height:92px;padding:0 10px;background:rgba(255,255,255,.22);border-radius:28px;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.dock .apps{display:none!important}
+.dock a{width:auto;flex:1}
