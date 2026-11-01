@@ -1,71 +1,26 @@
-[hidden]{display:none!important}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0;background:#000;color:#fff;font-family:Roboto,'Noto Sans KR',sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none}
-#app{position:relative;height:100%;display:flex;flex-direction:column;overflow:hidden}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
-svg{width:24px;height:24px;fill:currentColor;vertical-align:middle}
-.top{display:flex;justify-content:space-around;align-items:center;height:48px;flex:none;background:#000}
-.top button{width:44px;height:44px;display:grid;place-items:center;position:relative;color:#fff}
-.top b{position:absolute;right:3px;bottom:4px;font-size:9px;color:#ffc107}
-.top .on{color:#ffc107}
-#vfw{flex:1;display:grid;place-items:center;overflow:hidden;position:relative;min-height:0}
-#box{position:relative;overflow:hidden;background:#222}
-#vf{width:100%;height:100%;display:block}
-#grid{position:absolute;inset:0;pointer-events:none;background:linear-gradient(#fff6,#fff6) 33.3% 0/1px 100% no-repeat,linear-gradient(#fff6,#fff6) 66.6% 0/1px 100% no-repeat,linear-gradient(#fff6,#fff6) 0 33.3%/100% 1px no-repeat,linear-gradient(#fff6,#fff6) 0 66.6%/100% 1px no-repeat}
-#af{position:absolute;left:50%;top:45%;width:64px;height:64px;margin:-32px;border:2px solid #fff9;border-radius:50%;pointer-events:none;transition:all .15s}
-#af.hit{border-color:#7fe07f;transform:scale(.8)}
-#zm{position:absolute;left:12px;right:12px;bottom:6px;display:flex;align-items:center;gap:8px;font-size:12px}
-#zm input,#pp input{flex:1;accent-color:#2fb5a8}
-#cd{position:absolute;inset:0;display:grid;place-items:center;font-size:96px;font-weight:300;text-shadow:0 0 12px #0008}
-#rc{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#0009;padding:3px 10px;font-size:14px;display:flex;align-items:center;gap:6px}
-#rc i{width:10px;height:10px;border-radius:50%;background:#e53935}
-#fl{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
-#fl.on{opacity:1}#fl.fade{opacity:0;transition:opacity .25s}
-#md{align-self:center;margin:6px 0 2px;padding:5px 16px;border:1px solid #fff7;border-radius:16px;font-size:14px;flex:none}
-#fx{display:flex;gap:6px;overflow-x:auto;padding:6px 8px;flex:none;background:#000}
-#fx button{flex:none;padding:7px 12px;border:1px solid #666;font-size:13px}#fx .on,#pt .on{border-color:#2fb5a8;color:#2fb5a8}
-#pp{flex:none;background:#000;padding:4px 10px 0}
-#pt{display:flex;justify-content:space-between}#pt button{padding:8px 5px;font-size:12px;color:#bbb;border-bottom:2px solid transparent}#pt .on{border-color:#2fb5a8}
-#pp div.r{display:flex;align-items:center;gap:8px;font-size:13px;padding:4px 0}#pp span{min-width:56px;text-align:right}
-.bot{flex:none;height:96px;display:flex;align-items:center;justify-content:space-around;background:#000}
-#th{width:52px;height:52px;border-radius:50%;background:#333 center/cover;border:2px solid #fff6}
-#sh{width:68px;height:68px;border-radius:50%;border:4px solid #fff;display:grid;place-items:center}#sh i{width:52px;height:52px;border-radius:50%;background:#fff;transition:transform .1s}#sh:active i{transform:scale(.88)}
-#sh.v i{background:#e53935;width:28px;height:28px;border-radius:4px}
-#rec{width:52px;height:52px;border-radius:50%;background:#e53935;display:grid;place-items:center;border:3px solid #fff3}
-#rec.on i{width:18px;height:18px;background:#fff;border-radius:2px}#rec i{width:14px;height:14px;background:#fff;border-radius:50%}
-.ov{position:absolute;inset:0;background:#000;z-index:5;display:flex;flex-direction:column}
-.ov h2{margin:0;font-size:18px;font-weight:500;padding:14px 16px;border-bottom:1px solid #333;display:flex;gap:14px;align-items:center}
-.ov .row{display:flex;justify-content:space-between;padding:15px 16px;border-bottom:1px solid #222;font-size:15px}.ov .row em{font-style:normal;color:#2fb5a8}
-#mdl{background:#000e;justify-content:flex-end}
-#mdl .gr{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:18px 12px 24px;background:#111}
-#mdl .gr div{text-align:center;font-size:12px;color:#ccc}#mdl .gr i{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:2px solid #666;margin:0 auto 6px;font-style:normal;font-size:20px}
-#mdl .on i{border-color:#2fb5a8;color:#2fb5a8}
-#rv{display:grid;place-items:center}#rv img{max-width:100%;max-height:100%}
-#vc{position:absolute;right:10px;bottom:34px;background:#0009;padding:6px 10px;font-size:12px;border:1px solid #fff6}
-#toast{position:absolute;left:50%;bottom:120px;transform:translateX(-50%);background:#444e;padding:9px 16px;border-radius:18px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:9;white-space:nowrap}
-#toast.on{opacity:1}
 
-/* Global scrollbar suppression: keep scrolling functional, hide scrollbar UI everywhere. */
-*{scrollbar-width:none!important;-ms-overflow-style:none!important}
-*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important;background:transparent!important}
-
-/* ===== Galaxy S8 · Samsung Experience 9.0 카메라 ===== */
-.top{justify-content:space-between;padding:0 6px}.top button{width:40px}.top .on{color:#ffc107}
-#md{flex:none;display:flex;gap:22px;overflow-x:auto;padding:8px 150px 6px;background:#000;font-size:13px;white-space:nowrap}
-#md button{flex:none;color:#fff9;font-size:13px;padding:2px 0}#md button.on{color:#ffc107;font-weight:700}
-#pt button{display:flex;flex-direction:column;align-items:center;font-size:12px;color:#fff;border-bottom:2px solid transparent;padding:4px 2px}#pt small{font-size:10px;color:#fff9}
-#pt .on,#fx .on{border-color:#ffc107;color:#ffc107}#pt .on small{color:#ffc107}
-#pp input,#zm input{accent-color:#ffc107}
-.bot{height:88px;padding:0 6px}
-#th{width:46px;height:46px;border:2px solid #fff9}
-#sh{width:66px;height:66px;border:3px solid #fff}#sh i{width:52px;height:52px}
-#rec{width:44px;height:44px;border:0;background:#f44336}#rec i{background:#fff}
-#sw{width:46px;height:46px;display:grid;place-items:center}#sw svg{width:30px;height:30px}
-/* 카메라 설정: 삼성 경험 9.0 밝은 설정 화면 */
-#st,#dl{background:#fafafa;color:#212121}
-#st h2,#dl h2{font-weight:400;font-size:19px;border-bottom:0;padding:16px 14px}
-#st .sl{overflow-y:auto}#st h3{margin:0;padding:14px 18px 6px;font-size:13px;font-weight:400;color:#3e91ff}
-#st .row,#dl .row{border-bottom:0;padding:14px 18px;align-items:center;font-size:16px}#st .row em,#dl .row em{color:#757575;font-size:13px}
-.tg{width:40px;height:16px;border-radius:8px;background:#bdbdbd;position:relative}.tg:after{content:"";position:absolute;left:-2px;top:-3px;width:22px;height:22px;border-radius:50%;background:#f5f5f5;box-shadow:0 1px 3px #0006;transition:left .15s}
-.tg.on{background:#9cc5ff}.tg.on:after{left:20px;background:#3e91ff}
-#md{position:relative;align-self:stretch;margin:0;border:0;border-radius:0}
+/* iPhone 6s / iOS 9.3 visual adaptation */
+html,body{font-family:"Helvetica Neue",Helvetica,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+.top{height:44px;background:#000;border-bottom:0}
+.top button{color:#ffcc00}
+#md{border:0;border-radius:0;color:#ffcc00;background:#000;font-size:15px}
+#fx{background:#000;border:0}
+#fx button{border:0;border-radius:0;color:#fff;background:transparent}
+#fx button.on,#pt .on{color:#ffcc00;border-color:#ffcc00}
+#pp{background:#000;color:#fff}
+#pt button{color:#aaa}
+#pt button.on{color:#ffcc00}
+#pt .on{border-color:#ffcc00}
+.bot{height:100px;background:#000}
+#th{border-radius:4px;border:1px solid #777}
+#sh{border:0;width:68px;height:68px;box-shadow:0 0 0 3px #000,0 0 0 5px #fff}
+#sh i{width:60px;height:60px;border-radius:50%;background:#fff}
+#rec{background:#e53935;border:3px solid #fff}
+.ov{background:#f7f7f7;color:#000}
+.ov h2{background:#f7f7f7;color:#000;border-bottom:.5px solid #c8c7cc}
+.ov .row{border-bottom:.5px solid #c8c7cc}
+.ov .row em{color:#007aff}
+#mdl .gr{background:#f7f7f7;color:#000}
+#mdl .gr div{color:#333}
+#mdl .gr i{border-color:#c8c7cc}
+#mdl .on i{border-color:#007aff;color:#007aff}
