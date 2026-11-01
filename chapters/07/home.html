@@ -1,1 +1,79 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"><title>07 · iPhone 11</title><script>try{if(top!==self)document.documentElement.className='emb'}catch(e){document.documentElement.className='emb'}</script><link rel="stylesheet" href="css/device.css"><link rel="stylesheet" href="css/ios13-home.css"><style>@import url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css");*,*::before,*::after{font-family:"Pretendard",sans-serif!important}</style></head><body><div class="stage"><div class="device at-home" id="device"><i class="side mute"></i><i class="side vu"></i><i class="side vd"></i><i class="side pw"></i><div class="bezel"></div><div class="screen" id="screen"><div id="home"><div class="sb"><span class="t" id="sbt">9:41</span><span class="ri">●●●　◔　▰</span></div><div class="grid"><a class="it" href="Camera/camera.html"><div class="ic c-cam">📷</div><span>카메라</span></a><a class="it" href="Photos/gallery.html"><div class="ic c-photo">🌈</div><span>사진</span></a><a class="it" href="Notes/notes.html"><div class="ic c-note">📝</div><span>메모</span></a><a class="it" href="Facebook/facebook.html"><div class="ic c-fb">f</div><span>Facebook</span></a><a class="it" href="Instagram/instagram.html"><div class="ic c-ig">◎</div><span>Instagram</span></a><a class="it" href="Tinder/tinder.html"><div class="ic c-td">🔥</div><span>Tinder</span></a><a class="it" href="Albamon/Albamon.html"><div class="ic c-alba">alba</div><span>알바몬</span></a><a class="it" href="SampleBank/sample-bank.html"><div class="ic c-bank">샘플</div><span>샘플뱅크</span></a></div><div class="pager"><i></i><i class="on"></i><i></i></div><nav class="dock"><a href="Phone/phone.html"><div class="ic c-phone">☎</div></a><a href="Messages/messages.html"><div class="ic c-msg">●</div></a><a href="KakaoTalk/kakaotalk.html"><div class="ic c-kk">●</div></a><a href="Naver/naver.html"><div class="ic c-nv">N</div></a></nav></div><div class="notch"><i class="spk"></i><i class="cam"></i></div><button class="hbar" id="hBar" aria-label="홈으로"><i></i></button></div></div></div><script>(function(){const emb=document.documentElement.classList.contains('emb');function tick(){const d=new Date(),e=document.getElementById('sbt');e.textContent=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0')}tick();setInterval(tick,10000);if(emb)return;const dv=document.getElementById('device'),scr=document.getElementById('screen'),hb=document.getElementById('hBar');function fit(){dv.style.setProperty('--k',Math.min(innerWidth/480,innerHeight/960,1.4).toFixed(3))}addEventListener('resize',fit);fit();const dp=document.createElement('iframe');dp.id='disp';dp.title='display';dp.src='home.html';scr.insertBefore(dp,scr.firstChild);function home(){try{return /\\/home\\.html$/.test(dp.contentWindow.location.pathname)}catch(e){return true}}function go(){if(!home())dp.src='home.html'}dp.addEventListener('load',()=>dv.classList.toggle('at-home',home()));hb.addEventListener('click',go)})();</script><script src="../../dev-chapter-switcher.js"></script></body></html>
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no"><title>07 · iPhone 11</title>
+<script>try{if(top!==self)document.documentElement.className='emb'}catch(e){document.documentElement.className='emb'}</script>
+<link rel="stylesheet" href="css/device.css"><link rel="stylesheet" href="css/ios13-home.css">
+<style>@import url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css");*,*::before,*::after{font-family:"Pretendard",sans-serif!important}</style></head>
+<body><div class="stage"><div class="device at-home" id="device">
+<i class="side mute"></i><i class="side vu"></i><i class="side vd"></i><i class="side pw"></i>
+<div class="bezel"></div>
+<div class="screen" id="screen">
+
+<!-- 홈 화면: 디스플레이(iframe) 안에서 이 페이지가 열릴 때만 보임 -->
+<div id="home">
+<div class="sb"><span class="t" id="sbt">9:41</span>
+<span class="ri"><svg viewBox="0 0 18 11" width="18" height="11"><rect x="0" y="7" width="3" height="4" rx=".8"/><rect x="5" y="5" width="3" height="6" rx=".8"/><rect x="10" y="2.500" width="3" height="8.500" rx=".8"/><rect x="15" y="0" width="3" height="11" rx=".8"/></svg><svg viewBox="0 0 16 12" width="16" height="12"><path d="M8 11.200 5.600 8.800a3.400 3.400 0 0 1 4.800 0zM8 6.200c-1.800 0-3.400.7-4.700 1.800L2.200 6.800A8.200 8.200 0 0 1 8 4.500c2.200 0 4.200.9 5.800 2.300L12.700 8A6.700 6.700 0 0 0 8 6.200zM8 1.800C5.300 1.800 2.900 2.800 1.100 4.500L0 3.300A11.200 11.200 0 0 1 8 .2c3.100 0 5.900 1.200 8 3.100l-1.100 1.200A9.600 9.600 0 0 0 8 1.800z"/></svg><svg viewBox="0 0 27 13" width="27" height="13" fill="none"><rect x=".5" y=".5" width="22" height="12" rx="3.500" stroke="#fff" stroke-opacity=".5"/><rect x="2" y="2" width="19" height="9" rx="2" fill="#fff"/><path d="M24.500 4.500v4" stroke="#fff" stroke-opacity=".5" stroke-width="1.600" stroke-linecap="round"/></svg></span></div>
+
+<div class="grid">
+<a class="it" href="Camera/camera.html"><div class="ic c-cam"><svg viewBox="0 0 60 60"><path d="M20 20l3-6h14l3 6z" fill="#2a2a2c"/><rect x="8" y="20" width="44" height="28" rx="6" fill="#2a2a2c"/><circle cx="30" cy="34" r="11" fill="#4a4a4e"/><circle cx="30" cy="34" r="8.500" fill="#1a1a1c"/><circle cx="30" cy="34" r="5.500" fill="#2c3a66"/><circle cx="27.500" cy="31.500" r="1.800" fill="#8fa0d8" opacity=".7"/><circle cx="45" cy="26" r="1.800" fill="#e5e5ea"/></svg></div><span>카메라</span></a>
+<a class="it" href="Photos/gallery.html"><div class="ic c-photo"><svg viewBox="0 0 60 60"><g style="mix-blend-mode:multiply" opacity=".9"><ellipse cx="30" cy="17" rx="7" ry="12" fill="#f9c32a"/><ellipse cx="30" cy="17" rx="7" ry="12" fill="#f58f2b" transform="rotate(45 30 30)"/><ellipse cx="30" cy="17" rx="7" ry="12" fill="#ee4d3c" transform="rotate(90 30 30)"/><ellipse cx="30" cy="17" rx="7" ry="12" fill="#c7439d" transform="rotate(135 30 30)"/><ellipse cx="30" cy="17" rx="7" ry="12" fill="#7a58d1" transform="rotate(180 30 30)"/><ellipse cx="30" cy="17" rx="7" ry="12" fill="#3d8df5" transform="rotate(225 30 30)"/><ellipse cx="30" cy="17" rx="7" ry="12" fill="#34c2a1" transform="rotate(270 30 30)"/><ellipse cx="30" cy="17" rx="7" ry="12" fill="#7ed957" transform="rotate(315 30 30)"/></g></svg></div><span>사진</span></a>
+<a class="it" href="Notes/notes.html"><div class="ic c-note"><svg viewBox="0 0 60 60"><rect width="60" height="20" fill="#fdd634"/><path d="M0 31h60M0 41h60M0 51h60" stroke="#e3e3e8" stroke-width="1.500"/><rect x="0" y="19" width="60" height="1" fill="#eab900"/></svg></div><span>메모</span></a>
+<a class="it" href="Facebook/facebook.html"><div class="ic c-fb"><svg viewBox="0 0 54 54" aria-hidden="true"><path fill="#fff" d="M31.500 50V29.300h7l1-8.100h-8v-5.200c0-2.300.7-3.900 4-3.900h4.300V4.900c-.8-.1-3.400-.3-6.500-.3-6.400 0-10.800 3.900-10.800 11.100v5.500h-7.200v8.100h7.200V50z"/></svg></div><span>Facebook</span></a>
+<a class="it" href="Instagram/instagram.html"><div class="ic c-ig"><span class="gl">◎</span></div><span>Instagram</span></a>
+<a class="it" href="Tinder/tinder.html"><div class="ic c-td"><span class="gl">🔥</span></div><span>Tinder</span></a>
+<a class="it" href="Albamon/Albamon.html"><div class="ic c-alba"><svg viewBox="0 0 54 54"><text x="27" y="35" text-anchor="middle" font-family="Arial" font-weight="700" font-size="22" fill="#fff">alba</text></svg></div><span>알바몬</span></a>
+<a class="it" href="SampleBank/sample-bank.html"><div class="ic c-bank"><svg viewBox="0 0 54 54"><text x="27" y="33" text-anchor="middle" font-family="Arial" font-weight="900" font-size="12" fill="#fff">샘플</text></svg></div><span>샘플뱅크</span></a>
+</div>
+
+<div class="pager"><i></i><i class="on"></i><i></i></div>
+
+<nav class="dock">
+<a href="Phone/phone.html" aria-label="전화"><div class="ic c-phone"><svg viewBox="0 0 60 60"><g transform="translate(14 14) scale(1.35)" fill="#fff"><path d="M6.600 10.800a15 15 0 0 0 6.600 6.600l2.200-2.200a1 1 0 0 1 1-.25 11.400 11.400 0 0 0 3.600.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.500a1 1 0 0 1 1 1c0 1.250.2 2.450.57 3.600a1 1 0 0 1-.25 1z"/></g></svg></div></a>
+<a href="Messages/messages.html" aria-label="메시지"><div class="ic c-msg"><svg viewBox="0 0 60 60"><path d="M30 14c-11.600 0-21 7.200-21 16.100 0 4.800 2.700 9.100 7 12L14 50l8.400-4.600c2.400.7 5 1 7.600 1 11.600 0 21-7.200 21-16.100S41.600 14 30 14z" fill="#fff"/></svg></div></a>
+<a href="KakaoTalk/kakaotalk.html" aria-label="카카오톡"><div class="ic c-kk"><svg viewBox="0 0 54 54"><path fill="#3c1e1e" d="M27 12C16.500 12 8 18.700 8 27c0 5.300 3.500 9.900 8.800 12.500l-2.200 8 8.700-4.800c.9.100 1.800.2 2.700.2 10.500 0 19-6.700 19-15S37.500 12 27 12z"/></svg></div></a>
+<a href="Naver/naver.html" aria-label="네이버"><div class="ic c-nv"><svg viewBox="0 0 54 54"><path fill="#fff" d="M13 10h9l10 17V10h9v34h-9L22 27v17h-9z"/></svg></div></a>
+</nav>
+</div>
+
+<div class="notch"><i class="spk"></i><i class="cam"></i></div>
+<button type="button" class="hbar" id="hBar" aria-label="홈으로"><i></i></button>
+</div></div></div>
+
+<script>
+(function(){
+const emb=document.documentElement.classList.contains('emb'),$=id=>document.getElementById(id);
+function tick(){const d=new Date(),h=d.getHours();$('sbt').textContent=(h%12||12)+':'+String(d.getMinutes()).padStart(2,'0')}
+tick();setInterval(tick,10000);
+if(emb)return;
+
+/* 기기 크기를 창에 맞춤 */
+const dv=$('device'),scr=$('screen'),hb=$('hBar');
+function fit(){dv.style.setProperty('--k',Math.min(innerWidth/480,innerHeight/960,1.4).toFixed(3))}
+addEventListener('resize',fit);fit();
+
+/* 디스플레이(iframe): 홈 화면과 모든 앱이 이 안에서 열림 */
+const dp=document.createElement('iframe');dp.id='disp';dp.title='display';dp.src='home.html';scr.insertBefore(dp,scr.firstChild);
+
+function atHome(){try{return /\/home\.html$/.test(dp.contentWindow.location.pathname)}catch(e){return true}}
+function lum(c){const m=(c||'').match(/[\d.]+/g);if(!m||m.length<3)return null;if(m.length>3&&+m[3]===0)return null;return(.2126*m[0]+.7152*m[1]+.0722*m[2])/255}
+/* 홈이면 흰 인디케이터, 앱이면 앱 배경색에 맞춰 흑/백 + 아래 띠 색 */
+function tone(){
+ const home=atHome();dv.classList.toggle('at-home',home);
+ if(home){dv.classList.add('light');scr.style.background='#fff';return}
+ let bg=null,l=null;
+ try{const d=dp.contentDocument;for(const el of[d.body,d.documentElement]){const c=getComputedStyle(el).backgroundColor;if(lum(c)!==null){bg=c;l=lum(c);break}}}catch(e){}
+ if(l===null)l=1;
+ scr.style.background=bg||'#fff';dv.classList.toggle('light',l<.4)}
+dp.addEventListener('load',tone);setInterval(tone,500);
+
+/* 홈 버튼 역할: 인디케이터를 누르거나 위로 쓸어올리면 홈 화면으로 */
+function goHome(){if(!atHome())dp.src='home.html'}
+let y0=null,moved=false;
+hb.addEventListener('pointerdown',e=>{y0=e.clientY;moved=false;try{hb.setPointerCapture(e.pointerId)}catch(_){}});
+hb.addEventListener('pointermove',e=>{if(y0!=null&&y0-e.clientY>20){moved=true;y0=null;goHome()}});
+hb.addEventListener('pointerup',()=>{if(y0!=null&&!moved)goHome();y0=null});
+hb.addEventListener('pointercancel',()=>{y0=null});
+hb.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();goHome()}});
+})();
+</script>
+<script src="../../dev-chapter-switcher.js"></script>
+</body></html>
