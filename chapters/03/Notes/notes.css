@@ -113,3 +113,6 @@ svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-l
 html.emb #app{padding-top:44px}
 html.emb .status{height:44px;padding-top:22px}
 html.emb .status #clk{left:54px;right:auto;text-align:left}
+
+/* 시스템 상태바 사용 시 자체 상태바 숨김 */
+html.emb .status{display:none}
