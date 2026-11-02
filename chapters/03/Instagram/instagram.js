@@ -38,7 +38,7 @@ const pav=p=>p.user===S.me.id?S.me.avatar:p.avatar;
 const P=id=>S.posts.find(p=>p.id===id),D=id=>S.dms.find(d=>d.id===id);
 /* ---------- views ---------- */
 function postH(p,det){
- return `<div class="post"><div class="ph">${rav(pav(p),p.user,34,1,0)}<b>${esc(p.user)}</b>${p.verified?BADGE:''}<span class="sp"></span><button data-a="pmenu" data-id="${p.id}">${ic('lines',24)}</button></div>
+ return `<div class="post"><div class="ph">${rav(pav(p),p.user,34,1,0)}<b>${esc(p.user)}</b>${p.verified?BADGE:''}<span class="sp"></span><button data-a="pmenu" data-id="${p.id}">${ic('more',24)}</button></div>
  <img class="pimg" src="${p.img}" ${det?'':`data-a="pd" data-id="${p.id}"`}>
  <div class="act"><button data-a="like" data-id="${p.id}" style="${p.liked?'color:#ff3040':''}">${ic('heart',26,p.liked)}${fmt(p.likes)}</button>
  <button data-a="pd" data-id="${p.id}">${ic('comment',25)}${fmt(p.commentCount)}</button>
@@ -48,7 +48,7 @@ function postH(p,det){
  <div class="pt"><b>${esc(p.user)}</b> ${hash(p.caption)}</div><div class="pt gr" style="padding-bottom:8px">${esc(p.date)}</div></div>`}
 function homeH(){
  const mine=S.stories.filter(s=>s.user===S.me.id),oth=S.stories.filter(s=>s.user!==S.me.id),seq=[...mine,...oth];
- return `<div class="hd"><div class="l"><button data-a="newpost">${ic('plus',30)}</button></div><div class="c"><button data-a="acct" style="display:flex;align-items:center;gap:4px"><span class="logo">Instagram</span>${ic('chev',16)}</button></div><div class="r"><button class="rel" data-a="toast" data-m="새 알림이 없습니다">${ic('heart',27)}<i class="dot" style="width:10px;height:10px"></i></button></div></div>
+ return `<div class="hd"><div class="l"><button data-a="newpost">${ic('camera',28)}</button></div><div class="c"><span class="logo">Instagram</span></div><div class="r"><button data-a="tab" data-t="dm">${ic('send',26)}</button><button class="rel" data-a="toast" data-m="새 알림이 없습니다">${ic('heart',26)}<i class="dot" style="width:10px;height:10px"></i></button></div></div>
  <div id="sc"><div class="stories"><div class="st mine"><div style="position:relative" data-a="${mine.length?'story':'newstory'}" data-i="0">${rav(S.me.avatar,S.me.id,76,mine.length,mine.every(s=>s.seen))}<button class="pl" data-a="newstory">${ic('plus',16)}</button></div><span class="n">내 스토리</span></div>
  ${oth.map(s=>`<button class="st" data-a="story" data-i="${seq.indexOf(s)}">${rav(s.avatar,s.user,76,1,s.seen)}<span class="n">${esc(s.user)}</span></button>`).join('')}</div>
  ${S.posts.map(p=>postH(p)).join('')||'<div class="empty">게시물이 없습니다. + 버튼으로 추가하세요.</div>'}</div>`}
@@ -87,7 +87,7 @@ function render(){
  const sc=$('#sc');if(sc)sc.scrollTop=U.chat&&!keep?1e9:keep?y:0;
  if(U.chat&&keep&&U._bot){sc.scrollTop=1e9;U._bot=0}
  const T=(a,i,f,x='')=>`<button class="ni ${U.tab===a?'nav-on':''}" ${a?`data-a="tab" data-t="${a}"`:''}>${x||ic(i,28,U.tab===a&&f)}</button>`;
- $('#nav').innerHTML=T('home','home',1)+`<button class="ni">${ic('reels',28)}</button>`+T('dm','send',1)+`<button class="ni">${ic('search',28)}</button>`+T('me','',0,`<span class="rel">${rav(S.me.avatar,S.me.id,30,U.tab==='me',0).replace('class="ring','style="" class="ring')}<i class="dot" style="top:18px;right:-3px;width:10px;height:10px;border:2px solid #d6d6dc"></i></span>`);
+ $('#nav').innerHTML=`<button class="ni" data-a="tab" data-t="home">${ic('home',27,U.tab==='home')}</button><button class="ni" data-a="tab" data-t="dm">${ic('search',27)}</button><button class="ni" data-a="newpost">${ic('plus',27)}</button><button class="ni" data-a="toast" data-m="새 알림이 없습니다">${ic('heart',27)}</button><button class="ni" data-a="tab" data-t="me"><span style="width:27px;height:27px;border-radius:50%;display:flex;${U.tab==='me'?'outline:2px solid #000;outline-offset:1px':''}">${av(S.me.avatar,S.me.id,27)}</span></button>`;
  renderPD();
 }
 function renderPD(){const e=$('#pd');if(!U.pd||!P(U.pd)){e.style.display='none';return}const p=P(U.pd),y=e.querySelector('.sc')?.scrollTop||0;
