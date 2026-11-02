@@ -70,7 +70,6 @@ function dlH(){const q=U.q.trim().toLowerCase();return S.dms.filter(d=>!q||(d.na
 function dmH(){
  return `<div class="hd"><div class="l"><button data-a="tab" data-t="home">${ic('back',26)}</button></div><div class="c" style="font-size:19px">Direct</div><div class="r"><button data-a="newchat">${ic('plus',28)}</button></div></div>
  <div id="sc"><div class="srch">${ic('search',20)}<input id="dq" placeholder="검색" value="${esc(U.q)}">${ic('lines',20)}</div>
- <div class="notes"><button class="nt" data-a="note">${S.me.note?`<span class="bub">${esc(S.me.note)}</span>`:''}${av(S.me.avatar,S.me.id,76)}<span>내 메모</span></button><div class="nt" data-a="toast" data-m="지도는 디자인 참고용입니다">${av(ph('#9cc7e8','#7fb27a'),'지',76)}<span>지도</span></div></div>
  <div class="sec"><span>메시지</span><button data-a="toast" data-m="메시지 요청이 없습니다">요청</button></div><div id="dl">${dlH()}</div></div>`}
 function chatH(){
  const d=D(U.chat),ms=d.msgs;let h='';

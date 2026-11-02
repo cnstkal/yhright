@@ -85,7 +85,7 @@ nav .ni{flex:1;height:50px;display:flex;align-items:center;justify-content:cente
 
 
 /* iPhone 11 상단 노치 안전 영역 및 터치 아이콘 크기 */
-html.emb #main{padding-top:44px}
+html.emb #main{padding-top:30px}
 html.emb .hd .l svg,html.emb .hd .r svg{width:27px;height:27px}
 
 /* 참고 이미지 기준 추가: 탐색 그리드, Direct 행 카메라 아이콘 */
