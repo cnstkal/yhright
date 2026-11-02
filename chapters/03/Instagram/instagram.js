@@ -64,10 +64,12 @@ function profH(){
  <div class="tabs"><div class="on">${ic('grid',24,1)}</div><div>${ic('repost',24)}</div><div>${ic('tag',24)}</div></div>
  ${mp.length?`<div class="grid">${mp.map(p=>`<img src="${p.img}" data-a="pd" data-id="${p.id}">`).join('')}</div>`:'<div class="empty">게시물이 없습니다.<br><br><button data-a="newpost" style="color:#4a5cf5;font-weight:700">첫 게시물 추가</button></div>'}</div>`}
 const prev=d=>{if(d.sub)return d.sub;const m=d.msgs[d.msgs.length-1];if(!m)return'대화를 시작하세요';return(m.img&&m.reelUser?'릴스를 보냈습니다':m.img?'사진을 보냈습니다':m.text)+(d.time?' · '+d.time:'')};
-function dlH(){const q=U.q.trim().toLowerCase();return S.dms.filter(d=>!q||(d.name+d.handle).toLowerCase().includes(q)).map(d=>`<button class="row" data-a="chat" data-id="${d.id}"><span style="position:relative">${rav(d.avatar,d.name,66,d.ring,0)}${d.online&&!d.ring?'<i class="on-dot"></i>':''}</span><span class="t"><b>${esc(d.name)}</b><span>${esc(prev(d))}</span></span></button>`).join('')||'<div class="empty">대화가 없습니다</div>'}
+function exH(){const q=U.q.trim().toLowerCase();const tiles=[...S.posts.map(p=>({src:p.img,id:p.id})),...S.stories.filter(s=>s.img).map(s=>({src:s.img})),...S.dms.flatMap(d=>d.msgs.filter(m=>m.img).map(m=>({src:m.img})))];
+ return `<div class="hd"><div class="c" style="font-size:19px">탐색</div></div><div id="sc"><div class="srch">${ic('search',20)}<input id="eq" placeholder="검색" value="${esc(U.q)}"></div><div class="grid3">${tiles.map(t=>t.id?`<img src="${t.src}" data-a="pd" data-id="${t.id}">`:`<img src="${t.src}">`).join('')||'<div class="empty">표시할 사진이 없습니다</div>'}</div></div>`}
+function dlH(){const q=U.q.trim().toLowerCase();return S.dms.filter(d=>!q||(d.name+d.handle).toLowerCase().includes(q)).map(d=>`<button class="row" data-a="chat" data-id="${d.id}"><span style="position:relative">${rav(d.avatar,d.name,66,d.ring,0)}${d.online&&!d.ring?'<i class="on-dot"></i>':''}</span><span class="t"><b>${esc(d.name)}</b><span>${esc(prev(d))}</span></span><i class="cm2">${ic('camera',24)}</i></button>`).join('')||'<div class="empty">대화가 없습니다</div>'}
 function dmH(){
- return `<div class="hd"><div class="l"></div><div class="c"><button data-a="acct" style="display:flex;align-items:center;gap:4px">${esc(S.me.id)}${ic('chev',16)}<i class="dot"></i></button></div><div class="r"><button data-a="newchat">${ic('edit',27)}</button></div></div>
- <div id="sc"><div class="srch">${ic('search',20)}<input id="dq" placeholder="검색" value="${esc(U.q)}"></div>
+ return `<div class="hd"><div class="l"><button data-a="tab" data-t="home">${ic('back',26)}</button></div><div class="c" style="font-size:19px">Direct</div><div class="r"><button data-a="newchat">${ic('plus',28)}</button></div></div>
+ <div id="sc"><div class="srch">${ic('search',20)}<input id="dq" placeholder="검색" value="${esc(U.q)}">${ic('lines',20)}</div>
  <div class="notes"><button class="nt" data-a="note">${S.me.note?`<span class="bub">${esc(S.me.note)}</span>`:''}${av(S.me.avatar,S.me.id,76)}<span>내 메모</span></button><div class="nt" data-a="toast" data-m="지도는 디자인 참고용입니다">${av(ph('#9cc7e8','#7fb27a'),'지',76)}<span>지도</span></div></div>
  <div class="sec"><span>메시지</span><button data-a="toast" data-m="메시지 요청이 없습니다">요청</button></div><div id="dl">${dlH()}</div></div>`}
 function chatH(){
@@ -83,11 +85,11 @@ function chatH(){
 function render(){
  const key=U.chat?'c'+U.chat:U.tab,old=$('#sc'),y=old?old.scrollTop:0,keep=key===lastKey;lastKey=key;
  $('#app').className=U.chat?'chat':'';
- $('#main').innerHTML=U.chat?chatH():U.tab==='home'?homeH():U.tab==='dm'?dmH():profH();
+ $('#main').innerHTML=U.chat?chatH():U.tab==='home'?homeH():U.tab==='dm'?dmH():U.tab==='ex'?exH():profH();
  const sc=$('#sc');if(sc)sc.scrollTop=U.chat&&!keep?1e9:keep?y:0;
  if(U.chat&&keep&&U._bot){sc.scrollTop=1e9;U._bot=0}
  const T=(a,i,f,x='')=>`<button class="ni ${U.tab===a?'nav-on':''}" ${a?`data-a="tab" data-t="${a}"`:''}>${x||ic(i,28,U.tab===a&&f)}</button>`;
- $('#nav').innerHTML=`<button class="ni" data-a="tab" data-t="home">${ic('home',27,U.tab==='home')}</button><button class="ni" data-a="tab" data-t="dm">${ic('search',27)}</button><button class="ni" data-a="newpost">${ic('plus',27)}</button><button class="ni" data-a="toast" data-m="새 알림이 없습니다">${ic('heart',27)}</button><button class="ni" data-a="tab" data-t="me"><span style="width:27px;height:27px;border-radius:50%;display:flex;${U.tab==='me'?'outline:2px solid #000;outline-offset:1px':''}">${av(S.me.avatar,S.me.id,27)}</span></button>`;
+ $('#nav').innerHTML=`<button class="ni" data-a="tab" data-t="home">${ic('home',27,U.tab==='home')}</button><button class="ni" data-a="tab" data-t="ex">${ic('search',27,U.tab==='ex')}</button><button class="ni" data-a="newpost">${ic('plus',27)}</button><button class="ni" data-a="toast" data-m="새 알림이 없습니다">${ic('heart',27)}</button><button class="ni" data-a="tab" data-t="me"><span style="width:27px;height:27px;border-radius:50%;display:flex;${U.tab==='me'?'outline:2px solid #000;outline-offset:1px':''}">${av(S.me.avatar,S.me.id,27)}</span></button>`;
  renderPD();
 }
 function renderPD(){const e=$('#pd');if(!U.pd||!P(U.pd)){e.style.display='none';return}const p=P(U.pd),y=e.querySelector('.sc')?.scrollTop||0;
@@ -163,6 +165,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t
 document.addEventListener('input',e=>{const t=e.target;
  if(t.dataset.k&&F)F.vals[t.dataset.k]=t.type==='checkbox'?t.checked:t.value;
  if(t.id==='dq'){U.q=t.value;$('#dl').innerHTML=dlH()}
+ if(t.id==='eq')U.q=t.value;
  if(t.id==='ci'){const h=!!t.value.trim();$('#ic1').style.display=h?'none':'flex';$('#snd').style.display=h?'block':'none'}});
 document.addEventListener('change',e=>{const t=e.target;
  if(t.dataset.k&&t.type==='checkbox'&&F)F.vals[t.dataset.k]=t.checked;
