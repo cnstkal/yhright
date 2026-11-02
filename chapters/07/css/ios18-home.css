@@ -1,0 +1,19 @@
+/* iOS 18 (2025, 글래스모피즘) 홈 화면 */
+#home{background:radial-gradient(120% 60% at 20% 15%,#2c6ee0 0%,transparent 60%),radial-gradient(90% 55% at 85% 45%,#3b4fd0 0%,transparent 70%),radial-gradient(110% 60% at 40% 100%,#f2c24a 0%,transparent 65%),radial-gradient(90% 50% at 10% 85%,#2fb3a0 0%,transparent 70%),linear-gradient(180deg,#2a6fc9,#2f5fb0 55%,#243f8a)}
+#home .sb{color:#fff}
+#home .grid2{position:absolute;top:70px;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:100px;gap:18px 6px;padding:0 16px}
+#home .wid{grid-column:1/3;grid-row:1/3;border-radius:26px;padding:18px;color:#fff;background:linear-gradient(160deg,rgba(255,255,255,.28),rgba(255,255,255,.08));-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);border:.5px solid rgba(255,255,255,.45);box-shadow:0 12px 30px rgba(0,0,0,.18);display:flex;flex-direction:column}
+#home .wid b{font-size:22px;font-weight:700;letter-spacing:-.3px;text-shadow:0 1px 3px rgba(0,0,0,.3)}
+#home .wid p{font-size:14px;margin-top:6px;opacity:.9}
+#home .wid em{font-style:normal;margin-top:auto;font-size:34px;font-weight:300;letter-spacing:-1px}
+#home .fold{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;color:#fff}
+#home .fg{width:62px;height:62px;border-radius:17px;padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:4px;background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:.5px solid rgba(255,255,255,.4);box-shadow:0 6px 16px rgba(0,0,0,.14)}
+#home .fg i{font-style:normal;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:6px;background:rgba(255,255,255,.85);color:#222}
+#home .fold>span{font-size:11px;font-weight:500;margin-top:6px;text-shadow:0 1px 2px rgba(0,0,0,.35);white-space:nowrap}
+#home .grid2 .it{display:flex;flex-direction:column;align-items:center;color:#fff}
+#home .grid2 .it .ic{width:62px;height:62px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.16)}
+#home .grid2 .it>span{font-size:11px;font-weight:500;margin-top:6px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+#home .pager{bottom:124px}
+#home .dock{left:12px!important;right:12px!important;bottom:26px!important;height:96px!important;border-radius:36px!important;background:rgba(255,255,255,.2)!important;-webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);border:.5px solid rgba(255,255,255,.4)!important;box-shadow:0 10px 28px rgba(0,0,0,.2)}
+#home .grid2 .it>span,#home .fold>span{text-shadow:0 1px 4px rgba(0,0,0,.6)}
+#home .c-hotel{background:linear-gradient(145deg,#1f3a5f,#2d5a8f)!important;color:#fff!important}
