@@ -52,36 +52,36 @@ watch:'<rect x="8" y="7" width="8" height="10" rx="2"/><path d="M9 7l1-4h4l1 4M9
 function ic(n,s,c,w){return '<svg class="vi" viewBox="0 0 24 24" width="'+s+'" height="'+s+'" fill="none" stroke="'+(c||'currentColor')+'" stroke-width="'+(w||2)+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(P[n]||'')+'</svg>'}
 var COL={mail:'#1ec800',cafe:'#ff8a00',blog:'#2db400',kin:'#3b8bff',shop:'#f5426c',toon:'#00c9a7',map:'#4a90e2',dict:'#7b61ff',news:'#5b6370',stock:'#e53935',estate:'#8d6e63',movie:'#ab47bc',music:'#ec407a',book:'#26a69a',life:'#ef6c8a',sports:'#2e7dd7',tech:'#455a64',game:'#7e57c2',tv:'#d84315'};
 function sv(k){return '<i class="sv" style="background:'+(COL[k]||'#888')+'">'+ic(k,22,'#fff',1.8)+'</i>'}
-/* ───────── 데이터 (2018년 10월 설정) ───────── */
+/* ───────── 데이터 (2020년 8월 설정) ───────── */
 var SVC=[['메일','mail'],['카페','cafe'],['블로그','blog'],['지식iN','kin'],['쇼핑','shop'],['웹툰','toon'],['사전','dict'],['뉴스','news'],['증권','stock'],['영화','movie'],['뮤직','music']];
 var TOPIC=[['라이프','life'],['스포츠','sports'],['차·테크','tech'],['웹툰','toon'],['게임','game'],['TV·동영상','tv'],['뮤직','music'],['영화','movie'],['책·공연','book']];
 var TABS=[['뉴스',0,6],['연예',6,11],['스포츠',11,16],['웹툰·뿜',16,19],['차·테크',19,24]];
 var CATS=['주요뉴스','정치','경제','사회','생활/문화','IT/과학','스포츠','연예'];
 var NEWS=[
-['국정감사 2주차 돌입…여야 쟁점 공방 이어져','연합뉴스','10분 전','상임위별 감사가 이어지며 주요 현안을 둘러싼 질의가 오갔다.'],
-['태풍 콩레이 북상…남해안 강풍 특보','KBS뉴스','32분 전','기상청은 주말 사이 비바람이 거세질 것으로 내다봤다.'],
-['한글날 연휴 앞두고 전국 나들이 행렬','SBS','1시간 전','가을 날씨 속에 주요 관광지마다 방문객이 몰릴 전망이다.'],
-['환절기 일교차 커져…감기 환자 늘어','매일경제','2시간 전','보건당국은 개인 위생과 보온에 신경 쓸 것을 당부했다.'],
-['애플 아이폰XS 국내 출시 임박…예약 판매 관심','전자신문','3시간 전','이동통신 3사가 사전 예약 일정을 속속 공개하고 있다.'],
-['단풍 절정 시기 다가와…설악산 첫 단풍','MBC','4시간 전','예년보다 이른 단풍이 산 정상부터 번지고 있다.'],
-['인기 가수 새 앨범 발매…음원 차트 상위권','스타뉴스','20분 전','공개 직후 주요 음원 사이트 실시간 순위에 올랐다.'],
-['주말 드라마 시청률 상승세…화제의 장면','OSEN','1시간 전','온라인에서도 관련 영상이 빠르게 퍼지고 있다.'],
-['가을 극장가 개봉작 관객 몰이 계속','씨네21','2시간 전','주말 박스오피스에서도 상위권을 지켰다.'],
+['코로나19 확진자 추가 발생…방역 당국 점검 강화','연합뉴스','10분 전','방역 당국은 지역사회 전파 차단을 위해 선별진료소 운영을 확대했다.'],
+['장마 끝나자 폭염…낮 최고기온 33도 안팎','KBS뉴스','32분 전','기상청은 당분간 맑은 날이 이어지며 자외선 지수가 높겠다고 내다봤다.'],
+['여름 휴가철 해수욕장 개장…방역 수칙 준수 당부','SBS','1시간 전','이용객은 마스크 착용과 거리 두기를 지켜 달라는 안내가 나왔다.'],
+['국내 증시 반등 출발…코스피 2,100선 회복','매일경제','2시간 전','외국인 매수세가 늘면서 주요 업종이 일제히 강세를 보였다.'],
+['갤럭시 Z 플립 사전 판매 개시…예약 행렬','전자신문','3시간 전','이동통신 3사가 사전 예약 혜택을 잇따라 공개하고 있다.'],
+['재난지원금 지급 방식 확정…신용·체크카드 사용','MBC','4시간 전','정부는 지급 일정과 사용처 안내를 다음 주에 발표할 예정이다.'],
+['인기 가수 신곡 공개…음원 차트 상위권','스타뉴스','20분 전','공개 직후 주요 음원 사이트 실시간 순위에 올랐다.'],
+['주말 드라마 시청률 상승…온라인 화제 장면','OSEN','1시간 전','관련 영상이 온라인에서 빠르게 퍼지며 관심을 끌고 있다.'],
+['여름 극장가 개봉작 관객 몰이 계속','씨네21','2시간 전','주말 박스오피스에서도 상위권을 지켰다.'],
 ['예능 프로그램 새 코너 호평…화제성 1위','텔레뉴스','3시간 전','출연진의 호흡이 시청자의 웃음을 자아냈다.'],
-['가요계 컴백 대전…가을 앨범 줄줄이','스포츠서울','5시간 전','다수의 가수가 이달 컴백을 예고했다.'],
-['프로야구 포스트시즌 돌입, 와일드카드 관심','스포츠동아','15분 전','연장 접전 끝에 짜릿한 승부가 펼쳐졌다.'],
+['가요계 컴백 대전…여름 앨범 줄줄이','스포츠서울','5시간 전','다수의 가수가 이번 달 컴백을 예고했다.'],
+['프로야구 중위권 경쟁 치열…연장 접전 속출','스포츠동아','15분 전','막판까지 승부를 알 수 없는 경기가 이어지고 있다.'],
 ['프로축구 상위 스플릿 순위 경쟁 치열','일간스포츠','1시간 전','남은 경기 결과에 따라 순위가 요동칠 전망이다.'],
 ['손흥민 시즌 활약, 현지 언론 호평','연합뉴스','2시간 전','경기 후 현지 매체는 높은 평점을 부여했다.'],
-['남자 배구 대표팀 세계선수권 선전','KBS뉴스','3시간 전','조별 경기에서 값진 승리를 거뒀다.'],
-['프로농구 개막 앞두고 외국인 선수 관심','SBS','4시간 전','각 구단이 전력 점검에 속도를 내고 있다.'],
+['여자 배구 대표팀 국제대회 선전','KBS뉴스','3시간 전','조별 경기에서 값진 승리를 거뒀다.'],
+['프로농구 재개 준비…구단별 전력 점검','SBS','4시간 전','각 구단이 리그 재개에 맞춰 훈련에 속도를 내고 있다.'],
 ['이번 주 인기 웹툰 순위 변동…신작 급상승','네이버웹툰','오늘','새로 연재를 시작한 작품이 상위권에 올랐다.'],
-['가을 특집 웹툰 연재 시작','네이버웹툰','오늘','다양한 단편이 한자리에 공개됐다.'],
+['여름 특집 웹툰 연재 시작','네이버웹툰','오늘','다양한 단편이 한자리에 공개됐다.'],
 ['화제의 웹툰 드라마화 확정 소식','스타뉴스','어제','제작사는 내년 방영을 목표로 준비 중이라고 밝혔다.'],
-['신형 SUV 출시, 연비 개선 눈길','오토뉴스','30분 전','신형 모델은 효율과 편의 사양을 크게 개선했다.'],
-['갤럭시 노트9 판매 호조…하반기 시장 주도','전자신문','1시간 전','업계는 연말까지 견조한 흐름을 예상하고 있다.'],
-['전기차 보급 확대, 충전소 늘어난다','연합뉴스','2시간 전','정부는 올해 안에 충전 시설을 대폭 늘릴 계획이다.'],
-['인공지능 스피커 시장 확대, 업계 경쟁 가속','IT조선','4시간 전','음성 인식 서비스를 앞세운 신제품이 잇따르고 있다.'],
-['가을철 차량 점검 요령 정리','카가이드','5시간 전','냉각수와 타이어 공기압 점검이 필요하다.']];
+['SUV 신차 출시, 연비 개선 눈길','오토뉴스','30분 전','신형 모델은 효율과 편의 사양을 크게 개선했다.'],
+['하이브리드 차량 판매 증가…업계 주목','전자신문','1시간 전','업계는 하반기에도 친환경 차량 수요가 이어질 것으로 예상했다.'],
+['전기차 충전소 확충…올해 안에 대폭 늘어','연합뉴스','2시간 전','정부는 올해 안에 충전 시설을 대폭 늘릴 계획이다.'],
+['AI 스피커 시장 확대, 업계 경쟁 가속','IT조선','4시간 전','음성 인식 서비스를 앞세운 신제품이 잇따르고 있다.'],
+['여름철 차량 냉각수 점검 요령 정리','카가이드','5시간 전','냉각수와 타이어 공기압 점검이 필요하다.']];
 var PRESS=[['한겨레','#1b6e3c'],['동아일보','#1b4f9c'],['이데일리','#d32f2f'],['전자신문','#c62828'],['아시아경제','#0d47a1'],['문화일보','#e65100']];
 var PROD=[['shirt','#ffe3ec','가을 맨투맨 티셔츠','19,900'],['bag','#e5f0ff','데일리 숄더백','39,000'],['shoe','#e6f7e1','캔버스 스니커즈','24,900'],['watch','#fff1d6','메탈 손목시계','58,000']];
 var RT=['통합','VIEW','이미지','동영상','뉴스','지식iN','쇼핑'];
@@ -98,9 +98,9 @@ return '<svg class="scn" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid sli
 function thumb(){return '<div class="th">'+ic('image',26,'#fff',1.5)+'</div>'}
 function hd(t,right){return '<div class="hd"><button class="hb" data-back aria-label="뒤로">'+ic('back',22,'#222',2.2)+'</button><h1>'+t+'</h1>'+(right||'')+'</div>'}
 function newsLi(i){var j=i%NEWS.length,n=NEWS[j];return '<div class="li" data-go="art" data-a="'+j+'"><div class="tx"><h3>'+n[0]+'</h3><p>'+n[3]+'</p><div class="m">'+n[1]+' · '+n[2]+'</div></div>'+thumb()+'</div>'}
-function items(t,n,sub){var o='';for(var i=1;i<=n;i++)o+='<div class="li" data-go="det" data-a="'+t+' '+i+'"><div class="tx"><h3>'+t+' '+i+'번째 글</h3><p>'+sub+'</p><div class="m">2018.10.'+(13-i%9)+' · 조회 '+(i*37)+'</div></div></div>';return o}
+function items(t,n,sub){var o='';for(var i=1;i<=n;i++)o+='<div class="li" data-go="det" data-a="'+t+' '+i+'"><div class="tx"><h3>'+t+' '+i+'번째 글</h3><p>'+sub+'</p><div class="m">2020.08.'+(13-i%9)+' · 조회 '+(i*37)+'</div></div></div>';return o}
 function newsList(){var t=TABS[ptab],o='';for(var i=t[1];i<t[2];i++)o+=newsLi(i);return o}
-function dt(i){return '2018.10.'+('0'+(14-i%12)).slice(-2)}
+function dt(i){return '2020.08.'+('0'+(14-i%12)).slice(-2)}
 /* iOS 12 상태 바 */
 function stbar(){
 var d=new Date(),h=d.getHours(),t=(h%12||12)+':'+('0'+d.getMinutes()).slice(-2);
@@ -135,7 +135,7 @@ return o}
 /* ───────── 화면 ───────── */
 function homePane(){
 var svc='';SVC.forEach(function(v){svc+='<div data-go="'+(v[1]=='news'?'news':'svc')+'" data-a="'+v[1]+'">'+sv(v[1])+v[0]+'</div>'});
-return '<section class="pn"><div class="body"><div class="hero"><div class="gw" style="opacity:.45" data-go="search"><b class="lg">NAVER</b><input readonly aria-label="검색" placeholder="검색어를 입력하세요"><button class="cam" data-go="lens" aria-label="스마트렌즈">'+ic('camera',24,'#1ec800',2)+'</button></div></div>'
+return '<section class="pn"><div class="body"><div class="hero"><div class="gw" style="opacity:.45" data-go="search"><b class="lg">NAVER</b><input readonly aria-label="검색" placeholder="검색어를 입력하세요"><button class="cam" data-go="voice" aria-label="음성 검색">'+ic('mic',22,'#1ec800',2)+'</button><button class="cam" data-go="lens" aria-label="스마트렌즈">'+ic('camera',24,'#1ec800',2)+'</button></div></div>'
 +'<div class="gap"></div><div class="sec">날씨<small>서울'+ic('chevD',12,'#999',2)+'</small></div>'
 +'<div class="wx"><div><span>현재</span>'+ic('sun',34,'#ffb300',1.8)+'<b>19°</b></div><div><span>내일 오전</span>'+ic('cloudsun',34,'#90a4ae',1.8)+'<b>14°</b></div><div><span>내일 오후</span>'+ic('sun',34,'#ffb300',1.8)+'<b>22°</b></div></div>'
 +'<div class="dust">미세먼지 <b>보통</b> 초미세먼지 <b>좋음</b></div><div class="wl"><span data-go="det" data-a="지역별 내일 날씨">지역별 내일 날씨</span><span data-go="det" data-a="주간 예보">주간 예보</span></div>'
@@ -145,12 +145,19 @@ function newsPane(){
 var tabs='';TABS.forEach(function(x,i){tabs+='<div class="'+(i==ptab?'on':'')+'" data-pt="'+i+'">'+x[0]+'</div>'});
 var ns='';PRESS.forEach(function(p){ns+='<div class="ns" data-go="news" data-a="0"><svg viewBox="0 0 60 38" width="100%" height="38" aria-hidden="true"><rect x="1" y="1" width="58" height="36" rx="2" fill="#fff" stroke="#ddd"/><rect x="6" y="14" width="22" height="16" fill="#cfd8dc"/><path d="M32 15h22M32 20h22M32 25h16M6 8h18" stroke="#b0b6ba" stroke-width="2"/></svg><b style="color:'+p[1]+'">'+p[0]+'</b></div>'});
 return '<section class="pn"><div class="ttl">뉴스</div><div class="pt">'+tabs+'</div><div class="body"><div id="nl">'+newsList()+'</div><div class="gap"></div><div class="sec">뉴스스탠드<small data-go="news" data-a="0">전체 언론사'+ic('chevR',12,'#999',2)+'</small></div><div class="nsg">'+ns+'</div><div class="ft">© NAVER Corp.</div><div style="height:80px"></div></div></section>'}
-function shopPane(){
-var pr='',tp='';PROD.forEach(function(p,i){pr+='<div class="pd" data-go="det" data-a="인기 상품 '+(i+1)+'"><div class="pi" style="background:'+p[1]+'">'+ic(p[0],40,'#555',1.5)+'</div><h4>'+p[2]+'</h4><b>'+p[3]+'원</b></div>'});
-TOPIC.forEach(function(v){tp+='<div data-go="svc" data-a="'+v[1]+'">'+sv(v[1])+v[0]+'</div>'});
-return '<section class="pn"><div class="ttl">쇼핑·콘텐츠</div><div class="body"><div class="sec" data-go="svc" data-a="shop">오늘의 쇼핑<small>더보기'+ic('chevR',12,'#999',2)+'</small></div><div class="pds">'+pr+'</div><div class="gap"></div><div class="sec">토픽·콘텐츠</div><div class="svc tp">'+tp+'</div><div style="height:90px"></div></div></section>'}
+var CATN=['엔터','뭐볼까','투데이','쇼핑','테마'];
+var CATC=[['드라마 시청률 상승세','예능 신규 코너 화제','가요계 컴백 소식','이번 주 개봉 영화'],['이번 주 볼만한 영화','주말 가볼 만한 전시','추천 도서 목록','요즘 뜨는 맛집'],['오늘의 날씨와 생활 정보','오늘의 증시 흐름','오늘의 경기 일정','오늘의 주요 이슈'],null,['여름 휴가 추천 테마','홈카페 입문 테마','가을 준비 테마','재테크 입문 테마']];
+var CATSUB=['엔터 콘텐츠','추천 콘텐츠','오늘의 소식','','테마 모음'];
+function catBody(c){
+if(c==3){var pr='';PROD.forEach(function(p,i){pr+='<div class="pd" data-go="det" data-a="인기 상품 '+(i+1)+'"><div class="pi" style="background:'+p[1]+'">'+ic(p[0],40,'#555',1.5)+'</div><h4>'+p[2]+'</h4><b>'+p[3]+'원</b></div>'});
+var g='<div class="grid2">';for(var i=1;i<=6;i++)g+='<div data-go="det" data-a="인기 상품 '+i+'"><div class="th">'+ic(PROD[i%4][0],34,'#fff',1.5)+'</div><h3>인기 상품 '+i+'</h3><b>'+(i*8+11)+',900원</b></div>';
+return '<div class="sec">오늘의 쇼핑</div><div class="pds">'+pr+'</div><div class="gap"></div><div class="sec">추천 상품</div>'+g+'</div>'}
+var o='',L=CATC[c];L.forEach(function(t,i){o+='<div class="li" data-go="det" data-a="'+E(t)+'"><div class="tx"><h3>'+t+'</h3><p>'+CATSUB[c]+'</p><div class="m">네이버 · 2020.08.'+(20-i)+'</div></div>'+thumb()+'</div>'});
+return o}
+function catPane(){var tabs='';CATN.forEach(function(x,i){tabs+='<div class="'+(i?'':'on')+'" data-ct="'+i+'">'+x+'</div>'});
+return '<section class="pn"><div class="ttl">카테고리</div><div class="pt" id="ctabs">'+tabs+'</div><div class="body" id="cbody">'+catBody(0)+'</div><div style="height:90px"></div></section>'}
 var SCR={
-main:function(){return '<div class="pager" id="pgr"><div class="trk" id="trk">'+newsPane()+homePane()+shopPane()+'</div></div>'+wheel()},
+main:function(){return '<div class="pager" id="pgr"><div class="trk" id="trk">'+newsPane()+homePane()+catPane()+'</div></div>'+wheel()},
 all:function(){var s='',t='';SVC.forEach(function(v){s+='<div data-go="'+(v[1]=='news'?'news':'svc')+'" data-a="'+v[1]+'">'+sv(v[1])+v[0]+'</div>'});TOPIC.forEach(function(v){t+='<div data-go="svc" data-a="'+v[1]+'">'+sv(v[1])+v[0]+'</div>'});
 return hd('서비스 전체')+'<div class="body"><div class="sec">네이버 서비스</div><div class="svc">'+s+'</div><div class="sec">토픽</div><div class="svc tp">'+t+'</div></div>'},
 noti:function(){return hd('알림')+'<div class="body"><div class="emp">'+ic('bell',48,'#c8c8c8',1.5)+'<p>새로운 알림이 없습니다.</p></div></div>'},
@@ -160,7 +167,7 @@ music:function(){return hd('음악 검색')+'<div class="vo"><div class="mic" da
 search:function(){return '<div class="hd"><button class="hb" data-back aria-label="뒤로">'+ic('back',22,'#222',2.2)+'</button><div class="sin sm"><input id="q" autofocus placeholder="검색어를 입력하세요"><button class="x" id="clr" data-clr aria-label="지우기">'+ic('close',16,'#999',2)+'</button></div><button class="hb" data-do aria-label="검색">'+ic('search',22,'#1ec800',2.4)+'</button></div><div class="body"><div id="ac" class="ac"></div><div id="rc"></div></div>'},
 news:function(a){var c=+a||0,t='';CATS.forEach(function(x,i){t+='<div class="'+(i==c?'on':'')+'" data-go="news" data-a="'+i+'" data-rep>'+x+'</div>'});var n='';for(var i=0;i<6;i++)n+=newsLi(i+c);return hd('뉴스')+'<div class="tabs">'+t+'</div><div class="body">'+n+'</div>'},
 art:function(a){var n=NEWS[+a],rel='<div class="sec">관련 기사</div>';for(var i=0;i<3;i++)rel+=newsLi(+a+i+1);
-return hd('뉴스','<button class="hb" aria-label="공유">'+ic('share',20,'#222',2)+'</button>')+'<div class="body"><div class="art"><h2>'+n[0]+'</h2><div class="m">'+n[1]+' | 2018.10.12. 오전 9:'+(10+(+a%40))+'</div><div class="img">'+scene('a'+a,'#4f86c6','#1d2f55',(+a%2)?'l':'p')+'</div><p>'+n[3]+' 전문가들은 당분간 같은 흐름이 이어질 것으로 보고 있다.</p><p>관계자는 "시민들의 관심이 높은 만큼 지속적으로 상황을 살피겠다"고 밝혔다. 이번 사안은 다음 주에도 주요 의제로 다뤄질 것으로 보인다.</p><p><span class="btn">'+ic('share',16,'#555',2)+'공유</span><span class="btn">'+ic('star',16,'#555',2)+'스크랩</span><span class="btn">'+ic('chat',16,'#555',2)+'댓글</span></p></div>'+rel+'</div>'},
+return hd('뉴스','<button class="hb" aria-label="공유">'+ic('share',20,'#222',2)+'</button>')+'<div class="body"><div class="art"><h2>'+n[0]+'</h2><div class="m">'+n[1]+' | 2020.08.12. 오전 9:'+(10+(+a%40))+'</div><div class="img">'+scene('a'+a,'#4f86c6','#1d2f55',(+a%2)?'l':'p')+'</div><p>'+n[3]+' 전문가들은 당분간 같은 흐름이 이어질 것으로 보고 있다.</p><p>관계자는 "시민들의 관심이 높은 만큼 지속적으로 상황을 살피겠다"고 밝혔다. 이번 사안은 다음 주에도 주요 의제로 다뤄질 것으로 보인다.</p><p><span class="btn">'+ic('share',16,'#555',2)+'공유</span><span class="btn">'+ic('star',16,'#555',2)+'스크랩</span><span class="btn">'+ic('chat',16,'#555',2)+'댓글</span></p></div>'+rel+'</div>'},
 result:function(q,t){var tabs='';RT.forEach(function(x,i){tabs+='<div class="'+(i==(t.tab||0)?'on':'')+'" data-rt="'+i+'">'+x+'</div>'});
 return '<div class="hd"><button class="hb" data-back aria-label="뒤로">'+ic('back',22,'#222',2.2)+'</button><div class="sin sm" data-go="search"><input readonly value="'+E(q)+'"></div></div><div class="tabs" id="rtabs">'+tabs+'</div><div class="body" id="rbody">'+resBody(q,t.tab||0)+'</div>'},
 svc:function(k){var T={mail:['메일',['받은메일함','보낸메일함','내게쓴메일함','휴지통'],'새 메일이 도착했습니다.'],cafe:['카페',['가입 카페','인기글','내 활동'],'오늘 올라온 인기 게시글입니다.'],blog:['블로그',['이웃새글','추천글','내 블로그'],'가을 나들이 다녀온 이야기입니다.'],kin:['지식iN',['질문 목록','답변하기','내 질문'],'궁금한 점을 질문합니다.'],shop:['쇼핑',['오늘의 특가','패션','디지털'],''],toon:['웹툰',['월','화','수','목','금','토','일'],'새 에피소드가 업데이트되었습니다.'],map:['지도',[],''],dict:['사전',['영어','국어','한자','일본어'],''],stock:['증권',['국내','해외','환율'],'오늘의 시황입니다.'],estate:['부동산',['매매','전세','월세'],'신규 매물이 등록되었습니다.'],movie:['영화',['현재상영작','개봉예정','예매순위'],'이번 주 박스오피스입니다.'],music:['뮤직',['실시간','국내','해외'],'오늘의 인기곡입니다.'],book:['책·공연',['베스트셀러','신간','공연'],'이번 주 인기 도서입니다.'],life:['라이프',['푸드','여행','건강'],'오늘의 생활 정보입니다.'],sports:['스포츠',['야구','축구','농구'],'오늘의 경기 소식입니다.'],tech:['차·테크',['자동차','IT','과학'],'새로운 소식이 올라왔습니다.'],game:['게임',['모바일','PC','e스포츠'],'이번 주 인기 게임입니다.'],tv:['TV·동영상',['실시간','다시보기','클립'],'인기 영상을 모았습니다.']};
@@ -170,7 +177,7 @@ if(k=='shop'){c='<div class="grid2">';for(i=1;i<=6;i++)c+='<div data-go="det" da
 else if(k=='dict')c='<div class="sbox"><div class="sin"><input id="dq" placeholder="단어를 입력하세요"><span class="cam">'+ic('search',22,'#1ec800',2)+'</span></div></div><div id="dr"></div>';
 else c=items(t[0],8,t[2]);
 return hd(t[0])+(tabs?'<div class="tabs">'+tabs+'</div>':'')+'<div class="body">'+c+'</div>'},
-det:function(a){return hd(a)+'<div class="body"><div class="art"><h2>'+a+'</h2><div class="m">작성자 naver_user · 2018.10.12.</div><div class="img">'+scene('d','#7fb3e8','#2c4a78','l')+'</div><p>2018년 가을의 이야기입니다. 이 화면은 가상의 상세 내용으로 구성되었습니다.</p><p><span class="btn">'+ic('heart',16,'#555',2)+'공감</span><span class="btn">'+ic('chat',16,'#555',2)+'댓글</span><span class="btn">'+ic('share',16,'#555',2)+'공유</span></p></div></div>'}
+det:function(a){return hd(a)+'<div class="body"><div class="art"><h2>'+a+'</h2><div class="m">작성자 naver_user · 2020.08.12.</div><div class="img">'+scene('d','#7fb3e8','#2c4a78','l')+'</div><p>2020년 여름의 이야기입니다. 이 화면은 가상의 상세 내용으로 구성되었습니다.</p><p><span class="btn">'+ic('heart',16,'#555',2)+'공감</span><span class="btn">'+ic('chat',16,'#555',2)+'댓글</span><span class="btn">'+ic('share',16,'#555',2)+'공유</span></p></div></div>'}
 };
 /* ───────── 렌더 · 이동 ───────── */
 function render(){
@@ -195,7 +202,7 @@ if(m===1){var v=dx/Math.max(1,Date.now()-t0);d._drag=1;setTimeout(function(){d._
 if((dx>W*.2||v>.4)&&pg>0)pg--;else if((dx<-W*.2||v<-.4)&&pg<2)pg++;set(0,1)}m=0}
 p.onpointerup=up;p.onpointercancel=up;window.onresize=fit}
 /* 비활성화 목록: 눌러도 아무 일도 일어나지 않음 */
-var DEAD_GO={search:1,lens:1,voice:1,music:1,news:1,art:1};
+var DEAD_GO={search:1,lens:1,news:1,art:1};
 var DEAD_SVC={mail:1,cafe:1,blog:1};
 function blocked(D,t){
 if(D.go&&DEAD_GO[D.go])return true;
@@ -205,7 +212,7 @@ return false}
 function bind(d,t){
 d.onclick=function(e){
 if(d._drag)return;
-var el=e.target.closest('[data-back],[data-go],[data-q],[data-do],[data-clr],[data-del],[data-tab],[data-ac],[data-pt],[data-rt],[data-dot]');if(!el)return;var D=el.dataset;
+var el=e.target.closest('[data-back],[data-go],[data-q],[data-do],[data-clr],[data-del],[data-tab],[data-ac],[data-pt],[data-ct],[data-rt],[data-dot]');if(!el)return;var D=el.dataset;
 if(blocked(D,t))return;
 if('dot' in D)d.classList.toggle('wo');
 else if('back' in D)back();
@@ -215,6 +222,7 @@ else if('do' in D)doSearch($('#q').value);
 else if('clr' in D){$('#q').value='';upd()}
 else if(D.del!==undefined){recent.splice(+D.del,1);save();upd()}
 else if(D.pt!==undefined){ptab=+D.pt;d.querySelectorAll('.pt div').forEach(function(x,i){x.className=i==ptab?'on':''});$('#nl').innerHTML=newsList()}
+else if(D.ct!==undefined){d.querySelectorAll('#ctabs div').forEach(function(x,i){x.className=i==+D.ct?'on':''});$('#cbody').innerHTML=catBody(+D.ct);$('#cbody').scrollTop=0}
 else if(D.rt!==undefined){t.tab=+D.rt;d.querySelectorAll('#rtabs div').forEach(function(x,i){x.className=i==t.tab?'on':''});$('#rbody').innerHTML=resBody(t.a,t.tab);$('#rbody').scrollTop=0}
 else if('tab' in D){d.querySelectorAll('.tabs div').forEach(function(x){x.className=''});el.className='on'}
 else if(D.go)go(D.go,D.a,'rep' in D)};
