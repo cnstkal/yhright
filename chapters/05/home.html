@@ -75,7 +75,12 @@ dp.addEventListener('load',tone);setInterval(tone,500);
 /* 앱 열기/닫기: 짧고 가벼운 스케일+페이드 모션 */
 const EASE='cubic-bezier(.2,.8,.2,1)';
 function goHome(){if(atHome())return;dp.style.transition=`transform .2s ${EASE}, opacity .18s ease`;dp.style.transform='scale(.96)';dp.style.opacity='0';setTimeout(()=>{dp.style.transition='none';dp.src='home.html'},190)}
-dp.addEventListener('load',()=>{if(atHome()){dp.style.transition='none';dp.style.transform='';dp.style.opacity='';return}dp.style.transition='none';dp.style.transform='scale(1.02)';dp.style.opacity='0';requestAnimationFrame(()=>requestAnimationFrame(()=>{dp.style.transition=`transform .26s ${EASE}, opacity .2s ease`;dp.style.transform='scale(1)';dp.style.opacity='1'}))});
+/* 하단 탭바: 인디케이터 높이(34px)만큼 아이콘을 위로 올려 인디케이터와 겹치지 않게 (바 자체는 맨 아래까지 연장) */
+function fitBottom(){try{const d=dp.contentDocument;if(!d||!d.body||d.body.dataset.hb)return;d.body.dataset.hb='1';const W=dp.clientWidth,H=dp.clientHeight;
+const all=[...d.body.querySelectorAll('*')].filter(e=>{const r=e.getBoundingClientRect(),cs=getComputedStyle(e);return r.width>=W*.9&&r.height>=36&&r.height<=140&&Math.abs(r.bottom-H)<=2&&cs.display!=='none'&&cs.visibility!=='hidden'});
+const top=all.filter(e=>!all.some(o=>o!==e&&o.contains(e)));
+top.forEach(e=>{const pb=parseFloat(getComputedStyle(e).paddingBottom)||0;e.style.boxSizing='border-box';e.style.paddingBottom=(pb+34)+'px'})}catch(e){}}
+dp.addEventListener('load',()=>{if(atHome()){fitBottom();dp.style.transition='none';dp.style.transform='';dp.style.opacity='';return}dp.style.transition='none';dp.style.transform='scale(1.02)';dp.style.opacity='0';requestAnimationFrame(()=>requestAnimationFrame(()=>{dp.style.transition=`transform .26s ${EASE}, opacity .2s ease`;dp.style.transform='scale(1)';dp.style.opacity='1'}))});
 let y0=null,moved=false;
 hb.addEventListener('pointerdown',e=>{y0=e.clientY;moved=false;try{hb.setPointerCapture(e.pointerId)}catch(_){}});
 hb.addEventListener('pointermove',e=>{if(y0!=null&&y0-e.clientY>20){moved=true;y0=null;goHome()}});
