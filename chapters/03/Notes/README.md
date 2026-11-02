@@ -1,3 +1,12 @@
 # Notes
 
-App files will be stored in this folder.
+2020년 iPhone 12 / iOS 14 기본 메모 앱 폴더.
+
+- `notes.html`, `notes.css`, `notes.js`
+- 목록: 메모 제목·미리보기·날짜·사진 썸네일, 하단 새 메모 버튼
+- 열람: 날짜 헤더, 큰 제목, 본문 단락, 본문 사이 사진(원본 비율)
+- 작성·수정: 새 메모, 제목·본문 입력, 자동 저장(localStorage), 다시 열어 수정
+- 라이트·다크 시스템 테마 대응
+- 그 외 모든 버튼(편집, 더보기, 공유 등)은 비활성 상태입니다.
+
+사진은 `assets/notes/photo-1.jpg`, `photo-2.jpg`, `photo-3.jpg` 경로를 참조합니다. 이 파일들은 아직 없습니다.

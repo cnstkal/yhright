@@ -1,118 +1,46 @@
-/* iOS 12 (2018) 메모 앱 · iPhone 6s 375pt */
-:root{--y:#e8ac00;--g:#8a8a8e;--ln:rgba(60,60,67,.29)}
-*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{position:relative;overflow:hidden;margin:0 auto;background:#fff;color:#000;
- font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-@media(min-width:501px){body:not(.embedded){max-width:375px;box-shadow:0 0 0 .5px #c8c7cc}}
-button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-input{font:inherit;border:0;outline:0;background:none}
-svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-#app{position:absolute;top:0;left:0;right:0;height:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top);background:#fff}
-.status{position:relative;flex:none;height:20px;display:flex;align-items:center;justify-content:space-between;padding:0 7px;font-size:12px;font-weight:600}
-.status #clk{position:absolute;left:0;right:0;text-align:center}
-.embedded .status{display:none}
-#vw{position:relative;flex:1;min-height:0}
-.view{position:absolute;inset:0;display:none;flex-direction:column;background:#fff}
-.view.show{display:flex}
-.bar{flex:none;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 8px}
-.tx,.ic{color:var(--y);font-size:17px;height:44px;display:flex;align-items:center}
-.tx.l{padding-right:12px}.tx.r{margin-left:auto;padding:0 8px}
-.tx.red{color:#ff3b30}
-.chv{width:12px;height:22px;stroke-width:2.6;margin-right:5px}
-.ic svg{width:25px;height:25px}
-.ic{padding:0 10px}
-#eShare{margin-left:auto}#eDone{display:none;margin-left:2px}
-.scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.lt{font-size:34px;line-height:41px;font-weight:700;letter-spacing:.37px;padding:2px 16px 6px}
-.tb{flex:none;min-height:44px;padding-bottom:env(safe-area-inset-bottom);display:flex;align-items:center;justify-content:space-between;padding-left:8px;padding-right:8px;
- background:rgba(247,247,247,.94);border-top:.5px solid rgba(0,0,0,.3)}
-#vF .tb{justify-content:flex-start}
-#lCnt{flex:1;text-align:center;font-size:11px;color:#000}
-#lMv,#lDel{visibility:hidden;padding:0 8px}
-#vL.editing #lMv,#vL.editing #lDel{visibility:visible}
-#vL.editing #lNew{visibility:hidden}
-
-/* 폴더 */
-.sh{font-size:15px;font-weight:700;color:var(--g);padding:14px 16px 6px;letter-spacing:-.2px}
-.grp{background:#fff}
-.fr{position:relative;display:flex;align-items:center;height:44px;padding:0 16px}
-.fr:after{content:"";position:absolute;left:54px;right:0;bottom:0;height:.5px;background:var(--ln)}
-.fr:last-child:after{display:none}
-.fi{width:24px;height:20px;margin-right:14px;fill:var(--y);stroke:none;flex:none}
-.fn{flex:1;font-size:17px}.fc{font-size:17px;color:var(--g);margin-right:8px}
-.ch{width:8px;height:8px;border-top:2px solid #c4c4c8;border-right:2px solid #c4c4c8;transform:rotate(45deg);margin-right:3px}
-.mn{width:22px;height:22px;border-radius:50%;background:#ff3b30;margin-right:12px;position:relative;flex:none}
-.mn:after{content:"";position:absolute;left:5px;right:5px;top:10px;height:2px;background:#fff}
-
-/* 검색 */
-.sb{display:flex;align-items:center;padding:4px 16px 10px}
-.sbx{flex:1;display:flex;align-items:center;height:36px;padding:0 8px;border-radius:10px;background:rgba(142,142,147,.12);color:var(--g)}
-.sbx svg{width:15px;height:15px;margin-right:6px;stroke-width:2}
-.sbx input{flex:1;min-width:0;font-size:17px;color:#000}
-.sb .tx{display:none;padding-left:12px}.sb.sf .tx{display:flex}
-
-/* 메모 목록 */
-.nr{position:relative;padding:10px 16px 11px}
-.nr:after{content:"";position:absolute;left:16px;right:0;bottom:0;height:.5px;background:var(--ln)}
-.rt b{display:block;font-size:17px;line-height:22px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rt p{font-size:15px;line-height:20px;color:var(--g);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rt p span{color:#000;margin-right:8px;opacity:.55}
-.rt em{font-style:normal}
-.empty{display:none;text-align:center;color:#c4c4c8;font-size:22px;font-weight:600;padding-top:120px}
-.editing .nr{padding-left:48px}
-.sc{display:none;position:absolute;left:14px;top:50%;margin-top:-11px;width:22px;height:22px;border-radius:50%;border:1.5px solid #c4c4c8}
-.editing .sc{display:block}
-.nr.on .sc{background:var(--y);border-color:var(--y)}
-.nr.on .sc:after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(40deg)}
-
-/* 편집기 */
-.body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 16px 24px}
-#edate{text-align:center;font-size:12px;color:var(--g);padding:4px 0 10px}
-#ebody{min-height:50%;outline:0;font-size:17px;line-height:22px;word-break:break-word;caret-color:var(--y)}
-#ebody>:first-child{font-size:24px;line-height:30px;font-weight:700}
-#ebody img{max-width:100%;border-radius:4px;display:block;margin:6px 0}
-#ebody h1{font-size:24px;line-height:30px}#ebody h2{font-size:20px;line-height:26px}
-.ck{position:relative;padding-left:32px}
-.cb{position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;border:1.5px solid #c4c4c8}
-.cb.on{background:var(--y);border-color:var(--y)}
-.cb.on:after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(40deg)}
-.att audio{width:100%;margin-top:8px}
-.ftb{display:none;flex:none;height:44px;align-items:center;padding:0 6px;background:#d1d3d9;border-top:.5px solid rgba(0,0,0,.2)}
-.ftb .ic{flex:1;justify-content:center;font-size:20px;font-weight:500}
-.ftb .x{flex:none}
-#vE.foc .ftb{display:flex}#vE.foc #eTb{display:none}#vE.foc #eDone{display:flex}
-#eTb{justify-content:space-between}
-#aaP{display:none;position:absolute;left:8px;right:8px;bottom:52px;z-index:5;padding:6px;border-radius:13px;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.25)}
-#aaP.show{display:block}
-#aaP div{display:flex;border-bottom:.5px solid var(--ln)}#aaP div:last-child{border:0}
-#aaP button{flex:1;height:40px;font-size:16px}
-
-/* 스케치 */
-#cw{flex:1;background:#fff;position:relative;touch-action:none;border-top:.5px solid var(--ln)}
-.mid{display:flex;gap:6px}
-.stl{flex:none;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(247,247,247,.94);border-top:.5px solid rgba(0,0,0,.3)}
-#tools{display:flex;gap:6px;margin-bottom:10px}
-#tools button{flex:1;height:32px;border-radius:8px;font-size:14px;background:#e5e5ea}
-#tools button.on{background:var(--y);color:#fff}
-#cols{display:flex;justify-content:center;gap:18px}
-#cols i{width:28px;height:28px;border-radius:50%;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.2)}
-#cols i.on{outline:2px solid #8e8e93;outline-offset:2px}
-
-/* 액션 시트 */
-#shw{display:none;position:absolute;inset:0;z-index:50;background:rgba(0,0,0,.4);align-items:flex-end;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
-#shw.show{display:flex}#shb{width:100%}
-.shg{background:rgba(250,250,250,.96);border-radius:13px;overflow:hidden;margin-bottom:8px}
-.sht{padding:14px 16px;font-size:13px;line-height:18px;text-align:center;color:var(--g);border-bottom:.5px solid var(--ln)}
-.shbtn{display:block;width:100%;height:57px;font-size:20px;color:#007aff;border-top:.5px solid var(--ln)}
-.shg .shbtn:first-child{border-top:0}
-.shbtn.red{color:#ff3b30}
-.shbtn.cn{background:#fff;border-radius:13px;font-weight:600;border:0}
-
-/* iPhone 11 상단 노치 안전 영역 */
+/* 메모 - iPhone 12 / iOS 14 (2020) 기본 메모 앱. 라이트·다크 시스템 테마 */
+:root{--bg:#fff;--fg:#000;--sub:#8e8e93;--sep:#c6c6c8;--acc:#ffcc00;--bar:rgba(249,249,249,.94);--ed:#f2f2f7}
+@media (prefers-color-scheme:dark){:root{--bg:#000;--fg:#fff;--sub:#8e8e93;--sep:#38383a;--bar:rgba(28,28,30,.94);--ed:#1c1c1e}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;scrollbar-width:none}
+*::-webkit-scrollbar{display:none}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Apple SD Gothic Neo",sans-serif;user-select:none;-webkit-user-select:none}
+button{border:0;padding:0;margin:0;background:none;color:inherit;font:inherit;cursor:pointer}
+svg{display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#app{position:relative;height:100%;height:100dvh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
 html.emb #app{padding-top:44px}
-html.emb .status{height:44px;padding-top:22px}
-html.emb .status #clk{left:54px;right:auto;text-align:left}
+.dis{pointer-events:none}
 
-/* 시스템 상태바 사용 시 자체 상태바 숨김 */
-html.emb .status{display:none}
+.view{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg)}
+.view[hidden]{display:none}
+.bar{flex:none;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:var(--bar);border-bottom:.5px solid var(--sep);position:relative;z-index:2}
+.bar .c{position:absolute;left:0;right:0;text-align:center;font-size:17px;font-weight:600;pointer-events:none}
+.bar .b{color:var(--acc);font-size:17px;display:flex;align-items:center;gap:2px;z-index:1}
+.bar .b svg{width:22px;height:22px}
+.bar .b.muted{color:var(--sub)}
+
+/* 목록 */
+.ltitle{flex:none;padding:14px 16px 6px}
+.ltitle h1{margin:0;font-size:34px;font-weight:700;letter-spacing:.37px}
+.ltitle p{margin:2px 0 0;font-size:13px;color:var(--sub)}
+.list{flex:1;min-height:0;overflow-y:auto;padding-bottom:10px}
+.nrow{display:flex;gap:10px;padding:10px 16px;border-bottom:.5px solid var(--sep);cursor:pointer;align-items:center}
+.nrow .tx{flex:1;min-width:0}
+.nrow .t{font-size:17px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:22px}
+.nrow .s{display:flex;gap:6px;font-size:15px;color:var(--sub);line-height:20px}
+.nrow .s .d{flex:none}
+.nrow .p{font-size:15px;color:var(--sub);line-height:20px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nrow .th{width:44px;height:44px;border-radius:4px;object-fit:cover;flex:none;background:var(--ed)}
+.nrow .s .dt{white-space:nowrap}
+.foot{flex:none;height:49px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-top:.5px solid var(--sep);background:var(--bar)}
+.foot span{font-size:11px;color:var(--sub)}
+.foot .new{color:var(--acc);width:30px;height:30px;display:grid;place-items:center}
+.foot .new svg{width:26px;height:26px}
+
+/* 메모 보기/편집 */
+.rd{flex:1;min-height:0;overflow-y:auto;padding:4px 20px 60px}
+.ttl{width:100%;border:0;background:none;color:var(--fg);font:700 28px/34px -apple-system,"SF Pro Display","Apple SD Gothic Neo",sans-serif;padding:8px 0 10px;outline:0;resize:none;overflow:hidden}
+.body{width:100%;min-height:200px;border:0;background:none;color:var(--fg);font:17px/25px -apple-system,"SF Pro Text","Apple SD Gothic Neo",sans-serif;padding:0;outline:0;resize:none;overflow:hidden;display:block}
+.pre{font:17px/25px -apple-system,"SF Pro Text","Apple SD Gothic Neo",sans-serif;white-space:pre-wrap;word-break:keep-all;margin:0}
+.ttlv{font:700 28px/34px -apple-system,"SF Pro Display","Apple SD Gothic Neo",sans-serif;margin:8px 0 10px;word-break:keep-all}
+.pimg{display:block;width:100%;height:auto;margin:12px 0;border-radius:6px}
+.ed .bar .b.dis{color:var(--sub)}
