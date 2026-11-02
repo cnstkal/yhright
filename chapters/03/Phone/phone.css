@@ -202,4 +202,4 @@ html.emb .tabs svg{width:28px;height:28px}
 html.emb .sbar{display:none}
 
 /* 둥근 화면 모서리에서 헤더 버튼이 잘리지 않도록 좌우 여백 */
-html.emb .view{padding-left:16px;padding-right:16px}
+html.emb .view>*:not(.tabs){padding-left:16px;padding-right:16px;box-sizing:border-box}
