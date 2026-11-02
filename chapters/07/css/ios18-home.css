@@ -17,3 +17,10 @@
 #home .dock{left:12px!important;right:12px!important;bottom:26px!important;height:96px!important;border-radius:36px!important;background:rgba(255,255,255,.2)!important;-webkit-backdrop-filter:blur(26px) saturate(170%);backdrop-filter:blur(26px) saturate(170%);border:.5px solid rgba(255,255,255,.4)!important;box-shadow:0 10px 28px rgba(0,0,0,.2)}
 #home .grid2 .it>span,#home .fold>span{text-shadow:0 1px 4px rgba(0,0,0,.6)}
 #home .c-hotel{background:linear-gradient(145deg,#1f3a5f,#2d5a8f)!important;color:#fff!important}
+#home .grid2{top:80px;grid-auto-rows:auto;row-gap:22px}
+#home .grid2 .it{width:100%;aspect-ratio:auto}
+#home .grid2 .it .ic{width:70px!important;height:70px!important;min-width:70px!important;min-height:70px!important;max-width:70px!important;max-height:70px!important;flex:0 0 70px!important;aspect-ratio:1/1!important;border-radius:17px!important;overflow:hidden}
+#home .grid2 .it .ic svg{width:100%!important;height:100%!important}
+#home .c-youtube{background:linear-gradient(145deg,#ff3b30,#c81d14)!important;color:#fff!important}
+#home .c-translate{background:linear-gradient(145deg,#3d7ff5,#2255c8)!important;color:#fff!important}
+#home .c-music{background:linear-gradient(145deg,#ff5a6e,#e0244a)!important;color:#fff!important}
