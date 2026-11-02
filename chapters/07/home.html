@@ -72,7 +72,10 @@ function tone(){
 dp.addEventListener('load',tone);setInterval(tone,500);
 
 /* 홈 버튼 역할: 인디케이터를 누르거나 위로 쓸어올리면 홈 화면으로 */
-function goHome(){if(!atHome())dp.src='home.html'}
+/* 앱 열기/닫기: 짧고 가벼운 스케일+페이드 모션 */
+const EASE='cubic-bezier(.2,.8,.2,1)';
+function goHome(){if(atHome())return;dp.style.transition=`transform .2s ${EASE}, opacity .18s ease`;dp.style.transform='scale(.96)';dp.style.opacity='0';setTimeout(()=>{dp.style.transition='none';dp.src='home.html'},190)}
+dp.addEventListener('load',()=>{if(atHome()){dp.style.transition='none';dp.style.transform='';dp.style.opacity='';return}dp.style.transition='none';dp.style.transform='scale(1.02)';dp.style.opacity='0';requestAnimationFrame(()=>requestAnimationFrame(()=>{dp.style.transition=`transform .26s ${EASE}, opacity .2s ease`;dp.style.transform='scale(1)';dp.style.opacity='1'}))});
 let y0=null,moved=false;
 hb.addEventListener('pointerdown',e=>{y0=e.clientY;moved=false;try{hb.setPointerCapture(e.pointerId)}catch(_){}});
 hb.addEventListener('pointermove',e=>{if(y0!=null&&y0-e.clientY>20){moved=true;y0=null;goHome()}});
