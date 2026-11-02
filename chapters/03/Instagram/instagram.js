@@ -38,19 +38,19 @@ const pav=p=>p.user===S.me.id?S.me.avatar:p.avatar;
 const P=id=>S.posts.find(p=>p.id===id),D=id=>S.dms.find(d=>d.id===id);
 /* ---------- views ---------- */
 function postH(p,det){
- return `<div class="post"><div class="ph">${rav(pav(p),p.user,34,1,0)}<b>${esc(p.user)}</b>${p.verified?BADGE:''}<span class="sp"></span><button data-a="pmenu" data-id="${p.id}">${ic('more',24)}</button></div>
+ return `<div class="post"><div class="ph">${rav(pav(p),p.user,32,1,0)}<b>${esc(p.user)}</b>${p.verified?BADGE:''}<span class="sp"></span><button data-a="pmenu" data-id="${p.id}">${ic('more',20)}</button></div>
  <img class="pimg" src="${p.img}" ${det?'':`data-a="pd" data-id="${p.id}"`}>
- <div class="act"><button data-a="like" data-id="${p.id}" style="${p.liked?'color:#ff3040':''}">${ic('heart',26,p.liked)}${fmt(p.likes)}</button>
- <button data-a="pd" data-id="${p.id}">${ic('comment',25)}${fmt(p.commentCount)}</button>
- <button data-a="toast" data-m="공유했습니다">${ic('repost',25)}${fmt(p.reposts)}</button><button data-a="toast" data-m="보냈습니다">${ic('send',25)}${fmt(p.shares)}</button>
- <button class="bm" data-a="save" data-id="${p.id}">${ic('bookmark',25,p.saved)}</button></div>
- ${p.liker?`<div class="liker">${av(ph('#234','#678'),p.liker,24)}<span>${esc(p.liker)}님 외 <b>여러 명</b>이 좋아합니다</span></div>`:''}
- <div class="pt"><b>${esc(p.user)}</b> ${hash(p.caption)}</div><div class="pt gr" style="padding-bottom:8px">${esc(p.date)}</div></div>`}
+ <div class="act"><button data-a="like" data-id="${p.id}" style="${p.liked?'color:#ed4956':''}">${ic('heart',26,p.liked)}</button><button data-a="pd" data-id="${p.id}">${ic('comment',26)}</button><button data-a="toast" data-m="보냈습니다">${ic('send',26)}</button><button class="bm" data-a="save" data-id="${p.id}">${ic('bookmark',26,p.saved)}</button></div>
+ <div class="lk"><b>좋아요 ${fmt(p.likes)}개</b></div>
+ ${p.liker?`<div class="liker">${av(ph('#234','#678'),p.liker,20)}<span>${esc(p.liker)}님 외 <b>여러 명</b>이 좋아합니다</span></div>`:''}
+ <div class="pt"><b>${esc(p.user)}</b> ${hash(p.caption)}</div>
+ ${det?'':`<button class="cmt" data-a="pd" data-id="${p.id}">댓글 ${fmt(p.commentCount)}개 모두 보기</button>`}
+ <div class="pt gr" style="padding-bottom:10px">${esc(p.date)}</div></div>`}
 function homeH(){
  const mine=S.stories.filter(s=>s.user===S.me.id),oth=S.stories.filter(s=>s.user!==S.me.id),seq=[...mine,...oth];
  return `<div class="hd"><div class="l"><button data-a="newpost">${ic('camera',28)}</button></div><div class="c"><span class="logo">Instagram</span></div><div class="r"><button data-a="tab" data-t="dm">${ic('send',26)}</button><button class="rel" data-a="toast" data-m="새 알림이 없습니다">${ic('heart',26)}<i class="dot" style="width:10px;height:10px"></i></button></div></div>
- <div id="sc"><div class="stories"><div class="st mine"><div style="position:relative" data-a="${mine.length?'story':'newstory'}" data-i="0">${rav(S.me.avatar,S.me.id,76,mine.length,mine.every(s=>s.seen))}<button class="pl" data-a="newstory">${ic('plus',16)}</button></div><span class="n">내 스토리</span></div>
- ${oth.map(s=>`<button class="st" data-a="story" data-i="${seq.indexOf(s)}">${rav(s.avatar,s.user,76,1,s.seen)}<span class="n">${esc(s.user)}</span></button>`).join('')}</div>
+ <div id="sc"><div class="stories"><div class="st mine"><div style="position:relative" data-a="${mine.length?'story':'newstory'}" data-i="0">${rav(S.me.avatar,S.me.id,66,mine.length,mine.every(s=>s.seen))}<button class="pl" data-a="newstory">${ic('plus',16)}</button></div><span class="n">내 스토리</span></div>
+ ${oth.map(s=>`<button class="st" data-a="story" data-i="${seq.indexOf(s)}">${rav(s.avatar,s.user,66,1,s.seen)}<span class="n">${esc(s.user)}</span></button>`).join('')}</div>
  ${S.posts.map(p=>postH(p)).join('')||'<div class="empty">게시물이 없습니다. + 버튼으로 추가하세요.</div>'}</div>`}
 function profH(){
  const m=S.me,mp=S.posts.filter(p=>p.user===m.id);
