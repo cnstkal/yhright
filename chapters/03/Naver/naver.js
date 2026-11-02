@@ -119,8 +119,9 @@ function kinLi(q,i){return '<div class="li res qa" data-go="det" data-a="'+q+' �
 function nwsLi(q,i){var n=NEWS[i%NEWS.length];return '<div class="li res" data-go="art" data-a="'+(i%NEWS.length)+'"><div class="tx"><div class="u">'+n[1]+'</div><h3>'+E(q)+' 관련 '+n[0]+'</h3><p class="s">'+n[3]+'</p><div class="m">'+n[2]+'</div></div>'+thumb()+'</div>'}
 function vidLi(q,i){return '<div class="li res" data-go="det" data-a="'+q+' 영상 '+(i+1)+'"><div class="vid">'+scene('v'+i,'#4f86c6','#1d2f55',i%2?'l':'p')+'<u>'+ic('play',22,'#fff',0)+'</u><i>0'+(i+3)+':'+(10+i*7)+'</i></div><div class="tx"><h3>'+q+' 하이라이트 '+(i+1)+'</h3><p class="s">'+CH[i%4]+'</p><div class="m">'+dt(i)+' · 조회수 '+(i*1.3+1.2).toFixed(1)+'만</div></div></div>'}
 function sct(t,more){return '<div class="sec">'+t+'<small data-rt="'+more+'">더보기'+ic('chevR',12,'#999',2)+'</small></div>'}
+function wcard(){return '<div class="wc"><div class="wc1"><span>서울특별시 중구</span><b class="tmp">'+ic('cloudsun',26,'#90a4ae',1.8)+'14°</b></div><div class="wc2"><div><small>미세먼지</small><b class="g">보통 33</b></div><div><small>초미세먼지</small><b class="g">좋음 11</b></div></div></div>'}
 function resBody(q,t){var o='',i;q=E(q);
-if(t==0){o+=sct('VIEW',1);for(i=0;i<2;i++)o+=viewLi(q,i);
+if(t==0){o+=wcard();o+=sct('VIEW',1);for(i=0;i<2;i++)o+=viewLi(q,i);
 o+=sct('이미지',2)+'<div class="istrip">';for(i=0;i<4;i++)o+=scene('t'+i,'#9fd4ff','#5a8f6a',i%2?'l':'p');o+='</div>';
 o+='<div class="gap"></div>'+sct('지식iN',5);for(i=0;i<2;i++)o+=kinLi(q,i);
 o+='<div class="gap"></div>'+sct('뉴스',4);for(i=0;i<2;i++)o+=nwsLi(q,i);
@@ -135,11 +136,13 @@ return o}
 /* ───────── 화면 ───────── */
 function homePane(){
 var svc='';SVC.forEach(function(v){svc+='<div data-go="'+(v[1]=='news'?'news':'svc')+'" data-a="'+v[1]+'">'+sv(v[1])+v[0]+'</div>'});
-return '<section class="pn"><div class="body"><div class="hero"><div class="gw" data-go="search"><b class="lg">NAVER</b><input readonly aria-label="검색" placeholder="검색어를 입력하세요"><button class="cam" data-go="voice" aria-label="음성 검색">'+ic('mic',22,'#1ec800',2)+'</button><button class="cam" data-go="lens" aria-label="스마트렌즈">'+ic('camera',24,'#1ec800',2)+'</button></div></div>'
-+'<div class="gap"></div><div class="sec">날씨<small>서울'+ic('chevD',12,'#999',2)+'</small></div>'
-+'<div class="wx"><div><span>현재</span>'+ic('sun',34,'#ffb300',1.8)+'<b>19°</b></div><div><span>내일 오전</span>'+ic('cloudsun',34,'#90a4ae',1.8)+'<b>14°</b></div><div><span>내일 오후</span>'+ic('sun',34,'#ffb300',1.8)+'<b>22°</b></div></div>'
-+'<div class="dust">미세먼지 <b>보통</b> 초미세먼지 <b>좋음</b></div><div class="wl"><span data-go="det" data-a="지역별 내일 날씨">지역별 내일 날씨</span><span data-go="det" data-a="주간 예보">주간 예보</span></div>'
-+'<div class="ad" data-go="det" data-a="가을맞이 쇼핑 기획전"><em>AD</em>가을맞이 모바일 쇼핑 기획전<br>최대 50% 할인</div>'
+return '<section class="pn"><div class="body">'
++'<div class="topbar">'+ic('menu',22,'#222',2)+'<span class="tr"><i class="pay">N Pay</i><i class="ic2"></i></span></div>'
++'<div class="logo-big">NAVER</div>'
++'<div class="gw" data-go="search"><input readonly aria-label="검색" placeholder="검색어 또는 URL 입력"><button class="cam" data-go="voice" aria-label="음성 검색">'+ic('mic',22,'#1ec800',2)+'</button><button class="cam" data-go="lens" aria-label="스마트렌즈">'+ic('camera',24,'#1ec800',2)+'</button></div>'
++'<div class="ad" data-go="det" data-a="가을맞이 쇼핑 기획전"><em>AD</em>쇼핑라이브 본방사수<br>최대 50% 할인</div>'
++'<div class="wbox"><div class="wx"><div><span>현재</span>'+ic('sun',30,'#ffb300',1.8)+'<b>19°</b></div><div><span>내일 오전</span>'+ic('cloudsun',30,'#90a4ae',1.8)+'<b>14°</b></div><div><span>내일 오후</span>'+ic('sun',30,'#ffb300',1.8)+'<b>22°</b></div></div>'
++'<div class="dust">미세먼지 <b>보통</b> 초미세먼지 <b>좋음</b></div></div>'
 +'<div class="gap"></div><div class="sec">서비스 바로가기</div><div class="svc">'+svc+'</div><div style="height:90px"></div></div></section>'}
 function newsPane(){
 var tabs='';TABS.forEach(function(x,i){tabs+='<div class="'+(i==ptab?'on':'')+'" data-pt="'+i+'">'+x[0]+'</div>'});
@@ -169,7 +172,7 @@ news:function(a){var c=+a||0,t='';CATS.forEach(function(x,i){t+='<div class="'+(
 art:function(a){var n=NEWS[+a],rel='<div class="sec">관련 기사</div>';for(var i=0;i<3;i++)rel+=newsLi(+a+i+1);
 return hd('뉴스','<button class="hb" aria-label="공유">'+ic('share',20,'#222',2)+'</button>')+'<div class="body"><div class="art"><h2>'+n[0]+'</h2><div class="m">'+n[1]+' | 2020.08.12. 오전 9:'+(10+(+a%40))+'</div><div class="img">'+scene('a'+a,'#4f86c6','#1d2f55',(+a%2)?'l':'p')+'</div><p>'+n[3]+' 전문가들은 당분간 같은 흐름이 이어질 것으로 보고 있다.</p><p>관계자는 "시민들의 관심이 높은 만큼 지속적으로 상황을 살피겠다"고 밝혔다. 이번 사안은 다음 주에도 주요 의제로 다뤄질 것으로 보인다.</p><p><span class="btn">'+ic('share',16,'#555',2)+'공유</span><span class="btn">'+ic('star',16,'#555',2)+'스크랩</span><span class="btn">'+ic('chat',16,'#555',2)+'댓글</span></p></div>'+rel+'</div>'},
 result:function(q,t){var tabs='';RT.forEach(function(x,i){tabs+='<div class="'+(i==(t.tab||0)?'on':'')+'" data-rt="'+i+'">'+x+'</div>'});
-return '<div class="hd"><button class="hb" data-back aria-label="뒤로">'+ic('back',22,'#222',2.2)+'</button><div class="sin sm" data-go="search"><input readonly value="'+E(q)+'"></div></div><div class="tabs" id="rtabs">'+tabs+'</div><div class="body" id="rbody">'+resBody(q,t.tab||0)+'</div>'},
+return '<div class="hd"><button class="hb" data-back aria-label="뒤로">'+ic('back',22,'#222',2.2)+'</button><div class="sin sm" data-go="search"><b class="nl">N</b><input readonly value="'+E(q)+'"></div></div><div class="tabs" id="rtabs">'+tabs+'</div><div class="body" id="rbody">'+resBody(q,t.tab||0)+'</div>'},
 svc:function(k){var T={mail:['메일',['받은메일함','보낸메일함','내게쓴메일함','휴지통'],'새 메일이 도착했습니다.'],cafe:['카페',['가입 카페','인기글','내 활동'],'오늘 올라온 인기 게시글입니다.'],blog:['블로그',['이웃새글','추천글','내 블로그'],'가을 나들이 다녀온 이야기입니다.'],kin:['지식iN',['질문 목록','답변하기','내 질문'],'궁금한 점을 질문합니다.'],shop:['쇼핑',['오늘의 특가','패션','디지털'],''],toon:['웹툰',['월','화','수','목','금','토','일'],'새 에피소드가 업데이트되었습니다.'],map:['지도',[],''],dict:['사전',['영어','국어','한자','일본어'],''],stock:['증권',['국내','해외','환율'],'오늘의 시황입니다.'],estate:['부동산',['매매','전세','월세'],'신규 매물이 등록되었습니다.'],movie:['영화',['현재상영작','개봉예정','예매순위'],'이번 주 박스오피스입니다.'],music:['뮤직',['실시간','국내','해외'],'오늘의 인기곡입니다.'],book:['책·공연',['베스트셀러','신간','공연'],'이번 주 인기 도서입니다.'],life:['라이프',['푸드','여행','건강'],'오늘의 생활 정보입니다.'],sports:['스포츠',['야구','축구','농구'],'오늘의 경기 소식입니다.'],tech:['차·테크',['자동차','IT','과학'],'새로운 소식이 올라왔습니다.'],game:['게임',['모바일','PC','e스포츠'],'이번 주 인기 게임입니다.'],tv:['TV·동영상',['실시간','다시보기','클립'],'인기 영상을 모았습니다.']};
 var t=T[k]||[k,[],''],tabs='',c,i;t[1].forEach(function(x,j){tabs+='<div class="'+(j?'':'on')+'" data-tab>'+x+'</div>'});
 if(k=='map')return hd('지도')+'<div class="sbox"><div class="sin"><input placeholder="장소, 주소, 버스 검색"><span class="cam">'+ic('search',22,'#1ec800',2)+'</span></div></div><div class="map">'+ic('pin',38,'#e53935',2)+'</div>';

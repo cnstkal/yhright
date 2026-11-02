@@ -115,3 +115,19 @@ html.emb .stb .tm{left:54px;right:auto;text-align:left}
 /* 시스템 상태바 사용 시 자체 상태바 숨김 */
 html.emb .stb{display:none}
 html.emb #app{position:absolute;top:44px;left:0;right:0;bottom:0;height:auto;padding-top:0}
+
+/* 2020 참고 화면: 홈 상단·로고·날씨 박스, 통합검색 날씨 카드 */
+.topbar{display:flex;justify-content:space-between;align-items:center;height:44px;padding:0 14px}
+.tr{display:flex;gap:8px;align-items:center}.pay{font-style:normal;font-size:11px;font-weight:700;color:#1ec800;border:1px solid #1ec800;border-radius:12px;padding:2px 8px}
+.ic2{width:22px;height:22px;border-radius:50%;background:#1ec800;display:inline-block}
+.logo-big{font-family:"Arial Black",Arial,sans-serif;font-weight:900;font-size:44px;color:#1ec800;letter-spacing:-1px;text-align:center;margin:34px 0 16px}
+.hero{padding:0 0 0;}
+.gw{margin:0 16px}
+.wbox{margin:14px 16px 0;border:1px solid #e5e5e5;border-radius:12px;padding:10px 0 6px;background:#fff}
+.wbox .wx{padding:6px 0 2px}
+.nl{color:#1ec800;font-family:"Arial Black",Arial,sans-serif;font-size:18px;margin:0 10px 0 12px}
+.wc{padding:12px 14px;border-bottom:1px solid #e5e5e5;background:#fff}
+.wc1{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#555}
+.wc1 .tmp{display:flex;align-items:center;gap:4px;font-size:22px;font-weight:500;color:#222}
+.wc2{display:flex;gap:24px;margin-top:8px;font-size:12px;color:#666}.wc2 b{display:block;font-size:14px;color:#222}
+.wc2 .g{color:#1ec800}
