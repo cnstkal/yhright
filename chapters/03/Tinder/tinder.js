@@ -78,7 +78,7 @@ mk('sansan','산산',25,5,'','','','',[],{h:20});
 mk('kidal','키달ㅇ',28,4,'','','','',[],{h:215,on:1});
 mk('kd','KD',29,8,'','','','',[],{h:225});
 mk('L','L',24,11,'','','','',[],{vf:1,h:320});
-mk('yuu','Yuu',26,3,'','','','',[],{on:1,h:170,tag:'내가 받은 LIKE'});
+mk('yuu','Yuu',26,3,'','','','',[],{on:1,h:170,tag:'내가 받은 좋아요'});
 mk('haeden','해든',27,7,'','','','',[],{on:1,h:70});
 mk('team','Team Tinder',0,0,'','','','',[],{off:1,vf:1});
 mk('me','나',28,0,'','','','',[],{h:205});
@@ -116,9 +116,9 @@ const lastMsg=id=>{const c=S.chats[id]||[];return c[c.length-1]};
 (function clock(){const d=new Date();$('#clock').textContent=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0');setTimeout(clock,20000)})();
 
 /* ---------- tabs ---------- */
-const TABS=[['swipe','스와이프','flame'],['explore','둘러보기','compass'],['like','LIKE','heart'],['chat','채팅','msg'],['profile','프로필','user']];
+const TABS=[['swipe','스와이프','flame'],['explore','둘러보기','compass'],['like','좋아요','heart'],['chat','채팅','msg'],['profile','프로필','user']];
 function renderTabs(){
-  const dark=S.tab==='swipe';
+  const dark=false;
   $('#tabbar').className=dark?'dark':'';
   $('#tabbar').innerHTML=TABS.map(([k,l,i])=>`<button class="tb ${S.tab===k?'on':''}" data-act="tab" data-id="${k}"><span class="ico">${ic(i,26,S.tab===k?'currentColor':'none',S.tab===k?1.5:2)}${k==='like'?'<span class="bdg">99+</span>':''}${k==='chat'&&S.unread.size?'<span class="dotr"></span>':''}</span>${l}</button>`).join('');
   $('#sb').classList.toggle('light',dark);$('#hi').classList.toggle('light',dark);
@@ -138,7 +138,7 @@ function infoHTML(p){
   if(ex==='job'&&p.job.trim())x=`<div class="ln s">${ic('briefcase',18)}<span>${esc(p.job)}</span></div>`;
   if(ex==='school'&&p.school.trim())x=`<div class="ln s">${ic('school',18)}<span>${esc(p.school)}</span></div>`;
   if(ex==='tags')x=`<div class="tags">${p.tags.slice(0,3).map(t=>`<b>${esc(t)}</b>`).join('')}</div>`;
-  return `<div class="badges">${p.online?'<span class="bd g">접속 중</span>':''}${p.dist<=10?'<span class="bd">근처</span>':''}</div>${p.likedMe&&!S.decided[p.id]&&!S.matches.includes(p.id)?'<div class="rcv">내가 받은 LIKE ›</div>':''}
+  return `<div class="badges">${p.online?'<span class="bd g">접속 중</span>':''}${p.dist<=10?'<span class="bd">근처</span>':''}</div>${p.likedMe&&!S.decided[p.id]&&!S.matches.includes(p.id)?'<div class="rcv">내가 받은 좋아요 ›</div>':''}
   <div class="nm">${esc(p.name)} <span>${p.age}</span>${p.verified?vf(24,'#fff','#222'):''}</div>
   <div class="ln">${ic('pin',20)}<span>${p.dist}km 거리에 있음</span></div>${l2}${x}`;
 }
@@ -146,7 +146,7 @@ function dotsHTML(p){const n=S.photoIdx[p.id]||0;return p.photos.map((_,i)=>`<i 
 function makeCard(p){
   const el=document.createElement('div');el.className='card';el.dataset.id=p.id;
   el.innerHTML=`<img class="ph" draggable="false" alt="" src="${p.photos[S.photoIdx[p.id]||0]}" style="object-position:${p.pos}"><div class="gtop"></div><div class="gbot"></div><div class="dots">${dotsHTML(p)}</div>
-  <div class="stamp like"><svg viewBox="0 0 24 24" width="132" height="132" fill="#ff1f2d"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><div class="stamp nope"><svg viewBox="0 0 24 24" width="124" height="124" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></div><div class="stamp sup">${ic('star',56,'currentColor',1.5)}<span>SUPER LIKE</span></div>
+  <div class="stamp like"><svg viewBox="0 0 24 24" width="132" height="132" fill="#ff1f2d"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><div class="stamp nope"><svg viewBox="0 0 24 24" width="124" height="124" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></div><div class="stamp sup">${ic('star',56,'currentColor',1.5)}<span>슈퍼 라이크</span></div>
   <div class="info">${infoHTML(p)}</div><button class="up" data-act="detail" data-id="${p.id}" aria-label="상세 보기">${ic('up',24,'none',3)}</button>`;
   return el;
 }
@@ -245,18 +245,18 @@ function refresh(skipStack){if(!skipStack)layoutStack();renderTabs();if(S.tab===
 
 function showMatch(id){
   const p=P[id],o=document.createElement('div');o.className='mt-ov';
-  o.innerHTML=`<h1>It's a Match!</h1><p>${esc(p.name)} 님과 서로 LIKE를 보냈어요</p><div class="mph"><img src="${P.me.photos[0]}" alt=""><img src="${p.photos[0]}" alt=""></div><div class="mht">${ic('heart',44,'currentColor',1.5)}</div>
-  <div class="mbs"><button class="mbtn a" data-act="mmsg" data-id="${id}">메시지 보내기</button><button class="mbtn b" data-act="mkeep">계속 스와이프</button></div>`;
+  o.innerHTML=`<h1>매치되었어요!</h1><p>${esc(p.name)} 님과 서로 좋아요를 보냈어요</p><div class="mph"><img src="${P.me.photos[0]}" alt=""><img src="${p.photos[0]}" alt=""></div><div class="mht">${ic('heart',44,'currentColor',1.5)}</div>
+  <div class="mbs"><button class="mbtn a" data-act="mmsg" data-id="${id}">메시지 보내기</button><button class="mbtn b" data-act="mkeep">계속 둘러보기</button></div>`;
   $('#phone').appendChild(o);
 }
 
 /* ---------- LIKE screen ---------- */
-const CATS=['LIKE 99개 이상','내가 보낸 LIKE','오늘의 PICK'];
+const CATS=['좋아요 99개 이상','내가 보낸 좋아요','오늘의 PICK'];
 const FL=[['near','근처'],['bio','자기소개 완료'],['ver','프로필 인증'],['age','나이'],['dist','거리']];
 function applyF(list){const f=S.filters;return list.filter(p=>(!f.near||p.dist<=5)&&(!f.bio||p.bio.trim())&&(!f.ver||p.verified)&&(!f.age||p.age<=27)&&(!f.dist||p.dist<=10))}
 function gcard(p,mode){
   const bl=p.blur&&mode==='recv',k=S.decided[p.id];
-  const tag=mode==='sent'?`<div class="tagk ${k==='super'?'sp':''}">${ic(k==='super'?'star':'heart',13,'currentColor',1.5)}${S.matches.includes(p.id)?'매치됨':k==='super'?'SUPER LIKE':'LIKE 보냄'}</div>`:'';
+  const tag=mode==='sent'?`<div class="tagk ${k==='super'?'sp':''}">${ic(k==='super'?'star':'heart',13,'currentColor',1.5)}${S.matches.includes(p.id)?'매치됨':k==='super'?'슈퍼 라이크':'좋아요 보냄'}</div>`:'';
   return `<div class="gc" data-act="detail" data-id="${p.id}"><img class="${bl?'bl':''}" src="${p.photos[0]}" alt="" style="object-position:${p.pos}"><div class="gcg"></div>${tag}
   <div class="gci">${bl?'<span class="pill-bl"></span>':`<b>${esc(p.name)}</b>`}<span>${p.age}</span>${p.verified?vf(20,'#fff','#222'):''}<div class="gcb">${ic('search',16)}<span>${esc(p.bio.trim()||'아직 소개가 없어요')}</span></div></div></div>`;
 }
@@ -266,8 +266,8 @@ function renderLike(){
   $('#chips').innerHTML=`<button class="chip ${act?'on':''}" data-act="flt" data-id="reset" aria-label="필터 초기화">${ic('sliders',20)}</button>`+FL.map(([k,l])=>`<button class="chip ${S.filters[k]?'on':''}" data-act="flt" data-id="${k}">${l}</button>`).join('');
   const recv=applyF(ORDER.map(id=>P[id]).filter(p=>p.likedMe&&!S.decided[p.id]&&!S.matches.includes(p.id)));
   const sent=applyF(S.sent.map(id=>P[id]));
-  $('#p0').innerHTML=recv.length?`<div class="grid">${recv.map(p=>gcard(p,'recv')).join('')}</div>`:'<div class="none">조건에 맞는 LIKE가 없어요<br>필터를 바꿔 보세요</div>';
-  $('#p1').innerHTML=sent.length?`<div class="grid">${sent.map(p=>gcard(p,'sent')).join('')}</div>`:'<div class="none">아직 보낸 LIKE가 없어요<br>스와이프에서 하트를 눌러 보세요</div>';
+  $('#p0').innerHTML=recv.length?`<div class="grid">${recv.map(p=>gcard(p,'recv')).join('')}</div>`:'<div class="none">조건에 맞는 좋아요가 없어요<br>필터를 바꿔 보세요</div>';
+  $('#p1').innerHTML=sent.length?`<div class="grid">${sent.map(p=>gcard(p,'sent')).join('')}</div>`:'<div class="none">아직 보낸 좋아요가 없어요<br>스와이프에서 하트를 눌러 보세요</div>';
   const picks=applyF(PICKS.map(id=>P[id]).filter(p=>!S.decided[p.id]&&!S.matches.includes(p.id)));
   $('#p2').innerHTML=picks.length?picks.map(p=>`<div class="pick" data-act="detail" data-id="${p.id}"><img src="${p.photos[0]}" alt=""><div class="gcg" style="height:60%"></div><div class="gci" style="font-size:26px"><b>${esc(p.name)}</b><span>${p.age}</span>${p.verified?vf(24,'#fff','#222'):''}<div class="gcb" style="font-size:16px">${esc(p.bio.trim()||p.intro)}</div><div class="tags" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;width:100%">${p.tags.slice(0,3).map(t=>`<b style="font-size:13px;font-weight:500;border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:4px 10px">${esc(t)}</b>`).join('')}</div></div></div>`).join(''):'<div class="none">오늘의 PICK을 모두 확인했어요</div>';
 }
@@ -278,7 +278,7 @@ function renderChat(){
   const strip=S.matches.filter(id=>S.newMatch.has(id));
   const rows=[...S.matches,'team'].sort((a,b)=>((lastMsg(b)?.t)||S.matchedAt[b]||0)-((lastMsg(a)?.t)||S.matchedAt[a]||0));
   const html=`<div class="sec" style="padding-bottom:12px">새 매치</div>
-  <div class="nm-row"><div class="nmc gold" data-act="tab" data-id="like"><div class="im"><img src="${P.jihyun.photos[0]}" alt=""><div class="c99">99+</div></div><span>LIKE</span></div>
+  <div class="nm-row"><div class="nmc gold" data-act="tab" data-id="like"><div class="im"><img src="${P.jihyun.photos[0]}" alt=""><div class="c99">99+</div></div><span>좋아요</span></div>
   ${strip.map(id=>{const p=P[id];return `<div class="nmc" data-act="room" data-id="${id}"><div class="im">${S.unread.has(id)?'<i class="rd"></i>':''}<img src="${p.photos[0]}" alt=""></div><span>${esc(p.name)}${p.verified?vf(18,'#171717'):''}</span></div>`}).join('')}</div>
   <div class="msgbox"><div class="sec">메시지</div>${rows.map(id=>{
     const p=P[id],m=lastMsg(id),them=!m||m.f==='them';
@@ -291,7 +291,7 @@ function renderChat(){
 
 /* ---------- profile tab ---------- */
 function renderProfile(){
-  $('#pf').innerHTML=`<img src="${P.me.photos[0]}" style="width:110px;height:110px;border-radius:50%;object-fit:cover" alt=""><b style="color:#171717;font-size:22px">나, 28</b><span>보낸 LIKE ${S.sent.length} · 매치 ${S.matches.length}</span><span style="font-size:14px">프로필 편집 등 나머지 기능은<br>시뮬레이션에 포함되지 않아요.</span>`;
+  $('#pf').innerHTML=`<img src="${P.me.photos[0]}" style="width:110px;height:110px;border-radius:50%;object-fit:cover" alt=""><b style="color:#171717;font-size:22px">나, 28</b><span>보낸 좋아요 ${S.sent.length} · 매치 ${S.matches.length}</span><span style="font-size:14px">프로필 편집 등 나머지 기능은<br>시뮬레이션에 포함되지 않아요.</span>`;
 }
 
 /* ---------- overlays: detail ---------- */
@@ -372,7 +372,7 @@ const ACT={
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;const f=ACT[t.dataset.act];if(f){e.stopPropagation();f(t.dataset.id,t,e)}});
 
 /* 모바일 키보드: 보이는 영역에 맞춰 높이 조정 */
-if(window.visualViewport){const ph=$('#phone');visualViewport.addEventListener('resize',()=>{ph.style.bottom='auto';ph.style.height=visualViewport.height+'px'})}
+if(window.visualViewport){const ph=$('#phone');visualViewport.addEventListener('resize',()=>{ph.style.bottom='auto';ph.style.height=(visualViewport.height-44)+'px'})}
 
 /* init */
 renderTabs();layoutStack();
