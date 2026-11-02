@@ -5,7 +5,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;color:
 button,input{font:inherit;color:inherit;border:0;padding:0;margin:0;background:none;cursor:pointer;-webkit-appearance:none;outline:0}
 svg{display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 #app{position:relative;height:100%;height:100dvh;display:flex;flex-direction:column;overflow:hidden;background:#fff}
-html.emb #app{padding-top:44px}
+html.emb #app{position:absolute;top:44px;left:0;right:0;bottom:0;height:auto;padding-top:0}
 
 .pages{flex:1;min-height:0;position:relative;overflow:hidden}
 .pg{position:absolute;inset:0;overflow-y:auto;background:#fff}
@@ -102,3 +102,4 @@ html.emb #app{padding-top:44px}
 #inFull .fb button svg{width:34px;height:34px;stroke-width:2.2}
 #inFull .fb .dec{background:#ff3b30}
 #inFull .fb .acc{background:#34c759}
+html.emb #inBanner{top:10px}

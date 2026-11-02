@@ -108,10 +108,10 @@ input::placeholder{color:#b5b5b5}
 @keyframes pl{to{box-shadow:0 0 0 34px rgba(30,200,0,0)}}
 
 /* iPhone 11 상단 노치 안전 영역 */
-html.emb #app{padding-top:44px}
+html.emb #app{position:absolute;top:44px;left:0;right:0;bottom:0;height:auto;padding-top:0}
 html.emb .stb{height:44px;padding-top:22px}
 html.emb .stb .tm{left:54px;right:auto;text-align:left}
 
 /* 시스템 상태바 사용 시 자체 상태바 숨김 */
 html.emb .stb{display:none}
-html.emb #app{padding-top:44px}
+html.emb #app{position:absolute;top:44px;left:0;right:0;bottom:0;height:auto;padding-top:0}

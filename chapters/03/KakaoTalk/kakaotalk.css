@@ -9,7 +9,7 @@ svg{display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:
 .dis{pointer-events:none}
 
 #app{position:relative;height:100%;height:100dvh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
-html.emb #app{padding-top:44px}
+html.emb #app{position:absolute;top:44px;left:0;right:0;bottom:0;height:auto;padding-top:0}
 .view{flex:1;min-height:0;display:flex;flex-direction:column;background:var(--bg)}
 .ind{flex:none;height:21px;display:flex;justify-content:center;align-items:flex-start;background:var(--bar)}
 .ind::after{content:"";width:134px;height:5px;margin-top:8px;border-radius:3px;background:#000}
