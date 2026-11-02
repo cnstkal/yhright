@@ -25,7 +25,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:radial-gradient(ellips
 .notch .cam{position:absolute;left:50%;top:7px;width:11px;height:11px;margin-left:34px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#2f3566,#0a0b18 62%,#000);box-shadow:0 0 0 1.5px #14151a}
 /* 홈 인디케이터: 누르거나 위로 쓸어올리면 홈 화면으로 */
 .hbar{position:absolute;z-index:30;left:50%;bottom:0;transform:translateX(-50%);width:220px;height:34px;border:0;padding:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.hbar i{position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#000;transition:background .2s}
+.hbar i{position:absolute;left:50%;bottom:8px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:#fff;mix-blend-mode:difference;transition:background .2s}
 .device.light .hbar i{background:#fff}
 
 /* 앱/홈이 iframe(디스플레이) 안에서 열릴 때: 기기 외형 없이 내용만 */

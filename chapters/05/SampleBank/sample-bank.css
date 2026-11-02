@@ -35,3 +35,7 @@ body{font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
 html.emb .app{padding-top:44px}
 html.emb .ti{font-size:19px}
 html.emb .qb i{font-size:19px}
+
+/* 기기 화면 안에서는 가로폭을 꽉 채움 */
+html.emb .app{max-width:none;width:100%}
+html.emb .tabbar{max-width:none;width:100%;left:0;transform:none}

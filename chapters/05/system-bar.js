@@ -10,11 +10,13 @@ padding:env(safe-area-inset-top,0px) 7px 0 7px;display:flex;align-items:center;j
 pointer-events:none;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Pretendard",sans-serif;color:#000;}
 .sys-bar.sys-overlay{position:absolute;top:0;left:0;right:0}
 .sys-bar.sys-dark{color:#fff}
-.sys-bar .sb-t{position:absolute;left:0;right:0;text-align:center;font-size:12px;font-weight:600;letter-spacing:-.1px;font-feature-settings:"tnum"}
-.sys-bar .sb-l,.sys-bar .signals{display:flex;gap:4px;align-items:center;color:inherit;position:relative;z-index:1;font-size:12px;font-weight:600;letter-spacing:-.1px}
+.sys-bar .sb-t{position:absolute;left:51px;width:60px;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 13px);font-size:17px;font-weight:600;letter-spacing:-.3px;text-align:center;font-feature-settings:"tnum"}
+.sys-bar .sb-l,.sys-bar .signals{display:flex;gap:5px;align-items:center;color:inherit;position:relative;z-index:1;font-size:17px;font-weight:600;letter-spacing:-.3px}
+
 .sys-bar .signals{margin-left:auto}
-.sys-bar svg{display:block;height:11px;width:auto}
-.sys-bar .sb-dots{height:7px}`;
+.sys-bar svg{display:block;height:12px;width:auto}
+.sys-bar .sb-dots{display:none}
+.sys-bar #battery-pct{display:none}`;
 function lum(c) {
 const m = (c || "").match(/\d+(\.\d+)?/g); if (!m || m.length < 3) return null;
 return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255;
@@ -48,7 +50,7 @@ style.textContent = css; document.head.appendChild(style);
 const bar = document.createElement("div");
 bar.className = "sys-bar";
 bar.setAttribute("aria-hidden", "true");
-bar.innerHTML = '<span class="sb-l"><svg class="sb-dots" viewBox="0 0 30 8" fill="currentColor"><circle cx="3" cy="4" r="2.6"/><circle cx="9.5" cy="4" r="2.6"/><circle cx="16" cy="4" r="2.6"/><circle cx="22.5" cy="4" r="2.6"/><circle cx="29" cy="4" r="2.1" fill="none" stroke="currentColor" stroke-width="1"/></svg><span>KT</span><svg viewBox="0 0 18 13" fill="currentColor"><path d="M9 12.4 6.6 10a3.4 3.4 0 0 1 4.8 0zM9 7.4c-1.8 0-3.5.7-4.8 1.9L3 8.1A8.5 8.5 0 0 1 9 5.7c2.3 0 4.4.9 6 2.4l-1.2 1.2A6.8 6.8 0 0 0 9 7.4zM9 3C6.2 3 3.7 4.1 1.8 5.9L.6 4.7A11.6 11.6 0 0 1 9 1.3c3.2 0 6.1 1.3 8.4 3.4l-1.2 1.2A9.8 9.8 0 0 0 9 3z"/></svg></span><span class="sb-t"></span><span class="signals"><span id="battery-pct">40%</span><svg viewBox="0 0 28 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="currentColor" stroke-opacity=".5"/><rect id="battery-fill" x="2" y="2" width="9.5" height="9" rx="2" fill="currentColor"/><path d="M25.5 4.5v4" stroke="currentColor" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
+bar.innerHTML = '<span class="sb-t"></span><span class="signals"><svg viewBox="0 0 18 12" fill="currentColor" style="height:11px"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg viewBox="0 0 16 12" fill="currentColor" style="height:11px"><path d="M8 11.4 5.6 9a3.4 3.4 0 0 1 4.8 0zM8 6.6c-1.7 0-3.3.6-4.5 1.7L2.3 7A6.9 6.9 0 0 1 8 4.8c2.2 0 4.2.9 5.7 2.2L12.5 8.3A5 5 0 0 0 8 6.6zM8 2C5.3 2 2.9 3 1.1 4.7L0 3.5A11.1 11.1 0 0 1 8 .5c3 0 5.8 1.2 8 3.1L14.9 4.8C13.1 3 10.7 2 8 2z"/></svg><svg viewBox="0 0 28 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="currentColor" stroke-opacity=".5"/><rect id="battery-fill" x="2" y="2" width="9.5" height="9" rx="2" fill="currentColor"/><path d="M25.5 4.5v4" stroke="currentColor" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/></svg></span>';
 // 앱이 스스로 상단 여백을 잡는 경우(data-selfpad)에는 그 자리에 겹쳐 올리고, 아니면 본문 맨 위에 끼워 넣습니다.
 const bodyDisplay = getComputedStyle(document.body).display;
 // 본문이 flex/grid 레이아웃이면 끼워 넣으면 배치가 깨지므로 겹쳐 올립니다.

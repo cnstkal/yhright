@@ -123,5 +123,5 @@ html,body,#app,.msgs,.list{overflow-x:hidden}
 
 
 /* iPhone 11 상단 노치 안전 영역 */
-html.emb #app{padding-top:44px}
+html.emb #app{padding-top:0}
 html.emb .sys-bar{height:44px}
