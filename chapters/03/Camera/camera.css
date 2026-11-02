@@ -1,36 +1,70 @@
-/* 카메라 - iPhone 6s / iOS 9.3 (사진 촬영 전용) */
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:"Helvetica Neue","Apple SD Gothic Neo","Noto Sans KR",sans-serif;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+/* 카메라 - iPhone 12 / iOS 14 (2020) 기본 카메라 UI. 일반 사진 촬영만 동작, 나머지 버튼은 UI만 */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;scrollbar-width:none}
+*::-webkit-scrollbar{display:none}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","Apple SD Gothic Neo",sans-serif;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+button{border:0;padding:0;margin:0;background:none;color:inherit;font:inherit;cursor:pointer}
+svg{display:block;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 #app{height:100%;height:100dvh;display:flex;flex-direction:column;background:#000;overflow:hidden;position:relative}
-button{border:0;padding:0;background:none;color:inherit;font:inherit;cursor:pointer}
-.top{height:44px;flex:none;background:#000}
-#preview{position:relative;flex:none;width:100%;aspect-ratio:3/4;max-height:calc(100% - 44px - 100px);background:#111;overflow:hidden;margin:0 auto}
+/* 임베드(목업) 안에서는 상태 바 높이만큼 아래로 */
+html.emb #app{padding-top:44px}
+
+/* 상단 제어: 플래시 / 추가 도구 펼치기 / Live Photo */
+.top{height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 26px;background:#000}
+.top .ic{width:30px;height:30px;display:grid;place-items:center;color:#fff}
+.top svg{width:22px;height:22px}
+.top .chev{width:26px;height:26px;transition:transform .25s ease}
+.top .chev.up{transform:rotate(180deg)}
+
+/* 미리보기: 화면 너비 전체, 4:3 */
+#preview{position:relative;flex:none;width:100%;aspect-ratio:3/4;background:#111;overflow:hidden}
 #live{width:100%;height:100%;object-fit:cover;display:block}
-#live.front{transform:scaleX(-1)}
-#fallback{position:absolute;inset:0;display:grid;place-items:center;color:#aaa;font-size:14px;text-align:center;padding:24px;background:#111}
+#fallback{position:absolute;inset:0;display:grid;place-items:center;color:#8e8e93;font-size:15px;text-align:center;padding:24px;background:#111;white-space:pre-line}
 #fallback[hidden]{display:none}
-#flash{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
-#flash.on{opacity:1}
-#bottom{flex:1;min-height:0;background:#000;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px)}
-#label{height:36px;display:flex;align-items:center;justify-content:center;color:#ffcc00;font-size:15px;letter-spacing:1px}
-.controls{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 24px 8px}
-#thumbnail{width:48px;height:48px;border:1px solid #666;border-radius:4px;background:#222 center/cover no-repeat}
-#shutter{width:66px;height:66px;border-radius:50%;background:#fff;border:0;box-shadow:0 0 0 3px #000,0 0 0 5px #fff;display:block}
-#shutter:active{background:#ccc}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .3s ease}
+#flash.on{opacity:.85;transition:none}
+
+/* 노란색 초점 사각형 + 노출 슬라이더 (표시만) */
+#focus{position:absolute;width:76px;height:76px;margin:-38px 0 0 -38px;border:1.5px solid #ffd60a;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#focus.on{opacity:1}
+#focus .sun{position:absolute;left:86px;top:-26px;width:20px;height:128px}
+#focus .sun svg{position:absolute;left:0;top:-4px;width:20px;height:20px;stroke:#ffd60a;fill:none}
+#focus .sun b{position:absolute;left:9px;top:18px;width:1.5px;height:100px;background:#ffd60a}
+
+/* 줌 선택 (표시만, 0.5x / 1x) */
+.zoom{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:4px;padding:4px;border-radius:20px;background:rgba(0,0,0,.4)}
+.z{min-width:40px;height:34px;border-radius:17px;font-size:13px;font-weight:600;color:#fff}
+.z.on{color:#ffd60a}
+
+/* 하단 영역 */
+#bottom{flex:1;min-height:0;display:flex;flex-direction:column;background:#000;padding-bottom:env(safe-area-inset-bottom,0px)}
+#modes{flex:none;height:44px;display:flex;align-items:center;gap:2px;overflow-x:auto;scroll-behavior:smooth;padding-top:4px}
+.mode{flex:none;height:30px;padding:0 13px;font-size:14px;font-weight:600;line-height:30px;color:rgba(255,255,255,.6);white-space:nowrap}
+.mode.on{color:#ffd60a}
+
+#controls{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 34px 16px 36px}
+#thumbnail{width:48px;height:48px;border-radius:6px;background:#1c1c1e center/cover no-repeat;transition:transform .2s ease}
+#thumbnail.pop{animation:pop .3s ease}
+@keyframes pop{0%{transform:scale(.7)}100%{transform:scale(1)}}
+#shutter{width:76px;height:76px;border-radius:50%;border:3px solid #fff;display:grid;place-items:center;background:transparent}
+#shutter i{width:64px;height:64px;border-radius:50%;background:#fff;transition:transform .12s ease,background .12s ease}
+#shutter:active i{transform:scale(.9);background:#d1d1d6}
 #switch{width:48px;height:48px;display:grid;place-items:center;color:#fff}
-#switch svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#switch svg{width:30px;height:30px}
+
+/* 추가 촬영 도구 (상단 화살표로 펼침, UI만) */
+#tools{display:none;flex:1;grid-template-columns:repeat(6,1fr);align-items:start;padding:12px 4px 0}
+#bottom.tools-open #tools{display:grid}
+#bottom.tools-open #modes,#bottom.tools-open #controls{display:none}
+.tool{display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;font-size:11px}
+.tool svg{width:26px;height:26px}
+
+/* 사진 크게 보기 */
 #review{position:absolute;inset:0;background:#000;z-index:8;display:flex;flex-direction:column}
 #review[hidden]{display:none}
-#review .bar{height:44px;display:flex;align-items:center;padding:0 12px;flex:none}
-#review .bar button{font-size:17px;color:#ffcc00}
+html.emb #review{padding-top:44px}
+#review .bar{height:44px;flex:none;display:flex;align-items:center;justify-content:flex-end;padding:0 18px}
+#review .bar button{font-size:17px;color:#ffd60a}
 #review img{flex:1;min-height:0;width:100%;object-fit:contain}
-#review .ft{height:56px;flex:none;display:flex;align-items:center;justify-content:center}
-#review .ft button{font-size:17px;color:#ffcc00}
-#toast{position:absolute;left:50%;bottom:130px;transform:translateX(-50%);background:#333e;border-radius:16px;padding:8px 14px;font-size:13px;white-space:nowrap;opacity:0;pointer-events:none;z-index:10}
+
+#toast{position:absolute;left:50%;bottom:150px;transform:translateX(-50%);background:rgba(40,40,40,.9);border-radius:16px;padding:8px 14px;font-size:13px;white-space:nowrap;opacity:0;pointer-events:none;z-index:10;transition:opacity .2s}
 #toast.show{opacity:1}
-*{scrollbar-width:none!important}*::-webkit-scrollbar{display:none!important}
-
-
-/* iPhone 11 상단 노치 안전 영역 */
-html.emb #app{padding-top:44px}
-html.emb .top{height:44px;flex-basis:44px}
