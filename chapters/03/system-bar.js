@@ -79,8 +79,10 @@ const tick = () => { const d = new Date(); t.textContent = (d.getHours() % 12 ||
 tick(); setInterval(tick, 10000);
 const paint = () => {
 const bg = bgOf(bar.offsetHeight);
-if (bg === "image") { bar.style.background = "transparent"; bar.classList.add("sys-dark"); return; }
+if (bg === "image") { bar.style.background = "transparent";
+bar.classList.add("sys-dark"); return; }
 bar.style.background = "transparent";
+document.documentElement.style.background = bg; document.body.style.background = bg;
 const l = lum(bg);
 bar.classList.toggle("sys-dark", l !== null && l < 0.5);
 };
