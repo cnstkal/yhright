@@ -135,7 +135,7 @@ return o}
 /* ───────── 화면 ───────── */
 function homePane(){
 var svc='';SVC.forEach(function(v){svc+='<div data-go="'+(v[1]=='news'?'news':'svc')+'" data-a="'+v[1]+'">'+sv(v[1])+v[0]+'</div>'});
-return '<section class="pn"><div class="body"><div class="hero"><div class="gw" style="opacity:.45" data-go="search"><b class="lg">NAVER</b><input readonly aria-label="검색" placeholder="검색어를 입력하세요"><button class="cam" data-go="voice" aria-label="음성 검색">'+ic('mic',22,'#1ec800',2)+'</button><button class="cam" data-go="lens" aria-label="스마트렌즈">'+ic('camera',24,'#1ec800',2)+'</button></div></div>'
+return '<section class="pn"><div class="body"><div class="hero"><div class="gw" data-go="search"><b class="lg">NAVER</b><input readonly aria-label="검색" placeholder="검색어를 입력하세요"><button class="cam" data-go="voice" aria-label="음성 검색">'+ic('mic',22,'#1ec800',2)+'</button><button class="cam" data-go="lens" aria-label="스마트렌즈">'+ic('camera',24,'#1ec800',2)+'</button></div></div>'
 +'<div class="gap"></div><div class="sec">날씨<small>서울'+ic('chevD',12,'#999',2)+'</small></div>'
 +'<div class="wx"><div><span>현재</span>'+ic('sun',34,'#ffb300',1.8)+'<b>19°</b></div><div><span>내일 오전</span>'+ic('cloudsun',34,'#90a4ae',1.8)+'<b>14°</b></div><div><span>내일 오후</span>'+ic('sun',34,'#ffb300',1.8)+'<b>22°</b></div></div>'
 +'<div class="dust">미세먼지 <b>보통</b> 초미세먼지 <b>좋음</b></div><div class="wl"><span data-go="det" data-a="지역별 내일 날씨">지역별 내일 날씨</span><span data-go="det" data-a="주간 예보">주간 예보</span></div>'

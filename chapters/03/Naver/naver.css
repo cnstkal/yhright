@@ -28,7 +28,7 @@ input::placeholder{color:#b5b5b5}
 .pager{flex:1;overflow:hidden;position:relative;min-height:0}
 .trk{display:flex;width:300%;height:100%;will-change:transform}
 .pn{width:33.3333%;height:100%;flex:none;display:flex;flex-direction:column;touch-action:pan-y;background:#fff}
-.hero{height:100%;display:flex;align-items:center;justify-content:center;padding:0 16px 70px;flex-shrink:0}
+.hero{padding:10px 12px 0;flex-shrink:0}
 .pn .ttl{padding:14px 14px 10px;font-size:20px;font-weight:700;background:#fff}
 /* 그린닷 */
 .gd{position:absolute;inset:0;background:rgba(255,255,255,.95);opacity:0;pointer-events:none;transition:opacity .22s;z-index:20}
