@@ -202,3 +202,9 @@ html.emb .tabs svg{width:28px;height:28px}
 html.emb .view>*:not(.tabs){padding-left:16px;padding-right:16px;box-sizing:border-box}
 
 html.emb .sbar{display:none}
+
+/* 통화 중에는 상단바를 투명하게 (어두운 통화 화면 위에 표시) */
+html.emb body:has(#vCall:not([hidden])) .sys-bar,html.emb body:has(#vIn:not([hidden])) .sys-bar{background:transparent!important;color:#fff}
+
+/* 통화 화면은 상단 상태바 영역까지 화면 배경이 이어지도록 */
+html.emb .view.call,html.emb .view.incoming{top:0;padding-top:0}

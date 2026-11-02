@@ -255,13 +255,15 @@ const s=Math.floor((Date.now()-startTs)/1000);
 $('#cTime').textContent=p2(Math.floor(s/60))+':'+p2(s%60);
 }
 function renderCallBtns(){
-const B=[['mute','음소거',CI.mute],['kp','키패드',CI.kp],['spk','스피커',CI.spk],['add','통화 추가',CI.add],['ft','FaceTime',CI.ft],['con','연락처',CI.con]];
-$('#cGrid').innerHTML=B.map(([k,l,ic])=>`<button class="cb${call[k]?' on':''}" data-cb="${k}"><i>${ic}</i><span>${l}</span></button>`).join('');
+const MORE='<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>';
+const END='<svg viewBox="0 0 24 24" class="f" style="transform:rotate(135deg)"><use href="#ph"/></svg>';
+const B=[['spk','스피커',CI.spk],['ft','FaceTime',CI.ft],['mute','소리 끔',CI.mute],['more','더 보기',MORE],null,['kp','키패드',CI.kp]];
+$('#cGrid').innerHTML=B.map(x=>x?`<button class="cb${call[x[0]]?' on':''}" data-cb="${x[0]}"><i>${x[2]}</i><span>${x[1]}</span></button>`:`<button class="cb endc" data-act="end" aria-label="통화 종료"><i>${END}</i><span>종료</span></button>`).join('');
 }
 $('#cGrid').addEventListener('click',e=>{
 const b=e.target.closest('[data-cb]');if(!b||!call)return;const k=b.dataset.cb;
 if(k==='kp'){$('#cGrid').hidden=true;$('#ckp').hidden=false;return}
-if(k==='add'||k==='ft'){toast('시뮬레이션에서는 사용할 수 없습니다');return}
+if(k==='add'||k==='ft'||k==='more'){toast('시뮬레이션에서는 사용할 수 없습니다');return}
 if(k==='con'){toast('연락처는 통화 후에 확인할 수 있습니다');return}
 call[k]=!call[k];renderCallBtns();
 });

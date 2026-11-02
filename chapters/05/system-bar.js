@@ -80,14 +80,14 @@ tick(); setInterval(tick, 10000);
 const paint = () => {
 const bg = bgOf(bar.offsetHeight);
 if (bg === "image") { bar.style.background = "transparent"; bar.classList.add("sys-dark"); return; }
-bar.style.background = bg;
+bar.style.background = "transparent";
 const l = lum(bg);
 bar.classList.toggle("sys-dark", l !== null && l < 0.5);
 };
 paint(); window.addEventListener("load", paint);
 if (navigator.getBattery) navigator.getBattery().then(b => {
 const fill = bar.querySelector("#battery-fill"), pct = bar.querySelector("#battery-pct");
-const draw = () => { fill.setAttribute("width", Math.max(1, 21 * b.level)); pct.textContent = Math.round(b.level * 100) + "%"; };
+const draw = () => { if (fill) fill.setAttribute("width", Math.max(1, 21 * b.level)); if (pct) pct.textContent = Math.round(b.level * 100) + "%"; };
 draw(); b.addEventListener("levelchange", draw);
 });
 }
