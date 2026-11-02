@@ -1,335 +1,143 @@
-(()=>{
 'use strict';
+(()=>{
 const $=s=>document.querySelector(s);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const HOUR=3600000,DAY=86400000,KEY='yhright.messages.v1';
-const SMS_DEFAULT=['c3','c4'];/* 기존 데이터에 sms 표시가 없을 때 SMS(초록)로 보는 연락처 */
-
-/* ---------- 데이터 (기존 데이터 유지) ---------- */
-function seed(){
-const now=Date.now();
-const m=(me,text,ago)=>({id:uid(),me,text,img:'',ts:now-ago});
-return{
-contacts:[{id:'c1',name:'엄마',phone:'010-3960-2207'},{id:'c2',name:'형',phone:'010-2394-7716'},{id:'c3',name:'민준',phone:'010-3347-8850'},{id:'c4',name:'지수',phone:'010-7316-8842'}],
-threads:[
-{id:'t1',ids:['c1'],unread:2,msgs:[m(false,'저녁 뭐 먹을 거니?',5*HOUR),m(true,'아직 못 정했어요',4.5*HOUR),m(false,'그럼 같이 먹자',HOUR)]},
-{id:'t2',ids:['c2'],unread:0,msgs:[m(false,'내일 시간 돼?',DAY+2*HOUR),m(true,'응 오후에 괜찮아',DAY+HOUR)]},
-{id:'t3',ids:['c3'],unread:1,msgs:[m(false,'내일 회의 자료 보내줄게',3*HOUR)]}
-]
+const KEY='ios14-messages-v1';
+const MIN=6e4,now=Date.now();
+const T=m=>now+m*MIN;
+const PEOPLE={
+  c1:{n:'김민준',col:'#ff6b6b'},c2:{n:'이서연',col:'#4dabf7'},c3:{n:'박지호',col:'#63c132'},
+  c4:{n:'최유진',col:'#b197fc'},c6:{n:'한지민',col:'#38d9a9'},c8:{n:'강시우',col:'#91a7ff'},
+  c10:{n:'010-5555-0147',col:'#adb5bd'}
 };
-}
-let S=null;
-try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(!S||!Array.isArray(S.threads)||!Array.isArray(S.contacts))S=seed();
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('저장 공간이 부족합니다')}}
-const cById=id=>S.contacts.find(c=>c.id===id);
-const names=t=>t.ids.map(id=>cById(id)?.name||'알 수 없음').join(', ');
-const last=t=>t.msgs[t.msgs.length-1];
-const curThread=()=>S.threads.find(t=>t.id===sel);
-const isSMS=t=>typeof t.sms==='boolean'?t.sms:t.ids.some(id=>SMS_DEFAULT.includes(id));
-const kind=t=>isSMS(t)?'문자 메시지':'iMessage';
-const p2=n=>String(n).padStart(2,'0');
-const tstr=d=>{const h=d.getHours();return(h<12?'오전 ':'오후 ')+((h%12)||12)+':'+p2(d.getMinutes())};
-const WD='일월화수목금토';
-function fmt(ts){
-const d=new Date(ts),n=new Date();
-if(d.toDateString()===n.toDateString())return tstr(d);
-if(d.toDateString()===new Date(n-DAY).toDateString())return'어제';
-if(n-d<6*DAY)return WD[d.getDay()]+'요일';
-return d.getFullYear()+'. '+(d.getMonth()+1)+'. '+d.getDate()+'.';
-}
-function stamp(ts){
-const d=new Date(ts),n=new Date();
-let day;
-if(d.toDateString()===n.toDateString())day='오늘';
-else if(d.toDateString()===new Date(n-DAY).toDateString())day='어제';
-else day=d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일 ('+WD[d.getDay()]+')';
-return `<b>${day}</b> ${tstr(d)}`;
-}
+const SEED=[
+  {id:'c1',pin:1,unread:1,msgs:[{f:'c1',t:T(-42),x:'오늘 저녁 7시 괜찮아?'},{f:'c1',t:T(-40),x:'장소는 종로로 잡을까'}]},
+  {id:'c2',pin:1,unread:0,msgs:[{f:'me',t:T(-320),x:'사진 보내줄게'},{f:'c2',t:T(-300),x:'좋아, 기다리는 중!'},{f:'c2',t:T(-299),type:'photo'}]},
+  {id:'c3',pin:1,unread:0,msgs:[{f:'c3',t:T(-600),x:'다음 주 러닝 같이 할래?'},{f:'me',t:T(-590),x:'좋아 토요일 아침 어때'}]},
+  {id:'g1',pin:1,unread:2,group:['c3','c6','c8'],title:'주말 농구팀',msgs:[{f:'c3',t:T(-90),x:'토요일 9시 가능한 사람?'},{f:'c6',t:T(-88),x:'@박지호 나 가능!'},{f:'c8',t:T(-85),x:'나도 가능 체육관 예약할게'}]},
+  {id:'c6',sms:1,unread:0,msgs:[{f:'c6',t:T(-2000),x:'내일 택배 왔더라'},{f:'me',t:T(-1990),x:'고마워 ㅎㅎ'}]},
+  {id:'c10',sms:1,unread:0,msgs:[{f:'c10',t:T(-4200),x:'인증번호는 4821입니다.'}]},
+  {id:'c4',unread:0,msgs:[{f:'c4',t:T(-7000),x:'회의 자료 보내드렸어요'}]}
+];
 
-/* ---------- 화면 전환 ---------- */
-const VIEWS={list:'#vList',thread:'#vThread',compose:'#vCompose',pick:'#vPick'};
-let cur='list',sel=null,q='',selectMode=false,picked=new Set();
-function show(n){for(const k in VIEWS)$(VIEWS[k]).hidden=k!==n;cur=n;closeMenu()}
-function openList(){sel=null;selectMode=false;picked=new Set();show('list');renderList()}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.length)return s}catch(e){}return JSON.parse(JSON.stringify(SEED))}
+let C=load();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(C))}catch(e){}};
+const conv=id=>C.find(c=>c.id===id);
+const name=id=>id==='me'?'나':(PEOPLE[id]?PEOPLE[id].n:id);
+const colOf=id=>PEOPLE[id]?PEOPLE[id].col:'#adb5bd';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const title=c=>c.group?c.title:(PEOPLE[c.id]?PEOPLE[c.id].n:c.id);
+const last=c=>c.msgs[c.msgs.length-1];
+const P=n=>String(n).padStart(2,0);
+function fmtTime(t){const d=new Date(t),n=new Date(),same=d.toDateString()===n.toDateString();
+  if(same){const h=d.getHours();return `${h<12?'오전':'오후'} ${h%12||12}:${P(d.getMinutes())}`}
+  const y=new Date(n);y.setDate(n.getDate()-1);if(d.toDateString()===y.toDateString())return '어제';
+  return `${d.getMonth()+1}/${d.getDate()}`}
+function fmtList(t){const d=new Date(t),n=new Date(),same=d.toDateString()===n.toDateString();return same?`${d.getHours()<12?'오전':'오후'} ${d.getHours()%12||12}:${P(d.getMinutes())}`:fmtTime(t)}
+function fmtDay(t){const d=new Date(t);return `${d.getHours()<12?'오전':'오후'} ${d.getHours()%12||12}:${P(d.getMinutes())}`}
 
-/* ---------- 대화 목록 ---------- */
+const CHEV='<svg class="chev" viewBox="0 0 12 16"><path d="M2 2l6 6-6 6"/></svg>';
+const avatar=(id,cls='')=>`<i class="av ${cls}" style="background:${colOf(id)}">${esc((name(id)||'?')[0])}</i>`;
+const stack=c=>c.group?`<div class="stack">${c.group.slice(0,3).map(m=>avatar(m)).join('')}</div>`:avatar(c.id);
+const typing=new Set();
+
+/* 목록 화면 */
 function renderList(){
-const items=S.threads
-.filter(t=>t.msgs.length)
-.filter(t=>!q||names(t).includes(q)||(last(t)?.text||'').includes(q))
-.sort((a,b)=>(last(b)?.ts||0)-(last(a)?.ts||0));
-$('#list').innerHTML=items.map(t=>{
-const l=last(t),nm=names(t),multi=t.ids.length>1;
-const pv=l?(l.text||(l.img?'사진':'')):'';
-return `<li class="item${t.unread?' unread':''}" data-id="${t.id}">
-${selectMode?`<input type="checkbox" class="ck" tabindex="-1" ${picked.has(t.id)?'checked':''}>`:''}
-<span class="av">${multi?'그룹':esc(nm.charAt(0))}</span>
-<div class="body">
-<div class="row1"><span class="nm">${esc(nm)}</span><span class="tm">${l?fmt(l.ts):''}</span></div>
-<div class="row2"><span class="pv">${esc(pv)}</span></div>
-</div></li>`;
-}).join('');
-$('#empty').hidden=items.length>0;
-$('#selBar').hidden=!selectMode;
-$('#selTxt').textContent=picked.size?picked.size+'개 선택됨':'';
-$('#editBtn').textContent=selectMode?'완료':'편집';
-}
-$('#list').addEventListener('click',e=>{
-const li=e.target.closest('.item');if(!li)return;
-if(selectMode){
-const id=li.dataset.id;
-picked.has(id)?picked.delete(id):picked.add(id);
-renderList();
-}else openThread(li.dataset.id);
-});
-$('#q').addEventListener('input',e=>{q=e.target.value.trim();renderList()});
-
-/* ---------- 대화방 ---------- */
-function openThread(id){
-sel=id;const t=curThread();if(!t)return openList();
-t.unread=0;save();
-$('#tName').textContent=names(t);
-$('#tIn').placeholder=kind(t);
-renderMsgs(t);show('thread');updSend('t');scrollEnd();
-}
-function renderMsgs(t){
-let h='',prevTs=0;
-const sms=isSMS(t);
-t.msgs.forEach((m,i)=>{
-if(!prevTs||m.ts-prevTs>=HOUR||new Date(m.ts).toDateString()!==new Date(prevTs).toDateString())h+=`<div class="day">${stamp(m.ts)}</div>`;
-prevTs=m.ts;
-const nx=t.msgs[i+1];
-const tail=!nx||nx.me!==m.me||nx.ts-m.ts>=HOUR;
-h+=`<div class="mrow ${m.me?'me':'them'}${sms?' sms':''}${tail?' tail':''}" data-mid="${m.id}">
-<div class="bub">${m.img?`<img src="${m.img}" alt="첨부 사진">`:''}${m.text?esc(m.text):''}</div></div>`;
-});
-const l=last(t);
-if(l&&l.me&&!sms)h+='<div class="dlv">전달됨</div>';
-$('#msgs').innerHTML=h;
-}
-function scrollEnd(){const e=$('#msgs');e.scrollTop=e.scrollHeight}
-function sendThread(){
-const text=$('#tIn').value.trim();
-if(!text&&!tAtt)return;
-const t=curThread();if(!t)return;
-t.msgs.push({id:uid(),me:true,text,img:tAtt||'',ts:Date.now()});
-$('#tIn').value='';tAtt=null;renderPend('t');autosize($('#tIn'));updSend('t');
-save();renderMsgs(t);scrollEnd();
-}
-$('#tForm').addEventListener('submit',e=>{e.preventDefault();sendThread()});
-$('#tIn').addEventListener('keydown',e=>{
-if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();sendThread()}
-});
-$('#tIn').addEventListener('input',e=>{autosize(e.target);updSend('t')});
-function updSend(k){
-const v=(k==='t'?$('#tIn'):$('#cIn')).value.trim(),a=k==='t'?tAtt:cAtt;
-(k==='t'?$('#tForm'):$('#vCompose .composer')).classList.toggle('has',!!(v||a));
+  const pins=C.filter(c=>c.pin).slice(0,9);
+  const rows=C.filter(c=>!c.pin).sort((a,b)=>last(b).t-last(a).t);
+  $('#pins').innerHTML=pins.map(c=>`<div class="pin" data-id="${c.id}">${c.unread?'<i class="dot"></i>':''}${typing.has(c.id)?'<div class="tdot" style="margin:0;padding:6px 8px;position:absolute;top:-14px;right:-6px">…</div>':''}${stack(c).replace('class="av"','class="av"')}<span class="nm">${esc(title(c))}</span></div>`).join('');
+  $('#rows').innerHTML=rows.map(c=>{const l=last(c);
+    const pv=typing.has(c.id)?'<span class="pv typing">입력 중…</span>':`<div class="pv">${c.group?esc(name(l.f))+': ':''}${l.type==='photo'?'사진':esc(l.x||'')}</div>`;
+    return `<div class="li${c.unread?' unread':''}" data-id="${c.id}">${c.unread?'<i class="dot"></i>':''}${stack(c)}<div class="tx"><div class="r1"><span class="nm">${esc(title(c))}</span><span class="tm">${fmtList(l.t)}</span></div>${pv}</div>${CHEV}</div>`}).join('');
 }
 
-/* 길게 눌러 메시지 삭제 */
-let pressT=null;
-const clearPress=()=>{clearTimeout(pressT);pressT=null};
-$('#msgs').addEventListener('pointerdown',e=>{
-const r=e.target.closest('.mrow');if(!r)return;
-clearPress();
-pressT=setTimeout(()=>{pressT=null;askDelMsg(r.dataset.mid)},600);
-});
-['pointerup','pointerleave','pointercancel','pointermove'].forEach(ev=>$('#msgs').addEventListener(ev,clearPress));
-function askDelMsg(mid){
-ask('이 메시지를 삭제할까요?','삭제',()=>{
-const t=curThread();if(!t)return;
-t.msgs=t.msgs.filter(m=>m.id!==mid);
-if(!t.msgs.length)S.threads=S.threads.filter(x=>x.id!==t.id);
-save();
-if(!t.msgs.length)return openList();
-renderMsgs(t);
-});
+/* 대화 화면 */
+let cur=null,replyTo=null;
+function bubbleHTML(m,i,arr,c){
+  const prev=arr[i-1],next=arr[i+1],mine=m.f==='me';
+  const grpStart=!prev||prev.f!==m.f,grpEnd=!next||next.f!==m.f;
+  const gap=!prev||m.t-prev.t>15*MIN;
+  let h='';
+  if(gap)h+=`<div class="ts">${fmtDay(m.t)}</div>`;
+  const cls=`${mine?'me':''} ${c.sms&&mine?'sms':''} ${c.group&&!mine&&grpStart?'g':''} ${grpStart&&!gap?'':''}`;
+  const sn=c.group&&!mine&&grpStart?`<div class="sn">${esc(name(m.f))}</div>`:'';
+  const av=c.group&&!mine?(grpEnd?avatar(m.f,'sm'):'<span class="sp"></span>'):(!mine?'<span class="sp"></span>':'');
+  const quote=m.reply?`<div class="rq">${esc(m.reply)}</div>`:'';
+  const body=m.type==='photo'?`<div class="bub ph ${grpStart?'first':''} ${grpEnd?'last':''}"></div>`
+    :`<div class="bub ${grpStart?'first':''} ${grpEnd?'last':''}">${fmt(m.x)}</div>`;
+  h+=`<div class="mrow ${cls}" data-i="${i}">${!mine?av:''}<div class="col">${sn}${quote}${body}</div>${mine?'':''}</div>`;
+  if(mine&&m.st&&!next)h+=`<div class="stat" style="${m.st==='read'?'':''}">${m.st==='read'?'읽음':'전송됨'}</div>`;
+  return h;
+}
+function fmt(x){return esc(x||'').replace(/@(\S+)/g,'<span class="mention">@$1</span>')}
+function renderChat(){
+  const c=cur;
+  $('#chdr').innerHTML=`<button class="back" data-a="back"><svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8"/></svg>메시지${c.unread?`<span class="badge" style="background:#ff3b30;color:#fff;border-radius:9px;font-size:12px;padding:0 6px;margin-left:4px;line-height:18px">${c.unread}</span>`:''}</button>
+  <div class="who">${c.group?stack(c).replace('class="stack"','class="stack"'):avatar(c.id)}<span class="nm">${esc(title(c))}${c.group?'':''}${c.group?CHEVS():''}</span></div>
+  <button class="vid" data-a="noop" aria-label="FaceTime"><svg viewBox="0 0 24 24"><rect x="2.5" y="6.5" width="13" height="11" rx="2.5"/><path d="M15.5 10.5l6-3.5v10l-6-3.5"/></button>`;
+  const m=$('#msgs');
+  m.innerHTML=c.msgs.map((x,i,a)=>bubbleHTML(x,i,a,c)).join('')+(typing.has(c.id)?'<div class="tdot"><i></i><i></i><i></i></div>':'');
+  m.scrollTop=m.scrollHeight;
+  $('#rbar').classList.toggle('on',!!replyTo);
+  $('#rtx').textContent=replyTo?`${name(replyTo.f)}: ${replyTo.type==='photo'?'사진':replyTo.x}`:'';
+}
+function CHEVS(){return '<svg viewBox="0 0 8 12" style="width:8px;height:10px;stroke-width:2.2"><path d="M2 1l4 5-4 5"/></svg>'}
+
+function openChat(id){
+  const c=conv(id);if(!c)return;
+  cur=c;c.unread=0;save();replyTo=null;
+  $('#vList').hidden=true;$('#vChat').hidden=false;
+  renderChat();renderList();
+}
+function backList(){$('#vChat').hidden=true;$('#vList').hidden=false;cur=null;renderList()}
+
+/* 전송 및 시뮬레이션 */
+function send(text){
+  const c=cur;if(!c||!text.trim())return;
+  const m={f:'me',t:Date.now(),x:text.trim(),st:'sent'};
+  if(replyTo)m.reply=(replyTo.type==='photo'?'사진':replyTo.x);
+  c.msgs.push(m);replyTo=null;save();renderChat();renderList();
+  setTimeout(()=>{if(c.msgs.includes(m)){m.st='read';save();if(cur===c)renderChat()}},900);
+  // 상대 응답 시뮬레이션
+  const ps=c.group?c.group.filter(x=>x!=='me'):[c.id];
+  const who=ps[Math.floor(Math.random()*ps.length)];
+  const lines=['좋아요!','알겠어요 :)','ㅇㅋ','확인해볼게','그럼 그때 봐요'];
+  setTimeout(()=>{typing.add(c.id);if(cur===c)renderChat();renderList()},1500);
+  setTimeout(()=>{typing.delete(c.id);c.msgs.push({f:who,t:Date.now(),x:lines[Math.floor(Math.random()*lines.length)]});
+    if(cur!==c)c.unread=(c.unread||0)+1;save();if(cur===c)renderChat();renderList()},3000);
 }
 
-/* ---------- 새 메시지 ---------- */
-let rIds=[],cAtt=null,tAtt=null,fileTo='t';
-function openCompose(){
-rIds=[];cAtt=null;
-$('#toIn').value='';$('#cIn').value='';autosize($('#cIn'));
-renderCompose();renderSugg();show('compose');updSend('c');
-}
-function composeKind(){
-if(!rIds.length)return'iMessage';
-const t=findThread(rIds);
-return t?kind(t):(rIds.some(id=>SMS_DEFAULT.includes(id))?'문자 메시지':'iMessage');
-}
-function renderCompose(){
-$('#recips').innerHTML=rIds.map(id=>`<span class="rchip" data-rm="${id}">${esc(cById(id)?.name)}</span>`).join('');
-const k=composeKind();
-$('#cIn').placeholder=k;
-$('#cTitle').textContent='새로운 '+k;
-renderPend('c');
-}
-function findThread(ids){
-const a=[...ids].sort();
-return S.threads.find(x=>x.ids.length===a.length&&[...x.ids].sort().join()===a.join());
-}
-function addRecip(id){if(!rIds.includes(id))rIds.push(id);renderCompose()}
-/* 수신인 검색 */
-function matches(v){
-v=v.trim();if(!v)return[];
-const d=v.replace(/\D/g,'');
-return S.contacts.filter(c=>!rIds.includes(c.id)&&(c.name.includes(v)||(d&&(c.phone||'').replace(/\D/g,'').includes(d))));
-}
-function renderSugg(){
-const m=matches($('#toIn').value);
-$('#sugg').hidden=!m.length;
-$('#sugg').innerHTML=m.map(c=>`<li class="item" data-sid="${c.id}"><span class="av">${esc(c.name.charAt(0))}</span><div class="body"><div class="row1"><span class="nm">${esc(c.name)}</span></div><div class="row2"><span class="pv">${esc(c.phone||'')}</span></div></div></li>`).join('');
-}
-$('#toIn').addEventListener('input',renderSugg);
-$('#sugg').addEventListener('click',e=>{
-const li=e.target.closest('[data-sid]');if(!li)return;
-addRecip(li.dataset.sid);$('#toIn').value='';renderSugg();
-});
-$('#toIn').addEventListener('keydown',e=>{
-if(e.key==='Backspace'&&!$('#toIn').value&&rIds.length){rIds.pop();renderCompose();return}
-if(e.key!=='Enter'||e.isComposing)return;
-e.preventDefault();
-const v=$('#toIn').value.trim();if(!v)return;
-const c=S.contacts.find(x=>x.name===v)||matches(v)[0];
-if(!c){toast('연락처를 찾을 수 없습니다');return}
-addRecip(c.id);$('#toIn').value='';renderSugg();
-});
-$('#recips').addEventListener('click',e=>{
-const c=e.target.closest('[data-rm]');if(!c)return;
-rIds=rIds.filter(x=>x!==c.dataset.rm);renderCompose();
-});
-$('#cIn').addEventListener('input',e=>{autosize(e.target);updSend('c')});
-$('#cIn').addEventListener('keydown',e=>{
-if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();sendCompose()}
-});
-function sendCompose(){
-if(!rIds.length)return toast('받는 사람을 선택하세요');
-const text=$('#cIn').value.trim();
-if(!text&&!cAtt)return;
-const ids=[...rIds].sort();
-let t=findThread(ids);
-if(!t){t={id:uid(),ids,unread:0,sms:composeKind()==='문자 메시지',msgs:[]};S.threads.push(t)}
-t.msgs.push({id:uid(),me:true,text,img:cAtt||'',ts:Date.now()});
-save();openThread(t.id);
-}
-
-/* 연락처 선택: 누르면 바로 추가 */
-function openPick(){
-$('#pickList').innerHTML=S.contacts.map(c=>`<li class="item" data-cid="${c.id}"><span class="av">${esc(c.name.charAt(0))}</span><div class="body"><div class="row1"><span class="nm">${esc(c.name)}</span></div><div class="row2"><span class="pv">${esc(c.phone||'')}</span></div></div></li>`).join('');
-show('pick');
-}
-$('#pickList').addEventListener('click',e=>{
-const li=e.target.closest('[data-cid]');if(!li)return;
-addRecip(li.dataset.cid);show('compose');renderSugg();
-});
-
-/* ---------- 사진 첨부 ---------- */
-function attach(k){fileTo=k;$('#fileIn').click()}
-$('#fileIn').addEventListener('change',e=>{
-const f=e.target.files[0];e.target.value='';if(!f)return;
-readImg(f,d=>{
-if(fileTo==='t'){tAtt=d;renderPend('t');updSend('t')}else{cAtt=d;renderPend('c');updSend('c')}
-});
-});
-function readImg(file,cb){
-const r=new FileReader();
-r.onload=()=>{
-const im=new Image();
-im.onload=()=>{
-const s=Math.min(1,640/Math.max(im.width,im.height));
-const c=document.createElement('canvas');
-c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
-c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-cb(c.toDataURL('image/jpeg',.8));
-};
-im.src=r.result;
-};
-r.readAsDataURL(file);
-}
-function renderPend(k){
-const d=k==='t'?tAtt:cAtt;
-$(k==='t'?'#tPend':'#cPend').innerHTML=d?`<div class="pimg"><img src="${d}" alt="첨부 미리보기"><button data-unatt="${k}" aria-label="첨부 취소">✕</button></div>`:'';
-}
-$('#tPend').addEventListener('click',e=>{const b=e.target.closest('[data-unatt]');if(b){tAtt=null;renderPend('t');updSend('t')}});
-$('#cPend').addEventListener('click',e=>{const b=e.target.closest('[data-unatt]');if(b){cAtt=null;renderPend('c');updSend('c')}});
-
-/* ---------- 세부사항 메뉴 / 대화상자 / 토스트 ---------- */
-function openMenu(){
-const t=curThread();if(!t)return;
-const c=cById(t.ids[0]);
-$('#pop').innerHTML=`<div class="info">${esc(names(t))}${t.ids.length===1&&c?.phone?'<br>'+esc(c.phone):''}<br>${kind(t)}</div><button data-m="call">전화 걸기</button><button data-m="tdel">대화 삭제</button>`;
-$('#pop').hidden=false;
-}
-function closeMenu(){$('#pop').hidden=true}
-$('#pop').addEventListener('click',e=>{
-const b=e.target.closest('[data-m]');if(!b)return;
-const k=b.dataset.m;closeMenu();
-if(k==='call')A.call();
-else if(k==='tdel'){
-ask('이 대화를 삭제할까요?','삭제',()=>{
-S.threads=S.threads.filter(t=>t.id!==sel);save();openList();
-});
-}
-});
-let dlgCb=null;
-function ask(msg,ok,cb){$('#dlgMsg').textContent=msg;$('#dlgOk').textContent=ok;dlgCb=cb;$('#dlg').hidden=false}
-$('#dlgOk').addEventListener('click',()=>{$('#dlg').hidden=true;const f=dlgCb;dlgCb=null;f&&f()});
-$('#dlgNo').addEventListener('click',()=>{$('#dlg').hidden=true;dlgCb=null});
-let toastT=null;
-function toast(m){const el=$('#toast');el.textContent=m;el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,1600)}
-function autosize(el){el.style.height='auto';el.style.height=Math.min(120,el.scrollHeight)+'px'}
-
-/* ---------- 버튼 동작 ---------- */
-const A={
-compose:()=>openCompose(),
-edit:()=>{selectMode=!selectMode;picked=new Set();renderList()},
-more:()=>{if(!$('#pop').hidden)return closeMenu();openMenu()},
-back:()=>openList(),
-call:()=>{const t=curThread();if(!t)return;const c=cById(t.ids[0]);const number=c?.phone||'';location.href='../Phone/phone.html?number='+encodeURIComponent(number)+'&name='+encodeURIComponent(c?.name||names(t))+'&call=1'},
-attach:()=>attach('t'),
-cattach:()=>attach('c'),
-csend:()=>sendCompose(),
-cback:()=>openList(),
-pick:()=>openPick(),
-pickback:()=>show('compose'),
-delsel:()=>{
-if(!picked.size)return toast('대화를 선택하세요');
-ask(`선택한 대화 ${picked.size}개를 삭제할까요?`,'삭제',()=>{
-S.threads=S.threads.filter(t=>!picked.has(t.id));
-save();selectMode=false;picked=new Set();renderList();
-});
-}
-};
+/* 이벤트 */
 document.addEventListener('click',e=>{
-const el=e.target.closest('[data-act]');
-if(el){const f=A[el.dataset.act];f&&f();return}
-if(!e.target.closest('#pop'))closeMenu();
+  const li=e.target.closest('.li,.pin');
+  if(li&&!$('#vList').hidden){openChat(li.dataset.id);return}
+  const b=e.target.closest('[data-a]');if(!b)return;
+  const a=b.dataset.a;
+  if(a==='back')backList();
+  else if(a==='compose'){$('#q').focus()}
+  else if(a==='rx'){replyTo=null;renderChat()}
 });
+$('#msgs').addEventListener('dblclick',e=>{const r=e.target.closest('.mrow');if(!r||!cur)return;replyTo=cur.msgs[+r.dataset.i];renderChat();$('#cin').focus()});
+$('#cin').addEventListener('input',e=>{$('#comp').classList.toggle('has',!!e.target.value.trim())});
+$('#comp').addEventListener('submit',e=>{e.preventDefault();const i=$('#cin');send(i.value);i.value='';$('#comp').classList.remove('has')});
+$('#q').addEventListener('input',e=>{const q=e.target.value.trim();document.querySelectorAll('#rows .li').forEach(li=>{const c=conv(li.dataset.id);li.style.display=!q||title(c).includes(q)?'':'none'})});
 
-/* ---------- 키보드 대응 ---------- */
-const vv=window.visualViewport;
-function fitVV(){
-const root=document.documentElement.style;
-root.setProperty('--vvh',(vv?vv.height:innerHeight)+'px');
-if(cur==='thread')scrollEnd();
-}
-if(vv){vv.addEventListener('resize',fitVV)}
-window.addEventListener('resize',fitVV);
-document.addEventListener('focusin',e=>{if(e.target.matches('textarea,input'))setTimeout(()=>{e.target.scrollIntoView({block:'nearest'});fitVV()},300)});
-
-/* ---------- 시작 ---------- */
-save();
+/* 화면 구성 */
+$('#app').innerHTML=`<section class="view" id="vList">
+  <header class="hd"><button class="b" data-a="noop">편집</button><span class="tt">메시지</span><button class="b" data-a="compose" aria-label="새 메시지"><svg viewBox="0 0 24 24"><path d="M14.5 4.5h-7a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-7"/><path d="M18.5 3.5l2 2L12 14l-3 1 1-3z"/></svg></button></header>
+  <label class="sbox"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg><input id="q" placeholder="검색" autocomplete="off"></label>
+  <div class="pins" id="pins"></div>
+  <div class="rowl" id="rows"></div>
+</section>
+<section class="view" id="vChat" hidden>
+  <header class="chdr" id="chdr"></header>
+  <div class="msgs" id="msgs"></div>
+  <div class="rbar" id="rbar"><span class="tx" id="rtx"></span><button class="x" data-a="rx" aria-label="답장 취소"><svg viewBox="0 0 14 14"><path d="M2 2l10 10M12 2L2 12"/></svg></button></div>
+  <form class="comp" id="comp" autocomplete="off">
+    <button class="plus" type="button" data-a="noop" aria-label="앱 추가"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+    <label class="field"><input id="cin" placeholder="iMessage" autocomplete="off"><button class="ab mic" type="button" data-a="noop" aria-label="음성 메시지"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button><button class="ab send" type="submit" aria-label="보내기"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button></label>
+  </form>
+</section>`;
 renderList();
-show('list');
-fitVV();
-const params=new URLSearchParams(location.search);
-const incoming=params.get('to');
-if(incoming){
-let c=S.contacts.find(x=>(x.phone||'').replace(/\D/g,'')===incoming.replace(/\D/g,''));
-if(!c){c={id:uid(),name:params.get('name')||incoming,phone:incoming};S.contacts.push(c);save()}
-openCompose();addRecip(c.id);
-}
+
 })();
