@@ -57,10 +57,8 @@ function profH(){
  return `<div class="hd"><div class="l"><button data-a="newpost">${ic('plus',30)}</button></div><div class="c"><button data-a="acct" style="display:flex;align-items:center;gap:4px">${esc(m.id)}${ic('chev',16)}<i class="dot"></i></button></div><div class="r"><button data-a="toast" data-m="새 알림이 없습니다">${ic('bell',26)}</button><button data-a="settings">${ic('menu',28)}</button></div></div>
  <div id="sc"><div class="prof"><button data-a="editme" style="position:relative">${av(m.avatar,m.id,86)}</button><div class="stat"><div><b>${m.postsN!==''?fmt(m.postsN):mp.length}</b>게시물</div><div><b>${fmt(m.followers)}</b>팔로워</div><div><b>${fmt(m.following)}</b>팔로잉</div></div></div>
  ${m.name?`<div style="padding:4px 16px;font-weight:600">${esc(m.name)}</div>`:''}${m.bio?`<div class="pt" style="padding:2px 16px">${hash(m.bio)}</div>`:''}
- ${m.link?`<div class="pill">@ ${esc(m.link)}</div>`:''}${m.mutual?`<div class="pt" style="padding:6px 16px">${esc(m.mutual)}</div>`:''}
+ ${m.mutual?`<div class="pt" style="padding:6px 16px">${esc(m.mutual)}</div>`:''}
  <div class="btns"><button data-a="editme">프로필 편집</button><button data-a="toast" data-m="프로필 링크가 복사되었습니다">프로필 공유</button><button class="s" data-a="newsugg">${ic('au',20)}</button></div>
- <div class="sec" style="padding-top:6px"><span>사람 찾아보기</span><button data-a="newsugg" style="color:#4a5cf5;font-weight:600">모두 보기</button></div>
- <div class="sg">${S.sugg.map(s=>`<div class="card"><button class="x" data-a="sdel" data-id="${s.id}">${ic('x',18)}</button><div data-a="sedit" data-id="${s.id}">${av(s.avatar,s.name,130)}<b>${esc(s.name)}</b><small>${esc(s.sub)}</small></div><button class="fb ${s.on?'on':''}" data-a="sfol" data-id="${s.id}">${s.on?'팔로잉':'팔로우'}</button></div>`).join('')}</div>
  <div class="tabs"><div class="on">${ic('grid',24,1)}</div><div>${ic('repost',24)}</div><div>${ic('tag',24)}</div></div>
  ${mp.length?`<div class="grid">${mp.map(p=>`<img src="${p.img}" data-a="pd" data-id="${p.id}">`).join('')}</div>`:'<div class="empty">게시물이 없습니다.<br><br><button data-a="newpost" style="color:#4a5cf5;font-weight:700">첫 게시물 추가</button></div>'}</div>`}
 const prev=d=>{if(d.sub)return d.sub;const m=d.msgs[d.msgs.length-1];if(!m)return'대화를 시작하세요';return(m.img&&m.reelUser?'릴스를 보냈습니다':m.img?'사진을 보냈습니다':m.text)+(d.time?' · '+d.time:'')};
