@@ -1,40 +1,63 @@
 (()=>{'use strict';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const KEY='yhright.kakaotalk.v1',H=36e5,DAY=864e5;
+const uid=()=>'m'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const KEY='ios14-kakaotalk-v1',H=36e5,DAY=864e5;
 
-/* ---------- 데이터 ---------- */
+/* ---------- 데이터 (가상 인물) ---------- */
 const ME={id:'me',name:'성화',st:'오늘도 화이팅!'};
 const FR=[
- {id:'f1',name:'엄마',st:'밥은 먹었니?'},
- {id:'f2',name:'윤호',st:''},
- {id:'f3',name:'아빠',st:'건강이 최고'},
+ {id:'f1',name:'엄마',st:'밥은 먹었니?',fav:true},
+ {id:'f2',name:'아빠',st:'건강이 최고',fav:true},
+ {id:'f3',name:'윤호',st:'',fav:true},
  {id:'f4',name:'형',st:'바쁨'},
- {id:'f5',name:'성현이형(매니저)',st:'스케줄 확인 필수'},
+ {id:'f5',name:'성현(매니저)',st:'스케줄 확인 필수'},
  {id:'f6',name:'철수',st:'ㅋㅋ'},
  {id:'f7',name:'민기',st:''},
- {id:'f8',name:'홍중',st:'☕'}
+ {id:'f8',name:'홍중',st:'☕'},
+ {id:'f9',name:'지은',st:'여행 가고 싶다'},
+ {id:'f10',name:'수빈',st:'퇴근!'},
+ {id:'f11',name:'도윤',st:''},
+ {id:'f12',name:'하린',st:'오늘도 맑음'},
+ {id:'f13',name:'서준',st:'운동 중'},
+ {id:'f14',name:'예린',st:'🌙'},
+ {id:'f15',name:'태현',st:''},
+ {id:'f16',name:'소영',st:'행복한 하루'}
 ];
-const HUE={me:210,f1:340,f2:200,f3:30,f4:170,f5:260,f6:120,f7:50,f8:300};
+const HUE={me:210,f1:340,f2:30,f3:200,f4:170,f5:260,f6:120,f7:50,f8:300,f9:15,f10:280,f11:190,f12:95,f13:230,f14:320,f15:150,f16:60};
 const fById=id=>id==='me'?ME:FR.find(f=>f.id===id);
-const SIL='<svg viewBox="0 0 24 24"><circle cx="12" cy="8.500" r="4.800"/><path d="M2.500 24c.5-6.500 4.800-9 9.500-9s9 2.500 9.500 9z"/></svg>';
-const avHtml=(id,cls='')=>`<span class="kt-av ${cls}" style="background:hsl(${HUE[id]||210},18%,72%)">${SIL}</span>`;
+const PERSON='<svg viewBox="0 0 40 40"><circle cx="20" cy="15" r="7" fill="#fff" stroke="none"/><path d="M6 40c1-9 6.5-13 14-13s13 4 14 13z" fill="#fff" stroke="none"/></svg>';
+const bgOf=id=>`hsl(${HUE[id]||210},45%,62%)`;
+const avatar=(id,cls='')=>`<span class="av ${cls}" style="background:${bgOf(id)}">${PERSON}</span>`;
 
 function seed(){
- const n=Date.now(),m=(from,text,ago)=>({id:uid(),me:from==='me',from,text,ts:n-ago});
+ const n=Date.now();
+ // r: 읽음 숫자(아직 안 읽은 사람 수), 내 메시지에만 사용
+ const m=(from,text,ago,r=0)=>({id:uid(),from,me:from==='me',text,ts:n-ago,r});
  return{chats:[
-  {id:'c1',name:'엄마',group:false,members:['f1'],unread:2,msgs:[m('f1','저녁 뭐 먹을 거니?',5*H),m('me','아직 못 정했어요',4.5*H),m('f1','그럼 같이 먹자',H),m('f1','일찍 들어와~',H-6e4)]},
-  {id:'c2',name:'철수, 민기, 홍중',group:true,members:['f6','f7','f8'],unread:5,msgs:[m('f6','오늘 모임 몇 시지?',3*H),m('f7','7시 아니었나',2.9*H),m('f8','ㅇㅇ 7시',2.8*H),m('me','나 조금 늦을 듯',2.5*H),m('f6','ㅇㅋㅇㅋ',2*H)]},
-  {id:'c3',name:'성현이형(매니저)',group:false,members:['f5'],unread:0,msgs:[m('f5','내일 스케줄 공유드립니다',DAY+3*H),m('me','네 확인했습니다',DAY+2*H)]},
-  {id:'c4',name:'윤호',group:false,members:['f2'],unread:1,msgs:[m('f2','야 어디야',DAY*2+H),m('me','집이지',DAY*2),m('f2','나와',DAY*2-H)]},
-  {id:'c5',name:'형',group:false,members:['f4'],unread:0,msgs:[m('me','주말에 시간 돼?',DAY*3),m('f4','응 오후에 괜찮아',DAY*3-H)]},
-  {id:'c6',name:'아빠',group:false,members:['f3'],unread:0,msgs:[m('f3','운전 조심해라',DAY*6)]}
+  {id:'c1',name:'엄마',group:false,members:['f1'],unread:2,msgs:[
+   m('f1','저녁 뭐 먹을 거니?',5*H),m('me','아직 못 정했어요',4.5*H,0),m('f1','그럼 같이 먹자',H),m('f1','일찍 들어와~',H-6e4)]},
+  {id:'c2',name:'대학 동기 단톡',group:true,members:['f6','f7','f8','f9'],unread:3,msgs:[
+   m('f6','오늘 모임 몇 시지?',3*H),m('f7','7시 아니었나',2.9*H),m('f8','ㅇㅇ 7시',2.8*H),
+   m('me','나 조금 늦을 듯',2.5*H,4),m('f9','ㅋㅋ 알았어',2*H),m('f6','ㅇㅋㅇㅋ',1.9*H)]},
+  {id:'c3',name:'성현(매니저)',group:false,members:['f5'],unread:0,msgs:[
+   m('f5','내일 스케줄 공유드립니다',DAY+3*H),m('me','네 확인했습니다',DAY+2*H,1)]},
+  {id:'c4',name:'윤호',group:false,members:['f3'],unread:1,msgs:[
+   m('f3','야 어디야',2*DAY+H),m('me','집이지',2*DAY,1),m('f3','나와',2*DAY-H)]},
+  {id:'c5',name:'형',group:false,members:['f4'],unread:0,msgs:[
+   m('me','주말에 시간 돼?',3*DAY,1),m('f4','응 오후에 괜찮아',3*DAY-H)]},
+  {id:'c6',name:'아빠',group:false,members:['f2'],unread:0,msgs:[
+   m('f2','운전 조심해라',6*DAY)]},
+  {id:'c7',name:'주말 등산팀',group:true,members:['f10','f11','f12','f13'],unread:0,msgs:[
+   m('f10','이번 주 토요일 북한산 어때요?',8*H),m('f11','좋아요 ㅎㅎ 8시 입구?',7.5*H),
+   m('me','좋아요! 도시락은 제가 준비할게요',7*H,4),m('f12','ㅋㅋ 역시',6.5*H),m('f13','7시 반에 보자',H)]},
+  {id:'c8',name:'우리집',group:true,members:['f1','f2','f3'],unread:1,msgs:[
+   m('f1','오늘 저녁 7시에 같이 먹자',4*DAY),m('f2','좋아',4*DAY-.5*H),m('f3','나 늦을지도',4*DAY-2*H)]}
  ]};
 }
 let S=null;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(!S||!Array.isArray(S.chats))S=seed();
+if(!S||!Array.isArray(S.chats)||!S.chats.length)S=seed();
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 save();
 const chat=id=>S.chats.find(c=>c.id===id);
@@ -51,99 +74,142 @@ function ltime(ts){const d=new Date(ts),n=new Date();
 const dlabel=ts=>{const d=new Date(ts);return d.getFullYear()+'년 '+(d.getMonth()+1)+'월 '+d.getDate()+'일 '+WD[d.getDay()]+'요일'};
 const dkey=ts=>new Date(ts).toDateString();
 const mkey=ts=>Math.floor(ts/6e4);
-(function clk(){const d=new Date();$('#ktClock').textContent=(d.getHours()%12||12)+':'+p2(d.getMinutes());setTimeout(clk,15000)})();
+
+/* ---------- 아이콘 ---------- */
+const ICS={
+ search:'<svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>',
+ add:'<svg viewBox="0 0 24 24"><circle cx="9.5" cy="8" r="4"/><path d="M2.5 20c.5-4 3.2-6 7-6 1.5 0 2.8.3 3.8.9M18 11v7M14.5 14.5h7"/></svg>',
+ gear:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v2.8M12 18.7v2.8M2.5 12h2.8M18.7 12h2.8M5.3 5.3l2 2M16.7 16.7l2 2M5.3 18.7l2-2M16.7 7.3l2-2"/></svg>',
+ chat:'<svg viewBox="0 0 24 24"><path d="M12 3.5c-5 0-9 3.2-9 7.2 0 2.5 1.6 4.7 4 6l-1 3.8 4.4-2.5c.5.1 1.1.1 1.6.1 5 0 9-3.2 9-7.4S17 3.5 12 3.5zM9 10.5h6M9 13.5h4"/></svg>',
+ chev:'<svg viewBox="0 0 12 12"><path d="M2 4l4 4 4-4"/></svg>'
+};
+const dis=(html,label)=>`<button type="button" class="dis" aria-label="${label}" aria-disabled="true">${html}</button>`;
 
 /* ---------- 상단 바 / 탭 ---------- */
-const ICS={
- search:'<svg viewBox="0 0 24 24"><circle cx="10.500" cy="10.500" r="6.500"/><path d="M15.500 15.500 21 21"/></svg>',
- add:'<svg viewBox="0 0 24 24"><circle cx="9.500" cy="8" r="4"/><path d="M2.500 20c.5-4 3.200-6 7-6 1.500 0 2.800.3 3.800.9M18 11v7M14.500 14.500h7"/></svg>',
- gear:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.200"/><path d="M12 2.500v2.800M12 18.700v2.800M2.500 12h2.800M18.700 12h2.800M5.300 5.300l2 2M16.700 16.700l2 2M5.300 18.700l2-2M16.700 7.300l2-2"/></svg>',
- chat:'<svg viewBox="0 0 24 24"><path d="M12 3.500c-5 0-9 3.200-9 7.200 0 2.500 1.600 4.700 4 6l-1 3.800 4.400-2.500c.5.100 1.100.1 1.600.1 5 0 9-3.200 9-7.400S17 3.500 12 3.500zM9 10.500h6M9 13.500h4"/></svg>'
-};
 let tab='friends';
 function renderBar(){
- const b=$('#ktBar');
- b.innerHTML=tab==='friends'
-  ?`<button class="kt-l">편집</button><h1>친구</h1><div class="kt-r"><button class="kt-ib" aria-label="검색">${ICS.search}</button><button class="kt-ib" aria-label="친구 추가">${ICS.add}</button><button class="kt-ib" aria-label="설정">${ICS.gear}</button></div>`
-  :`<button class="kt-l">편집</button><h1>채팅</h1><div class="kt-r"><button class="kt-ib" aria-label="검색">${ICS.search}</button><button class="kt-ib" aria-label="새 채팅">${ICS.chat}</button><button class="kt-ib" aria-label="설정">${ICS.gear}</button></div>`;
+ const title=tab==='friends'?'친구':'채팅';
+ const icons=tab==='friends'
+   ?dis(ICS.search,'검색')+dis(ICS.add,'친구 추가')+dis(ICS.gear,'설정')
+   :dis(ICS.search,'검색')+dis(ICS.chat,'새 채팅')+dis(ICS.gear,'설정');
+ $('#hdr').innerHTML=`<h1>${title}</h1><div class="ico">${icons}</div>`;
 }
 function setTab(t){
  if(t!=='friends'&&t!=='chats')return; /* 나머지 탭은 외형만 */
  tab=t;
- document.querySelectorAll('#ktTabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
- $('#ktPgFriends').hidden=tab!=='friends';$('#ktPgChats').hidden=tab!=='chats';
- renderBar();tab==='friends'?renderFriends():renderChats();badge();
+ document.querySelectorAll('#tabs [data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+ $('#pgFriends').hidden=tab!=='friends';$('#pgChats').hidden=tab!=='chats';
+ renderBar();
+ tab==='friends'?renderFriends():renderChats();
+ badge();
 }
-$('#ktTabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)setTab(b.dataset.tab)});
-function badge(){const n=S.chats.reduce((a,c)=>a+(c.unread||0),0);$('#ktBdg').hidden=!n;$('#ktBdg').textContent=n>99?'99+':n}
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b&&!b.classList.contains('dis'))setTab(b.dataset.tab)});
+function badge(){
+ const n=S.chats.reduce((a,c)=>a+(c.unread||0),0);
+ const b=$('#bdg');b.hidden=!n;b.textContent=n>99?'99+':n;
+}
 
 /* ---------- 친구 목록 (프로필 상세 이동 없음) ---------- */
+const fold={fav:false,fr:false};
+const frRow=f=>`<div class="fr">${avatar(f.id)}<div class="bd"><div class="nm">${esc(f.name)}</div>${f.st?`<div class="st">${esc(f.st)}</div>`:''}</div></div>`;
 function renderFriends(){
- $('#ktPgFriends').innerHTML=
-  `<div class="kt-srch"><div>${ICS.search}검색</div></div>
-   <div class="kt-sec">내 프로필</div>
-   <div class="kt-fr me">${avHtml('me')}<div class="bd"><div class="nm">${esc(ME.name)}</div><div class="st">${esc(ME.st)}</div></div></div>
-   <div class="kt-div"></div>
-   <div class="kt-sec">친구<em>${FR.length}</em></div>`+
-  FR.slice().sort((a,b)=>a.name.localeCompare(b.name,'ko')).map(f=>`<div class="kt-fr">${avHtml(f.id)}<div class="bd"><div class="nm">${esc(f.name)}</div>${f.st?`<div class="st">${esc(f.st)}</div>`:''}</div></div>`).join('');
+ const fav=FR.filter(f=>f.fav);
+ const rest=FR.filter(f=>!f.fav).sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+ $('#pgFriends').innerHTML=
+  `<div class="fr me">${avatar('me')}<div class="bd"><div class="nm">${esc(ME.name)}</div><div class="st">${esc(ME.st)}</div></div></div>
+   <div class="gap"></div>
+   <button type="button" class="sec${fold.fav?' closed':''}" data-fold="fav">${ICS.chev}<b>즐겨찾기</b> ${fav.length}</button>
+   ${fold.fav?'':fav.map(frRow).join('')}
+   <button type="button" class="sec${fold.fr?' closed':''}" data-fold="fr">${ICS.chev}<b>친구</b> ${rest.length}</button>
+   ${fold.fr?'':rest.map(frRow).join('')}`;
 }
+$('#pgFriends').addEventListener('click',e=>{
+ const s=e.target.closest('[data-fold]');
+ if(s){fold[s.dataset.fold]=!fold[s.dataset.fold];renderFriends()}
+});
 
 /* ---------- 채팅 목록 ---------- */
 function chatAv(c){
- if(!c.group)return avHtml(c.members[0]);
- return `<span class="kt-av g">${c.members.slice(0,4).map(id=>`<i style="background:hsl(${HUE[id]},18%,72%)">${SIL}</i>`).join('')}</span>`;
+ if(!c.group)return avatar(c.members[0]);
+ const ids=c.members.slice(0,4);
+ return `<span class="gav n${ids.length}">${ids.map(id=>`<i style="background:${bgOf(id)}">${PERSON}</i>`).join('')}</span>`;
 }
 function renderChats(){
- const L=[...S.chats].filter(c=>c.msgs.length).sort((a,b)=>last(b).ts-last(a).ts);
- $('#ktPgChats').innerHTML=L.length?L.map(c=>{const l=last(c);
-  return `<div class="kt-cr" data-id="${c.id}">${chatAv(c)}<div class="bd"><div class="r1"><span class="nm">${esc(c.name)}</span>${c.group?`<span class="cn">${c.members.length+1}</span>`:''}</div><div class="pv">${esc(l.text)}</div></div><div class="rt"><span class="tm">${ltime(l.ts)}</span>${c.unread?`<span class="ub">${c.unread>99?'99+':c.unread}</span>`:''}</div></div>`}).join(''):'<div class="kt-empty">채팅방이 없습니다</div>';
+ const L=S.chats.filter(c=>c.msgs.length).sort((a,b)=>last(b).ts-last(a).ts);
+ $('#pgChats').innerHTML=L.length?L.map(c=>{const l=last(c);
+  return `<div class="cr" data-id="${c.id}" role="button" tabindex="0">${chatAv(c)}`+
+   `<div class="bd"><div class="r1"><span class="nm">${esc(c.name)}</span>${c.group?`<span class="cnt">${c.members.length+1}</span>`:''}</div>`+
+   `<div class="pv">${esc(l.text)}</div></div>`+
+   `<div class="rt"><span class="tm">${ltime(l.ts)}</span>${c.unread?`<span class="ub">${c.unread>99?'99+':c.unread}</span>`:'<span></span>'}</div></div>`;
+ }).join(''):'<div class="empty">채팅방이 없습니다</div>';
 }
-$('#ktPgChats').addEventListener('click',e=>{const r=e.target.closest('.kt-cr');if(r)openRoom(r.dataset.id)});
+$('#pgChats').addEventListener('click',e=>{const r=e.target.closest('.cr');if(r)openRoom(r.dataset.id)});
+$('#pgChats').addEventListener('keydown',e=>{if(e.key==='Enter'){const r=e.target.closest('.cr');if(r)openRoom(r.dataset.id)}});
 
-/* ---------- 대화창 ---------- */
+/* ---------- 채팅방 ---------- */
 let cur=null;
 function openRoom(id){
- const c=chat(id);if(!c)return;cur=id;c.unread=0;save();
- $('#ktRName').innerHTML=esc(c.name)+(c.group?`<small>${c.members.length+1}</small>`:'');
- $('#ktMain').hidden=true;$('#ktRoom').hidden=false;$('#ktApp').classList.add('room');
- $('#ktIn').value='';fit($('#ktIn'));upd();renderMsgs();
+ const c=chat(id);if(!c)return;
+ cur=id;c.unread=0;save();
+ $('#rName').innerHTML=esc(c.name)+(c.group?`<small>${c.members.length+1}</small>`:'');
+ $('#vList').hidden=true;$('#vRoom').hidden=false;
+ IN.value='';fit();upd();renderMsgs();
 }
-function closeRoom(){cur=null;$('#ktIn').blur();$('#ktRoom').hidden=true;$('#ktMain').hidden=false;$('#ktApp').classList.remove('room');renderChats();badge()}
-$('#ktBack').addEventListener('click',closeRoom);
+function closeRoom(){
+ cur=null;IN.blur();
+ $('#vRoom').hidden=true;$('#vList').hidden=false;
+ renderChats();badge();
+}
+$('#back').addEventListener('click',closeRoom);
 
 function renderMsgs(){
- const c=chat(cur);let h='',pd='';
+ const c=chat(cur);if(!c)return;
+ let h='',pd='';
  c.msgs.forEach((m,i)=>{
-  if(dkey(m.ts)!==pd){h+=`<div class="kt-date">${dlabel(m.ts)}</div>`;pd=dkey(m.ts)}
-  const pv=c.msgs[i-1],nx=c.msgs[i+1],sameP=pv&&dkey(pv.ts)===dkey(m.ts)&&pv.from===m.from&&mkey(pv.ts)===mkey(m.ts);
-  const sameN=nx&&dkey(nx.ts)===dkey(m.ts)&&nx.from===m.from&&mkey(nx.ts)===mkey(m.ts);
-  const first=!sameP,tm=!sameN?`<span class="t">${tstr(m.ts)}</span>`:'<span class="t"></span>';
-  if(m.me)h+=`<div class="kt-m me${first?' first':''}">${tm}<div class="kt-b">${esc(m.text)}</div></div>`;
-  else{const f=fById(m.from)||{name:''};
-   h+=`<div class="kt-m them${first?' first':''}">${first?avHtml(m.from):'<span class="sp"></span>'}<div class="kt-c">${first&&c.group?`<div class="nm">${esc(f.name)}</div>`:''}<div class="kt-bw"><div class="kt-b">${esc(m.text)}</div>${tm}</div></div></div>`}
+  if(dkey(m.ts)!==pd){h+=`<div class="date"><span>${dlabel(m.ts)}</span></div>`;pd=dkey(m.ts)}
+  const pv=c.msgs[i-1],nx=c.msgs[i+1];
+  const sameP=pv&&pv.from===m.from&&dkey(pv.ts)===dkey(m.ts)&&mkey(pv.ts)===mkey(m.ts);
+  const sameN=nx&&nx.from===m.from&&dkey(nx.ts)===dkey(m.ts)&&mkey(nx.ts)===mkey(m.ts);
+  const first=!sameP;
+  const tm=sameN?'':`<span class="tm">${tstr(m.ts)}</span>`;
+  if(m.me){
+   const rd=m.r>0?`<span class="rd">${m.r}</span>`:'';
+   h+=`<div class="m me${first?' first':''}"><div class="meta">${rd}${tm}</div><div class="b">${esc(m.text)}</div></div>`;
+  }else{
+   const f=fById(m.from)||{name:''};
+   h+=`<div class="m them${first?' first':''}">`+
+     `<div class="slot">${first?avatar(m.from,'sm'):''}</div>`+
+     `<div class="col">${first&&c.group?`<div class="nm">${esc(f.name)}</div>`:''}`+
+     `<div class="line"><div class="b">${esc(m.text)}</div><div class="meta">${tm}</div></div></div></div>`;
+  }
  });
- $('#ktMsgs').innerHTML=h;end();
+ $('#msgs').innerHTML=h;end();
 }
-const end=()=>{const e=$('#ktMsgs');e.scrollTop=e.scrollHeight};
+const end=()=>{const e=$('#msgs');e.scrollTop=e.scrollHeight};
 
 /* ---------- 입력 / 전송 ---------- */
-const IN=$('#ktIn');
-function fit(el){el.style.height='auto';el.style.height=Math.min(100,el.scrollHeight)+'px'}
-function upd(){$('#ktForm').classList.toggle('has',!!IN.value.trim())}
+const IN=$('#inp');
+const COMP=$('#form');
+function fit(){IN.style.height='auto';IN.style.height=Math.min(100,IN.scrollHeight)+'px'}
+function upd(){COMP.classList.toggle('has',!!IN.value.trim())}
 function send(){
  const t=IN.value.trim();if(!t||!cur)return;
- const c=chat(cur);c.msgs.push({id:uid(),me:true,from:'me',text:t,ts:Date.now()});
- IN.value='';fit(IN);upd();save();renderMsgs();
+ const c=chat(cur);
+ // 읽음 숫자: 1:1은 상대 1명, 단체방은 나를 제외한 참여자 수
+ c.msgs.push({id:uid(),from:'me',me:true,text:t,ts:Date.now(),r:c.group?c.members.length:1});
+ IN.value='';fit();upd();save();renderMsgs();
 }
-$('#ktForm').addEventListener('submit',e=>{e.preventDefault();send();IN.focus()});
-IN.addEventListener('input',()=>{fit(IN);upd()});
+$('#form').addEventListener('submit',e=>{e.preventDefault();send();IN.focus()});
+IN.addEventListener('input',()=>{fit();upd()});
 IN.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();send()}});
-$('#ktSend').addEventListener('mousedown',e=>e.preventDefault());
+$('#send').addEventListener('mousedown',e=>e.preventDefault());
 
-/* ---------- 키보드 대응 ---------- */
-if(window.visualViewport){const vv=visualViewport,a=$('#ktApp');
+/* ---------- 키보드 대응: 입력창이 키보드 위로 올라오도록 높이 맞춤 ---------- */
+if(window.visualViewport){
+ const vv=visualViewport,a=$('#app');
  const f=()=>{a.style.height=vv.height+'px';scrollTo(0,0);if(cur)end()};
- vv.addEventListener('resize',f);vv.addEventListener('scroll',f)}
+ vv.addEventListener('resize',f);vv.addEventListener('scroll',f);
+}
 
 /* ---------- 시작 ---------- */
 setTab('friends');
