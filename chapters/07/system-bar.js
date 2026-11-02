@@ -6,7 +6,7 @@ if (window.top !== window.self && document.documentElement.hasAttribute("data-se
 if (window.__sysBar) return; window.__sysBar = true;
 const css = `
 .sys-bar{position:relative;z-index:50;flex:none;box-sizing:border-box;height:calc(env(safe-area-inset-top,0px) + 44px);
-padding:env(safe-area-inset-top,0px) 7px 0 7px;display:flex;align-items:center;justify-content:space-between;
+padding:env(safe-area-inset-top,0px) 26px 0 26px;display:flex;align-items:center;justify-content:space-between;
 pointer-events:none;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Pretendard",sans-serif;color:#000;}
 .sys-bar.sys-overlay{position:absolute;top:0;left:0;right:0}
 .sys-bar.sys-dark{color:#fff}
@@ -80,7 +80,7 @@ tick(); setInterval(tick, 10000);
 const paint = () => {
 const bg = bgOf(bar.offsetHeight);
 if (bg === "image") { bar.style.background = "transparent"; bar.classList.add("sys-dark"); return; }
-bar.style.background = overlay ? "transparent" : bg;
+bar.style.background = bg;
 const l = lum(bg);
 bar.classList.toggle("sys-dark", l !== null && l < 0.5);
 };
