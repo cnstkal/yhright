@@ -1,0 +1,47 @@
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--p:#ff3478;--pl:#fff0f5}
+body{font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#e9e9ee;color:#222}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
+.app{max-width:375px;margin:0 auto;min-height:100vh;background:#fff;position:relative;padding-bottom:84px}
+.dm:active,[data-a]:active{opacity:.7}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 6px}
+.logo{font-size:23px;font-weight:900;color:var(--p);letter-spacing:-1.2px}.logo small{font-size:11px;font-weight:700;margin-left:5px;letter-spacing:0}
+.ti{display:flex;gap:14px;font-size:19px;color:#444}
+.sbox{display:flex;align-items:center;gap:8px;margin:6px 16px 0;padding:12px 14px;border:2px solid var(--p);border-radius:26px;font-size:14px;color:#999;width:calc(100% - 32px);text-align:left}.sbox b{color:var(--p)}
+.opt{display:flex;gap:8px;padding:10px 16px 0;font-size:12px}.opt span{padding:6px 11px;border-radius:14px;background:#f5f5f7;color:#555}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 0;padding:20px 8px 6px}
+.cats button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#333}
+.cats i{width:50px;height:50px;border-radius:19px;background:var(--pl);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:23px}
+.bn{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding:16px;scrollbar-width:none}.bn::-webkit-scrollbar{display:none}
+.bn div{flex:none;width:300px;height:108px;border-radius:16px;scroll-snap-align:center;padding:18px;color:#fff;font-size:12px;display:flex;flex-direction:column;justify-content:center}
+.bn b{font-size:19px;line-height:1.3;margin-bottom:4px}
+.sec{padding:14px 16px 0}.sec h2{font-size:18px;letter-spacing:-.5px;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}.sec h2 em{font-style:normal;font-size:12px;color:#999;font-weight:400}
+.hs{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}.hs::-webkit-scrollbar{display:none}
+.pc{flex:none;width:150px;font-size:12px;color:#777}.pc img{width:150px;height:112px;border-radius:12px;display:block;margin-bottom:8px}
+.pc b{display:block;color:#222;font-size:14px;margin-bottom:2px}.pr{margin-top:5px;color:#222}.pr s{color:#aaa;font-size:11px}.pr strong{font-size:15px}.pr em{color:var(--p);font-style:normal;font-weight:800;margin-right:4px}
+.lc{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f1f1f4;font-size:12px;color:#777}.lc img{width:104px;height:104px;border-radius:12px;flex:none}
+.lc b{display:block;color:#222;font-size:15px;margin:3px 0}.lc .sc{color:#222;font-weight:700}.lc .sc i{font-style:normal;color:var(--p)}
+.tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:5px;background:var(--pl);color:var(--p);font-weight:700;margin-right:3px}
+.hd{display:flex;align-items:center;gap:10px;padding:14px 16px;font-weight:800;font-size:17px;border-bottom:1px solid #f1f1f4}.hd button{font-size:22px}
+.tabs2{display:flex;gap:6px;padding:12px 16px;background:#f7f7f9}.tabs2 span{padding:6px 12px;border-radius:15px;background:#fff;font-size:12px;color:#777}.tabs2 .on{background:var(--p);color:#fff}
+.rc{display:block;width:100%;text-align:left;padding:14px 16px;border-bottom:8px solid #f5f5f7;font-size:12px;color:#777}
+.rc .rh{display:flex;justify-content:space-between;margin-bottom:10px}.rc .rb{display:flex;gap:12px}.rc img{width:84px;height:84px;border-radius:10px;flex:none}
+.rc b{display:block;color:#222;font-size:15px;margin-bottom:5px}.rc p{margin-top:3px}.rc .am{color:#222;font-weight:800;font-size:14px;margin-top:6px}
+.st{font-weight:800}.s1{color:var(--p)}.s2{color:#888}.s3{color:#aaa}
+.hero{width:100%;height:170px;display:block}
+.dtl{padding:18px 16px}.dtl h1{font-size:20px;margin:4px 0 6px}.dtl .box{background:#f7f7f9;border-radius:14px;padding:14px;margin-top:14px;display:flex;font-size:12px;color:#777}.dtl .box div{flex:1}.dtl .box b{display:block;color:#222;font-size:14px;margin:4px 0 2px}
+.kv{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f1f1f4;font-size:14px}.kv span:first-child{color:#999}.kv span:last-child{text-align:right;max-width:210px}
+.ab{display:flex;gap:8px;margin-top:18px}.ab button{flex:1;padding:13px 0;border-radius:12px;background:#f1f1f4;font-size:14px;font-weight:700;color:#555}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:375px;display:flex;justify-content:space-around;background:#fff;border-top:1px solid #ececf0;padding:8px 0 calc(14px + env(safe-area-inset-bottom,0px));font-size:10px;color:#999}
+.tabbar span{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;min-width:54px}.tabbar i{font-style:normal;font-size:19px}.tabbar .on{color:var(--p);font-weight:800}
+.note{font-size:11px;color:#aaa;text-align:center;padding:18px}
+
+/* iPhone 11 상단 노치 안전 영역 및 컨트롤 가독성 */
+html.emb .app{padding-top:44px;padding-bottom:104px}
+html.emb .ti{font-size:21px}
+/* 홈 인디케이터 영역 보호 */
+html.emb .tabbar{padding-bottom:30px}
+
+/* 기기 화면 안에서는 가로폭을 꽉 채움 */
+html.emb .app{max-width:none;width:100%}
+html.emb .tabbar{max-width:none;width:100%;left:0;transform:none}
