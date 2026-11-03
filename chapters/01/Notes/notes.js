@@ -7,9 +7,9 @@ let D=load();D.notes=D.notes||[];D.cats=D.cats||[];D.fa=D.fa||{};
 if(!hadSaved){
  const n=Date.now();
  D.notes=[
-  {id:uid(),title:'내일 준비물',text:'',items:[{t:'체육복',d:false},{t:'수학 문제집',d:false},{t:'학생증',d:true}],imgs:[],audio:'',cat:'',acc:'i',ts:n-2*3600000},
-  {id:uid(),title:'수학 숙제',text:'42쪽 1번부터 10번까지 풀기\n모르는 건 종호한테 물어보기',items:[],imgs:[],audio:'',cat:'',acc:'i',ts:n-22*3600000},
-  {id:uid(),title:'학교에서 챙길 것',text:'영어 단어장 가져가기\n급식비 확인하기',items:[],imgs:[],audio:'',cat:'',acc:'i',ts:n-2*86400000}
+  {id:'n1',title:'내일 준비물',text:'',items:[{t:'체육복',d:false},{t:'수학 문제집',d:false},{t:'학생증',d:true}],imgs:[],audio:'',cat:'',acc:'i',ts:n-2*3600000},
+  {id:'n2',title:'수학 숙제',text:'42쪽 1번부터 10번까지 풀기\n모르는 건 종호한테 물어보기',items:[],imgs:[],audio:'',cat:'',acc:'i',ts:n-22*3600000},
+  {id:'n3',title:'학교에서 챙길 것',text:'영어 단어장 가져가기\n급식비 확인하기',items:[],imgs:[],audio:'',cat:'',acc:'i',ts:n-2*86400000}
  ];
  save();
 }
