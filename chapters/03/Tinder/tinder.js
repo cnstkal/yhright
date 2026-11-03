@@ -57,6 +57,7 @@ function mk(id,name,age,dist,bio,intro,job,school,tags,o={}){
     pos:o.pos||'50% 30%',photos:[0,1,2].map(v=>photo(h,v,sk,{dark:o.dark&&v===0}))};
 }
 // swipe deck (미매치)
+mk('mars','mars',28,4,'천천히 알아가는 관계가 좋아요. 부담 주지 않고 편하게 대화해요.','퇴근하고는 보통 집에서 쉬어요. 급하게 생각하지 않아도 괜찮아요.','중소기업 · 사무직 대리','',['커피','영화','산책'],{on:1,ex:'job',h:215});
 mk('nangman','낭만고양이',29,8,'진지한 연애를 찾지만 캐주얼해도 괜찮음','어딜 그리 바삐 가시나요?','디자이너','서울예술대학교',['산책','사진','고양이'],{on:1,ex:'none',h:160});
 mk('yeongjun','유영준',23,3,'취미와 일상을 공유할 사람','요즘 빠진 건 보드게임이에요','대학생','한양대학교',['보드게임','영화','러닝'],{vf:1,lk:1,on:1,ex:'school',h:210});
 mk('jihyun','지현',29,12,'여행과 음악을 좋아해요','최근에 다녀온 곳 추천해줘요','마케터','',['여행','인디음악','와인'],{lk:1,ex:'tags',h:330});
@@ -86,15 +87,20 @@ const ORDER=['nangman','yeongjun','jihyun','ttussi','mj','rare','dbd','brent','j
 const PICKS=['minseo','junho','sora'];
 
 /* ---------- state ---------- */
-const now=Date.now(),MIN=60000;
+const now=Date.now(),MIN=60000,DAY=86400000;
 const S={tab:'swipe',decided:{},sent:[],history:[],front:null,photoIdx:{},likeCat:0,filters:{},room:null,enter:0,
- matches:['yuu','kd','kidal','L','haeden','seungo','gil','sansan'],
- newMatch:new Set(['seungo','gil','sansan']),
- unread:new Set(['seungo','gil','kd','team','L']),
+ matches:['mars','yuu','kd','kidal','L','haeden','seungo','gil','sansan'],
+ newMatch:new Set(['mars','seungo','gil','sansan']),
+ unread:new Set(['mars','seungo','gil','kd','team','L']),
  matchedAt:{},chats:{},replyN:{}};
 const M=(id,t,y,mo,d,h,mi)=>{S.matchedAt[id]=new Date(y,mo,d,h,mi).getTime()};
 M('kidal',0,2026,7,7,19,45);M('kd',0,2026,7,9,21,10);M('L',0,2026,7,12,14,5);M('yuu',0,2026,7,15,10,30);M('haeden',0,2026,7,18,18,20);M('seungo',0,2026,8,2,13,0);M('gil',0,2026,8,8,22,30);M('sansan',0,2026,8,20,9,40);
-S.chats={yuu:[{f:'them',x:'오른쪽 스와이프 한 번에 매치!',t:now-10*MIN}],
+S.chats={mars:[
+ {f:'them',x:'안녕하세요, 프로필 보고 인사드려요. 저는 mars라고 해요.',t:now-5*DAY},
+ {f:'them',x:'답장 천천히 주셔도 괜찮아요. 앱 자주 안 보시는 것 같아서요.',t:now-4*DAY},
+ {f:'them',x:'혹시 불편하시면 편하게 말씀해 주세요. 부담드리고 싶진 않아요.',t:now-3*DAY},
+ {f:'them',x:'오늘 날씨 좋네요. 산책하기 괜찮은 날인 것 같아요.',t:now-2*DAY}
+],yuu:[{f:'them',x:'오른쪽 스와이프 한 번에 매치!',t:now-10*MIN}],
  kd:[{f:'them',x:'안녕하세요',t:now-20*MIN}],
  team:[{f:'them',x:'🚨 안전한 Tinder 사용을 위한 당부의 말씀을 드려요. 개인정보와 금융 정보는 공유하지 마세요.',t:now-30*MIN}],
  kidal:[{f:'them',x:'안녕',t:now-40*MIN}],
