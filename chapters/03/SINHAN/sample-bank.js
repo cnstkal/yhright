@@ -1,7 +1,7 @@
 'use strict';
-/* 신한 SOL (2020) 연출용 - 계좌조회/카드 이용내역만 동작, 모든 데이터는 가상 */
+/* 신한 SOL (2022) 연출용 - 계좌조회/카드 이용내역만 동작, 모든 데이터는 가상 */
 (function () {
-  var KEY = 'sinhan_sol_ch3_v2', NOW = '2020-10-28', MONTHS = ['2020-07', '2020-08', '2020-09', '2020-10'];
+  var KEY = 'sinhan_sol_ch3_v2', NOW = '2022-10-28', MONTHS = ['2022-07', '2022-08', '2022-09', '2022-10'];
   var $ = function (id) { return document.getElementById(id); };
   var V = $('view'), TOP = $('top'), TAB = $('tabbar');
   var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
@@ -46,7 +46,7 @@
   function genCard(card, r) {
     var W = card.W, keys = Object.keys(W), sum = 0; keys.forEach(function (k) { sum += W[k]; });
     var pick = function () { var x = r() * sum; for (var i = 0; i < keys.length; i++) { x -= W[keys[i]]; if (x < 0) return keys[i]; } return keys[0]; };
-    var cr = card.type === 'credit', out = [], extra = [], d = new Date(2020, 6, 1), end = new Date(2020, 9, 28);
+    var cr = card.type === 'credit', out = [], extra = [], d = new Date(2022, 6, 1), end = new Date(2022, 9, 28);
     for (; d <= end; d.setDate(d.getDate() + 1)) {
       var ds = iso(d), today = ds === NOW, x = r(), n = cr ? (x < .55 ? 0 : x < .88 ? 1 : 2) : (x < .2 ? 0 : x < .62 ? 1 : x < .9 ? 2 : 3);
       if (today) n = Math.min(n, 1);
@@ -75,13 +75,13 @@
     return [{
       id: 0, name: ACCTS[0].name, no: ACCTS[0].no, kind: ACCTS[0].kind,
       bank: ACCTS[0].bank, open: 0, bal: 7000000,
-      tx: [{ d: '2020-10-25', t: '18:20:00', memo: '아르바이트 급여', out: 0, in: 420000, bal: 7000000 }]
+      tx: [{ d: '2022-10-25', t: '18:20:00', memo: '아르바이트 급여', out: 0, in: 420000, bal: 7000000 }]
     }];
   }
   function load() {
     try { var s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) {}
-    var cards = CARDS.map(function (c) { return genCard(c, rng(2020 + c.id * 37)); });
-    var S = { accts: genAccts(cards, rng(2020)), cards: CARDS.map(function (c, i) { return { id: c.id, name: c.name, short: c.short, no: c.no, type: c.type, tx: cards[i] }; }) };
+    var cards = CARDS.map(function (c) { return genCard(c, rng(2022 + c.id * 37)); });
+    var S = { accts: genAccts(cards, rng(2022)), cards: CARDS.map(function (c, i) { return { id: c.id, name: c.name, short: c.short, no: c.no, type: c.type, tx: cards[i] }; }) };
     try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
     return S;
   }
@@ -119,7 +119,7 @@
   }
   function vAcct(id, mo) {
     var a = S.accts[id]; if (!a) return vAcctList();
-    mo = mo || '2020-10'; setTop('조회'); setTab('all');
+    mo = mo || '2022-10'; setTop('조회'); setTab('all');
     var rows = a.tx.filter(function (t) { return mo === 'all' || t.d.indexOf(mo) === 0; }).reverse(), ti = 0, to = 0;
     rows.forEach(function (t) { ti += t.in; to += t.out; });
     var ch = [['all', '전체']].concat(MONTHS.slice().reverse().map(function (m) { return [m, +m.slice(5) + '월']; }));
@@ -135,7 +135,7 @@
   }
   function vCard(id, mo) {
     var c = S.cards[id]; if (!c) { id = 0; c = S.cards[0]; }
-    mo = mo || '2020-10'; setTop('카드 이용내역'); setTab('');
+    mo = mo || '2022-10'; setTop('카드 이용내역'); setTab('');
     var rows = c.tx.filter(function (t) { return t.d.indexOf(mo) === 0; }).reverse(), mi = MONTHS.indexOf(mo), cnt = rows.filter(function (t) { return t.st === 'A'; }).length;
     var html = '<div class="cards">' + S.cards.map(function (x) { return '<button type="button" class="pc cg' + x.id + (x.id === id ? ' on' : '') + '" data-replace="1" data-go="#/card/' + x.id + '/' + mo + '"><b>' + x.name + '</b><span>' + x.no.slice(0, 4) + ' ····' + x.no.slice(-4) + '</span></button>'; }).join('') + '</div>' +
       '<div class="mn"><button type="button" ' + (mi > 0 ? 'data-replace="1" data-go="#/card/' + id + '/' + MONTHS[mi - 1] + '"' : 'disabled') + '>‹</button><span>' + mo.slice(0, 4) + '년 ' + (+mo.slice(5)) + '월</span><button type="button" ' + (mi < MONTHS.length - 1 ? 'data-replace="1" data-go="#/card/' + id + '/' + MONTHS[mi + 1] + '"' : 'disabled') + '>›</button></div>' +
@@ -151,7 +151,7 @@
     if (!t) return vCard(0); setTop('이용내역 상세'); setTab('');
     var cr = c.type === 'credit', nm = +t.d.slice(5, 7) + 1;
     var kv = [['이용일시', dot(t.d) + ' ' + t.t], ['승인상태', t.st === 'A' ? '승인' : '승인취소'], ['승인번호', t.ap], ['이용구분', t.ins ? '할부 ' + t.ins + '개월' : '일시불'], ['업종', t.c], ['이용카드', c.name + ' (' + c.no.slice(-4) + ')'],
-      cr ? ['결제예정일', (nm > 12 ? '2021.01' : '2020.' + pad(nm)) + '.14'] : ['출금계좌', S.accts[0].name]];
+      cr ? ['결제예정일', (nm > 12 ? '2021.01' : '2022.' + pad(nm)) + '.14'] : ['출금계좌', S.accts[0].name]];
     V.innerHTML = '<div class="dtl"><div class="m">' + t.m + '</div><div class="big ' + (t.st === 'C' ? 'cancel' : '') + '">' + (t.st === 'C' ? '-' : '') + won(t.a) + '원</div></div><table class="kv">' +
       kv.map(function (x) { return '<tr><th>' + x[0] + '</th><td>' + x[1] + '</td></tr>'; }).join('') + '</table>';
   }
