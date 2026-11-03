@@ -88,7 +88,7 @@ async function remove(ps){const r=await dlg('삭제',{msg:`${ps.length}개 항�
 async function moveTo(ps){const opts=albs().filter(a=>!a.v);const r=await dlg('앨범으로 이동',{list:opts.map(a=>a.name),btn:['취소']});if(!r)return;ps.forEach(p=>p.album=opts[r.i].id);await save();toast(`${opts[r.i].name} 앨범으로 이동했습니다`);sel=null;draw()}
 async function addPhotos(files){for(const f of files){try{const d=await new Promise((ok,no)=>{const fr=new FileReader();fr.onload=()=>ok(fr.result);fr.onerror=no;fr.readAsDataURL(f)});
  const im=await new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=d}),k=Math.min(1,1280/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);
- S.photos.push({id:'u'+Date.now()+Math.random().toString(36).slice(2,5),name:f.name,ts:f.lastModified||Date.now(),type:'photo',kind:'upload',data:c.toDataURL('image/jpeg',.85),album:alb&&!['recent','fav'].includes(alb)?alb:'download',fav:0,w:im.width,h:im.height,size:f.size})}catch(e){toast('불러올 수 없는 파일입니다')}}
+ S.photos.push({id:'u'+Date.now()+Math.random().toString(36).slice(2,5),name:f.name,ts:Date.now(),type:'photo',kind:'upload',data:c.toDataURL('image/jpeg',.85),album:alb&&!['recent','fav'].includes(alb)?alb:'download',fav:0,w:im.width,h:im.height,size:f.size})}catch(e){toast('불러올 수 없는 파일입니다')}}
  await save();draw();toast('사진을 추가했습니다')}
 /* 슬라이드 쇼 */
 function slide(ps){if(!ps.length)return;let i=0;const s=$('#ss'),im=s.querySelector('img');const show=async()=>{im.style.animation='none';void im.offsetWidth;im.style.animation='';im.src=(await render(ps[i%ps.length],1000)).toDataURL('image/jpeg',.85);i++};
