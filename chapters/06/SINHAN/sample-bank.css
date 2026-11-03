@@ -1,40 +1,64 @@
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#eef2f7;color:#1d2433}
-.app{max-width:375px;margin:0 auto;min-height:100vh;background:#f5f7fa;position:relative;padding-bottom:64px}
-.notice{background:#fff4d6;color:#7a5a00;font-size:11px;text-align:center;padding:6px}
-.top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff}
-.logo{font-weight:700;font-size:17px;color:#2457d6}
-.top-icons{display:flex;gap:14px}
-.ti{font-size:16px;color:#5a6373}
-.hero{background:#2457d6;color:#fff;padding:22px 16px 18px;border-radius:0 0 22px 22px}
-.label{font-size:13px;opacity:.85}
-.amount{font-size:30px;font-weight:700;margin-top:6px}
-.amount small{font-size:16px;margin-left:2px}
-.sub{font-size:12px;opacity:.75;margin-top:4px}
-.quick{display:flex;justify-content:space-between;margin-top:18px}
-.qb{flex:1;margin:0 4px;background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:14px;padding:10px 0;font-size:12px;opacity:.9;cursor:default}
-.qb i{display:block;font-style:normal;font-size:16px;margin-bottom:4px}
-.card-box{padding:16px}
-.cardv{background:linear-gradient(135deg,#1f2c4d,#3d5fb0);color:#fff;border-radius:16px;padding:16px;height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 6px 16px rgba(31,44,77,.25)}
-.cd-top,.cd-bot{display:flex;justify-content:space-between;font-size:12px;opacity:.9}
-.cd-num{font-size:18px;letter-spacing:1px;font-weight:600}
-.list{background:#fff;margin:0 16px;border-radius:16px;padding:14px 14px 4px}
-.list-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.list h2{font-size:15px}
-.more{font-size:12px;color:#8a93a3;background:none;border:0;cursor:default}
-.list ul{list-style:none}
-.list li{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #eef1f5}
-.list li .ic{width:34px;height:34px;border-radius:50%;background:#eaf0fc;color:#2457d6;display:flex;align-items:center;justify-content:center;font-size:14px}
-.nm{flex:1;font-size:14px}
-.nm small{display:block;font-size:11px;color:#8a93a3;margin-top:2px}
-.amt{font-size:14px;color:#5a6373}
-.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:375px;display:flex;justify-content:space-around;background:#fff;border-top:1px solid #e6eaf0;padding:10px 0 14px;font-size:12px;color:#8a93a3}
-.tabbar .on{color:#2457d6;font-weight:700}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#eef1f6;color:#1a1f2b}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
+.app{max-width:375px;margin:0 auto;min-height:100vh;background:#f2f4f8;position:relative;padding-bottom:70px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#fff}
+.logo{display:flex;align-items:center;gap:7px;font-weight:800;font-size:17px;color:#0046ff;letter-spacing:-.5px}
+.mk{width:24px;height:24px;border-radius:7px;background:#0046ff;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;font-style:normal}
+.ti{display:flex;gap:16px;font-size:18px;color:#4a5262}.ti span{cursor:pointer}
+.hi{background:#fff;padding:0 18px 14px;font-size:15px;color:#4a5262}.hi b{color:#1a1f2b;font-size:17px}
+.sec{background:#fff;margin:10px 14px 0;border-radius:18px;padding:16px}
+.sec h3{font-size:15px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.sec h3 em{font-style:normal;font-size:12px;color:#8a93a3;font-weight:400}
+.acc{background:linear-gradient(145deg,#0046ff,#0a2fa8);color:#fff;margin:12px 14px 0;border-radius:20px;padding:18px 16px 14px}
+.a-n{display:flex;justify-content:space-between;font-size:13px;opacity:.92}
+.a-no{font-size:12px;opacity:.7;margin-top:3px}
+.a-amt{font-size:29px;font-weight:800;margin:14px 0 2px;display:flex;align-items:center;justify-content:space-between}
+.a-amt small{font-size:16px;font-weight:600;margin-left:2px}
+.eye{font-size:12px;background:rgba(255,255,255,.18);border-radius:12px;padding:5px 10px;font-weight:500}
+.btns{display:flex;gap:8px;margin-top:14px}
+.btns button{flex:1;background:rgba(255,255,255,.16);color:#fff;border-radius:12px;padding:11px 0;font-size:13px}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:12px}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer}.dots i.on{background:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 4px}
+.grid button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;color:#3a4252}
+.grid .ci{width:44px;height:44px;border-radius:15px;background:#eaf0ff;display:flex;align-items:center;justify-content:center;font-size:20px}
+.row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid #eef1f5;font-size:14px}
+.row:first-of-type{border-top:0}.row small{display:block;font-size:11px;color:#8a93a3;margin-top:2px}
+.bn{background:#eaf0ff;color:#0046ff;border-radius:14px;padding:14px;font-size:13px;font-weight:600;display:flex;justify-content:space-between}
+.fx{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-top:1px solid #eef1f5}.fx:first-of-type{border-top:0}
+.note{font-size:11px;color:#9aa2b1;text-align:center;padding:14px}
+.hd{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#fff;font-weight:700;font-size:16px}
+.hd button{font-size:20px;color:#3a4252}
+.sum{background:#fff;padding:4px 18px 16px}
+.sum p{font-size:12px;color:#8a93a3}.sum .big{font-size:26px;font-weight:800;color:#1a1f2b;margin-top:4px}
+.chips{display:flex;gap:8px;padding:12px 16px;background:#fff;border-top:1px solid #eef1f5}
+.chips button{padding:6px 14px;border-radius:16px;background:#f2f4f8;font-size:13px;color:#5a6373}.chips button.on{background:#0046ff;color:#fff}
+.mn{display:flex;justify-content:center;align-items:center;gap:18px;padding:12px;background:#fff;font-weight:700;font-size:15px}
+.mn button{font-size:18px;color:#0046ff;padding:0 8px}.mn button[disabled]{color:#cfd5df}
+.dh{font-size:12px;color:#8a93a3;padding:14px 18px 6px}
+.tx{display:flex;align-items:center;gap:12px;background:#fff;padding:13px 18px;border-bottom:1px solid #f0f2f6}
+.tx .l{flex:1;font-size:14px}.tx .l small{display:block;font-size:11px;color:#8a93a3;margin-top:3px}
+.tx .r{text-align:right;font-size:15px;font-weight:700}.tx .r small{display:block;font-size:11px;color:#8a93a3;font-weight:400;margin-top:3px}
+.in{color:#0046ff}.cx{color:#b0b7c3;text-decoration:line-through}
+.tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:5px;background:#eef1f5;color:#6a7384;margin-left:5px}.tag.c{background:#ffe9e9;color:#d33}
+.cdt{display:flex;gap:8px;padding:12px 16px;background:#fff;overflow-x:auto}
+.cdt button{flex:none;padding:7px 12px;border-radius:12px;background:#f2f4f8;font-size:12px;color:#5a6373}.cdt button.on{background:#1a1f2b;color:#fff}
+.cv{margin:0 16px;border-radius:16px;padding:16px;height:130px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;font-size:13px}
+.cv.k0{background:linear-gradient(135deg,#0046ff,#3d82ff)}.cv.k1{background:linear-gradient(135deg,#1c2540,#46567f)}
+.cv b{font-size:17px;letter-spacing:1px}
+.info{display:flex;background:#fff;margin:0 0 0;padding:14px 18px;gap:14px}.info div{flex:1;font-size:12px;color:#8a93a3}.info b{display:block;color:#1a1f2b;font-size:15px;margin-top:4px}
+.dt{background:#fff;padding:24px 20px}.dt h2{font-size:20px}.dt .am{font-size:30px;font-weight:800;margin:6px 0 18px}
+.kv{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid #eef1f5;font-size:14px}.kv span:first-child{color:#8a93a3}
+.mc{background:#fff;margin:10px 14px 0;border-radius:18px;padding:16px}.mc h3{font-size:15px;margin-bottom:12px}
+.ml{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px}.ml button{text-align:left;padding:10px 4px;font-size:14px;color:#3a4252}.ml .ok{color:#0046ff;font-weight:700}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:375px;display:flex;justify-content:space-around;background:#fff;border-top:1px solid #e6eaf0;padding:8px 0 16px;font-size:11px;color:#8a93a3}
+.tabbar span{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}.tabbar i{font-style:normal;font-size:18px}
+.tabbar .on{color:#0046ff;font-weight:700}
 
 /* iPhone 11 상단 노치 안전 영역 및 컨트롤 가독성 */
 html.emb .app{padding-top:44px}
-html.emb .ti{font-size:19px}
-html.emb .qb i{font-size:19px}
+html.emb .ti{font-size:21px}
 
 /* 기기 화면 안에서는 가로폭을 꽉 채움 */
 html.emb .app{max-width:none;width:100%}
