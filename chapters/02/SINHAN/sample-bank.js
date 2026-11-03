@@ -1,7 +1,7 @@
 'use strict';
-/* 신한S뱅크 (2017) 연출용 - 계좌조회/카드이용내역만 동작, 모든 데이터는 가상 */
+/* 신한은행 (2018-2019) 연출용 - 계좌조회/카드이용내역만 동작, 모든 데이터는 가상 */
 (function () {
-  var KEY = 'sinhan_sbank_2017_v1', NOW = '2017-10-24', MONTHS = ['2017-07', '2017-08', '2017-09', '2017-10'];
+  var KEY = 'yhright.shinhan.2019.v2', NOW = '2019-01-05', MONTHS = ['2018-12', '2019-01'];
   var $ = function (id) { return document.getElementById(id); };
   var V = $('view'), TOP = $('top'), DR = $('drawer');
   var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
@@ -25,73 +25,31 @@
     { id: 1, name: '신한 S20 체크카드', short: 'S20 체크', no: '9409-35**-****-5086', type: 'debit' }
   ];
   var ACCTS = [
-    { id: 0, name: '신한 주거래 우대통장', no: '110-312-458216', kind: '입출금', base: 1850000 },
-    { id: 1, name: 'S20 생활비통장', no: '110-402-771953', kind: '입출금', base: 420000 },
-    { id: 2, name: '신한 월복리 정기적금', no: '110-503-128847', kind: '적금', base: 3600000 }
+    { id: 0, name: '신한 주거래 입출금통장', no: '110-498-201901', kind: '입출금', base: 210000 }
   ];
 
-  function genCard(card, r) {
-    var W = card.type === 'credit' ? { cv: 1, cafe: 1, food: 2, trans: 1, shop: 2, mart: 1, del: 1, fun: 1 } : { cv: 3, cafe: 2, food: 2, trans: 2, shop: 1, mart: 1, del: 1, fun: 1 };
-    var keys = Object.keys(W), sum = 0; keys.forEach(function (k) { sum += W[k]; });
-    var pick = function () { var x = r() * sum; for (var i = 0; i < keys.length; i++) { x -= W[keys[i]]; if (x < 0) return keys[i]; } return keys[0]; };
-    var out = [], extra = [], d = new Date(2017, 6, 1), end = new Date(2017, 9, 24);
-    for (; d <= end; d.setDate(d.getDate() + 1)) {
-      var ds = iso(d), today = ds === NOW, x = r(), n = x < .3 ? 0 : x < .72 ? 1 : x < .93 ? 2 : 3;
-      if (today) n = Math.min(n, 1);
-      for (var k = 0; k < n; k++) {
-        var c = CAT[pick()], m = c.m[Math.floor(r() * c.m.length)], a;
-        if (c.fix) a = c.fix[Math.floor(r() * c.fix.length)];
-        else { a = c.lo + r() * (c.hi - c.lo); a = Math.round(a / c.rd) * c.rd; }
-        var h = today ? 8 : c.h[0] + Math.floor(r() * (c.h[1] - c.h[0] + 1));
-        var tx = { d: ds, t: pad(h) + ':' + pad(Math.floor(r() * 60)) + ':' + pad(Math.floor(r() * 60)), m: m, c: c.n, a: a, st: 'A',
-          ap: String(10000000 + Math.floor(r() * 89999999)), ins: (card.type === 'credit' && a >= 50000 && r() < .5) ? [2, 3, 6][Math.floor(r() * 3)] : 0 };
-        out.push(tx);
-        if (!today && r() < .04) {
-          var nd = new Date(d); nd.setDate(nd.getDate() + 1);
-          if (iso(nd) <= NOW && iso(nd) !== NOW) extra.push({ d: iso(nd), t: pad(10 + Math.floor(r() * 7)) + ':' + pad(Math.floor(r() * 60)) + ':' + pad(Math.floor(r() * 60)), m: m, c: c.n, a: a, st: 'C', ap: tx.ap, ins: 0 });
-        }
-      }
-    }
-    if (card.type === 'credit') MONTHS.forEach(function (mo) { out.push({ d: mo + '-10', t: '09:05:31', m: 'KT 통신요금', c: '통신', a: 54890, st: 'A', ap: String(30000000 + Math.floor(r() * 9999999)), ins: 0 }); });
-    out = out.concat(extra).sort(function (p, q) { return (p.d + p.t) < (q.d + q.t) ? -1 : 1; });
-    out.forEach(function (t, i) { t.id = 'c' + card.id + '_' + i; });
-    return out;
+  function genCard(card) {
+    return [];
   }
   function monthSum(txs, mo) {
     var s = 0; txs.forEach(function (t) { if (t.d.indexOf(mo) === 0) s += t.st === 'A' ? t.a : -t.a; }); return s;
   }
-  function genAccts(cards, r) {
-    var ev = [[], [], []];
-    var add = function (i, d, t, memo, o, n) { if (d <= NOW) ev[i].push({ d: d, t: t, memo: memo, out: o || 0, in: n || 0 }); };
-    [7, 8, 9, 10].forEach(function (m, idx) {
-      var mo = '2017-' + pad(m);
-      add(0, mo + '-03', '09:20:11', '월세 이체(김정숙)', 500000);
-      add(0, mo + '-14', '10:02:45', '신한카드 결제', idx === 0 ? 387600 : monthSum(cards[0], MONTHS[idx - 1]));
-      add(0, mo + '-16', '09:00:03', '관리비 자동이체', 87400);
-      add(0, mo + '-20', '12:41:08', '신한 ATM 출금', 100000);
-      add(0, mo + '-25', '09:00:12', '급여 (주)한빛전자', 0, 2780000);
-      add(0, mo + '-25', '09:01:00', '적금 자동이체', 300000);
-      add(0, mo + '-26', '08:30:27', '이체 홍길동(생활비)', 700000);
-      add(2, mo + '-25', '09:01:00', '정기적금 납입', 0, 300000);
-      add(1, mo + '-26', '08:30:27', '입금 홍길동(주거래)', 0, 700000);
-      for (var k = 0; k < 2; k++) {
-        var dd = 2 + Math.floor(r() * 26), amt = [30000, 50000, 80000, 120000][Math.floor(r() * 4)], nm = ['박민수', '이서연', '최지훈'][Math.floor(r() * 3)];
-        add(0, mo + '-' + pad(dd), pad(13 + Math.floor(r() * 6)) + ':' + pad(Math.floor(r() * 60)) + ':10', '모바일이체 ' + nm, amt);
-      }
-    });
-    cards[1].forEach(function (t) { add(1, t.d, t.t, (t.st === 'A' ? '체크카드 ' : '체크취소 ') + t.m, t.st === 'A' ? t.a : 0, t.st === 'C' ? t.a : 0); });
-    return ACCTS.map(function (a, i) {
-      var e = ev[i].sort(function (p, q) { return (p.d + p.t) < (q.d + q.t) ? -1 : 1; }), run = 0, min = 0;
-      e.forEach(function (x) { run += x.in - x.out; if (run < min) min = run; });
-      var bal = Math.max(a.base, -min + 80000);
-      e.forEach(function (x) { bal += x.in - x.out; x.bal = bal; });
-      return { id: a.id, name: a.name, no: a.no, kind: a.kind, bal: bal, tx: e };
-    });
+  function genAccts() {
+    var tx = [
+      { d:'2018-12-28', t:'09:00:12', memo:'아르바이트 급여', out:0, in:320000 },
+      { d:'2018-12-29', t:'10:15:08', memo:'모텔 장기투숙비', out:280000, in:0 },
+      { d:'2018-12-30', t:'16:42:31', memo:'편의점 (삼각김밥)', out:1800, in:0 },
+      { d:'2019-01-02', t:'22:18:44', memo:'입금 술집 사장', out:0, in:600000 },
+      { d:'2019-01-03', t:'14:06:19', memo:'온라인 결제 (운동화)', out:410000, in:0 },
+      { d:'2019-01-04', t:'11:32:05', memo:'편의점 (과자)', out:2300, in:0 }
+    ];
+    var bal = 210000;
+    tx.forEach(function (x) { bal += x.in - x.out; x.bal = bal; });
+    return [{ id:0, name:ACCTS[0].name, no:ACCTS[0].no, kind:ACCTS[0].kind, bal:bal, tx:tx }];
   }
   function load() {
-    try { var s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) {}
-    var cards = CARDS.map(function (c) { return genCard(c, rng(1700 + c.id * 31)); });
-    var S = { accts: genAccts(cards, rng(2017)), cards: CARDS.map(function (c, i) { var o = Object.assign({}, c); o.tx = cards[i]; return o; }) };
+    var cards = CARDS.map(function (c) { var o = Object.assign({}, c); o.tx = []; return o; });
+    var S = { accts: genAccts(), cards: cards };
     try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
     return S;
   }
@@ -107,7 +65,7 @@
   function vHome() {
     setTop(''); setTab('home');
     var a = S.accts[0], g = [['예', '예금/적금'], ['대', '대출'], ['외', '외환'], ['납', '공과금'], ['자', '자동이체'], ['산', '자산관리'], ['인', '인증센터'], ['보', '보안센터']];
-    V.innerHTML = '<div class="loginbar"><span><b>홍길동</b>님 로그인</span><span class="tm" id="tm"></span><button type="button" class="mini dummy">시간연장</button><button type="button" class="mini dummy">로그아웃</button></div>' +
+    V.innerHTML = '<div class="loginbar"><span><b>정윤호</b>님 로그인</span><span class="tm" id="tm"></span><button type="button" class="mini dummy">시간연장</button><button type="button" class="mini dummy">로그아웃</button></div>' +
       '<section class="hero"><div class="nm">' + a.name + '</div><div class="no">' + a.no + '</div><div class="bal">' + won(a.bal) + '<em>원</em></div>' +
       '<div class="btns"><button type="button" data-go="#/acct">계좌조회</button><button type="button" class="dummy">이체</button></div></section>' +
       '<button type="button" class="hero2" data-go="#/acct"><span>내 계좌 ' + S.accts.length + '개</span><span>전체계좌 보기 ›</span></button>' +
@@ -130,7 +88,7 @@
   }
   function vAcct(id, mo) {
     var a = S.accts[id]; if (!a) return vAcctList();
-    mo = mo || '2017-10'; setTop('거래내역조회'); setTab('inq');
+    mo = mo || '2019-01'; setTop('거래내역조회'); setTab('inq');
     var rows = a.tx.filter(function (t) { return mo === 'all' || t.d.indexOf(mo) === 0; }).reverse(), ti = 0, to = 0;
     rows.forEach(function (t) { ti += t.in; to += t.out; });
     var chips = [['all', '전체']].concat(MONTHS.slice().reverse().map(function (m) { return [m, +m.slice(5) + '월']; }));
@@ -144,10 +102,10 @@
   }
   function vCard(id, mo) {
     var c = S.cards[id]; if (!c) { id = 0; c = S.cards[0]; }
-    mo = mo || '2017-10'; setTop('카드 이용내역'); setTab('inq');
+    mo = mo || '2019-01'; setTop('카드 이용내역'); setTab('inq');
     var rows = c.tx.filter(function (t) { return t.d.indexOf(mo) === 0; }).reverse(), mi = MONTHS.indexOf(mo), cnt = rows.filter(function (t) { return t.st === 'A'; }).length;
     var html = '<div class="chips">' + S.cards.map(function (x) { return '<button type="button" class="' + (x.id === id ? 'on' : '') + '" data-replace="1" data-go="#/card/' + x.id + '/' + mo + '">' + x.short + '</button>'; }).join('') + '</div>' +
-      '<div class="info"><div class="n">' + c.name + '<br>' + c.no + '</div><div class="n" style="margin-top:4px">' + (c.type === 'credit' ? '결제계좌 ' + S.accts[0].name + ' · 매월 14일 결제' : '출금계좌 ' + S.accts[1].name) + '</div></div>' +
+      '<div class="info"><div class="n">' + c.name + '<br>' + c.no + '</div><div class="n" style="margin-top:4px">' + (c.type === 'credit' ? '결제계좌 ' + S.accts[0].name + ' · 매월 14일 결제' : '출금계좌 ' + S.accts[0].name) + '</div></div>' +
       '<div class="mnav"><button type="button" ' + (mi > 0 ? 'data-replace="1" data-go="#/card/' + id + '/' + MONTHS[mi - 1] + '"' : 'disabled') + '>‹</button><span>' + mo.slice(0, 4) + '년 ' + (+mo.slice(5)) + '월</span><button type="button" ' + (mi < MONTHS.length - 1 ? 'data-replace="1" data-go="#/card/' + id + '/' + MONTHS[mi + 1] + '"' : 'disabled') + '>›</button></div>' +
       '<div class="stat"><div>이용금액<b>' + won(monthSum(c.tx, mo)) + '원</b></div><div>승인건수<b>' + cnt + '건</b></div></div>';
     var last = '';
@@ -162,7 +120,7 @@
     if (!t) return vCard(0); setTop('이용내역 상세'); setTab('inq');
     var mo = t.d.slice(0, 7), cr = c.type === 'credit';
     var kv = [['가맹점명', t.m], ['이용일시', dot(t.d) + ' ' + t.t], ['승인상태', t.st === 'A' ? '승인' : '승인취소'], ['승인번호', t.ap], ['이용구분', t.ins ? '할부 ' + t.ins + '개월' : '일시불'], ['업종', t.c], ['이용카드', c.name + ' (' + c.no.slice(-4) + ')'],
-      cr ? ['결제예정일', (t.d.slice(0, 4)) + '.' + pad(+mo.slice(5) + 1 > 12 ? 1 : +mo.slice(5) + 1) + '.14'] : ['출금계좌', S.accts[1].name]];
+      cr ? ['결제예정일', (t.d.slice(0, 4)) + '.' + pad(+mo.slice(5) + 1 > 12 ? 1 : +mo.slice(5) + 1) + '.14'] : ['출금계좌', S.accts[0].name]];
     V.innerHTML = '<div class="dtl"><div class="m">' + t.m + '</div><div class="big ' + (t.st === 'C' ? 'out' : '') + '">' + (t.st === 'C' ? '-' : '') + won(t.a) + '원</div></div><table class="kv">' +
       kv.map(function (x) { return '<tr><th>' + x[0] + '</th><td>' + x[1] + '</td></tr>'; }).join('') + '</table>';
   }
