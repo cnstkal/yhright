@@ -2,7 +2,8 @@
 'use strict';
 var $=function(s){return document.querySelector(s)};
 var stack=[{v:'main'}],recent=[],ptab=0,pg=1,view;
-try{recent=JSON.parse(sessionStorage.getItem('nvRecent')||'[]')}catch(e){}
+var RECENT0=['청소년 쉼터','미성년자 집 구하는 법','부모 연락두절 찾는 법'];
+try{var raw=sessionStorage.getItem('nvRecent');recent=raw===null?RECENT0.slice():JSON.parse(raw)}catch(e){recent=RECENT0.slice()}
 function save(){try{sessionStorage.setItem('nvRecent',JSON.stringify(recent))}catch(e){}}
 function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 /* ───────── 벡터 아이콘 (24×24) ───────── */
@@ -88,6 +89,12 @@ var RT=['통합','VIEW','이미지','동영상','뉴스','지식iN','쇼핑'];
 var BL=['맛있는 하루','일상다반사','여행의 기록','리뷰하는 곰','소소한 생활','주말 나들이'],CF=['맘스홀릭 카페','자취생 모임','여행 동호회','중고 장터'],CH=['오늘의 영상','브이로그 연구소','뮤직 라이브','먹방 일기'];
 var WI=[['음성','mic','voice'],['이미지','camera','lens'],['음악','music','music']];
 var WO=[['메일','mail','svc','mail'],['뉴스','news','news','0'],['카페','cafe','svc','cafe'],['블로그','blog','svc','blog'],['지식iN','kin','svc','kin']];
+/* ───────── 지식iN 질문 (챕터 2 고정 콘텐츠) ───────── */
+var KIN_QA=[
+{q:'미성년자 혼자 집 구하는 법 알려주세요',u:'조용한달',m:'조회 1,204 · 답변 3',a:'만 19세 미만은 보통 혼자 임대차 계약을 맺기 어렵습니다. 계약 자체는 가능하더라도 법정대리인인 부모의 동의가 필요하고, 보증금이 큰 집이라면 보증인도 요구받기 쉽습니다. 지금 당장 머물 곳이 필요하다면 청소년 쉼터나 청소년상담복지센터에 먼저 연락해 보세요. 청소년 긴급전화 1388에서도 상담과 연결 안내를 받을 수 있습니다.'},
+{q:'자식 버리는 부모가 있나요',u:'밤하늘',m:'조회 856 · 답변 2',a:'안타깝지만 있습니다. 경제 문제, 이혼, 가정 안의 갈등 등으로 자녀를 돌보지 않거나 집에서 내보내는 경우가 실제로 보고됩니다. 다만 부모의 사정이 어떻든 자녀를 돌보지 않는 행위는 방임이나 유기로 아동학대에 해당할 수 있습니다. 힘든 상황에 놓였다면 혼자 감당하지 말고 학교 선생님이나 상담 기관에 꼭 이야기해 주세요.'},
+{q:'부모가 연락두절되면 법적으로 찾을 수 없나요',u:'길잡이',m:'조회 2,311 · 답변 4',a:'연락이 끊겼다고 법적으로 아무것도 할 수 없는 건 아닙니다. 가족이 실종 신고를 하면 경찰이 행방을 확인하기 위해 움직일 수 있고, 가족관계증명서로 친족 관계는 확인할 수 있습니다. 다만 성인이 스스로 연락을 끊고 떠난 경우에는 주소나 행방을 강제로 알아내기 어렵습니다. 구체적인 상황이라면 법률구조공단(국번 없이 132)에 상담을 받아 보시는 걸 권해요.'}
+];
 /* ───────── 공통 조각 ───────── */
 function scene(id,a,b,k){
 var g='<defs><linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+a+'"/><stop offset="1" stop-color="'+b+'"/></linearGradient></defs><rect width="320" height="180" fill="url(#'+id+')"/>';
@@ -163,13 +170,14 @@ art:function(a){var n=NEWS[+a],rel='<div class="sec">관련 기사</div>';for(va
 return hd('뉴스','<button class="hb" aria-label="공유">'+ic('share',20,'#222',2)+'</button>')+'<div class="body"><div class="art"><h2>'+n[0]+'</h2><div class="m">'+n[1]+' | 2018.10.12. 오전 9:'+(10+(+a%40))+'</div><div class="img">'+scene('a'+a,'#4f86c6','#1d2f55',(+a%2)?'l':'p')+'</div><p>'+n[3]+' 전문가들은 당분간 같은 흐름이 이어질 것으로 보고 있다.</p><p>관계자는 "시민들의 관심이 높은 만큼 지속적으로 상황을 살피겠다"고 밝혔다. 이번 사안은 다음 주에도 주요 의제로 다뤄질 것으로 보인다.</p><p><span class="btn">'+ic('share',16,'#555',2)+'공유</span><span class="btn">'+ic('star',16,'#555',2)+'스크랩</span><span class="btn">'+ic('chat',16,'#555',2)+'댓글</span></p></div>'+rel+'</div>'},
 result:function(q,t){var tabs='';RT.forEach(function(x,i){tabs+='<div class="'+(i==(t.tab||0)?'on':'')+'" data-rt="'+i+'">'+x+'</div>'});
 return '<div class="hd"><button class="hb" data-back aria-label="뒤로">'+ic('back',22,'#222',2.2)+'</button><div class="sin sm" data-go="search"><input readonly value="'+E(q)+'"></div></div><div class="tabs" id="rtabs">'+tabs+'</div><div class="body" id="rbody">'+resBody(q,t.tab||0)+'</div>'},
-svc:function(k){var T={mail:['메일',['받은메일함','보낸메일함','내게쓴메일함','휴지통'],'새 메일이 도착했습니다.'],cafe:['카페',['가입 카페','인기글','내 활동'],'오늘 올라온 인기 게시글입니다.'],blog:['블로그',['이웃새글','추천글','내 블로그'],'가을 나들이 다녀온 이야기입니다.'],kin:['지식iN',['질문 목록','답변하기','내 질문'],'궁금한 점을 질문합니다.'],shop:['쇼핑',['오늘의 특가','패션','디지털'],''],toon:['웹툰',['월','화','수','목','금','토','일'],'새 에피소드가 업데이트되었습니다.'],map:['지도',[],''],dict:['사전',['영어','국어','한자','일본어'],''],stock:['증권',['국내','해외','환율'],'오늘의 시황입니다.'],estate:['부동산',['매매','전세','월세'],'신규 매물이 등록되었습니다.'],movie:['영화',['현재상영작','개봉예정','예매순위'],'이번 주 박스오피스입니다.'],music:['뮤직',['실시간','국내','해외'],'오늘의 인기곡입니다.'],book:['책·공연',['베스트셀러','신간','공연'],'이번 주 인기 도서입니다.'],life:['라이프',['푸드','여행','건강'],'오늘의 생활 정보입니다.'],sports:['스포츠',['야구','축구','농구'],'오늘의 경기 소식입니다.'],tech:['차·테크',['자동차','IT','과학'],'새로운 소식이 올라왔습니다.'],game:['게임',['모바일','PC','e스포츠'],'이번 주 인기 게임입니다.'],tv:['TV·동영상',['실시간','다시보기','클립'],'인기 영상을 모았습니다.']};
+svc:function(k){if(k=='kin'){var L='';KIN_QA.forEach(function(x,i){L+='<div class="li" data-go="kinq" data-a="'+i+'"><div class="tx"><h3>'+x.q+'</h3><p>'+E(x.a).slice(0,34)+'…</p><div class="m">'+x.u+' · '+x.m+'</div></div></div>'});return hd('지식iN')+'<div class="body">'+L+'</div>'}var T={mail:['메일',['받은메일함','보낸메일함','내게쓴메일함','휴지통'],'새 메일이 도착했습니다.'],cafe:['카페',['가입 카페','인기글','내 활동'],'오늘 올라온 인기 게시글입니다.'],blog:['블로그',['이웃새글','추천글','내 블로그'],'가을 나들이 다녀온 이야기입니다.'],kin:['지식iN',['질문 목록','답변하기','내 질문'],'궁금한 점을 질문합니다.'],shop:['쇼핑',['오늘의 특가','패션','디지털'],''],toon:['웹툰',['월','화','수','목','금','토','일'],'새 에피소드가 업데이트되었습니다.'],map:['지도',[],''],dict:['사전',['영어','국어','한자','일본어'],''],stock:['증권',['국내','해외','환율'],'오늘의 시황입니다.'],estate:['부동산',['매매','전세','월세'],'신규 매물이 등록되었습니다.'],movie:['영화',['현재상영작','개봉예정','예매순위'],'이번 주 박스오피스입니다.'],music:['뮤직',['실시간','국내','해외'],'오늘의 인기곡입니다.'],book:['책·공연',['베스트셀러','신간','공연'],'이번 주 인기 도서입니다.'],life:['라이프',['푸드','여행','건강'],'오늘의 생활 정보입니다.'],sports:['스포츠',['야구','축구','농구'],'오늘의 경기 소식입니다.'],tech:['차·테크',['자동차','IT','과학'],'새로운 소식이 올라왔습니다.'],game:['게임',['모바일','PC','e스포츠'],'이번 주 인기 게임입니다.'],tv:['TV·동영상',['실시간','다시보기','클립'],'인기 영상을 모았습니다.']};
 var t=T[k]||[k,[],''],tabs='',c,i;t[1].forEach(function(x,j){tabs+='<div class="'+(j?'':'on')+'" data-tab>'+x+'</div>'});
 if(k=='map')return hd('지도')+'<div class="sbox"><div class="sin"><input placeholder="장소, 주소, 버스 검색"><span class="cam">'+ic('search',22,'#1ec800',2)+'</span></div></div><div class="map">'+ic('pin',38,'#e53935',2)+'</div>';
 if(k=='shop'){c='<div class="grid2">';for(i=1;i<=6;i++)c+='<div data-go="det" data-a="상품 '+i+'"><div class="th">'+ic(PROD[i%4][0],34,'#fff',1.5)+'</div><h3>인기 상품 '+i+'</h3><b>'+(i*8+11)+',900원</b></div>';c+='</div>'}
 else if(k=='dict')c='<div class="sbox"><div class="sin"><input id="dq" placeholder="단어를 입력하세요"><span class="cam">'+ic('search',22,'#1ec800',2)+'</span></div></div><div id="dr"></div>';
 else c=items(t[0],8,t[2]);
 return hd(t[0])+(tabs?'<div class="tabs">'+tabs+'</div>':'')+'<div class="body">'+c+'</div>'},
+kinq:function(i){var x=KIN_QA[+i]||KIN_QA[0];return hd('지식iN')+'<div class="body"><div class="art"><h2>Q. '+x.q+'</h2><div class="m">질문자 '+x.u+' · '+x.m+'</div><p><b>채택된 답변</b></p><p>'+E(x.a)+'</p><p><span class="btn">'+ic('heart',16,'#555',2)+'공감</span><span class="btn">'+ic('chat',16,'#555',2)+'댓글</span><span class="btn">'+ic('share',16,'#555',2)+'공유</span></p></div></div>'},
 det:function(a){return hd(a)+'<div class="body"><div class="art"><h2>'+a+'</h2><div class="m">작성자 naver_user · 2018.10.12.</div><div class="img">'+scene('d','#7fb3e8','#2c4a78','l')+'</div><p>2018년 가을의 이야기입니다. 이 화면은 가상의 상세 내용으로 구성되었습니다.</p><p><span class="btn">'+ic('heart',16,'#555',2)+'공감</span><span class="btn">'+ic('chat',16,'#555',2)+'댓글</span><span class="btn">'+ic('share',16,'#555',2)+'공유</span></p></div></div>'}
 };
 /* ───────── 렌더 · 이동 ───────── */
@@ -200,7 +208,6 @@ var DEAD_SVC={mail:1,cafe:1,blog:1};
 function blocked(D,t){
 if(D.go&&DEAD_GO[D.go])return true;
 if(D.go=='svc'&&DEAD_SVC[D.a])return true;
-if(D.go=='det'&&t.v=='svc'&&t.a=='kin')return true;
 return false}
 function bind(d,t){
 d.onclick=function(e){
