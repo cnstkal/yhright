@@ -2,7 +2,8 @@
 (()=>{
 const $=s=>document.querySelector(s),KEY='s7gallery',DB='s7g';
 let front=false,stream=null,lastPhoto=null;
-const sw='<svg viewBox="0 0 36 36"><path d="M5 12h6l2-3h10l2 3h6v16H5z"/><path d="M14 20a4 4 0 0 1 7-2.5M22 20a4 4 0 0 1-7 2.5M21 16.5v2h-2M15 23.5v-2h2"/></svg>';
+const sw='<svg viewBox="0 0 36 36"><path d="M26 14.5A10 10 0 0 0 9.5 12.5M10 21.5A10 10 0 0 0 26.5 23.5"/><path d="M26 7.5v7h-7M10 28.5v-7h7"/></svg>';
+const ICO={flash:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M13 6.5 8.5 13h3.5l-1 4.5 4.5-6.5h-3.5z"/></svg>',chev:'<svg viewBox="0 0 24 24"><path d="M6 14.5 12 8.5l6 6"/></svg>',live:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2" stroke-width="1.4"/></svg>',circ:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" stroke-dasharray="3 2.5"/><circle cx="12" cy="12" r="3"/></svg>'};
 function toast(s){const t=$('#toast');t.textContent=s;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800)}
 function db(){return new Promise((res,rej)=>{const q=indexedDB.open(DB,1);q.onupgradeneeded=()=>q.result.createObjectStore('k');q.onsuccess=()=>res(q.result);q.onerror=rej})}
 async function save(data,w,h){const d=await db(),q=d.transaction('k').objectStore('k').get(KEY);
@@ -23,9 +24,9 @@ let cw=vw,ch=vw*4/3;if(ch>vh){ch=vh;cw=vh*3/4}
 const sx=(vw-cw)/2,sy=(vh-ch)/2;x.save();if(front){x.translate(w,0);x.scale(-1,1)}x.drawImage(v,sx,sy,cw,ch,0,0,w,h);x.restore();
 const f=$('#flash');f.classList.add('on');setTimeout(()=>f.classList.remove('on'),90);
 save(c.toDataURL('image/jpeg',.9),w,h).catch(()=>toast('사진 저장에 실패했습니다.'))}
-$('#app').innerHTML=`<div class="top"></div>
-<section id="preview"><video id="live" autoplay muted playsinline></video><div id="fallback">카메라 연결 중…</div><div id="flash"></div></section>
-<section id="bottom"><div id="label">사진</div><div class="controls"><button id="thumbnail" data-a="thumb" aria-label="최근 사진"></button><button id="shutter" data-a="shot" aria-label="셔터"></button><button id="switch" data-a="switch" aria-label="전면/후면 카메라 전환">${sw}</button></div></section>
+$('#app').innerHTML=`<div class="top"><button aria-label="플래시">${ICO.flash}</button><button class="chev" aria-label="촬영 옵션">${ICO.chev}</button><div class="rt"><button aria-label="라이브">${ICO.live}</button><button aria-label="필터">${ICO.circ}</button></div></div>
+<section id="preview"><video id="live" autoplay muted playsinline></video><div id="fallback">카메라 연결 중…</div><div id="flash"></div><div class="zoom"><span>.5</span><span class="on">1×</span><span>3</span></div></section>
+<section id="bottom"><div id="modes"><span>CINEMATIC</span><span>VIDEO</span><span class="on">PHOTO</span><span>PORTRAIT</span><span>PANO</span></div><div class="controls"><button id="thumbnail" data-a="thumb" aria-label="최근 사진"></button><button id="shutter" data-a="shot" aria-label="셔터"></button><button id="switch" data-a="switch" aria-label="전면/후면 카메라 전환">${sw}</button></div></section>
 <div id="review" hidden><div class="bar"><button data-a="close">완료</button></div><img alt="촬영한 사진"><div class="ft"><button data-a="gallery">사진 앱에서 보기</button></div></div><div id="toast"></div>`;
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
 if(a==='shot')capture();
