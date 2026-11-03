@@ -1,6 +1,6 @@
 'use strict';
 (()=>{
-const $=s=>document.querySelector(s),KEY='s7gallery-2017',DB='s7g';
+const $=s=>document.querySelector(s),KEY='s7gallery-2017-story-v2',DB='s7g';
 let front=false,stream=null,lastPhoto=null;
 const sw='<svg viewBox="0 0 36 36"><path d="M5 12h6l2-3h10l2 3h6v16H5z"/><path d="M14 20a4 4 0 0 1 7-2.5M22 20a4 4 0 0 1-7 2.5M21 16.5v2h-2M15 23.5v-2h2"/></svg>';
 function toast(s){const t=$('#toast');t.textContent=s;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),1800)}
