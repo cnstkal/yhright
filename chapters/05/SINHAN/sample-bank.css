@@ -1,41 +1,86 @@
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#eef2f7;color:#1d2433}
-.app{max-width:375px;margin:0 auto;min-height:100vh;background:#f5f7fa;position:relative;padding-bottom:64px}
-.notice{background:#fff4d6;color:#7a5a00;font-size:11px;text-align:center;padding:6px}
-.top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff}
-.logo{font-weight:700;font-size:17px;color:#2457d6}
-.top-icons{display:flex;gap:14px}
-.ti{font-size:16px;color:#5a6373}
-.hero{background:#2457d6;color:#fff;padding:22px 16px 18px;border-radius:0 0 22px 22px}
-.label{font-size:13px;opacity:.85}
-.amount{font-size:30px;font-weight:700;margin-top:6px}
-.amount small{font-size:16px;margin-left:2px}
-.sub{font-size:12px;opacity:.75;margin-top:4px}
-.quick{display:flex;justify-content:space-between;margin-top:18px}
-.qb{flex:1;margin:0 4px;background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:14px;padding:10px 0;font-size:12px;opacity:.9;cursor:default}
-.qb i{display:block;font-style:normal;font-size:16px;margin-bottom:4px}
-.card-box{padding:16px}
-.cardv{background:linear-gradient(135deg,#1f2c4d,#3d5fb0);color:#fff;border-radius:16px;padding:16px;height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 6px 16px rgba(31,44,77,.25)}
-.cd-top,.cd-bot{display:flex;justify-content:space-between;font-size:12px;opacity:.9}
-.cd-num{font-size:18px;letter-spacing:1px;font-weight:600}
-.list{background:#fff;margin:0 16px;border-radius:16px;padding:14px 14px 4px}
-.list-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.list h2{font-size:15px}
-.more{font-size:12px;color:#8a93a3;background:none;border:0;cursor:default}
-.list ul{list-style:none}
-.list li{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #eef1f5}
-.list li .ic{width:34px;height:34px;border-radius:50%;background:#eaf0fc;color:#2457d6;display:flex;align-items:center;justify-content:center;font-size:14px}
-.nm{flex:1;font-size:14px}
-.nm small{display:block;font-size:11px;color:#8a93a3;margin-top:2px}
-.amt{font-size:14px;color:#5a6373}
-.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:375px;display:flex;justify-content:space-around;background:#fff;border-top:1px solid #e6eaf0;padding:10px 0 14px;font-size:12px;color:#8a93a3}
-.tabbar .on{color:#2457d6;font-weight:700}
-
-/* iPhone 11 상단 노치 안전 영역 및 컨트롤 가독성 */
-html.emb .app{padding-top:44px}
-html.emb .ti{font-size:19px}
-html.emb .qb i{font-size:19px}
-
-/* 기기 화면 안에서는 가로폭을 꽉 채움 */
-html.emb .app{max-width:none;width:100%}
-html.emb .tabbar{max-width:none;width:100%;left:0;transform:none}
+:root{--sb:0px;--blue:#0046ff}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,"SF Pro Text","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;background:#e8eaee;color:#1f2329;font-size:15px;letter-spacing:-.2px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left;letter-spacing:inherit}
+ul{list-style:none}
+.app{max-width:393px;margin:0 auto;min-height:100vh;background:#fff;position:relative;padding-bottom:76px}
+.top{display:flex;align-items:center;height:52px;padding:0 8px 0 18px;background:#fff;position:sticky;top:0;z-index:20}
+.top .sp{flex:1}
+.lg{display:flex;align-items:center;gap:7px;font-size:16px;font-weight:800;letter-spacing:-.4px}
+.lg i{width:25px;height:25px;border-radius:6px;background:var(--blue);color:#fff;font:800 8.5px/25px -apple-system,sans-serif;font-style:normal;text-align:center;letter-spacing:0}
+.bk{width:38px;height:44px;margin-left:-12px;display:flex;align-items:center;justify-content:center}
+.bk svg{width:22px;height:22px;stroke:#1f2329;fill:none;stroke-width:2}
+.ttl{font-size:17px;font-weight:700}
+.hi{width:38px;height:44px;display:flex;align-items:center;justify-content:center}
+.hi svg{width:23px;height:23px;fill:none;stroke:#2a2f36;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.greet{padding:6px 20px 12px}.greet b{font-size:20px;font-weight:800;line-height:1.35;letter-spacing:-.5px}
+.promo{display:flex;justify-content:space-between;align-items:center;width:calc(100% - 32px);margin:0 16px 14px;padding:11px 14px;background:#fff4dc;border-radius:8px;font-size:13px;color:#7a5400}
+.promo b{font-weight:700}.promo:after{content:"›";font-size:18px}
+.acc{margin:0 16px;background:#edf3ff;border-radius:12px;padding:16px 16px 14px}
+.acc .r1{display:flex;justify-content:space-between;align-items:center}
+.acc .nm{font-size:13px;color:#46526a;font-weight:600}.acc .no{font-size:12px;color:#7d8aa3;margin-top:3px}
+.eye{width:34px;height:34px;display:flex;align-items:center;justify-content:center;margin:-6px -6px 0 0}
+.eye svg{width:21px;height:21px;fill:none;stroke:#6b7a96;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.acc .bal{font-size:30px;font-weight:800;margin:12px 0 14px;letter-spacing:-.9px}
+.acc .bal em{font-style:normal;font-size:19px;font-weight:700;margin-left:2px}
+.sc{display:flex;gap:8px}
+.sc button{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;height:40px;background:#fff;border:1px solid #d3e0ff;border-radius:8px;font-size:13px;font-weight:700;color:#1b2f6b}
+.sc svg{width:17px;height:17px;fill:none;stroke:var(--blue);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sc button:active,.dummy:active{opacity:.55}
+.st2{display:flex;justify-content:space-between;align-items:center;padding:24px 20px 10px}
+.st2 b{font-size:17px;font-weight:800;letter-spacing:-.4px}.st2 button{font-size:12px;color:#7d8590}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 16px}
+.tiles button{height:76px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:12px;font-weight:600;color:#2a2f36}
+.tiles svg{width:24px;height:24px;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ar{display:flex;align-items:center;width:100%;padding:15px 20px;gap:10px;border-top:1px solid #f0f1f4}
+.ar:active,.tx:active,.ls:active,.cs:active{background:#f6f7fa}
+.ar .an{flex:1;font-size:14px;font-weight:700}.ar .an small{display:block;font-size:12px;font-weight:400;color:#8a919c;margin-top:3px}
+.ar .ab{font-size:16px;font-weight:800}
+.tg{display:inline-block;font-size:10px;color:var(--blue);border:1px solid #b4c6ff;border-radius:3px;padding:0 4px;margin-left:5px;font-weight:600}
+.cs{display:flex;justify-content:space-between;align-items:center;width:calc(100% - 32px);margin:10px 16px 0;padding:14px;border:1px solid #e3e6ec;border-radius:8px;font-size:13px;color:#555}
+.cs b{font-size:16px;color:#1f2329}.cs:after{content:"›";font-size:18px;color:#a0a7b1;margin-left:6px}
+.fx{display:flex;margin:0 16px;border:1px solid #e3e6ec;border-radius:8px}
+.fx div{flex:1;padding:12px 10px;font-size:11px;color:#7d8590}.fx div+div{border-left:1px solid #eceef2}
+.fx b{display:block;font-size:15px;color:#1f2329;margin:4px 0 2px}.fx span{font-size:11px;font-weight:700}.up{color:#e5322d}.dn{color:var(--blue)}
+.fxn{padding:6px 20px 0;font-size:11px;color:#a2a8b1}
+.ls{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 20px;border-top:1px solid #f0f1f4;font-size:14px;gap:8px}
+.ls span.t{flex:1}.ls i{font-style:normal;font-size:10px;font-weight:700;color:#0a8f5a;background:#e3f6ec;border-radius:3px;padding:2px 5px}
+.foot{padding:16px 20px 6px;font-size:11px;color:#a2a8b1;line-height:1.5}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:393px;display:flex;background:#fff;border-top:1px solid #e4e6ea;z-index:20}
+.tabbar button{flex:1;text-align:center;padding:9px 0 10px;font-size:10.5px;color:#8a919c;border-top:2px solid transparent;margin-top:-1px}
+.tabbar svg{display:block;margin:0 auto 3px;width:23px;height:23px;fill:none;stroke:#8a919c;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tabbar button.on{color:var(--blue);font-weight:700;border-top-color:var(--blue)}.tabbar button.on svg{stroke:var(--blue)}
+.sum{padding:14px 20px 16px;background:#edf3ff;margin:4px 16px 8px;border-radius:12px}.sum small{font-size:12px;color:#5b6a86}.sum b{display:block;font-size:26px;font-weight:800;margin-top:4px;letter-spacing:-.8px}
+.grp{padding:14px 20px 8px;font-size:12px;color:#6b7380;display:flex;justify-content:space-between;font-weight:700}
+.dh{margin:4px 16px 0;background:#edf3ff;border-radius:12px;padding:16px}.dh .n{font-size:13px;font-weight:700;color:#46526a}.dh .no{font-size:12px;color:#7d8aa3;margin:3px 0 0}.dh .big{font-size:29px;font-weight:800;letter-spacing:-.9px;margin:10px 0 14px}
+.ut{display:flex;border-bottom:1px solid #eceef2;margin-top:12px;padding:0 8px;overflow-x:auto}
+.ut button{flex:1 0 auto;padding:12px 14px;text-align:center;font-size:14px;color:#8a919c;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.ut .on{color:#1f2329;font-weight:800;border-bottom-color:#1f2329}
+.stat{display:flex;margin:12px 20px 4px;font-size:12px;color:#7d8590;gap:18px}
+.stat b{margin-left:5px;color:#1f2329;font-size:13px}
+.dg{padding:14px 20px 6px;font-size:12px;color:#8a919c;font-weight:600}
+.tr{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;gap:10px}
+.bd{display:inline-block;font-size:10px;font-weight:700;border-radius:3px;padding:1px 5px;margin-right:6px;vertical-align:1px}
+.bd.i{background:#e5edff;color:var(--blue)}.bd.o{background:#eef0f3;color:#5b6370}
+.tr .m{font-size:15px;font-weight:600}.tr .s{font-size:12px;color:#9aa1ab;margin-top:3px}
+.tr .r{text-align:right}.tr .a{font-size:16px;font-weight:800}.tr .b{font-size:12px;color:#9aa1ab;margin-top:3px}
+.in{color:var(--blue)}.out{color:#1f2329}
+.mn{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 4px}
+.mn button{width:32px;height:32px;border-radius:50%;background:#f0f2f5;text-align:center;font-size:17px;line-height:32px}.mn button[disabled]{opacity:.35}
+.mn span{font-size:17px;font-weight:800}
+.tx{display:flex;align-items:center;gap:12px;width:100%;padding:12px 20px}
+.ci{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex:none}
+.tx .l{flex:1}.tx .m{font-size:15px;font-weight:600}.tx .s{font-size:12px;color:#9aa1ab;margin-top:3px}
+.tx .r{text-align:right}.tx .a{font-size:16px;font-weight:800}
+.stt{display:inline-block;font-size:11px;font-weight:700;margin-top:3px}.stt.a{color:var(--blue)}.stt.c{color:#e5322d}
+.cancel .a{text-decoration:line-through;color:#e5322d}
+.dtl{padding:22px 20px 16px;display:flex;gap:12px;align-items:center}.dtl .m{font-size:15px;color:#555}.dtl .big{font-size:29px;font-weight:800;margin-top:4px;letter-spacing:-.8px}
+.kv{width:100%;border-collapse:collapse}.kv th,.kv td{padding:14px 20px;font-size:14px;border-top:1px solid #f0f1f4;vertical-align:top}
+.kv th{color:#8a919c;font-weight:400;text-align:left;width:34%}.kv td{text-align:right}
+.empty{padding:50px 0;text-align:center;color:#9aa1ab}
+/* Chapter 5 iPhone 15 Pro 기기 프레임(emb) — --sb 값만 바꾸면 상단 여백 조정 가능 */
+html.emb{--sb:54px}
+html.emb .app{padding-top:var(--sb);max-width:none;width:100%}
+html.emb .app::before{content:"";position:fixed;top:0;left:0;right:0;height:var(--sb);background:#fff;z-index:30}
+html.emb .top{top:var(--sb)}
+html.emb .tabbar{max-width:none;width:100%;left:0;transform:none;padding-bottom:22px}
