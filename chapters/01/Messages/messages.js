@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const HOUR=3600000,DAY=86400000,KEY='yhright.messages.2017.v3';
+const HOUR=3600000,DAY=86400000,KEY='yhright.messages.2017.v4';
 const SMS_DEFAULT=['c3'];/* 기존 데이터에 sms 표시가 없을 때 SMS(초록)로 보는 연락처 */
 
 /* ---------- 데이터 (기존 데이터 유지) ---------- */
@@ -15,23 +15,85 @@ return{
   {id:'c1',name:'이모',phone:'010-5721-6384'},
   {id:'c2',name:'종호',phone:'010-3347-8850'},
   {id:'c3',name:'이모부',phone:'010-8264-1903'},
-  {id:'c4',name:'민재',phone:'010-7412-3058'}
+  {id:'c4',name:'민재',phone:'010-7412-3058'},
+  {id:'c5',name:'엄마',phone:'010-3960-2207'},
+  {id:'c6',name:'아빠',phone:'010-2394-7716'},
+  {id:'c7',name:'현우',phone:'010-6593-8172'},
+  {id:'c8',name:'수빈',phone:'010-2187-9460'},
+  {id:'c9',name:'광고',phone:'080-700-2017'},
+  {id:'c10',name:'서린고 1학년 3반',phone:''}
  ],
  threads:[
   {id:'t1',ids:['c2'],unread:1,msgs:[
-   m(false,'윤호야 어디야',5*HOUR),
-   m(false,'전화 좀 받아',4*HOUR),
-   m(true,'……',3*HOUR),
-   m(false,'미안해. 내가 그때 아무 말도 못 했어',2*HOUR)
+   m(false,'윤호야 어디야',8*HOUR),
+   m(false,'전화 좀 받아',7*HOUR),
+   m(true,'나 지금 혼자 있고 싶어',6*HOUR),
+   m(false,'그날은… 나도 갑자기 그렇게 될 줄 몰랐어',5*HOUR),
+   m(true,'너 아무 말도 안 했잖아',4*HOUR),
+   m(false,'미안',3*HOUR),
+   m(false,'밥은 먹었어?',2*HOUR)
   ]},
   {id:'t2',ids:['c1'],unread:0,msgs:[
+   m(false,'윤호야 오늘 학교 끝나고 뭐 먹고 싶어? 이모가 데리러 갈게',12*DAY),
+   m(true,'아무거나 괜찮아요 ㅎㅎ',12*DAY+10*60000),
+   m(false,'우리 윤호 좋아하는 걸로 해줄게 ❤️',12*DAY+20*60000),
+   m(false,'윤호야 종호랑 같이 와. 과일 깎아놨어',8*DAY),
+   m(true,'네 이모 ㅎㅎ',8*DAY+5*60000),
    m(false,'너 지금 당장 짐 챙겨서 나가',2*DAY+3*HOUR),
-   m(true,'이모, 잠깐만 얘기하면 안 돼요?',2*DAY+2*HOUR),
-   m(false,'다시는 연락하지 마',2*DAY)
+   m(true,'이모… 저 잘못했어요?',2*DAY+2*HOUR),
+   m(false,'그런 얼굴로 보지 마. 당장 나가',2*DAY+100*60000),
+   m(true,'갈 데가 없어요. 엄마 아빠 오실 때까지만…',2*DAY+90*60000),
+   m(false,'네 부모한테 가든 어디로 가든 내 알 바 아니야',2*DAY+80*60000),
+   m(false,'다시는 이 집에 발 들이지 마',2*DAY+70*60000)
   ]},
   {id:'t3',ids:['c3'],unread:0,sms:true,msgs:[
-   m(false,'윤호야, 지금 어디 있는 거니. 연락만이라도 줘',DAY+2*HOUR),
-   m(true,'죄송해요. 아직 잘 모르겠어요',DAY+HOUR)
+   m(false,'이모 말 들었지. 더 문제 만들지 말고 조용히 나가라.',2*DAY+60*60000),
+   m(true,'이모부 저랑 얘기 좀 해주세요.',2*DAY+50*60000),
+   m(false,'나도 네 편 들어줄 생각 없다.',2*DAY+40*60000)
+  ]},
+  {id:'t4',ids:['c5'],unread:0,msgs:[
+   m(true,'엄마 오늘은 통화할 수 있어?',35*DAY),
+   m(true,'엄마 나 이모네 잘 있어. 걱정하지 마',28*DAY),
+   m(true,'엄마 언제 와? 형은 좀 괜찮아졌어?',21*DAY),
+   m(true,'나 엄마 보고 싶어',14*DAY),
+   m(true,'엄마 이번 주에는 연락 가능해?',7*DAY),
+   m(true,'엄마 나 진짜 보고 싶어. 언제 와?',2*DAY+5*HOUR),
+   m(true,'읽었으면 답장이라도 해줘…',1*HOUR)
+  ]},
+  {id:'t5',ids:['c6'],unread:0,msgs:[
+   m(true,'아빠 형은 괜찮아?',30*DAY),
+   m(true,'아빠 나 학교 잘 다니고 있어',20*DAY),
+   m(true,'아빠 언제 한국 와?',10*DAY)
+  ]},
+  {id:'t6',ids:['c4'],unread:0,msgs:[
+   m(false,'야 오늘 수학 숙제 42쪽 맞지?',3*DAY),
+   m(true,'ㅇㅇ 1번부터 10번',3*DAY+5*60000),
+   m(false,'살았다 ㄱㅅㅋㅋ',3*DAY+10*60000),
+   m(false,'내일 매점 갈래?',DAY),
+   m(true,'ㅇㅋ 쉬는 시간에 보자',DAY-5*60000)
+  ]},
+  {id:'t7',ids:['c7'],unread:0,msgs:[
+   m(false,'야 너 오늘 왜 바로 집 감?',2*DAY),
+   m(true,'그냥 일이 좀 있어서',2*DAY+5*60000),
+   m(false,'뭔 일인지는 모르겠는데 필요하면 말해',2*DAY+10*60000),
+   m(true,'고맙다 나중에 얘기할게',2*DAY+15*60000)
+  ]},
+  {id:'t8',ids:['c8'],unread:0,msgs:[
+   m(false,'윤호야 프린트 챙겼어?',4*DAY),
+   m(true,'아 맞다 내일 좀 보여줘ㅠㅠ',4*DAY+5*60000),
+   m(false,'ㅇㅇ 사진 찍어서 보내줄게',4*DAY+10*60000),
+   m(false,'근데 너 요즘 괜찮아?',DAY+3*HOUR),
+   m(true,'응 그냥 좀 피곤해',DAY+2*HOUR)
+  ]},
+  {id:'t9',ids:['c10'],unread:0,msgs:[
+   m(false,'[서린고 1학년 3반] 내일 1교시 수학 교과서 42쪽까지 준비하세요.',5*DAY),
+   m(false,'[서린고 1학년 3반] 체육 수업은 운동장 사용 예정입니다. 체육복 지참.',3*DAY),
+   m(false,'[서린고 1학년 3반] 금요일까지 가정통신문 제출 바랍니다.',DAY)
+  ]},
+  {id:'t10',ids:['c9'],unread:0,sms:true,msgs:[
+   m(false,'[광고] ○○마트 추석맞이 할인 행사! 인기 생필품 최대 30% 할인. 수신거부 080-700-2017',6*DAY),
+   m(false,'[광고] 신규 가입 고객 대상 무료 배송 쿠폰 지급! 지금 확인하세요. (무료수신거부)',3*DAY),
+   m(false,'[광고] 휴대폰 요금제 특별 혜택 안내. 자세한 내용은 고객센터를 이용해 주세요.',DAY)
   ]}
  ]
 };
