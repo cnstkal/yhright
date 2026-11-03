@@ -1,0 +1,214 @@
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--pink:#f7347a;--pl:#fff0f5;--blue:#2d6bff;--bl:#ebf2ff;--ink:#1c1c1e;--g6:#666;--g9:#999;--ln:#f0f0f3}
+html,body{height:100%;overflow:hidden;background:#fff}
+body{font-family:"Pretendard",-apple-system,"Apple SD Gothic Neo",sans-serif;color:var(--ink);letter-spacing:-.2px}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer;text-align:left}
+img{display:block}
+svg.ic{display:block;flex:none;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+svg.ic .f{fill:currentColor;stroke:none}
+[data-a]:active{opacity:.72}
+
+/* 앱 프레임: 상단 시스템 바(system-bar.js)가 fixed 요소를 44px 아래로 내려 줌 */
+.app{position:fixed;left:0;right:0;top:0;bottom:0;margin:0 auto;max-width:430px;display:flex;flex-direction:column;background:#fff;overflow:hidden}
+html.emb .app{max-width:none}
+#hd{flex:none;background:#fff;z-index:5}
+#root{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+
+/* 홈 상단 */
+.lg{display:flex;align-items:center;justify-content:space-between;padding:8px 8px 4px 16px}
+.lg .logo{display:block;line-height:0}
+.ib{position:relative;width:40px;height:40px;display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.ib .dot{position:absolute;top:8px;right:9px;width:9px;height:9px;border-radius:50%;background:var(--blue);border:2px solid #fff}
+.sbox{display:flex;align-items:center;justify-content:space-between;width:calc(100% - 32px);margin:4px 16px 0;padding:8px 8px 8px 16px;border-radius:16px;border:1.5px solid var(--pink);background:#fff}
+.sbox b{display:block;font-size:15px;font-weight:700}
+.sbox small{display:block;margin-top:2px;font-size:12px;color:var(--g9)}
+.sgo{width:40px;height:40px;border-radius:13px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center}
+.tabs{display:flex;gap:20px;padding:0 16px;margin-top:10px;overflow-x:auto;border-bottom:1px solid var(--ln)}
+.tabs span{flex:none;padding:10px 0 9px;font-size:15px;font-weight:600;color:var(--g9);border-bottom:3px solid transparent}
+.tabs .on{color:var(--ink);font-weight:800;border-color:var(--pink)}
+
+/* 섹션 */
+.sec{padding:28px 0 0}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;padding:0 16px;margin-bottom:12px}
+.sh h2{font-size:19px;font-weight:800;letter-spacing:-.6px}
+.sh p{font-size:12px;color:var(--g9);margin-top:3px;font-weight:400;letter-spacing:-.2px}
+.sh em{font-style:normal;font-size:12.5px;color:var(--g9);display:flex;align-items:center;gap:1px}
+.hs{display:flex;gap:10px;overflow-x:auto;padding:0 16px}
+.hs::after{content:"";flex:none;width:6px}
+
+/* 서비스 그리드 */
+.gr{display:grid;grid-template-columns:repeat(5,1fr);gap:16px 0;padding:16px 8px 0}
+.gr button{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11.5px;color:#333;font-weight:500;text-align:center}
+.gr i{width:52px;height:52px;border-radius:18px;display:flex;align-items:center;justify-content:center}
+.gr .p i{background:var(--pl);color:var(--pink)}
+.gr .b i{background:var(--bl);color:var(--blue)}
+
+/* 프로모션 배너 */
+.bn{position:relative;margin:24px 16px 0;border-radius:20px;overflow:hidden}
+.bs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory}
+.bs>div{position:relative;flex:none;width:100%;height:148px;scroll-snap-align:start;padding:22px 20px;color:#fff;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.bs b{position:relative;z-index:1;font-size:21px;line-height:1.28;font-weight:800;letter-spacing:-.7px;margin-bottom:6px}
+.bs small{position:relative;z-index:1;font-size:12px;opacity:.92}
+.bs svg.dc{position:absolute;right:0;top:0;height:100%;width:auto}
+.c1{background:linear-gradient(120deg,#f7347a,#ff7aa6)}
+.c2{background:linear-gradient(120deg,#1f5fe8,#5a9bff)}
+.c3{background:#2d6bff}
+.c4{background:linear-gradient(120deg,#ff4f8b,#ff94b4)}
+.cnt{position:absolute;right:12px;bottom:12px;z-index:2;background:rgba(0,0,0,.4);color:#fff;font-size:11px;padding:2px 9px;border-radius:10px}
+
+/* 혜택 요약 */
+.mb{display:flex;margin:14px 16px 0;border-radius:16px;background:#f6f7fa;padding:4px 0}
+.mb button{flex:1;display:flex;align-items:center;gap:8px;padding:11px 12px;font-size:11.5px;color:var(--g6)}
+.mb button+button{border-left:1px solid #e6e7ec}
+.mb b{display:block;font-size:14px;color:var(--ink);margin-top:1px;font-weight:800}
+.mb svg{color:var(--pink)}
+.mb button:nth-child(2) svg{color:var(--blue)}
+
+/* 추천 여행 상품 */
+.pk{flex:none;width:208px}
+.pk .im{position:relative;width:208px;height:132px;border-radius:16px;overflow:hidden}
+.pk img{width:100%;height:100%;object-fit:cover}
+.pk .tg{position:absolute;left:8px;bottom:8px}
+.pk b{display:block;font-size:15px;margin:9px 0 2px;font-weight:700;letter-spacing:-.4px}
+.pk p{font-size:12px;color:var(--g9)}
+.pk .pp{margin-top:6px;font-size:12px;color:var(--g6)}
+.pk .pp strong{font-size:16.5px;font-weight:800;color:var(--ink);margin-right:2px}
+
+/* 태그 */
+.tg{display:inline-block;font-size:10.5px;padding:2px 6px;border-radius:5px;font-weight:700;margin-right:3px;letter-spacing:-.1px}
+.tg.p{background:var(--pl);color:var(--pink)}
+.tg.b{background:var(--bl);color:var(--blue)}
+.tg.w{background:#fff;color:var(--ink)}
+
+/* 인기 숙소 */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 16px 14px}
+.chips button{flex:none;padding:7px 14px;border-radius:18px;border:1px solid #e3e3e8;font-size:13px;font-weight:600;color:var(--g6)}
+.chips .on{background:var(--ink);border-color:var(--ink);color:#fff}
+.sr{display:flex;gap:12px;padding:0 16px 16px;width:100%}
+.sr .im{position:relative;flex:none;width:108px;height:108px;border-radius:14px;overflow:hidden}
+.sr .im img{width:100%;height:100%;object-fit:cover}
+.hrt{position:absolute;top:7px;right:7px;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+.sr .tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.sr .tx b{font-size:15.5px;font-weight:700;margin:4px 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.4px}
+.rt{display:flex;align-items:center;gap:3px;font-size:12px;color:var(--g9)}
+.rt strong{color:var(--ink);font-weight:800}
+.rt svg{color:var(--pink)}
+.rg{font-size:12px;color:var(--g9);margin-top:2px}
+.pr{margin-top:auto;text-align:right;line-height:1.35}
+.pr s{font-size:11.5px;color:#b0b0b6}
+.pr div{font-size:12px}
+.pr em{color:var(--pink);font-style:normal;font-weight:800;margin-right:4px;font-size:14px}
+.pr strong{font-size:17px;font-weight:800}
+.pr small{display:block;font-size:11px;color:var(--g9)}
+
+/* 레저 카드 */
+.lz{flex:none;width:150px;font-size:12px;color:var(--g9)}
+.lz .im{position:relative;width:150px;height:150px;border-radius:16px;overflow:hidden;margin-bottom:8px}
+.lz img{width:100%;height:100%;object-fit:cover}
+.lz b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px;font-weight:700;letter-spacing:-.4px}
+.lz .pr{text-align:left;margin-top:5px}
+
+/* 쿠폰 */
+.cpn{flex:none;display:flex;align-items:center;width:250px;height:94px;border-radius:14px;padding:0 12px 0 16px;border:1px solid;gap:12px}
+.cpn.p{background:var(--pl);border-color:#ffd3e2}
+.cpn.b{background:var(--bl);border-color:#cfe0ff}
+.cpn .v{flex:1;min-width:0;padding-right:10px;border-right:1px dashed #c9c9d0}
+.cpn .v b{display:block;font-size:22px;font-weight:800;letter-spacing:-.8px}
+.cpn.p .v b{color:var(--pink)}
+.cpn.b .v b{color:var(--blue)}
+.cpn .v span{display:block;font-size:12px;color:var(--g6);margin-top:2px}
+.cpn .v small{display:block;font-size:11px;color:var(--g9);margin-top:2px}
+.cpn button{flex:none;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;font-weight:700;color:#fff;padding:8px 0;width:46px;border-radius:12px;text-align:center}
+.cpn.p button{background:var(--pink)}
+.cpn.b button{background:var(--blue)}
+.nt{padding:30px 16px 26px;font-size:11px;color:#aaa;text-align:center;line-height:1.6}
+
+/* 공통 헤더 */
+.hd{display:flex;align-items:center;gap:2px;padding:6px 12px 6px 6px;height:52px;border-bottom:1px solid var(--ln)}
+.hd .bk{width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+.hd h1{font-size:17px;font-weight:800;letter-spacing:-.4px}
+.hd2{padding:12px 16px 6px;font-size:22px;font-weight:800;letter-spacing:-.8px;display:flex;justify-content:space-between;align-items:center}
+.hd2 span{display:flex;gap:4px}
+
+/* 예약 내역 */
+.ft{display:flex;border-bottom:1px solid var(--ln);padding:0 8px}
+.ft button{flex:1;text-align:center;padding:12px 0 10px;font-size:14px;font-weight:600;color:var(--g9);border-bottom:3px solid transparent}
+.ft .on{color:var(--ink);font-weight:800;border-color:var(--pink)}
+.ft i{font-style:normal;margin-left:3px;font-size:12px}
+.nx{margin:14px 16px 4px;border-radius:16px;background:var(--pl);padding:14px 16px;display:flex;align-items:center;gap:12px}
+.nx .ni{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--pink);display:flex;align-items:center;justify-content:center;flex:none}
+.nx div{flex:1;min-width:0;font-size:12px;color:var(--g6)}
+.nx b{display:block;font-size:14.5px;color:var(--ink);margin-bottom:2px;font-weight:700}
+.nx strong{font-size:20px;font-weight:800;color:var(--pink);letter-spacing:-.5px}
+.rc{display:block;width:100%;padding:16px;border-top:8px solid #f6f6f9;margin-top:10px}
+.rc:first-of-type{margin-top:10px}
+.rh{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:12px;color:var(--g9)}
+.rh .sp{margin-left:auto}
+.ty{display:inline-flex;align-items:center;gap:4px;padding:3px 9px 3px 6px;border-radius:8px;font-size:12px;font-weight:700}
+.ty.p{background:var(--pl);color:var(--pink)}
+.ty.b{background:var(--bl);color:var(--blue)}
+.st{font-weight:800;font-size:13px}
+.s1{color:var(--pink)}.s4{color:var(--blue)}.s2{color:var(--g9)}.s3{color:#b5b5bb}
+.dd{font-weight:800;font-size:12px;color:var(--pink);background:var(--pl);padding:2px 7px;border-radius:6px}
+.rb{display:flex;gap:12px}
+.rb img{width:92px;height:92px;border-radius:14px;object-fit:cover;flex:none}
+.ri{min-width:0}
+.ri b{display:block;font-size:15.5px;font-weight:700;letter-spacing:-.4px;margin-bottom:2px}
+.ri p{font-size:12.5px;color:var(--g6);margin-top:3px}
+.rf{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--ln);font-size:13px;color:var(--g9)}
+.rf strong{font-size:16px;color:var(--ink);font-weight:800}
+.rf strong.cx{color:#b5b5bb;text-decoration:line-through}
+.em{padding:70px 16px;text-align:center;font-size:14px;color:var(--g9);display:flex;flex-direction:column;align-items:center;gap:14px}
+.em .eb{padding:12px 22px;border-radius:12px;background:var(--bl);color:var(--blue);font-weight:700;font-size:14px}
+
+/* 예약 상세 */
+.hero{height:190px;background:#eee}
+.hero img{width:100%;height:100%;object-fit:cover}
+.dt{padding:18px 16px 4px}
+.dt .top{display:flex;align-items:center;gap:8px}
+.dt h2{font-size:22px;font-weight:800;letter-spacing:-.8px;margin:10px 0 3px}
+.dt .sub{font-size:13px;color:var(--g9)}
+.box{display:flex;margin-top:16px;border-radius:16px;background:#f6f7fa;padding:16px 0}
+.box>div{flex:1;padding:0 16px;font-size:12px;color:var(--g9);min-width:0}
+.box>div+div{border-left:1px solid #e6e7ec}
+.box b{display:block;font-size:14.5px;color:var(--ink);margin:5px 0 3px;font-weight:700;letter-spacing:-.4px}
+.blk{padding:24px 16px 0}
+.blk h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.kv{display:flex;justify-content:space-between;gap:18px;padding:11px 0;font-size:14px}
+.kv span:first-child{color:var(--g9);flex:none}
+.kv span:last-child{text-align:right;word-break:keep-all}
+.kv.tot{border-top:1px solid var(--ln);margin-top:4px;padding-top:15px}
+.kv.tot span:first-child{color:var(--ink);font-weight:700}
+.kv.tot span:last-child{font-size:19px;font-weight:800;color:var(--pink)}
+.ab{display:flex;gap:8px;padding:24px 16px 30px}
+.ab button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:13px 0;border-radius:13px;background:#f3f3f6;font-size:14px;font-weight:700;color:#555;text-align:center}
+
+/* MY / 내 주변 / 찜 */
+.pf{display:flex;align-items:center;gap:14px;padding:16px}
+.av{width:56px;height:56px;border-radius:50%;background:var(--pl);color:var(--pink);display:flex;align-items:center;justify-content:center;flex:none}
+.pf b{font-size:19px;font-weight:800;letter-spacing:-.5px}
+.pf small{display:block;font-size:12.5px;color:var(--g9);margin-top:3px}
+.pf button{margin-left:auto;display:flex;align-items:center;color:var(--g9);font-size:12.5px}
+.mq{display:grid;grid-template-columns:repeat(4,1fr);margin:0 16px;background:#f6f7fa;border-radius:16px;padding:16px 0;text-align:center;font-size:12px;color:var(--g6)}
+.mq button{text-align:center}
+.mq b{display:block;color:var(--ink);font-size:17px;margin-top:5px;font-weight:800}
+.ml{margin-top:14px}
+.ml button{display:flex;align-items:center;gap:12px;width:100%;padding:15px 16px;font-size:15px;font-weight:500;border-bottom:1px solid var(--ln)}
+.ml button svg:first-child{color:#555}
+.ml button svg:last-child{margin-left:auto;color:#c4c4ca}
+.ml .gp{height:8px;background:#f6f6f9;border:0;padding:0;cursor:default}
+.mp{margin:12px 16px 0;border-radius:18px;overflow:hidden;background:#eef3f8}
+.mp svg{display:block;width:100%;height:auto}
+.fch{display:flex;gap:8px;padding:6px 16px 10px;overflow-x:auto}
+.fch button{flex:none;display:flex;align-items:center;gap:5px;padding:7px 12px 7px 10px;border-radius:18px;border:1px solid #e3e3e8;font-size:13px;font-weight:600;color:var(--g6)}
+.fch .on{background:var(--ink);border-color:var(--ink);color:#fff}
+.dst{font-size:12px;color:var(--pink);font-weight:700}
+
+/* 하단 탭바 (홈 인디케이터 높이는 home.html이 자동으로 더해 줌) */
+.tabbar{flex:none;display:flex;background:#fff;border-top:1px solid #ececf0;padding:6px 0 calc(8px + env(safe-area-inset-bottom,0px));font-size:10.5px;color:#a0a0a8}
+.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px 0;text-align:center;font-weight:600}
+.tabbar .on{color:var(--pink);font-weight:800}
+
+/* 토스트 */
+.toast{position:absolute;left:50%;bottom:118px;transform:translate(-50%,10px);background:rgba(28,28,30,.9);color:#fff;font-size:13px;padding:10px 16px;border-radius:20px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;z-index:20}
+.toast.on{opacity:1;transform:translate(-50%,0)}
