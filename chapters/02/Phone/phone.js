@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const KEY='yhright.phone.v1',HOUR=36e5,DAY=864e5;
+const KEY='yhright.phone.v2',HOUR=36e5,DAY=864e5;
 const MSG_URL='../Messages/messages.html';
 const PH='<svg viewBox="0 0 24 24" class="f"><use href="#ph"/></svg>';
 const PERSON='<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>';
@@ -15,7 +15,7 @@ const ADD_ICON='<svg viewBox="0 0 24 24" style="stroke:var(--blue);stroke-width:
 /* ---------- 데이터 (기존 구조 유지) ---------- */
 function seed(){
 const n=Date.now();
-const c=[['엄마','010-1234-5678',1],['아빠','010-2345-6789',0],['형','010-3456-7890',1],['민준','010-4567-8901',0],['지수','010-5678-9012',1],['김철수','010-6789-0123',0],['박영희','02-345-6789',0],['Alex','010-7890-1234',0]]
+const c=[['엄마','010-1234-5678',1],['아빠','010-2345-6789',0],['형','010-3456-7890',1],['민준','010-4567-8901',0],['지수','010-5678-9012',1],['김철수','010-6789-0123',0],['박영희','02-345-6789',0],['민기','010-8201-3344',1],['종호','010-8317-5520',0],['이모','010-8452-9081',0],['이모부','010-8566-2718',0]]
 .map(([name,num,fav],i)=>({id:'c'+i,name,num,fav:!!fav}));
 const l=(type,ci,ago,dur)=>({id:uid(),type,name:c[ci].name,num:c[ci].num,ts:n-ago,dur:dur||0});
 return{contacts:c,

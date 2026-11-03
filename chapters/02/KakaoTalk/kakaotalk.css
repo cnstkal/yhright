@@ -118,3 +118,5 @@ svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-l
 .kt-comp.has .kt-send{display:block}
 .kt-comp.has .kt-emo,.kt-comp.has .kt-hash{display:none}
 .kt-comp.has .kt-field textarea{padding-right:12px}
+
+.kt-unr{font-size:11px;font-weight:700;color:#ffe000;align-self:flex-end;margin-right:4px}

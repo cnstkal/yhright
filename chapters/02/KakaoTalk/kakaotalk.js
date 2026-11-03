@@ -2,7 +2,7 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const KEY='yhright.kakaotalk.v4',H=36e5,DAY=864e5;
+const KEY='yhright.kakaotalk.v5',H=36e5,DAY=864e5;
 
 /* ---------- 데이터 ---------- */
 const ME={id:'me',name:'정윤호',st:'괜찮아'};
@@ -24,23 +24,20 @@ const avHtml=(id,cls='')=>`<span class="kt-av ${cls}" style="background:hsl(${HU
 function seed(){
  /* 모든 시드 메시지는 이야기 시점(2018년 12월 ~ 2019년 1월)에 맞춘 고정 날짜 */
  const at=(mo,d,h,mi)=>new Date(mo>=6?2018:2019,mo,d,h,mi).getTime();
- const m=(from,text,ts)=>({id:uid(),me:from==='me',from,text,ts});
+ const m=(from,text,ts,x)=>Object.assign({id:uid(),me:from==='me',from,text,ts},x||{});
  return{chats:[
-  {id:'c1',name:'송민기',group:false,members:['f1'],unread:1,msgs:[
-   m('f1','야 오늘 학교 끝나고 뭐함',at(0,2,17,0)),m('me','모텔 들어가야지 왜',at(0,2,17,2)),
-   m('f1','밥은 먹고 들어가라',at(0,2,17,5)),m('me','돈 없어서 대충 먹을거임ㅋㅋ',at(0,2,17,7)),
-   m('f1','또 그 소리 ㅋㅋ 내가 뭐 사갈게',at(0,2,17,10)),m('me','됐어 괜찮아',at(0,2,17,12)),
-   m('f1','너 진짜 고집 개쎄',at(0,3,21,20)),m('me','니가 할 말은 아닌듯',at(0,3,21,22)),
-   m('f1','자냐',at(0,4,0,31)),m('me','아니 왜',at(0,4,0,33)),m('f1','그냥. 너 괜찮나 해서',at(0,4,0,34)),
-   m('me','응 괜찮아 ㅎㅎ',at(0,4,0,35)),m('f1','거짓말 치지 마라 ㅋㅋ 내일 학교 와서 밥이나 같이 먹자',at(0,4,0,36)),
-   m('me','알았어 ㅋㅋ 잘 자',at(0,4,0,40)),m('f1','ㅇㅇ 잘 자',at(0,4,0,41))
+  {id:'c1',name:'송민기',group:false,members:['f1'],unread:0,msgs:[
+   m('f1','야 오늘 학교 끝나고 뭐함',at(10,9,17,0)),m('me','그냥 집 가야지',at(10,9,17,2)),
+   m('f1','밥은 먹고 가라',at(10,9,17,5)),m('me','돈 없어서 대충 먹을거임ㅋㅋ',at(10,9,17,7)),
+   m('f1','또 그 소리 ㅋㅋ 내가 뭐 사갈게',at(10,9,17,10)),m('me','됐어 괜찮아',at(10,9,17,12)),
+   m('f1','너 진짜 고집 개쎄',at(10,12,21,20)),m('me','니가 할 말은 아닌듯',at(10,12,21,22)),
+   m('f1','너 진짜 왜 그래',at(10,20,23,40)),
+   m('me','잘 지내',at(0,4,22,10),{unread:true})
   ]},
-  {id:'c2',name:'민기, 민재, 현우',group:true,members:['f1','f2','f3'],unread:2,msgs:[
-   m('f2','내일 수행평가 준비했냐',at(0,2,21,40)),m('f1','윤호는 했겠냐',at(0,2,21,41)),
-   m('me','야 나 했거든',at(0,2,21,43)),m('f3','ㅋㅋㅋㅋㅋㅋ',at(0,2,21,44)),
-   m('f1','끝나고 편의점 ㄱ',at(0,3,15,0)),m('me','돈 없어서 구경만 함',at(0,3,15,2)),m('f1','아 진짜 내가 살게',at(0,3,15,3)),
-   m('f3','민기 너 편의점에서 또 라면 사냐',at(0,4,12,10)),m('f1','아니 오늘은 삼각김밥임',at(0,4,12,12)),
-   m('f2','둘 다 밥은 먹고 다녀라 제발',at(0,4,12,14)),m('me','넌 엄마냐 ㅋㅋ',at(0,4,12,15)),m('f2','엄마는 아니고 반장임',at(0,4,12,16))
+  {id:'c2',name:'민기, 민재, 현우',group:true,members:['f1','f2','f3'],unread:0,msgs:[
+   m('f2','내일 수행평가 준비했냐',at(10,8,21,40)),m('f1','윤호는 했겠냐',at(10,8,21,41)),
+   m('me','야 나 했거든',at(10,8,21,43)),m('f3','ㅋㅋㅋㅋㅋㅋ',at(10,8,21,44)),
+   m('f1','끝나고 편의점 ㄱ',at(10,9,15,0)),m('me','돈 없어서 구경만 함',at(10,9,15,2)),m('f1','아 진짜 내가 살게',at(10,9,15,3))
   ]},
   {id:'c3',name:'민재',group:false,members:['f2'],unread:0,msgs:[
    m('f2','윤호야 프린트 남는 거 있음?',at(0,3,19,0)),m('me','응 내일 줄게',at(0,3,19,2)),m('f2','ㄱㅅ',at(0,3,19,3)),
@@ -51,9 +48,9 @@ function seed(){
    m('f8','이모도 지금 상황이 너무 힘들어서 그래. 이해해줘',at(11,26,20,12)),m('me','알아요',at(11,26,20,15)),
    m('f8','연락은 가끔 하자',at(11,26,20,16))
   ]},
-  {id:'c6',name:'수빈',group:false,members:['f4'],unread:1,msgs:[
-   m('f4','윤호야 너 민기랑 친하지',at(0,2,13,20)),m('me','응 완전 단짝이지',at(0,2,13,22)),
-   m('f4','다행이다. 나 요즘 민기랑 자주 얘기하게 된 것 같아',at(0,2,13,26)),m('me','오 그래? 잘됐다',at(0,2,13,30))
+  {id:'c6',name:'수빈',group:false,members:['f4'],unread:0,msgs:[
+   m('f4','윤호야 너 민기랑 친하지',at(10,5,13,20)),m('me','응 완전 단짝이지',at(10,5,13,22)),
+   m('f4','다행이다. 나 요즘 민기랑 자주 얘기하게 된 것 같아',at(10,5,13,26)),m('me','오 그래? 잘됐다',at(10,5,13,30))
   ]},
   {id:'c4',name:'모텔 사람들',group:true,members:['f5','f6','f7'],unread:0,msgs:[
    m('f5','윤호 학생 오늘 방 정리할 때 수건 문 앞에 둘게요',at(0,1,9,20)),m('me','감사합니다 사장님!',at(0,1,9,22)),
@@ -68,6 +65,8 @@ if(!S||!Array.isArray(S.chats))S=seed();
 
 /* 챕터 2 서사 데이터: 귀가 후 다시 집을 나와 모텔에 머물게 된 흐름 */
 (function addStoryMessages(){
+ /* 11월 이후 민기와 카톡 없음: 12월 민기 대화는 민기 채팅방에 넣지 않음 */
+ return;
  const c=S.chats.find(x=>x.id==='c1');
  if(!c)return;
  const story=[
@@ -171,7 +170,7 @@ function renderMsgs(){
   const pv=c.msgs[i-1],nx=c.msgs[i+1],sameP=pv&&dkey(pv.ts)===dkey(m.ts)&&pv.from===m.from&&mkey(pv.ts)===mkey(m.ts);
   const sameN=nx&&dkey(nx.ts)===dkey(m.ts)&&nx.from===m.from&&mkey(nx.ts)===mkey(m.ts);
   const first=!sameP,tm=!sameN?`<span class="t">${tstr(m.ts)}</span>`:'<span class="t"></span>';
-  if(m.me)h+=`<div class="kt-m me${first?' first':''}">${tm}<div class="kt-b">${esc(m.text)}</div></div>`;
+  if(m.me)h+=`<div class="kt-m me${first?' first':''}">${m.unread?'<span class="kt-unr">1</span>':''}${tm}<div class="kt-b">${esc(m.text)}</div></div>`;
   else{const f=fById(m.from)||{name:''};
    h+=`<div class="kt-m them${first?' first':''}">${first?avHtml(m.from):'<span class="sp"></span>'}<div class="kt-c">${first&&c.group?`<div class="nm">${esc(f.name)}</div>`:''}<div class="kt-bw"><div class="kt-b">${esc(m.text)}</div>${tm}</div></div></div>`}
  });
