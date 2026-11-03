@@ -38,14 +38,29 @@ let S=null;
 const now=()=>Date.now();
 function seed(){const t=now();let id=1000;const posts=SEED.map(p=>({id:id++,board:p[0],co:p[1],title:p[2],body:p[3],at:t-p[4]*60000,likes:p[5],views:p[6],mine:false,imgs:[],cm:p[7].map((c,i)=>({id:id++,at:t-p[4]*60000+(i+1)*420000,t:c[0],likes:c[1],re:(c[2]||[]).map(r=>({id:id++,at:t-p[4]*60000+(i+1)*900000,t:r,likes:Math.max(1,c[1]>>3)}))}))}));
 return{posts,liked:{},cl:{},fav:['회사생활','개발','삼성전자'],hist:[],next:id,tab:'home',home:'hot',notif:[{t:'내 글에 새 댓글이 달렸어요.',at:t-3600000},{t:'오늘의 인기글을 확인해보세요.',at:t-7200000}]}}
-function load(){try{S=JSON.parse(localStorage.getItem(K))}catch(e){}if(!S||!S.posts)S=seed()}
+function load(){
+ let raw=null;try{raw=JSON.parse(localStorage.getItem(K))}catch(e){}
+ if(!raw||!Array.isArray(raw.posts)){S=seed();return}
+ const base=seed();
+ const num=(v,d=0)=>Number.isFinite(Number(v))?Number(v):d;
+ const posts=raw.posts.map((p,i)=>{
+  if(!p||typeof p!=='object')return null;
+  const cm=Array.isArray(p.cm)?p.cm:[];
+  return {...p,id:num(p.id,base.next+i),board:String(p.board||'직장인 일상'),co:String(p.co||''),title:String(p.title||''),body:String(p.body||''),at:num(p.at,now()),likes:num(p.likes),views:num(p.views),mine:!!p.mine,imgs:Array.isArray(p.imgs)?p.imgs.filter(x=>typeof x==='string'):[],cm:cm.filter(c=>c&&typeof c==='object').map((c,j)=>({...c,id:num(c.id,base.next+1000+i*100+j),at:num(c.at,now()),t:String(c.t||''),likes:num(c.likes),re:(Array.isArray(c.re)?c.re:[]).filter(r=>r&&typeof r==='object').map((r,k)=>({...r,id:num(r.id,base.next+2000+i*100+j*10+k),at:num(r.at,now()),t:String(r.t||''),likes:num(r.likes)}))}))};
+ }).filter(Boolean);
+ const obj=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};
+ S={...base,...raw,posts,liked:obj(raw.liked),cl:obj(raw.cl),fav:Array.isArray(raw.fav)?raw.fav.filter(x=>typeof x==='string'):base.fav,hist:Array.isArray(raw.hist)?raw.hist.filter(x=>typeof x==='string'):[],notif:Array.isArray(raw.notif)?raw.notif.filter(n=>n&&typeof n==='object').map(n=>({...n,t:String(n.t||''),at:num(n.at,now())})):base.notif,tab:['home','ch','write','bell','me'].includes(raw.tab)?raw.tab:'home',home:['hot','new','fav'].includes(raw.home)?raw.home:'hot'};
+ const ids=posts.flatMap(p=>[p.id,...p.cm.flatMap(c=>[c.id,...c.re.map(r=>r.id)])]).filter(Number.isFinite);
+ S.next=Math.max(num(raw.next,base.next),...ids.map(x=>x+1),base.next);
+ try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}
+}
 function save(){try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}}
 const ago=t=>{const m=Math.floor((now()-t)/60000);if(m<1)return'방금 전';if(m<60)return m+'분 전';const h=Math.floor(m/60);if(h<24)return h+'시간 전';const d=Math.floor(h/24);return d<30?d+'일 전':new Date(t).toLocaleDateString('ko-KR')};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const cnt=p=>p.cm.reduce((a,c)=>a+1+c.re.length,0);
+const cnt=p=>(Array.isArray(p.cm)?p.cm:[]).reduce((a,c)=>a+1+(Array.isArray(c.re)?c.re.length:0),0);
 const toast=m=>{const e=$('#toast');e.textContent=m;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1600)};
 const hotScore=p=>p.likes*2+cnt(p)*3+p.views/100;
-function card(p){const lk=S.liked[p.id];return`<div class="post" data-id="${p.id}"><div class="meta"><b>${esc(p.co||p.board)}</b>${p.co?'· '+esc(p.board):''}· 익명 · ${ago(p.at)}</div><div class="pt">${esc(p.title)}</div><div class="pb">${esc(p.body)}</div><div class="st"><span class="${lk?'on':''}">${ic('heart')}${p.likes+(lk?1:0)}</span><span>${ic('cmt')}${cnt(p)}</span><span>${ic('eye')}${p.views.toLocaleString()}</span>${p.likes+cnt(p)>260?'<span class="hot">HOT</span>':''}</div></div>`}
+function card(p){p.cm=Array.isArray(p.cm)?p.cm:[];p.imgs=Array.isArray(p.imgs)?p.imgs:[];const lk=!!S.liked[p.id];return`<div class="post" data-id="${p.id}"><div class="meta"><b>${esc(p.co||p.board)}</b>${p.co?'· '+esc(p.board):''}· 익명 · ${ago(p.at)}</div><div class="pt">${esc(p.title)}</div><div class="pb">${esc(p.body)}</div><div class="st"><span class="${lk?'on':''}">${ic('heart')}${p.likes+(lk?1:0)}</span><span>${ic('cmt')}${cnt(p)}</span><span>${ic('eye')}${p.views.toLocaleString()}</span>${p.likes+cnt(p)>260?'<span class="hot">HOT</span>':''}</div></div>`}
 function feed(list,msg){return list.length?list.map(card).join(''):`<div class="empty">${msg||'게시글이 없어요.'}</div>`}
 function top(t){return`<div class="top"><div class="${t?'ttl':'logo'}">${t||'blind'}</div><div class="r"><button data-a="search" aria-label="검색">${ic('search')}</button><button data-a="mail" aria-label="쪽지">${ic('mail')}</button></div></div>`}
 const TABS=[['home','홈','home'],['ch','채널','ch'],['write','글쓰기','pen'],['bell','알림','bell'],['me','내 정보','me']];
@@ -112,4 +127,6 @@ document.addEventListener('click',e=>{
  if(x=g('[data-h]')){S.home=x.dataset.h;save();render();return}
  if(x=g('[data-t]')){const t=x.dataset.t;if(t==='write'){openWrite();return}S.tab=t;save();render();return}
 });
-load();render();
+window.addEventListener('error',e=>{const el=$('#screen');if(el&&!el.innerHTML.trim())el.innerHTML='<div class="empty">블라인드를 불러오지 못했어요. 페이지를 새로고침해 주세요.</div>';});
+window.addEventListener('unhandledrejection',()=>{const el=$('#screen');if(el&&!el.innerHTML.trim())el.innerHTML='<div class="empty">블라인드를 불러오지 못했어요. 페이지를 새로고침해 주세요.</div>';});
+try{load();render()}catch(err){console.error('[Blind init]',err);try{S=seed();save();render()}catch(err2){console.error('[Blind fallback]',err2);const el=$('#screen');if(el)el.innerHTML='<div class="empty">블라인드를 불러오지 못했어요. 페이지를 새로고침해 주세요.</div>'}}
