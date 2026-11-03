@@ -3,6 +3,15 @@ const KEY='yhright.notes.v1';let mem=null;
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{notes:[],cats:[]}}catch(e){return mem||{notes:[],cats:[]}}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){mem=D}}
 let D=load();D.notes=D.notes||[];D.cats=D.cats||[];D.fa=D.fa||{};
+/* 챕터 2 기본 생활 메모: 기존 사용자 메모가 있을 때는 덮어쓰지 않음 */
+if(!D.notes.length){
+ const base=new Date(2019,0,5,16,20).getTime();
+ D.notes=[
+  {id:'ch2-motel-life',title:'모텔 생활',text:'당분간 여기서 지내기\n학교는 계속 다니기\n방세 날짜 확인하기\n수건은 문 앞에 두신다고 하셨음',items:[],imgs:[],audio:'',cat:'',acc:'i',ts:base-86400000,html:'<div>모텔 생활</div><div>당분간 여기서 지내기</div><div>학교는 계속 다니기</div><div>방세 날짜 확인하기</div><div>수건은 문 앞에 두신다고 하셨음</div>'},
+  {id:'ch2-money',title:'이번 달 돈',text:'남은 돈 확인하기\n필요한 것만 사기\n밥은 최대한 아껴 먹기',items:[],imgs:[],audio:'',cat:'',acc:'i',ts:base-3600000,html:'<div>이번 달 돈</div><div>남은 돈 확인하기</div><div>필요한 것만 사기</div><div>밥은 최대한 아껴 먹기</div>'}
+ ];
+ try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){mem=D}
+}
 let F='d:i',query='',edit=false,fedit=false,sel=new Set(),cur=null,dirty=false,range=null,tm=null,fns=[];
 if(window.parent!==window)document.body.classList.add('embedded');
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
