@@ -1,1 +1,138 @@
-<!doctype html><html lang="ko" data-sysbar="overlay"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>번역기</title><style>*{box-sizing:border-box}body{margin:0;background:#f5f5f7;color:#171719;font-family:-apple-system,'Apple SD Gothic Neo',sans-serif;padding:22px 16px}header{font-size:22px;font-weight:800;padding:12px 0}h1{font-size:30px}h2{margin-top:26px}p,small{color:#85858c}.card,.row,article,section{background:white;border-radius:15px;padding:17px;margin:12px 0}.card{height:130px;background:linear-gradient(135deg,#f5c2cf,#b7b3ed);font-size:22px;font-weight:700}.row{padding:15px}nav{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:18px;text-align:center;border-top:1px solid #ddd}.video{height:170px;border-radius:12px;background:linear-gradient(135deg,#25252a,#777);display:grid;place-items:center;color:#fff;margin-top:16px}article{font-weight:700}button{border:0;border-radius:9px;background:#315fca;color:#fff;padding:12px 18px}select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;margin:7px 0;font:inherit}textarea{height:100px}.hero{padding:35px 20px;border-radius:16px;background:#343e70;color:#fff;font-size:22px;line-height:1.7}</style><style>html.emb .kt-sbar,html.emb .sbar,html.emb .status,html.emb .stb,html.emb #sb,html.emb #sbar,html.emb .sb,html.emb #ktSbar{display:none!important}</style></head><body><h1>번역</h1><section><select><option>한국어</option><option>영어</option><option>일본어</option><option>중국어</option></select><textarea id='src' placeholder='번역할 텍스트 입력'></textarea><button onclick="document.getElementById('dst').value='번역 예시: '+document.getElementById('src').value">번역</button></section><section><select><option>영어</option><option>한국어</option><option>일본어</option><option>중국어</option></select><textarea id='dst' placeholder='번역 결과'></textarea></section><script src="../system-bar.js"></script></body></html>
+<!doctype html>
+<html lang="ko" data-sysbar="overlay"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script>try{if(top!==self)document.documentElement.classList.add('emb')}catch(e){document.documentElement.classList.add('emb')}</script>
+<title>번역</title>
+<style>
+/* Apple 번역 — iOS 17 (2023) 스타일 */
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+:root{--bg:#f2f2f7;--card:#fff;--fg:#000;--sub:#8e8e93;--sep:#e5e5ea;--tl:#2fb0c4;--top:max(env(safe-area-inset-top,0px),20px);--bot:max(env(safe-area-inset-bottom,0px),16px);color-scheme:light}
+html.emb{--top:44px}
+@media(prefers-color-scheme:dark){:root{--bg:#000;--card:#1c1c1e;--fg:#fff;--sub:#98989f;--sep:#38383a;--tl:#4cc4d8;color-scheme:dark}}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--fg);font:16px -apple-system,'SF Pro Text','Apple SD Gothic Neo','Pretendard',sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;padding-top:var(--top)}
+#hd{flex:none;padding:6px 20px 0}.ht{display:flex;justify-content:space-between;align-items:center}.ht h1{font-size:34px;font-weight:700;letter-spacing:.3px}
+.ic{width:34px;height:34px;border-radius:50%;background:var(--card);color:var(--tl);display:grid;place-items:center}
+.lp{display:flex;align-items:center;gap:8px;margin:10px 0 8px}.lp .pill{flex:1;min-width:0;background:var(--card);border-radius:12px;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-weight:500;white-space:nowrap}.lp .pill span{overflow:hidden;text-overflow:ellipsis}.lp .pill.t{color:var(--tl)}.lp .sw{width:38px;height:38px;flex:none;color:var(--tl);display:grid;place-items:center}
+#main{flex:1;overflow-y:auto;padding:4px 16px 16px;scrollbar-width:none}
+.card{background:var(--card);border-radius:14px;margin:0 0 12px;overflow:hidden}
+.card .s{padding:14px 16px 12px;font-size:20px;line-height:1.35;word-break:break-word}.card hr{border:0;border-top:.5px solid var(--sep);margin:0 16px}
+.card .d{padding:12px 16px 8px;font-size:20px;line-height:1.35;color:var(--tl);word-break:break-word}.card .a{display:flex;justify-content:space-between;align-items:center;padding:4px 10px 10px;color:var(--tl)}.card .a i{font-style:normal;color:var(--sub);font-size:12px;padding-left:6px}.card .a button{width:34px;height:34px;border-radius:50%;display:grid;place-items:center}
+.empty{color:var(--sub);text-align:center;padding:60px 30px;line-height:1.6}.empty svg{display:block;margin:0 auto 12px;color:var(--sub)}
+#bar{flex:none;padding:6px 16px 10px}
+.inp{display:flex;align-items:center;gap:8px;background:var(--card);border-radius:22px;padding:0 6px 0 16px;min-height:44px}.inp input{flex:1;min-width:0;border:0;background:none;color:var(--fg);font-size:17px;outline:0;padding:11px 0;-webkit-user-select:text;user-select:text}.inp button{width:36px;height:36px;display:grid;place-items:center;color:var(--tl);border-radius:50%}.inp .pt{width:auto;padding:0 8px;font-size:15px;color:var(--tl)}
+#pv{margin-bottom:8px}#pv .card{margin:0}
+.tb{flex:none;display:flex;padding:6px 0 var(--bot);background:var(--card);border-top:.5px solid var(--sep)}.tb div{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--sub)}.tb .on{color:var(--tl)}.tb .off{opacity:.4}
+body.kb .tb{display:none}
+.bb{display:flex;margin:0 0 10px}.bb.me{justify-content:flex-end}.bb>div{max-width:82%;background:var(--card);border-radius:20px;padding:11px 14px 8px}.bb.me>div{border-bottom-right-radius:6px}.bb:not(.me)>div{border-bottom-left-radius:6px}.bb .s{font-size:17px}.bb .d{color:var(--tl);font-size:17px;margin-top:3px;display:flex;gap:8px;align-items:flex-start}.bb .d span{flex:1}.bb .d button{flex:none;margin-top:1px}
+.cb{display:flex;align-items:center;justify-content:space-around}.mic{width:72px;height:72px;border-radius:50%;background:var(--tl);color:#fff;display:grid;place-items:center}.cb .ic{width:44px;height:44px}.cb .ic.x{visibility:hidden}
+.sub{color:var(--sub);font-size:14px;margin:2px 0 4px}
+#ov{position:absolute;inset:0;z-index:30;pointer-events:none}#ov.on{pointer-events:auto}.bd{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;transition:opacity .25s}#ov.on .bd{opacity:1}
+.sh{position:absolute;left:8px;right:8px;bottom:calc(var(--bot) - 6px);background:var(--card);border-radius:16px;transform:translateY(115%);transition:transform .3s cubic-bezier(.32,.72,0,1);max-height:78%;overflow:auto}#ov.on .sh{transform:none}
+.sht{text-align:center;font-weight:600;padding:14px 16px 8px}.mi{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-top:.5px solid var(--sep);font-size:17px}.mi.r{color:#ff3b30}.mi small{color:var(--sub);font-size:14px}
+.tg{width:51px;height:31px;border-radius:16px;background:var(--sep);position:relative;flex:none;transition:.2s}.tg:after{content:'';position:absolute;left:2px;top:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.3);transition:.2s}.tg.on{background:#34c759}.tg.on:after{left:22px}
+#fs{position:absolute;inset:0;z-index:40;background:var(--bg);display:none;flex-direction:column;padding:calc(var(--top) + 8px) 24px calc(var(--bot) + 8px)}#fs.on{display:flex}#fs .x{align-self:flex-end}
+#fs .b{flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;text-align:center}#fs .b .t{color:var(--tl);font-size:44px;font-weight:600;line-height:1.25;word-break:break-word}#fs .b .o{color:var(--sub);font-size:20px}
+#ls{position:absolute;inset:0;z-index:35;background:var(--bg);display:none;flex-direction:column;padding-top:var(--top)}#ls.on{display:flex}
+.lh{display:flex;justify-content:space-between;align-items:center;padding:10px 20px}.lh b{font-size:17px}.lh button{color:var(--tl);font-size:17px}
+.lsr{margin:0 16px 8px;background:var(--card);border-radius:10px;padding:0 10px}.lsr input{width:100%;border:0;background:none;color:var(--fg);font-size:17px;padding:9px 0;outline:0;-webkit-user-select:text;user-select:text}
+#ll{flex:1;overflow:auto;padding:0 16px 20px}#ll h4{font-size:13px;color:var(--sub);font-weight:500;margin:14px 0 6px 6px}.lg{background:var(--card);border-radius:12px;overflow:hidden}.lg div{display:flex;justify-content:space-between;padding:13px 16px;border-top:.5px solid var(--sep)}.lg div:first-child{border-top:0}.lg .on{color:var(--tl)}
+#toast{position:absolute;left:50%;bottom:calc(var(--bot) + 140px);transform:translate(-50%,20px);background:rgba(60,60,67,.92);color:#fff;padding:9px 16px;border-radius:20px;font-size:14px;opacity:0;transition:.25s;z-index:60;pointer-events:none}#toast.on{opacity:1;transform:translate(-50%,0)}
+</style><style>html.emb .kt-sbar,html.emb .sbar,html.emb .status,html.emb .stb,html.emb #sb,html.emb #sbar,html.emb .sb,html.emb #ktSbar{display:none!important}</style></head>
+<body><div id="app"><div id="hd"></div><div id="main"></div><div id="bar"></div><div class="tb" id="tb"></div><div id="ov"></div><div id="fs"></div><div id="ls"></div><div id="toast"></div></div>
+<script>
+const LANGS=[
+ {c:'ko',n:'한국어',tag:'ko-KR',k:'ko'},
+ {c:'en-US',n:'영어 (미국)',s:'영어',tag:'en-US',k:'en'},
+ {c:'en-GB',n:'영어 (영국)',s:'영어',tag:'en-GB',k:'en'},
+ {c:'zh-CN',n:'중국어 (북경어, 간체)',s:'중국어',tag:'zh-CN',k:'zh'},
+ {c:'zh-TW',n:'중국어 (번체)',s:'중국어',tag:'zh-TW',k:'zhT'},
+ {c:'ja',n:'일본어',tag:'ja-JP',k:'ja'},
+ {c:'fr',n:'프랑스어',tag:'fr-FR',k:'fr'},
+{c:'es',n:'스페인어',tag:'es-ES',k:'es'},
+ {c:'de',n:'독일어',tag:'de-DE',k:'de'}
+];
+const L=c=>LANGS.find(l=>l.c===c);
+const PH={ko:'텍스트 입력','en':'Enter text','zh':'输入文本','zhT':'輸入文字',ja:'テキストを入力',fr:'Saisir du texte',es:'Introducir texto'};
+// 사전 준비된 샘플 번역 데이터 (실제 번역 API 아님)
+const DICT=[
+ {ko:'안녕하세요',en:'Hello.',zh:'你好',zhT:'你好',ja:'こんにちは',fr:'Bonjour.',es:'Hola.'},
+ {ko:'감사합니다',en:'Thank you.',zh:'谢谢',zhT:'謝謝',ja:'ありがとうございます',fr:'Merci.',es:'Gracias.'},
+ {ko:'여기는 어디인가요',en:'Where is this?',zh:'这里是哪里',zhT:'這裡是哪裡',ja:'ここはどこですか',fr:'Où sommes-nous ?',es:'¿Dónde estamos?'},
+ {ko:'노동 공원은 어디로 가야 하나요',en:'How do I get to Labor Park?',zh:'劳动公园要去哪里',zhT:'勞動公園要去哪裡',ja:'労働公園はどこへ行けばいいですか',fr:'Comment aller au parc du Travail ?',es:'¿Cómo llego al Parque del Trabajo?'},
+ {ko:'제 눈을 바라보세요.',en:'Look me in the eyes.',zh:'请看着我的眼睛。',zhT:'請看著我的眼睛。',ja:'私の目を見てください。',fr:'Regardez-moi dans les yeux.',es:'Mírame a los ojos.'},
+ {ko:'화장실은 어디예요',en:'Where is the restroom?',zh:'洗手间在哪里',zhT:'洗手間在哪裡',ja:'トイレはどこですか',fr:'Où sont les toilettes ?',es:'¿Dónde está el baño?'},
+ {ko:'얼마예요',en:'How much is it?',zh:'多少钱',zhT:'多少錢',ja:'いくらですか',fr:'Combien ça coûte ?',es:'¿Cuánto cuesta?'},
+ {ko:'도와주세요',en:'Please help me.',zh:'请帮帮我',zhT:'請幫幫我',ja:'助けてください',fr:'Aidez-moi, s\'il vous plaît.',es:'Ayúdame, por favor.'},
+ {ko:'맛있어요',en:'It is delicious.',zh:'很好吃',zhT:'很好吃',ja:'おいしいです',fr:'C\'est délicieux.',es:'Está delicioso.'},
+ {ko:'공항에 가고 싶어요',en:'I want to go to the airport.',zh:'我想去机场',zhT:'我想去機場',ja:'空港に行きたいです',fr:'Je veux aller à l\'aéroport.',es:'Quiero ir al aeropuerto.'}
+];
+const norm=s=>s.trim().toLowerCase().replace(/[\s.?!。？！,，]+/g,'');
+function translate(text,from,to){
+ const t=norm(text); if(!t) return null;
+ const fk=L(from).k, tk=L(to).k;
+ const hit=DICT.find(d=>norm(d[fk]||'')===t);
+ return hit?hit[tk]:null;
+}
+const $=s=>document.querySelector(s),H=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const Lg=c=>LANGS.find(l=>l.c===c)||LANGS[0],sn=c=>Lg(c).s||Lg(c).n;
+function tr(text,from,to){const t=norm(text);if(!t)return '';if(from===to)return text;const fk=Lg(from).k,tk=Lg(to).k;let h=DICT.find(d=>norm(d[fk]||'')===t)||DICT.find(d=>d[fk]&&t.length>2&&t.includes(norm(d[fk])));if(h&&h[tk])return h[tk];
+const pre={ko:'(모의 번역) ',en:'(Simulated) ',ja:'(模擬翻訳) ',zh:'(模拟翻译) ',zhT:'(模擬翻譯) ',fr:'(Simulé) ',es:'(Simulado) ',de:'(Simuliert) '}[tk]||'';return pre+text.trim()}
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+let st=ld('tr.state',{src:'ko',tgt:'zh-CN'});st.recent=st.recent||['ko','en-US','ja'];st.auto=st.auto??true;st.play=st.play??false;st.det=st.det??true;st.tab=st.tab||'tr';
+let favs=ld('tr.favs',[{id:1,src:'en-US',tgt:'ko',st:'Look me in the eyes.',tt:'제 눈을 바라보세요.'}]);
+let chat=ld('tr.chat',[{src:'ko',tgt:'zh-CN',st:'여기는 어디인가요',tt:'这里是哪里',me:true},{src:'zh-CN',tgt:'ko',st:'这里是哪里',tt:'여기는 어디인가요',me:false},{src:'ko',tgt:'zh-CN',st:'노동 공원은 어디로 가야 하나요',tt:'劳动公园要去哪里',me:true}]);
+let hist=ld('tr.hist',[]);const save=()=>{sv('tr.state',st);sv('tr.favs',favs);sv('tr.chat',chat);sv('tr.hist',hist)};
+const svg=(p,s=22,f='none')=>`<svg width=${s} height=${s} viewBox="0 0 24 24" fill=${f} stroke=currentColor stroke-width=2 stroke-linecap=round stroke-linejoin=round>${p}</svg>`;
+const IC={play:svg('<path d="M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/>'),more:svg('<circle cx=5 cy=12 r=1.2 fill=currentColor /><circle cx=12 cy=12 r=1.2 fill=currentColor /><circle cx=19 cy=12 r=1.2 fill=currentColor />'),mic:svg('<rect x=9 y=3 width=6 height=11 rx=3 /><path d="M5 11a7 7 0 0014 0M12 18v3"/>'),swap:svg('<path d="M7 4v14M3 14l4 4 4-4M17 20V6M13 10l4-4 4 4"/>',26),chev:svg('<path d="M7 9l5-4 5 4M7 15l5 4 5-4"/>',16),star:svg('<path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z"/>'),starF:svg('<path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z"/>',22,'currentColor'),kb:svg('<rect x=3 y=6 width=18 height=12 rx=2 /><path d="M7 10h.1M11 10h.1M15 10h.1M8 14h8"/>'),send:svg('<path d="M12 19V5M6 11l6-6 6 6"/>'),x:svg('<path d="M6 6l12 12M18 6L6 18"/>'),
+tr:svg('<path d="M4 5h9v9H4zM8.5 7.5v.5M6 10c1 2 3 3 5 3M20 19l-4-9-4 9M13.5 17h5"/>',26),cam:svg('<path d="M4 8h3l2-2h6l2 2h3v11H4zM12 11a3.5 3.5 0 100 7 3.5 3.5 0 000-7z"/>',26),ch:svg('<path d="M3 5h11v8H8l-3 3v-3H3zM17 9h4v8h-2v3l-3-3h-4v-2"/>',26),fv:svg('<path d="M12 3l2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z"/>',26)};
+let tt;function toast(m){const e=$('#toast');e.textContent=m;e.className='on';clearTimeout(tt);tt=setTimeout(()=>e.className='',2000)}
+function speak(t,l){if(!('speechSynthesis' in window)){toast('이 브라우저는 음성 재생을 지원하지 않습니다');return}try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=Lg(l).tag;speechSynthesis.speak(u)}catch{toast('음성을 재생할 수 없습니다')}}
+function copy(t){if(!t){toast('복사할 내용이 없습니다');return}(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('복사되었습니다'),()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');toast('복사되었습니다')}catch{toast('복사할 수 없습니다')}a.remove()})}
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function listen(lang,cb){if(SR){try{const r=new SR();r.lang=Lg(lang).tag;r.onresult=e=>cb(e.results[0][0].transcript);r.onerror=()=>sim(lang,cb);r.start();toast('듣는 중…');return}catch{}}sim(lang,cb)}
+let si=0;function sim(lang,cb){const k=Lg(lang).k,d=DICT.filter(x=>x[k]);toast('모의 음성 입력');cb(d[si++%d.length][k])}
+const LS={h:()=>hist,c:()=>chat,f:()=>favs};
+const isFav=it=>favs.some(f=>f.st==it.st&&f.tt==it.tt&&f.src==it.src&&f.tgt==it.tgt);
+function ovOpen(h){const e=$('#ov');e.innerHTML=`<div class=bd onclick="ovClose()"></div><div class=sh>${h}</div>`;requestAnimationFrame(()=>e.className='on')}
+function ovClose(){const e=$('#ov');e.className='';setTimeout(()=>{if(e.className!='on')e.innerHTML=''},300)}
+const mi=(t,fn,c='')=>`<div class="mi ${c}" onclick="ovClose();${fn}">${t}</div>`;
+function cm(k,i){const it=LS[k]()[i];if(!it)return;ovOpen(`<div class=sht>${H(it.st.length>24?it.st.slice(0,24)+'…':it.st)}</div>`+mi('전체 화면으로 보기',`fs('${k}',${i})`)+mi(isFav(it)?'즐겨찾기에서 제거':'즐겨찾기에 추가',`fav('${k}',${i})`)+mi('사전에서 단어 뜻 확인',`dic('${k}',${i})`)+mi('번역문 복사',`copy(LS['${k}']()[${i}].tt)`)+mi('원문 복사',`copy(LS['${k}']()[${i}].st)`)+mi('원문 음성 재생',`pp('${k}',${i},0)`)+mi('번역문 음성 재생',`pp('${k}',${i},1)`)+(k=='f'?'':mi('삭제',`del('${k}',${i})`,'r')))}
+const pp=(k,i,t)=>{const it=LS[k]()[i];if(it)speak(t?it.tt:it.st,t?it.tgt:it.src)};
+function fav(k,i){const it=LS[k]()[i];if(!it)return;const j=favs.findIndex(f=>f.st==it.st&&f.tt==it.tt&&f.src==it.src&&f.tgt==it.tgt);if(j>=0){favs.splice(j,1);toast('즐겨찾기에서 제거했어요')}else{favs.push({id:Date.now(),src:it.src,tgt:it.tgt,st:it.st,tt:it.tt});toast('즐겨찾기에 추가했어요')}save();render(1)}
+function del(k,i){LS[k]().splice(i,1);save();render(1)}
+function fs(k,i){const it=LS[k]()[i];if(!it)return;const e=$('#fs');e.className='on';e.innerHTML=`<button class="ic x" onclick="$('#fs').className=''">${IC.x}</button><div class=b><div class=t>${H(it.tt)}</div><div class=o>${H(it.st)}</div><div><button class=ic style="margin:auto;width:52px;height:52px" onclick="pp('${k}',${i},1)">${IC.play}</button></div></div>`}
+function dic(k,i){const it=LS[k]()[i];const ws=[...new Set(it.st.split(/[\s,.?!。？！，]+/).filter(Boolean))].slice(0,8);const rows=ws.map(w=>{const r=tr(w,it.src,it.tgt);return `<div class=mi><span>${H(w)}</span><small>${r.startsWith('(')?'사전에 없음':H(r)}</small></div>`}).join('');setTimeout(()=>ovOpen(`<div class=sht>사전</div>${rows||'<div class=mi><small>단어가 없습니다</small></div>'}<div class=mi><small>모의 사전입니다.</small></div>`),320)}
+/* 화면 */
+const cardH=(it,k,i,o={})=>`<div class=card><div class=s>${H(it.st)}</div><hr><div class=d>${H(it.tt)}</div><div class=a><span><button onclick="pp('${k}',${i},1)">${IC.play}</button>${o.lang?`<i>${sn(it.src)} → ${sn(it.tgt)}</i>`:''}</span><button onclick="cm('${k}',${i})">${IC.more}</button></div></div>`;
+const tabs=[['tr','번역','tr'],['cam','카메라','cam'],['ch','대화','ch'],['fv','즐겨찾기','fv']];
+function render(keep){const t=st.tab,m=$('#main'),y=keep?m.scrollTop:0;document.body.classList.remove('kb');
+$('#tb').innerHTML=tabs.map(x=>x[0]=='cam'?`<div class=off>${IC.cam}${x[1]}</div>`:`<div class="${t==x[0]?'on':''}" onclick="tab('${x[0]}')">${IC[x[2]]}${x[1]}</div>`).join('');
+if(t=='tr'){$('#hd').innerHTML=`<div class=ht><h1>번역</h1><button class=ic onclick="trm()">${IC.more}</button></div>${lp()}`;m.innerHTML=hist.length?hist.map((h,i)=>cardH(h,'h',i)).join(''):`<div class=empty>${IC.tr.replace('width=26 height=26','width=44 height=44')}번역할 텍스트를 입력하세요</div>`;
+ if(!$('#qi')||$('#bar').dataset.t!='tr'){$('#bar').dataset.t='tr';$('#bar').innerHTML=`<div id=pv></div><div class=inp><input id=qi placeholder="텍스트 입력" autocomplete=off oninput="live()" onkeydown="if(event.key=='Enter')add()" onfocus="document.body.classList.add('kb')" onblur="document.body.classList.remove('kb')"><button class=pt id=pst onclick="paste()">붙여넣기</button><button onclick="mic1()">${IC.mic}</button></div>`}}
+if(t=='ch'){$('#hd').innerHTML=`<div class=ht><h1>대화</h1><button class=ic onclick="chm()">${IC.more}</button></div><div class=sub onclick="lsel('src')">${Lg(st.src).n} ↔ ${Lg(st.tgt).n}</div>`;m.innerHTML=chat.length?chat.map((c,i)=>`<div class="bb ${c.me?'me':''}"><div onclick="cm('c',${i})"><div class=s>${H(c.st)}</div><div class=d><span>${H(c.tt)}</span><button onclick="event.stopPropagation();pp('c',${i},1)">${IC.play}</button></div></div></div>`).join(''):`<div class=empty>${IC.ch.replace('width=26 height=26','width=44 height=44')}마이크를 눌러 대화를 시작하세요</div>`;
+ $('#bar').dataset.t='ch';$('#bar').innerHTML=`<div class=cb><button class=ic onclick="ck()">${IC.kb}</button><button class=mic onclick="cmic()">${svg('<rect x=9 y=3 width=6 height=11 rx=3 /><path d="M5 11a7 7 0 0014 0M12 18v3"/>',34)}</button><button class="ic x">${IC.kb}</button></div>`}
+if(t=='fv'){$('#hd').innerHTML=`<div class=ht><h1>즐겨찾기</h1></div>`;m.innerHTML=favs.length?favs.map((f,i)=>cardH(f,'f',i,{lang:1})).join(''):`<div class=empty>${IC.star.replace('width=22 height=22','width=48 height=48')}저장된 번역이 없습니다.<br>번역 카드의 메뉴에서 즐겨찾기에 추가하세요.</div>`;$('#bar').dataset.t='fv';$('#bar').innerHTML=''}
+m.scrollTop=y}
+const lp=()=>`<div class=lp><div class=pill onclick="lsel('src')"><span>${Lg(st.src).n}</span>${IC.chev}</div><button class=sw onclick="swap()">${IC.swap}</button><div class="pill t" onclick="lsel('tgt')"><span>${Lg(st.tgt).n}</span>${IC.chev}</div></div>`;
+function tab(t){st.tab=t;save();render()}
+function swap(){[st.src,st.tgt]=[st.tgt,st.src];save();render(1);live()}
+function live(){const i=$('#qi');if(!i)return;const v=i.value,p=$('#pv');$('#pst').style.display=v?'none':'';if(!v.trim()){p.innerHTML='';return}p.innerHTML=`<div class=card><div class=s>${H(v)}</div><hr><div class=d>${H(tr(v,st.src,st.tgt))}</div></div>`}
+function add(t){const i=$('#qi'),v=(t??i.value).trim();if(!v)return;hist.unshift({id:Date.now(),src:st.src,tgt:st.tgt,st:v,tt:tr(v,st.src,st.tgt)});if(i)i.value='';save();render();live();$('#main').scrollTop=0}
+function paste(){if(navigator.clipboard&&navigator.clipboard.readText)navigator.clipboard.readText().then(t=>{$('#qi').value=t;live()},()=>toast('붙여넣기 권한이 없습니다'));else toast('붙여넣기를 지원하지 않습니다')}
+const mic1=()=>listen(st.src,t=>{$('#qi').value=t;live();add()});
+function trm(){ovOpen(`<div class=sht>번역</div>`+mi('번역 기록 지우기','hist=[];save();render()','r')+mi('언어 교체','swap()'))}
+function chm(){const r=(l,k)=>`<div class=mi onclick="st.${k}=!st.${k};save();chm()"><span>${l}</span><i class="tg ${st[k]?'on':''}"></i></div>`;ovOpen(`<div class=sht>대화 설정</div>${r('자동 번역','auto')}${r('번역문 자동 재생','play')}${r('언어 감지','det')}${mi('대화 내용 지우기','chat=[];save();render()','r')}`)}
+const hang=s=>/[\uac00-\ud7a3]/.test(s);
+function csend(v,me){v=v.trim();if(!v)return;if(st.det&&me===undefined)me=hang(v)==(Lg(st.src).k=='ko');if(me===undefined)me=true;const src=me?st.src:st.tgt,tgt=me?st.tgt:st.src;const tt=st.auto?tr(v,src,tgt):'';chat.push({src,tgt,st:v,tt:tt||'(자동 번역 꺼짐)',me});save();render();$('#main').scrollTop=1e9;if(st.play&&st.auto)speak(tt,tgt)}
+let turn=true;function cmic(){const me=turn;turn=!turn;listen(me?st.src:st.tgt,t=>csend(t,me))}
+function ck(){$('#bar').innerHTML=`<div class=inp><input id=ci placeholder="문장 입력" autocomplete=off onkeydown="if(event.key=='Enter')cs()" onfocus="document.body.classList.add('kb')" onblur="document.body.classList.remove('kb')"><button onclick="cs()">${IC.send}</button><button onclick="render(1)">${IC.x}</button></div>`;$('#ci').focus()}
+function cs(){const i=$('#ci'),v=i.value;i.value='';csend(v);ck()}
+/* 언어 선택 */
+function lsel(w){const e=$('#ls'),cur=st[w];e.className='on';const draw=q=>{const f=LANGS.filter(l=>!q||(l.n+l.c).toLowerCase().includes(q.toLowerCase())),rc=st.recent.map(Lg).filter((l,i,a)=>a.indexOf(l)==i);const it=l=>`<div class="${l.c==cur?'on':''}" onclick="pick('${w}','${l.c}')"><span>${l.n}</span><span>${l.c==cur?'✓':''}</span></div>`;$('#ll').innerHTML=(!q&&rc.length?`<h4>최근 사용</h4><div class=lg>${rc.map(it).join('')}</div>`:'')+`<h4>언어</h4><div class=lg>${f.map(it).join('')||'<div>결과 없음</div>'}</div>`};
+e.innerHTML=`<div class=lh><b>${w=='src'?'원본 언어':'번역 언어'}</b><button onclick="$('#ls').className=''">완료</button></div><div class=lsr><input placeholder="검색" oninput="window._d(this.value)"></div><div id=ll></div>`;window._d=draw;draw('')}
+function pick(w,c){const o=w=='src'?'tgt':'src';if(st[o]==c)st[o]=st[w];st[w]=c;st.recent=[c,...st.recent.filter(x=>x!=c)].slice(0,4);save();$('#ls').className='';render(1);live()}
+render();
+</script>
+<script src="../system-bar.js"></script></body></html>
