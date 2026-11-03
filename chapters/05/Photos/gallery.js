@@ -55,9 +55,29 @@ c.width=q?dh:dw;c.height=q?dw:dh;const x=c.getContext('2d');x.filter=fstr(e);x.t
 const TC={};
 async function fill(im,p,W=300){const k=p.id+JSON.stringify(p.edit||0)+W;if(!TC[k]){try{TC[k]=(await render(p,W)).toDataURL('image/jpeg',.8)}catch(e){TC[k]=FALL}}im.src=TC[k]}
 
-/* 목록: 최신순, 날짜별 구분, 4열 */
-function grid(ps){let h='',last='';ps.forEach((p,i)=>{const d=fmtD(p.ts);if(d!=last){h+=(last?'</div>':'')+`<h4>${d}</h4><div class="g">`;last=d}
-h+=`<div class="c" data-i="${i}"><img data-id="${p.id}" alt="">${p.type=='video'?`<span class="bd">${dur(p.dur)}</span>`:''}</div>`});return h+'</div>'}
+/* iOS 18 라이브러리: 3열 그리드 / 월·연도 보기 / 정렬·필터 */
+const ST={mode:'all',sort:'new',flt:'all',q:'',sel:false,pick:new Set(),srch:false};
+const FL={all:'모든 항목',fav:'즐겨찾기',photo:'사진',video:'동영상',shot:'스크린샷'};
+const ym=t=>{const d=D(t);return `${d.getFullYear()}년 ${d.getMonth()+1}월`};
+function visible(){const q=ST.q.trim();let a=S.photos.filter(p=>ST.flt=='all'||(ST.flt=='fav'&&p.fav)||(ST.flt=='photo'&&p.type=='photo'&&p.kind!='screenshot')||(ST.flt=='video'&&p.type=='video')||(ST.flt=='shot'&&p.kind=='screenshot'));
+if(q)a=a.filter(p=>(fmtD(p.ts)+' '+(p.type=='video'?'동영상 비디오':'사진')+' '+(p.kind=='screenshot'?'스크린샷':'')+' '+(p.fav?'즐겨찾기':'')+' '+p.name).includes(q));
+return a.sort((x,y)=>ST.sort=='new'?y.ts-x.ts:x.ts-y.ts)}
+const cell=(p,i)=>`<div class="c${ST.pick.has(p.id)?' on':''}" data-i="${i}"><img data-id="${p.id}" alt="">${p.fav?'<svg class="fv" viewBox="0 0 24 24"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg>':''}${p.type=='video'?`<span class="bd">${dur(p.dur)}</span>`:''}<i class="ck"></i></div>`;
+function groups(by){const g=[];list.forEach((p,i)=>{const k=by=='years'?D(p.ts).getFullYear()+'년':ym(p.ts),l=g[g.length-1];if(l&&l.k==k){l.n++}else g.push({k,i,p,n:1})});return g}
+function grid(ps){return `<div class="g">${ps.map(cell).join('')}</div>`}
+function body(){if(!list.length)return '<div class="em">표시할 항목이 없습니다</div>';
+if(ST.mode=='all')return grid(list);
+return `<div class="${ST.mode=='years'?'yr':'mo'}">${groups(ST.mode).map(g=>`<div class="gc" data-go="${g.i}"><img data-id="${g.p.id}" alt=""><div class="gl"><b>${g.k}</b><small>${g.n}</small></div></div>`).join('')}</div>`}
+function head(){const ph=list.filter(p=>p.type!='video').length,vd=list.length-ph;let t=ST.sel?(ST.pick.size?`${ST.pick.size}장 선택됨`:'항목 선택'):(list.length?fmtD(topTs()):'라이브러리');
+$('#ht').textContent=t;$('#hs').textContent=ST.sel?'':`사진 ${ph.toLocaleString()}장, 동영상 ${vd.toLocaleString()}개`;$('#hs').hidden=ST.sel;
+$('#bsel').textContent=ST.sel?'취소':'선택';$('#main').classList.toggle('sel',ST.sel);$('#bsrch').hidden=ST.sel;$('#sb2').hidden=!ST.srch;
+document.querySelectorAll('.sg button').forEach(b=>b.classList.toggle('on',b.dataset.m==ST.mode))}
+function topTs(){const m=$('#main');if(ST.mode!='all'||!m)return list[0]?list[0].ts:0;const r=m.getBoundingClientRect();for(const c of m.querySelectorAll('.c')){if(c.getBoundingClientRect().bottom>r.top+4)return list[+c.dataset.i].ts}return list[0].ts}
+let io;
+function draw(keep){list=visible();const m=$('#main'),y=keep?m.scrollTop:0;m.innerHTML=body();m.scrollTop=y;head();
+io&&io.disconnect();io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);fill(e.target,byId(e.target.dataset.id))}}),{root:m,rootMargin:'600px'});
+m.querySelectorAll('img[data-id]').forEach(im=>{im.onerror=()=>im.src=FALL;io.observe(im)})}
+function menu(){const s=$('#mn');s.innerHTML=`<div class="sh2"><div class="t">정렬</div>${[['new','최신순'],['old','오래된순']].map(a=>`<button data-so="${a[0]}">${a[1]}<b>${ST.sort==a[0]?'✓':''}</b></button>`).join('')}<div class="t">필터</div>${Object.keys(FL).map(k=>`<button data-fl="${k}">${FL[k]}<b>${ST.flt==k?'✓':''}</b></button>`).join('')}</div>`;s.hidden=false}
 
 /* 상세 */
 function openV(i){vi=i;const v=$('#v');v.classList.remove('hu');document.body.classList.remove('dark');v.hidden=false;showV()}
@@ -69,13 +89,25 @@ function back(){tok++;$('#v').hidden=true;document.body.classList.remove('dark')
 function toggleUI(){const v=$('#v');v.classList.toggle('hu');document.body.classList.toggle('dark',v.classList.contains('hu'))}
 
 async function init(){S=await idbGet()||seed();
-list=[...S.photos].sort((a,b)=>b.ts-a.ts);
-$('#app').innerHTML=`<div id="main"><h1>사진</h1>${list.length?grid(list):''}</div>
+$('#app').innerHTML=`<div class="hd"><div class="hl"><b id="ht"></b><small id="hs"></small></div><div class="hr"><button id="bsrch" aria-label="검색"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg></button><button id="bsel" class="pl">선택</button></div></div>
+<div id="sb2" class="sb2" hidden><input id="qi" placeholder="검색" enterkeyhint="search"></div>
+<div id="main"></div>
+<div class="ctl"><div class="sg"><button data-m="years">연도</button><button data-m="months">월</button><button data-m="all">모든 사진</button></div><button id="bsf" class="rb" aria-label="정렬 및 필터"><svg viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></svg></button></div>
+<div id="mn" class="mn" hidden></div>
 <div id="v" hidden><div class="top"><button class="bk" id="bk"><svg viewBox="0 0 12 21"><path d="M10 2L2 10.5 10 19"/></svg>사진</button><b id="vd"></b><small id="vtm"></small></div>
 <div id="stage"><img id="vimg" alt=""></div><div class="vb"><span id="cnt"></span></div></div>`;
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);fill(e.target,byId(e.target.dataset.id))}}),{root:$('#main'),rootMargin:'600px'});
-document.querySelectorAll('#main img[data-id]').forEach(im=>{im.onerror=()=>im.src=FALL;io.observe(im)});
-$('#main').onclick=e=>{const c=e.target.closest('.c');c&&openV(+c.dataset.i)};
+draw();
+const m=$('#main');let raf=0;
+m.onscroll=()=>{if(ST.mode!='all'||ST.sel||raf)return;raf=requestAnimationFrame(()=>{raf=0;head()})};
+m.onclick=e=>{const g=e.target.closest('.gc');if(g){ST.mode='all';draw();const c=m.querySelector(`.c[data-i="${g.dataset.go}"]`);c&&(m.scrollTop=c.offsetTop);head();return}
+const c=e.target.closest('.c');if(!c)return;const p=list[+c.dataset.i];
+if(ST.sel){ST.pick.has(p.id)?ST.pick.delete(p.id):ST.pick.add(p.id);c.classList.toggle('on');head()}else openV(+c.dataset.i)};
+document.querySelector('.sg').onclick=e=>{const b=e.target.closest('button');if(!b)return;ST.mode=b.dataset.m;draw()};
+$('#bsel').onclick=()=>{ST.sel=!ST.sel;ST.pick.clear();draw(true)};
+$('#bsrch').onclick=()=>{ST.srch=!ST.srch;if(!ST.srch&&ST.q){ST.q='';$('#qi').value='';draw()}head();if(ST.srch)$('#qi').focus()};
+$('#qi').oninput=e=>{ST.q=e.target.value;draw()};
+$('#bsf').onclick=menu;
+$('#mn').onclick=e=>{const b=e.target.closest('button');if(b){if(b.dataset.so)ST.sort=b.dataset.so;if(b.dataset.fl)ST.flt=b.dataset.fl;draw();$('#mn').hidden=true}else if(e.target.id=='mn')$('#mn').hidden=true};
 $('#bk').onclick=back;
 $('#vimg').onerror=e=>e.target.src=FALL;
 let x0=null;const st=$('#stage'),im=$('#vimg');

@@ -1,11 +1,11 @@
-/* iOS 12 (2018) 사진 앱 스타일 · iPhone 6s 375pt */
+/* iOS 18 (2024) 사진 앱 스타일 · iPhone 15 Pro 393pt */
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html,body{height:100%;background:#fff}
 body{position:relative;overflow:hidden;color:#000;margin:0 auto;
  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Helvetica Neue",Arial,sans-serif;
  -webkit-font-smoothing:antialiased;-webkit-user-select:none;user-select:none}
-@media(min-width:501px){body{max-width:375px;box-shadow:0 0 0 .5px #c8c7cc}}
+@media(min-width:501px){body{max-width:393px;box-shadow:0 0 0 .5px #c8c7cc}}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 
 /* 상태 표시줄 */
@@ -22,15 +22,38 @@ body.dark .sbar{background:#000;color:#fff}
 
 #app{position:absolute;left:0;right:0;bottom:0;top:calc(20px + env(safe-area-inset-top))}
 
-/* 사진 목록 */
-#main{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:env(safe-area-inset-bottom)}
-h1{font-size:34px;line-height:41px;font-weight:700;letter-spacing:.37px;padding:6px 16px 8px}
-h4{font-size:15px;line-height:20px;font-weight:600;letter-spacing:-.24px;padding:14px 16px 6px;margin-top:4px}
-h1+h4{margin-top:0}
-.g{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:0 0 2px}
+/* 사진 라이브러리 (iOS 18) */
+.hd{position:absolute;top:0;left:0;right:0;z-index:8;height:56px;padding:6px 16px 0;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#fff 70%,#fff0)}
+.hl{display:flex;flex-direction:column;min-width:0}.hl b{font-size:20px;line-height:24px;font-weight:700;letter-spacing:-.4px}.hl small{font-size:12px;line-height:15px;color:#8e8e93}
+.hr{display:flex;gap:10px;align-items:center}
+.hr button{height:34px;min-width:34px;border-radius:17px;background:rgba(120,120,128,.14);display:flex;align-items:center;justify-content:center;color:#000;padding:0 12px;font-size:15px;font-weight:600}
+.hr button svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.hr button#bsrch{padding:0;width:34px}
+.sb2{position:absolute;top:56px;left:16px;right:16px;z-index:8}.sb2 input{width:100%;height:36px;border:0;outline:0;border-radius:10px;background:rgba(120,120,128,.14);padding:0 12px;font-size:16px;font-family:inherit}
+#main{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:58px 0 calc(84px + env(safe-area-inset-bottom))}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
 .c{position:relative;aspect-ratio:1;background:#e5e5ea;overflow:hidden}
-.c img{display:block;width:100%;height:100%;object-fit:cover}
-.bd{position:absolute;right:4px;bottom:3px;font-size:12px;font-weight:600;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.5)}
+.c img,.gc img{display:block;width:100%;height:100%;object-fit:cover}
+.bd{position:absolute;right:5px;bottom:4px;font-size:12px;font-weight:600;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.55)}
+.fv{position:absolute;left:5px;bottom:4px;width:13px;height:13px;fill:#fff;stroke:none;filter:drop-shadow(0 0 2px #0008)}
+.ck{display:none;position:absolute;right:5px;top:5px;width:22px;height:22px;border-radius:50%;border:1.5px solid #fff;background:rgba(0,0,0,.25)}
+.sel .ck{display:block}.c.on .ck{background:#007aff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+.c.on img{opacity:.8}
+.yr,.mo{display:grid;gap:6px;padding:4px 6px}.yr{grid-template-columns:1fr}.mo{grid-template-columns:1fr 1fr}
+.gc{position:relative;overflow:hidden;border-radius:14px;background:#e5e5ea}.yr .gc{aspect-ratio:16/10}.mo .gc{aspect-ratio:1}
+.gl{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 10px;color:#fff;background:linear-gradient(#0000,#0008);display:flex;flex-direction:column}
+.gl b{font-size:20px;font-weight:700}.gl small{font-size:12px;opacity:.85}
+.em{padding:90px 20px;text-align:center;color:#8e8e93;font-size:15px}
+.ctl{position:absolute;left:0;right:0;bottom:0;z-index:9;padding:0 16px calc(8px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;gap:10px;pointer-events:none}
+.ctl>*{pointer-events:auto}
+.sg{display:flex;padding:3px;border-radius:20px;background:rgba(250,250,252,.82);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.sg button{height:34px;padding:0 15px;border-radius:17px;font-size:14px;font-weight:600;color:#3c3c43;white-space:nowrap}
+.sg button.on{background:#fff;color:#000;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.rb{width:44px;height:44px;border-radius:22px;background:rgba(250,250,252,.82);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 2px 12px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center}
+.rb svg{width:22px;height:22px;fill:none;stroke:#000;stroke-width:2.2;stroke-linecap:round}
+.mn{position:absolute;inset:0;z-index:15;display:flex;align-items:flex-end;justify-content:flex-end;padding:0 16px calc(64px + env(safe-area-inset-bottom));background:rgba(0,0,0,.12)}
+.sh2{width:230px;background:rgba(250,250,252,.96);border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.25);overflow:hidden}
+.sh2 .t{padding:10px 16px 4px;font-size:12px;color:#8e8e93}.sh2 button{width:100%;display:flex;justify-content:space-between;padding:11px 16px;font-size:16px;border-top:.5px solid rgba(0,0,0,.12)}.sh2 b{color:#007aff}
 
 /* 사진 상세 */
 #v{position:absolute;inset:0;z-index:20;background:#fff}
@@ -54,3 +77,5 @@ h1+h4{margin-top:0}
 html.emb .sbar{height:44px;padding-top:22px}
 html.emb .sbar b{left:54px;right:auto;top:22px;text-align:left}
 html.emb #app{top:44px}
+
+#main.sel .ck{display:block}
