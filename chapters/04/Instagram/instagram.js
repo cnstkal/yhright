@@ -3,31 +3,29 @@ const $=s=>document.querySelector(s);
 const I={home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',reels:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M10 8.5v7l6-3.5z"/>',send:'<path d="M21 3L3 10l7 3 3 7z"/><path d="M10 13L21 3"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/>',heart:'<path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/>',comment:'<path d="M4 20l1.5-4A9 9 0 1 1 8 18.5z"/>',repost:'<path d="M17 3l3 3-3 3M4 11V9a3 3 0 0 1 3-3h13M7 21l-3-3 3-3M20 13v2a3 3 0 0 1-3 3H4"/>',bookmark:'<path d="M6 3h12v18l-6-4-6 4z"/>',plus:'<path d="M12 4v16M4 12h16"/>',bell:'<path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4z"/><path d="M10 21h4"/>',menu:'<path d="M3 7h18M3 12h18M3 17h18"/>',back:'<path d="M15 4l-8 8 8 8"/>',phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/>',video:'<rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10l5-3v10l-5-3"/>',camera:'<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',mic:'<rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',image:'<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="1.5"/><path d="M4 18l5-5 4 4 3-3 4 4"/>',sticker:'<path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8l-6 6H6a2 2 0 0 1-2-2z"/><path d="M20 14h-4a2 2 0 0 0-2 2v4"/><circle cx="9" cy="10" r=".8"/><circle cx="15" cy="10" r=".8"/>',pc:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',chev:'<path d="M6 9l6 6 6-6"/>',edit:'<path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M9 15l1-4 8-8 3 3-8 8z"/>',grid:'<path d="M4 4h4v4H4zM10 4h4v4h-4zM16 4h4v4h-4zM4 10h4v4H4zM10 10h4v4h-4zM16 10h4v4h-4zM4 16h4v4H4zM10 16h4v4h-4zM16 16h4v4h-4z"/>',tag:'<rect x="4" y="5" width="16" height="15" rx="3"/><circle cx="12" cy="11" r="3"/><path d="M7 19c1-3 9-3 10 0"/>',x:'<path d="M5 5l14 14M19 5L5 19"/>',more:'<path d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3"/>',au:'<circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6"/><path d="M19 8v6M16 11h6"/>',play:'<path d="M7 4l13 8-13 8z"/>',lines:'<path d="M3 8h18M3 15h12"/>'};
 const ic=(n,s=24,f)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="${f?'currentColor':'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
 const BADGE='<svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#3b8ff0"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const K='igsim_v1',uid=()=>Math.random().toString(36).slice(2,9);
+const K='igsim_ch04_story_v2',uid=()=>Math.random().toString(36).slice(2,9);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ph=(a,b)=>'data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="400" height="500" fill="url(#g)"/></svg>`);
 const isN=v=>v!==''&&v!=null&&!isNaN(Number(String(v).replace(/,/g,'')));
 const fmt=v=>{if(v===''||v==null)return'0';if(!isN(v))return esc(v);const n=Number(String(v).replace(/,/g,''));if(n>=10000){const x=n/10000;return(x>=100?Math.round(x):Math.round(x*10)/10)+'만'}return n.toLocaleString()};
 const hash=s=>esc(s).replace(/#[^\s#<]+/g,m=>`<span class="ht">${m}</span>`);
 function def(){
- const me={id:'jukeeek',name:'jukeeek',avatar:ph('#d8c7a8','#6b5b4a'),bio:'',link:'jukeeek',mutual:'',postsN:'',followers:0,following:159,note:'오늘의 분위기...'};
+ const me={id:'yoonho',name:'정윤호',avatar:ph('#283449','#a5aebd'),bio:'그냥 좋아하는 것들',link:'',mutual:'',postsN:'6',followers:438,following:312,note:'오늘은 조금 늦게'};
  const mk=(u,a,b)=>({id:uid(),user:u,avatar:ph(a,b),img:ph(b,a),seen:0});
  return{me,
- stories:[mk('yunou._.u','#333','#9aa'),mk('eeunhho','#222','#bbb'),mk('bangjunseo','#eee','#f2b')],
+ stories:[mk('hongjoong.zip','#292d3c','#a64e48'),mk('sannnn_','#355b57','#91a69c'),mk('wooyounggg__','#9b5c39','#f0b37b')],
  posts:[
-  {id:uid(),user:'ateez_official_',avatar:ph('#111','#555'),verified:1,img:ph('#5b6b8f','#c2603a'),likes:189000,commentCount:1543,reposts:16000,shares:19000,liker:'no1likeme8_8',caption:'[📷] ATEEZ(에이티즈) GOLDEN HOUR : Part.6 Promotion Map\n\n2026. 11. 13 2PM RELEASE\n\n📎Pre-save/add : ateez.sng.to/golden-hour-part-6\n\n#ATEEZ #에이티즈\n#GOLDENHOUR #GOLDENHOUR_Part6',date:'10월 9일',liked:0,saved:0,comments:[{id:uid(),u:'wooyounggg__',t:'기대된다!!'}]},
-  {id:uid(),user:'grit_park_',avatar:ph('#a98','#432'),verified:0,img:ph('#c9b79c','#8a7a66'),likes:3200,commentCount:48,reposts:120,shares:310,liker:'',caption:'Da Da Da Dadada #일상',date:'10월 8일',liked:0,saved:0,comments:[]}],
- sugg:[{id:uid(),name:'정건호',sub:'회원님을 위한 추천',avatar:ph('#223','#668'),on:0},{id:uid(),name:'archiveme.99',sub:'함께 아는 친구 1명',avatar:ph('#fbd','#f88'),on:0}],
+  {id:uid(),user:'yoonho',avatar:me.avatar,verified:0,img:ph('#252b3b','#a6a4a0'),likes:83,commentCount:4,reposts:1,shares:2,liker:'hongjoong.zip',caption:'어쩌다 보니 오래 기억할 밤',date:'최근',liked:0,saved:0,comments:[{id:uid(),u:'hongjoong.zip',t:'사진 잘 나왔네'},{id:uid(),u:'sannnn_',t:'여기 조명 예뻤지'},{id:uid(),u:'yoonho',t:'다음엔 앞에서 찍자'},{id:uid(),u:'hongjoong.zip',t:'다음엔 같이 찍어'}]},
+  {id:uid(),user:'yoonho',avatar:me.avatar,verified:0,img:ph('#b2a18d','#424b59'),likes:61,commentCount:2,reposts:0,shares:1,liker:'sannnn_',caption:'집 가는 길에 찍은 하늘',date:'2주',liked:0,saved:0,comments:[{id:uid(),u:'sannnn_',t:'색감 좋다'},{id:uid(),u:'yoonho',t:'실제로는 더 예뻤어'}]},
+  {id:uid(),user:'hongjoong.zip',avatar:ph('#292d3c','#a64e48'),verified:0,img:ph('#4d3540','#d08c62'),likes:1240,commentCount:18,reposts:21,shares:37,liker:'yoonho',caption:'새로운 곡 정리 중. 곧 들려줄게요.',date:'3주',liked:0,saved:0,comments:[{id:uid(),u:'yoonho',t:'기다리고 있어'},{id:uid(),u:'wooyounggg__',t:'형 이거 진짜 좋음'}]},
+  {id:uid(),user:'hongjoong.zip',avatar:ph('#292d3c','#a64e48'),verified:0,img:ph('#171c29','#7c4e4a'),likes:986,commentCount:12,reposts:9,shares:22,liker:'sannnn_',caption:'오늘도 늦게까지. 다들 조심히 들어가요',date:'1개월',liked:0,saved:0,comments:[{id:uid(),u:'sannnn_',t:'고생했어요'},{id:uid(),u:'yoonho',t:'밥은 먹고 해'}]}],
+ sugg:[{id:uid(),name:'최산',sub:'함께 아는 친구',avatar:ph('#355b57','#91a69c'),on:1},{id:uid(),name:'정우영',sub:'추천 계정',avatar:ph('#9b5c39','#f0b37b'),on:0}],
  dms:[
-  {id:uid(),name:'🐄🥛',handle:'bright_sou',avatar:ph('#8a7','#445'),ring:0,online:0,sub:'',time:'1주',msgs:[
-   {id:uid(),from:'me',text:'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ'},
-   {id:uid(),from:'th',img:ph('#e8a33d','#c0392b'),reelUser:'todaywithn...',stamp:'(일) 오전 11:38'},
-   {id:uid(),from:'th',text:'소윤아 혹시 너만 괜찮다면 다소언니도 같이 놀아도 될깡? 같이 영화 보고싶대 편하게 얘기해줭',stamp:'(일) 오후 9:59'},
-   {id:uid(),from:'me',text:'당욘괜찮'},{id:uid(),from:'th',text:'쪼아'}]},
-  {id:uid(),name:'날이',handle:'nal_i',avatar:ph('#ff4d8d','#ffd1e0'),ring:1,online:0,sub:'회원님에게 메시지를 보냈습니다 · 1주',time:'',msgs:[]},
-  {id:uid(),name:'좋댓구',handle:'jotdaetgu',avatar:ph('#cfe','#9bd'),ring:0,online:0,sub:'최근 활동: 1시간 전',time:'',msgs:[]},
-  {id:uid(),name:'진소윤',handle:'jinsoyun',avatar:ph('#fff','#ccd'),ring:0,online:0,sub:'licoshare님의 릴스를 보냈습니다 · 1주',time:'',msgs:[]},
-  {id:uid(),name:'박시온 | 온크트리',handle:'sion_park',avatar:ph('#b9a','#654'),ring:1,online:1,sub:'현재 활동 중',time:'',msgs:[]}]}}
+  {id:uid(),name:'김홍중',handle:'hongjoong.zip',avatar:ph('#292d3c','#a64e48'),ring:1,online:1,sub:'현재 활동 중',time:'방금',msgs:[
+   {id:uid(),from:'th',text:'아까 사진 보냈어?'},{id:uid(),from:'me',text:'응 잘 나왔더라'},{id:uid(),from:'th',text:'너도 보내줘. 내가 못 찍었어'},{id:uid(),from:'me',text:'스토리에 올린 거 저장해'},{id:uid(),from:'th',text:'그거 말고 원본 ㅋㅋ'},{id:uid(),from:'me',text:'잠깐만 보내줄게'},{id:uid(),from:'th',text:'고마워. 다음 공연도 올 거야?'},{id:uid(),from:'me',text:'일정 맞으면!'},{id:uid(),from:'th',text:'맞춰 봐. 보고 싶으니까'}]},
+  {id:uid(),name:'최산',handle:'sannnn_',avatar:ph('#355b57','#91a69c'),ring:0,online:0,sub:'최근 활동: 2시간 전',time:'2시간',msgs:[{id:uid(),from:'th',text:'홍중이랑 잘 지내냐'},{id:uid(),from:'me',text:'응 아직은 ㅋㅋ'}]},
+  {id:uid(),name:'정우영',handle:'wooyounggg__',avatar:ph('#9b5c39','#f0b37b'),ring:0,online:0,sub:'',time:'1일',msgs:[{id:uid(),from:'th',text:'형 다음에 뒤풀이도 와요'},{id:uid(),from:'me',text:'나 형 아닌데'},{id:uid(),from:'th',text:'그럼 윤호씨 ㅋㅋ'}]}]}
+}
 let S;try{S=JSON.parse(localStorage.getItem(K))||def()}catch(e){S=def()}
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){toast('저장 공간이 부족합니다')}};
 let U={tab:'home',chat:null,pd:null,story:null,q:''},F=null,SH=null,ST_T=null,lastKey='';
