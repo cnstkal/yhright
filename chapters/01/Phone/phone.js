@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const KEY='yhright.phone.v1',HOUR=36e5,DAY=864e5;
+const KEY='yhright.phone.2017.v2',HOUR=36e5,DAY=864e5;
 const MSG_URL='../Messages/messages.html';
 const PH='<svg viewBox="0 0 24 24" class="f"><use href="#ph"/></svg>';
 const PERSON='<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>';
@@ -15,12 +15,26 @@ const ADD_ICON='<svg viewBox="0 0 24 24" style="stroke:var(--blue);stroke-width:
 /* ---------- 데이터 (기존 구조 유지) ---------- */
 function seed(){
 const n=Date.now();
-const c=[['엄마','010-1234-5678',1],['아빠','010-2345-6789',0],['형','010-3456-7890',1],['민준','010-4567-8901',0],['지수','010-5678-9012',1],['김철수','010-6789-0123',0],['박영희','02-345-6789',0],['Alex','010-7890-1234',0]]
-.map(([name,num,fav],i)=>({id:'c'+i,name,num,fav:!!fav}));
+const c=[
+ ['엄마','010-3960-2207',1],['아빠','010-2394-7716',1],['형','010-4831-2260',0],
+ ['이모','010-5721-6384',0],['종호','010-3347-8850',0],['이모부','010-8264-1903',0],
+ ['민재','010-7412-3058',0],['현우','010-6593-8172',0],['수빈','010-2187-9460',0]
+].map(([name,num,fav],i)=>({id:'c'+i,name,num,fav:!!fav}));
 const l=(type,ci,ago,dur)=>({id:uid(),type,name:c[ci].name,num:c[ci].num,ts:n-ago,dur:dur||0});
-return{contacts:c,
-logs:[l('in',0,HOUR,95),l('miss',3,3*HOUR),l('out',2,5*HOUR,184),l('in',4,DAY+HOUR,32),l('miss',5,DAY+4*HOUR),l('out',0,2*DAY,410)],
-speed:{2:'c0',3:'c2'},set:{tone:true,vib:true}};
+return{
+ contacts:c,
+ logs:[
+  l('in',3,2*HOUR,246),
+  l('out',4,5*HOUR,183),
+  l('out',5,1*DAY+3*HOUR,94),
+  l('in',4,2*DAY+2*HOUR,318),
+  l('out',3,3*DAY+4*HOUR,126),
+  l('miss',5,5*DAY),
+  l('miss',0,68*DAY),
+  l('out',1,103*DAY,71)
+ ],
+ speed:{2:'c0',3:'c1'},set:{tone:true,vib:true}
+};
 }
 let S=null;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
@@ -28,7 +42,7 @@ if(!S||!S.contacts||!S.logs)S=seed();
 S.speed=S.speed||{};S.set=S.set||{tone:true,vib:true};
 if(!Array.isArray(S.vm)){
 const n=Date.now(),pk=nm=>S.contacts.find(c=>c.name===nm);
-S.vm=[['엄마',3*HOUR,42,0],['지수',DAY+2*HOUR,18,1],['',2*DAY,9,1]].map(([nm,ago,dur,read],i)=>{const c=pk(nm);return{id:'v'+i,name:c?c.name:'',num:c?c.num:'02-555-0147',ts:n-ago,dur,read:!!read}});
+S.vm=[['이모',3*HOUR,42,0],['종호',DAY+2*HOUR,18,1],['이모부',2*DAY,9,1]].map(([nm,ago,dur,read],i)=>{const c=pk(nm);return{id:'v'+i,name:c?c.name:'',num:c?c.num:'02-555-0147',ts:n-ago,dur,read:!!read}});
 }
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 save();
