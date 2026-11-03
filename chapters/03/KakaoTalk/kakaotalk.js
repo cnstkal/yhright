@@ -2,19 +2,19 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>'m'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const KEY='ios14-kakaotalk-v1',H=36e5,DAY=864e5;
+const KEY='ios14-kakaotalk-ch3-v2',H=36e5,DAY=864e5;
 
 /* ---------- 데이터 (가상 인물) ---------- */
 const ME={id:'me',name:'정윤호',st:'천천히, 잘 지내기'};
 const FR=[
- {id:'f1',name:'엄마',st:'밥은 먹었니?',fav:true},
- {id:'f2',name:'아빠',st:'건강이 최고',fav:true},
+ {id:'f1',name:'민재',st:'퇴근했냐',fav:true},
+ {id:'f2',name:'현우',st:'오늘도 야근',fav:true},
  {id:'f3',name:'박성화',st:'퇴근하고 연락할게',fav:true},
- {id:'f4',name:'형',st:'바쁨'},
- {id:'f5',name:'성현(매니저)',st:'스케줄 확인 필수'},
+ {id:'f4',name:'수빈',st:'주말에 보자'},
+ {id:'f5',name:'회사 단톡',st:'공지 확인'},
  {id:'f6',name:'철수',st:'ㅋㅋ'},
  {id:'f7',name:'민기',st:''},
- {id:'f8',name:'홍중',st:'☕'},
+ {id:'f8',name:'지은',st:'☕'},
  {id:'f9',name:'지은',st:'여행 가고 싶다'},
  {id:'f10',name:'수빈',st:'퇴근!'},
  {id:'f11',name:'도윤',st:''},
@@ -35,24 +35,18 @@ function seed(){
  // r: 읽음 숫자(아직 안 읽은 사람 수), 내 메시지에만 사용
  const m=(from,text,ago,r=0)=>({id:uid(),from,me:from==='me',text,ts:n-ago,r});
  return{chats:[
-  {id:'c1',name:'엄마',group:false,members:['f1'],unread:2,msgs:[
-   m('f1','저녁 뭐 먹을 거니?',5*H),m('me','아직 못 정했어요',4.5*H,0),m('f1','그럼 같이 먹자',H),m('f1','일찍 들어와~',H-6e4)]},
-  {id:'c2',name:'대학 동기 단톡',group:true,members:['f6','f7','f8','f9'],unread:3,msgs:[
+  {id:'c1',name:'민재',group:false,members:['f1'],unread:1,msgs:[m('f1','오늘 퇴근 몇 시냐',5*H),m('me','평소랑 비슷할 듯',4.5*H,0),m('f1','끝나고 밥이나 먹자',H),m('me','ㅇㅋ 연락할게',H-6e4)]},
+  {id:'c2',name:'친구들',group:true,members:['f6','f7','f8','f9'],unread:3,msgs:[
    m('f6','오늘 모임 몇 시지?',3*H),m('f7','7시 아니었나',2.9*H),m('f8','ㅇㅇ 7시',2.8*H),
    m('me','나 조금 늦을 듯',2.5*H,4),m('f9','ㅋㅋ 알았어',2*H),m('f6','ㅇㅋㅇㅋ',1.9*H)]},
-  {id:'c3',name:'성현(매니저)',group:false,members:['f5'],unread:0,msgs:[
-   m('f5','내일 스케줄 공유드립니다',DAY+3*H),m('me','네 확인했습니다',DAY+2*H,1)]},
+  {id:'c3',name:'회사 단톡',group:true,members:['f5','f10','f11'],unread:0,msgs:[m('f5','내일 오전 회의 10시입니다.',DAY+3*H),m('f10','자료는 오늘 중으로 공유할게요.',DAY+2.5*H),m('me','확인했습니다.',DAY+2*H,1)]},
   {id:'c4',name:'윤호',group:false,members:['f3'],unread:1,msgs:[
    m('f3','야 어디야',2*DAY+H),m('me','집이지',2*DAY,1),m('f3','나와',2*DAY-H)]},
-  {id:'c5',name:'형',group:false,members:['f4'],unread:0,msgs:[
-   m('me','주말에 시간 돼?',3*DAY,1),m('f4','응 오후에 괜찮아',3*DAY-H)]},
-  {id:'c6',name:'아빠',group:false,members:['f2'],unread:0,msgs:[
-   m('f2','운전 조심해라',6*DAY)]},
+  {id:'c5',name:'수빈',group:false,members:['f4'],unread:0,msgs:[m('me','이번 주말에 시간 돼?',3*DAY,1),m('f4','토요일 오후 괜찮아',3*DAY-H)]},
   {id:'c7',name:'주말 등산팀',group:true,members:['f10','f11','f12','f13'],unread:0,msgs:[
    m('f10','이번 주 토요일 북한산 어때요?',8*H),m('f11','좋아요 ㅎㅎ 8시 입구?',7.5*H),
    m('me','좋아요! 도시락은 제가 준비할게요',7*H,4),m('f12','ㅋㅋ 역시',6.5*H),m('f13','7시 반에 보자',H)]},
-  {id:'c8',name:'우리집',group:true,members:['f1','f2','f3'],unread:1,msgs:[
-   m('f1','오늘 저녁 7시에 같이 먹자',4*DAY),m('f2','좋아',4*DAY-.5*H),m('f3','나 늦을지도',4*DAY-2*H)]}
+  {id:'c8',name:'퇴근 후 한잔',group:true,members:['f6','f7','f9'],unread:1,msgs:[m('f6','이번 주 언제 시간 돼?',4*DAY),m('f7','금요일 어때',4*DAY-.5*H),m('me','금요일은 약속 있어 다음에!',4*DAY-2*H)]}
  ]};
 }
 let S=null;
@@ -69,7 +63,14 @@ if(!S||!Array.isArray(S.chats)||!S.chats.length)S=seed();
   ['f3','평소랑 똑같지. 보고서 하나 더 생긴 것 빼고',new Date(2022,9,28,19,6).getTime(),'ch3-seonghwa-07'],
   ['me','대리님 힘내세요',new Date(2022,9,28,19,8).getTime(),'ch3-seonghwa-08'],
   ['f3','놀리는 거지 지금',new Date(2022,9,28,19,9).getTime(),'ch3-seonghwa-09'],
-  ['me','조금 ㅎㅎ',new Date(2022,9,28,19,10).getTime(),'ch3-seonghwa-10']
+  ['me','조금 ㅎㅎ',new Date(2022,9,28,19,10).getTime(),'ch3-seonghwa-10'],
+  ['f3','주말엔 장 보러 갈까?',new Date(2022,9,28,19,35).getTime(),'ch3-seonghwa-11'],
+  ['me','좋아. 세제도 다 떨어졌어',new Date(2022,9,28,19,38).getTime(),'ch3-seonghwa-12'],
+  ['f3','그럼 내가 퇴근하면서 사갈게',new Date(2022,9,28,19,40).getTime(),'ch3-seonghwa-13'],
+  ['me','아냐 같이 가자. 필요한 거 같이 고르게',new Date(2022,9,28,19,42).getTime(),'ch3-seonghwa-14'],
+  ['f3','알겠어. 오늘은 뭐 먹고 싶어?',new Date(2022,9,28,19,45).getTime(),'ch3-seonghwa-15'],
+  ['me','아무거나 말고 성화가 먹고 싶은 거',new Date(2022,9,28,19,47).getTime(),'ch3-seonghwa-16'],
+  ['f3','그럼 집 앞에서 국수 먹자',new Date(2022,9,28,19,50).getTime(),'ch3-seonghwa-17']
  ];
  let c=S.chats.find(x=>x.id==='c4');
  if(!c){c={id:'c4',name:'박성화',group:false,members:['f3'],unread:0,msgs:[]};S.chats.push(c)}
