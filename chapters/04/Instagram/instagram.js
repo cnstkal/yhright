@@ -37,25 +37,23 @@ const rav=(src,n,s,ring,seen)=>ring?`<span class="ring ${seen?'seen':''}"><span>
 const pav=p=>p.user===S.me.id?S.me.avatar:p.avatar;
 const P=id=>S.posts.find(p=>p.id===id),D=id=>S.dms.find(d=>d.id===id);
 /* ---------- views ---------- */
-function postH(p,det){
- return `<div class="post"><div class="ph">${rav(pav(p),p.user,34,1,0)}<b>${esc(p.user)}</b>${p.verified?BADGE:''}<span class="sp"></span><button data-a="pmenu" data-id="${p.id}">${ic('lines',24)}</button></div>
- <img class="pimg" src="${p.img}" ${det?'':`data-a="pd" data-id="${p.id}"`}>
- <div class="act"><button data-a="like" data-id="${p.id}" style="${p.liked?'color:#ff3040':''}">${ic('heart',26,p.liked)}${fmt(p.likes)}</button>
- <button data-a="pd" data-id="${p.id}">${ic('comment',25)}${fmt(p.commentCount)}</button>
- <button data-a="toast" data-m="공유했습니다">${ic('repost',25)}${fmt(p.reposts)}</button><button data-a="toast" data-m="보냈습니다">${ic('send',25)}${fmt(p.shares)}</button>
+function postH(p){
+ return `<div class="post"><div class="ph">${rav(pav(p),p.user,32,1,0)}<b>${esc(p.user)}</b>${p.verified?BADGE:''}<span class="sp"></span><button data-a="pmenu" data-id="${p.id}">${ic('lines',22)}</button></div>
+ <img class="pimg" src="${p.img}" data-a="pd" data-id="${p.id}">
+ <div class="act"><button data-a="like" data-id="${p.id}" style="${p.liked?'color:#ff3040':''}">${ic('heart',26,p.liked)}</button><button data-a="pd" data-id="${p.id}">${ic('comment',25)}</button><button data-a="toast" data-m="보냈습니다">${ic('send',25)}</button>
  <button class="bm" data-a="save" data-id="${p.id}">${ic('bookmark',25,p.saved)}</button></div>
- ${p.liker?`<div class="liker">${av(ph('#234','#678'),p.liker,24)}<span>${esc(p.liker)}님 외 <b>여러 명</b>이 좋아합니다</span></div>`:''}
- <div class="pt"><b>${esc(p.user)}</b> ${hash(p.caption)}</div><div class="pt gr" style="padding-bottom:8px">${esc(p.date)}</div></div>`}
+ <div class="lk">${Number(p.likes)>0?`${p.liker?`<b>${esc(p.liker)}</b>님 외 `:''}<b>${fmt(p.likes)}명</b>이 좋아합니다`:''}</div>
+ <div class="pt"><b>${esc(p.user)}</b> ${hash(p.caption)}</div>${Number(p.commentCount)>0?`<button class="cmt" data-a="pd" data-id="${p.id}">댓글 ${fmt(p.commentCount)}개 모두 보기</button>`:''}<div class="pt gr" style="padding-bottom:8px">${esc(p.date)}</div></div>`}
 function homeH(){
  const mine=S.stories.filter(s=>s.user===S.me.id),oth=S.stories.filter(s=>s.user!==S.me.id),seq=[...mine,...oth];
- return `<div class="hd"><div class="l"><button data-a="newpost">${ic('plus',30)}</button></div><div class="c"><button data-a="acct" style="display:flex;align-items:center;gap:4px"><span class="logo">Instagram</span>${ic('chev',16)}</button></div><div class="r"><button class="rel" data-a="toast" data-m="새 알림이 없습니다">${ic('heart',27)}<i class="dot" style="width:10px;height:10px"></i></button></div></div>
+ return `<div class="hd"><div class="l"><span class="logo">Instagram</span></div><div class="c"></div><div class="r"><button data-a="newpost">${ic('plus',26)}</button><button data-a="toast" data-m="새 알림이 없습니다">${ic('heart',26)}</button><button data-a="tab" data-t="dm">${ic('send',26)}</button></div></div>
  <div id="sc"><div class="stories"><div class="st mine"><div style="position:relative" data-a="${mine.length?'story':'newstory'}" data-i="0">${rav(S.me.avatar,S.me.id,76,mine.length,mine.every(s=>s.seen))}<button class="pl" data-a="newstory">${ic('plus',16)}</button></div><span class="n">내 스토리</span></div>
  ${oth.map(s=>`<button class="st" data-a="story" data-i="${seq.indexOf(s)}">${rav(s.avatar,s.user,76,1,s.seen)}<span class="n">${esc(s.user)}</span></button>`).join('')}</div>
  ${S.posts.map(p=>postH(p)).join('')||'<div class="empty">게시물이 없습니다. + 버튼으로 추가하세요.</div>'}</div>`}
 function profH(){
  const m=S.me,mp=S.posts.filter(p=>p.user===m.id);
- return `<div class="hd"><div class="l"><button data-a="newpost">${ic('plus',30)}</button></div><div class="c"><button data-a="acct" style="display:flex;align-items:center;gap:4px">${esc(m.id)}${ic('chev',16)}<i class="dot"></i></button></div><div class="r"><button data-a="toast" data-m="새 알림이 없습니다">${ic('bell',26)}</button><button data-a="settings">${ic('menu',28)}</button></div></div>
- <div id="sc"><div class="prof"><button data-a="editme" style="position:relative">${av(m.avatar,m.id,86)}</button><div class="stat"><div><b>${m.postsN!==''?fmt(m.postsN):mp.length}</b>게시물</div><div><b>${fmt(m.followers)}</b>팔로워</div><div><b>${fmt(m.following)}</b>팔로잉</div></div></div>
+ return `<div class="hd"><div class="l"><button data-a="newpost">${ic('plus',28)}</button></div><div class="c"><button data-a="acct" style="display:flex;align-items:center;gap:5px;font-size:17px;font-weight:700">${esc(m.id)}${BADGE}</button></div><div class="r"><button data-a="toast" data-m="새 알림이 없습니다">${ic('bell',26)}</button><button data-a="settings">${ic('menu',26)}</button></div></div>
+ <div id="sc"><div class="prof"><button data-a="editme">${rav(m.avatar,m.id,86,1,0)}</button><div class="stat"><div><b>${m.postsN!==''?fmt(m.postsN):mp.length}</b>게시물</div><div><b>${fmt(m.followers)}</b>팔로워</div><div><b>${fmt(m.following)}</b>팔로잉</div></div></div>
  ${m.name?`<div style="padding:4px 16px;font-weight:600">${esc(m.name)}</div>`:''}${m.bio?`<div class="pt" style="padding:2px 16px">${hash(m.bio)}</div>`:''}
  ${m.link?`<div class="pill">@ ${esc(m.link)}</div>`:''}${m.mutual?`<div class="pt" style="padding:6px 16px">${esc(m.mutual)}</div>`:''}
  <div class="btns"><button data-a="editme">프로필 편집</button><button data-a="toast" data-m="프로필 링크가 복사되었습니다">프로필 공유</button><button class="s" data-a="newsugg">${ic('au',20)}</button></div>
@@ -86,15 +84,17 @@ function render(){
  $('#main').innerHTML=U.chat?chatH():U.tab==='home'?homeH():U.tab==='dm'?dmH():profH();
  const sc=$('#sc');if(sc)sc.scrollTop=U.chat&&!keep?1e9:keep?y:0;
  if(U.chat&&keep&&U._bot){sc.scrollTop=1e9;U._bot=0}
- const T=(a,i,f,x='')=>`<button class="ni ${U.tab===a?'nav-on':''}" ${a?`data-a="tab" data-t="${a}"`:''}>${x||ic(i,28,U.tab===a&&f)}</button>`;
- $('#nav').innerHTML=T('home','home',1)+`<button class="ni">${ic('reels',28)}</button>`+T('dm','send',1)+`<button class="ni">${ic('search',28)}</button>`+T('me','',0,`<span class="rel">${rav(S.me.avatar,S.me.id,30,U.tab==='me',0).replace('class="ring','style="" class="ring')}<i class="dot" style="top:18px;right:-3px;width:10px;height:10px;border:2px solid #d6d6dc"></i></span>`);
+ const N=(t,i)=>`<button class="ni ${U.tab===t?'nav-on':''}" data-a="tab" data-t="${t}">${ic(i,26,U.tab===t)}</button>`;
+ $('#nav').innerHTML=N('home','home')+`<button class="ni" data-a="toast" data-m="검색은 준비 중입니다">${ic('search',26)}</button><button class="ni" data-a="newpost">${ic('plus',26)}</button><button class="ni" data-a="toast" data-m="릴스는 준비 중입니다">${ic('reels',26)}</button><button class="ni ${U.tab==='me'?'nav-on':''}" data-a="tab" data-t="me">${av(S.me.avatar,S.me.id,26)}</button>`;
  renderPD();
 }
-function renderPD(){const e=$('#pd');if(!U.pd||!P(U.pd)){e.style.display='none';return}const p=P(U.pd),y=e.querySelector('.sc')?.scrollTop||0;
- e.style.display='flex';e.innerHTML=`<div class="hd" style="padding-top:env(safe-area-inset-top);height:calc(52px + env(safe-area-inset-top))"><div class="l"><button data-a="pdx">${ic('back',26)}</button></div><div class="c" style="font-size:17px">게시물</div><div class="r"></div></div>
- <div class="sc" style="flex:1;overflow-y:auto">${postH(p,1)}<div style="border-top:1px solid #eee;padding-top:6px">${p.comments.map(c=>`<div class="cm">${av(ph('#aab','#667'),c.u,32)}<div class="t"><b>${esc(c.u)}</b> ${esc(c.t)}</div><button data-a="cdel" data-id="${c.id}">${ic('x',16)}</button></div>`).join('')||'<div class="empty">첫 댓글을 남겨보세요</div>'}</div></div>
- <div class="ib" style="background:#eff0f5"><input id="pci" placeholder="댓글 달기..." autocomplete="off"><button class="snd" style="display:block" data-a="csend">게시</button></div>`;
- e.querySelector('.sc').scrollTop=y}
+function renderPD(){const e=$('#pd');if(!U.pd||!P(U.pd)){e.style.display='none';e.innerHTML='';return}const p=P(U.pd),y=e.querySelector('.clist')?.scrollTop||0;
+ e.style.display='flex';e.innerHTML=`<div class="dimbg" data-a="pdx"></div><div class="csh"><div class="grab"></div>
+ <div class="chd"><span></span><b>댓글</b><button data-a="toast" data-m="댓글 공유는 지원하지 않습니다">${ic('send',24)}</button></div>
+ <div class="clist">${p.comments.map(c=>`<div class="cm">${av(ph('#aab','#667'),c.u,36)}<div class="t"><b>${esc(c.u)}</b> ${esc(c.t)}<div class="cs"><span>방금</span><button data-a="cdel" data-id="${c.id}">삭제</button></div></div><button data-a="toast" data-m="댓글 좋아요는 지원하지 않습니다" style="padding-top:4px">${ic('heart',16)}</button></div>`).join('')||'<div class="empty">첫 댓글을 남겨보세요</div>'}</div>
+ <div class="emo">${['❤️','🙌','🔥','👏','😢','😍','😮','😂'].map(x=>`<button data-a="emo" data-e="${x}">${x}</button>`).join('')}</div>
+ <div class="cin">${av(S.me.avatar,S.me.id,36)}<input id="pci" placeholder="댓글 추가..." autocomplete="off"><button class="gifb" data-a="toast" data-m="GIF는 지원하지 않습니다">GIF</button></div></div>`;
+ e.querySelector('.clist').scrollTop=y}
 /* ---------- overlays ---------- */
 function sheet(title,items){SH={title,items};const e=$('#sh');e.style.display='flex';e.innerHTML=`<div class="sheet">${title?`<h3>${esc(title)}</h3>`:''}${items.map((it,i)=>`<button class="si ${it[2]||''}" data-a="shi" data-i="${i}">${esc(it[0])}</button>`).join('')}<button class="si" data-a="shx" style="border:0">취소</button></div>`}
 const shx=()=>{$('#sh').style.display='none';SH=null};
@@ -131,6 +131,7 @@ const A={
  like:d=>{const p=P(d.id);p.liked=!p.liked;if(isN(p.likes))p.likes=Number(String(p.likes).replace(/,/g,''))+(p.liked?1:-1);fin()},
  save:d=>{const p=P(d.id);p.saved=!p.saved;fin()},
  pd:d=>{U.pd=d.id;renderPD()},pdx:()=>{U.pd=null;renderPD()},
+ emo:d=>{const i=$('#pci');if(i){i.value+=d.e;i.focus()}},
  pmenu:d=>{const p=P(d.id);sheet('',[['수정',()=>postForm(p)],['삭제',()=>{S.posts=S.posts.filter(x=>x!==p);U.pd=null;fin()},'d']])},
  newpost:()=>postForm(newPost(),1),
  csend:()=>{const i=$('#pci'),t=i.value.trim();if(!t)return;const p=P(U.pd);p.comments.push({id:uid(),u:S.me.id,t});if(isN(p.commentCount))p.commentCount=Number(String(p.commentCount).replace(/,/g,''))+1;fin();setTimeout(()=>$('#pci')?.focus(),0)},
