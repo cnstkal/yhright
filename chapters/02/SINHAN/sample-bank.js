@@ -25,7 +25,7 @@
     { id: 1, name: '신한 S20 체크카드', short: 'S20 체크', no: '9409-35**-****-5086', type: 'debit' }
   ];
   var ACCTS = [
-    { id: 0, name: '신한 주거래 입출금통장', no: '110-498-201901', kind: '입출금', base: 210000 }
+    { id: 0, name: '신한 주거래 입출금통장', no: '110-498-201901', kind: '입출금', base: 490000 }
   ];
 
   function genCard(card) {
@@ -36,6 +36,7 @@
   }
   function genAccts() {
     var tx = [
+      { d:'2018-12-01', t:'10:10:00', memo:'모텔 장기투숙비', out:280000, in:0 },
       { d:'2018-12-28', t:'09:00:12', memo:'아르바이트 급여', out:0, in:320000 },
       { d:'2018-12-29', t:'10:15:08', memo:'모텔 장기투숙비', out:280000, in:0 },
       { d:'2018-12-30', t:'16:42:31', memo:'편의점 (삼각김밥)', out:1800, in:0 },
@@ -43,7 +44,7 @@
       { d:'2019-01-03', t:'14:06:19', memo:'온라인 결제 (운동화)', out:410000, in:0 },
       { d:'2019-01-04', t:'11:32:05', memo:'편의점 (과자)', out:2300, in:0 }
     ];
-    var bal = 210000;
+    var bal = 490000;
     tx.forEach(function (x) { bal += x.in - x.out; x.bal = bal; });
     return [{ id:0, name:ACCTS[0].name, no:ACCTS[0].no, kind:ACCTS[0].kind, bal:bal, tx:tx }];
   }
