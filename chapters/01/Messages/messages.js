@@ -3,8 +3,8 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const HOUR=3600000,DAY=86400000,KEY='yhright.messages.2017.v2';
-const SMS_DEFAULT=['c3','c4'];/* 기존 데이터에 sms 표시가 없을 때 SMS(초록)로 보는 연락처 */
+const HOUR=3600000,DAY=86400000,KEY='yhright.messages.2017.v3';
+const SMS_DEFAULT=['c3'];/* 기존 데이터에 sms 표시가 없을 때 SMS(초록)로 보는 연락처 */
 
 /* ---------- 데이터 (기존 데이터 유지) ---------- */
 function seed(){
@@ -19,18 +19,19 @@ return{
  ],
  threads:[
   {id:'t1',ids:['c2'],unread:1,msgs:[
-   m(false,'야 내일 학교 끝나고 매점 갈래?',7*HOUR),
-   m(true,'ㅇㅇ 몇 시에?',6.5*HOUR),
-   m(false,'종례 끝나면 바로 ㄱㄱ',6*HOUR)
+   m(false,'윤호야 어디야',5*HOUR),
+   m(false,'전화 좀 받아',4*HOUR),
+   m(true,'……',3*HOUR),
+   m(false,'미안해. 내가 그때 아무 말도 못 했어',2*HOUR)
   ]},
   {id:'t2',ids:['c1'],unread:0,msgs:[
-   m(false,'윤호야 이번 주말에 이모네 올 수 있어?',2*DAY+3*HOUR),
-   m(true,'토요일이면 괜찮을 것 같아',2*DAY+2*HOUR),
-   m(false,'그래 그럼 이모가 맛있는 거 해놓을게',2*DAY)
+   m(false,'너 지금 당장 짐 챙겨서 나가',2*DAY+3*HOUR),
+   m(true,'이모, 잠깐만 얘기하면 안 돼요?',2*DAY+2*HOUR),
+   m(false,'다시는 연락하지 마',2*DAY)
   ]},
   {id:'t3',ids:['c3'],unread:0,sms:true,msgs:[
-   m(false,'윤호야 이모한테 토요일에 온다고 전해줘',4*DAY+2*HOUR),
-   m(true,'네 이모부 알겠어요',4*DAY+HOUR)
+   m(false,'윤호야, 지금 어디 있는 거니. 연락만이라도 줘',DAY+2*HOUR),
+   m(true,'죄송해요. 아직 잘 모르겠어요',DAY+HOUR)
   ]}
  ]
 };
