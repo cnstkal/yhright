@@ -8,7 +8,7 @@ heart:ic('M12 21l-1.4-1.3C5.4 15.100 2 12 2 8.500A5.500 5.500 0 017.500 3 6 6 0 
 check:ic('M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z'),close:ic('M19 6.4L17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z'),play:ic('M8 5v14l11-7z'),
 mv:ic('M10 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2h-8z')};
 const FALL='data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="120" height="120" fill="#e3e6e8"/><path d="M30 85l20-25 15 18 10-12 15 19z" fill="#b8bec2"/><circle cx="45" cy="42" r="8" fill="#b8bec2"/></svg>');
-const KEY='s7gallery-2017',BUILT=[['camera','카메라'],['screenshot','스크린샷'],['download','다운로드']];
+const KEY='s7gallery-2017-story-v2',BUILT=[['camera','카메라'],['screenshot','스크린샷'],['download','다운로드']];
 const F={o:'',mono:'grayscale(1)',sepia:'sepia(.8)',warm:'sepia(.35) saturate(1.3)',cool:'hue-rotate(185deg) saturate(.7) brightness(1.05)',vivid:'saturate(1.6) contrast(1.1)',fade:'contrast(.85) brightness(1.1) saturate(.8)'};
 const FN={o:'원본',mono:'흑백',sepia:'세피아',warm:'따뜻한',cool:'차가운',vivid:'선명하게',fade:'페이드'};
 let S,tab='photos',alb=null,sel=null,list=[],vi=0,E=null,vt=null,et='crop';
@@ -44,12 +44,21 @@ function paint(c,k,seed){const x=c.getContext('2d'),w=c.width,h=c.height,r=rnd(s
  else{g.addColorStop(0,hsl(R(25,50),60,80));g.addColorStop(1,hsl(R(20,40),40,55));x.fillStyle=g;x.fillRect(0,0,w,h);x.fillStyle='#fff8';x.fillRect(w*.08,h*.08,w*.3,h*.4);x.fillStyle=hsl(R(20,35),45,32);x.fillRect(0,h*.72,w,h*.28);
   x.fillStyle=hsl(R(0,360),50,45);x.fillRect(w*.2,h*.5,w*.35,h*.07);x.fillStyle=hsl(R(0,360),50,60);x.fillRect(w*.22,h*.45,w*.3,h*.05);x.fillStyle='#fff';x.fillRect(w*.65,h*.58,w*.12,h*.14);circ(w*.84,h*.55,h*.1,hsl(110,40,36))}
  const v=x.createRadialGradient(w/2,h/2,h*.3,w/2,h/2,h*.9);v.addColorStop(0,'#0000');v.addColorStop(1,'#0005');x.fillStyle=v;x.fillRect(0,0,w,h)}
-function seed(){const K=['landscape','food','person','pet','daily','landscape','food','pet','daily','person'],r=rnd(5),ps=[];let t=Date.now();
- for(let i=0;i<40;i++){t-=(r()*18+3)*36e5;const shot=i%9==4,vid=i%11==5,k=shot?'screenshot':K[i%10];
-  ps.push({id:'s'+i,ts:Math.round(t),kind:k,seed:i*97+13,type:vid?'video':'photo',dur:vid?8+i:0,album:shot?'screenshot':(k=='person'||k=='pet')&&i%3==0?'a1':'camera',fav:i%13==0?1:0,w:shot?1440:4032,h:shot?2560:3024,size:Math.round((shot?.4:1.8)*1e6+r()*2e6)})}
- ps.forEach(p=>p.name=(p.kind=='screenshot'?'Screenshot_':p.type=='video'?'':'')+stamp(p.ts).replace('_',p.kind=='screenshot'?'-':'_')+(p.kind=='screenshot'?'.png':p.type=='video'?'.mp4':'.jpg'));
- ps.forEach(p=>{if(p.type=='photo'&&p.kind!='screenshot')p.name='IMG_'+p.name});
- return{photos:ps,albums:[{id:'a1',name:'가족'}],cols:3}}
+function seed(){
+ const ps=[];let t=Date.now();
+ const rows=[
+  ['daily',5,'camera'],['landscape',18,'camera'],['food',31,'camera'],['screenshot',44,'screenshot'],
+  ['person',72,'camera'],['daily',96,'camera'],['landscape',120,'camera'],['food',144,'camera'],
+  ['screenshot',168,'screenshot'],['daily',192,'camera'],['pet',240,'camera'],['landscape',288,'camera'],
+  ['food',336,'camera'],['screenshot',384,'screenshot'],['person',432,'camera'],['daily',480,'camera'],
+  ['landscape',528,'camera'],['food',576,'camera'],['screenshot',624,'screenshot'],['daily',672,'camera']
+ ];
+ rows.forEach((r,i)=>{const k=r[0],shot=k==='screenshot',ts=t-r[1]*36e5;
+  ps.push({id:'s'+i,ts,kind:k,seed:i*97+13,type:'photo',dur:0,album:r[2],fav:0,w:shot?1440:4032,h:shot?2560:3024,size:shot?420000:2100000,
+   name:(shot?'Screenshot_':'IMG_')+stamp(ts).replace('_',shot?'-':'_')+(shot?'.png':'.jpg')});
+ });
+ return{photos:ps,albums:[],cols:3}
+}
 /* 렌더링(편집 결과는 원본과 별도 데이터) */
 const IC={},byId=id=>S.photos.find(p=>p.id==id);
 const src=p=>new Promise((res,rej)=>{if(p.frames)p=byId(p.frames[0])||p;if(IC[p.id])return res(IC[p.id]);
