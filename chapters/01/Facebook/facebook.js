@@ -1,5 +1,5 @@
 'use strict';
-const $=s=>document.querySelector(s),LS='fb2016',ic=d=>`<svg viewBox="0 0 24 24"><path d="${d}"/></svg>`;
+const $=s=>document.querySelector(s),LS='fb2017-v2',ic=d=>`<svg viewBox="0 0 24 24"><path d="${d}"/></svg>`;
 const I={menu:ic('M3 18h18v-2H3zm0-5h18v-2H3zm0-7v2h18V6z'),bell:ic('M12 22a2 2 0 002-2h-4a2 2 0 002 2zm6-6v-5c0-3.100-1.600-5.600-4.500-6.300V4a1.500 1.500 0 00-3 0v.700C7.600 5.400 6 7.900 6 11v5l-2 2v1h16v-1z'),
 ppl:ic('M16 11a3 3 0 100-6 3 3 0 000 6zm-8 0a3 3 0 100-6 3 3 0 000 6zm0 2c-2.300 0-7 1.200-7 3.500V19h14v-2.500C15 14.200 10.300 13 8 13zm8 0c-.3 0-.6 0-1 .1 1.200.9 2 2 2 3.400V19h6v-2.500c0-2.300-4.700-3.500-7-3.500z'),
 news:ic('M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'),msgr:ic('M12 2C6.500 2 2 6.200 2 11.500c0 3 1.400 5.600 3.600 7.300V22l3.300-1.800c1 .3 2 .4 3.100.4 5.500 0 10-4.200 10-9.500S17.500 2 12 2zm1 12.700l-2.600-2.700-5 2.700 5.500-5.800 2.600 2.700 5-2.700z'),
@@ -11,11 +11,42 @@ pin:ic('M12 2a7 7 0 00-7 7c0 5.300 7 13 7 13s7-7.700 7-13a7 7 0 00-7-7zm0 9.500a
 const COL=['#e57373','#64b5f6','#81c784','#ffb74d','#ba68c8','#4db6ac','#f06292','#a1887f'],AUD=['전체 공개','친구','나만 보기'],PLC=['서울 한강공원','명동','홍대입구','강남역','해운대해수욕장','제주 협재해수욕장','우리 학교'];
 const PC={};function pic(s){if(PC[s])return PC[s];const c=document.createElement('canvas');c.width=600;c.height=360;const x=c.getContext('2d'),h=s*47%360,g=x.createLinearGradient(0,0,0,360);g.addColorStop(0,`hsl(${h},60%,70%)`);g.addColorStop(1,`hsl(${h+40},50%,45%)`);x.fillStyle=g;x.fillRect(0,0,600,360);x.fillStyle='#fff6';x.beginPath();x.arc(120+s*37%360,90,40,0,7);x.fill();x.fillStyle=`hsl(${h+20},35%,30%)`;x.beginPath();x.moveTo(0,360);for(let i=0;i<=6;i++)x.lineTo(i*100,230+Math.sin(s*3+i*1.7)*50);x.lineTo(600,360);x.fill();return PC[s]=c.toDataURL('image/jpeg',.7)}
 const img=i=>typeof i=='number'?pic(i):i;
-function seed(){const N=['김민준','이서연','박지훈','최수아','정우진','한소희','오세훈','윤하늘','강다은','조현우'],B=['서울고등학교','연세대학교 재학','부산 해운대','대구 거주','인천 거주','카페 알바 중','취준생','군 복무 중','디자인 전공','맛집 탐방 좋아함'],u={u0:{n:'김유진',b:'서울 · 고등학교 2학년',c:5}},n=Date.now(),H=36e5;
- N.forEach((x,i)=>u['u'+(i+1)]={n:x,b:B[i],c:i});u.p1={n:'맛집 탐방러',b:'페이지 · 음식점',c:3,pg:1};u.p2={n:'오늘의 유머',b:'페이지 · 미디어',c:1,pg:1};
- const T=[['u1','오늘 날씨 진짜 좋다 ㅎㅎ 한강 갈 사람?',1],['u2','야자 끝나고 먹는 떡볶이 ㅠㅠ 행복',3,{img:5,place:'신당동'}],['p1','[이번주 맛집] 합정 수제버거집, 줄 서서 먹는 이유가 있네요',5,{link:{t:'합정 수제버거 맛집 TOP5',d:'blog.naver.com',img:7}}],['u3','시험 D-3.. 망했다 진짜 ㅠㅠ',8],['u4','주말에 다녀온 제주도! 바다 색 실화냐',12,{img:3,place:'제주 협재해수욕장'}],['p2','월요일 아침 출근길 상황.jpg',20,{img:9}],['u5','포켓몬GO 하다가 전봇대에 박을 뻔 ㅋㅋㅋㅋ',30],['u6','새로 산 갤럭시 S7 카메라 개좋다',40,{img:2}],['u7','리우올림픽 양궁 금메달! 대한민국 화이팅!!',50,{link:{t:'여자 양궁 단체전 8연패 달성',d:'news.naver.com',img:4}}],['u0','오늘 학교 끝! 집 가서 자야지',60]];
- const posts=T.map((t,i)=>Object.assign({id:'p'+(i+1),u:t[0],t:t[1],ts:n-t[2]*H,aud:0,likes:['u1','u2','u3','u4','u5','u6','u7'].filter((_,k)=>(k+i)%3==0),cm:i%2?[{u:'u'+(i%9+1),t:'ㅋㅋㅋ 공감',ts:n-t[2]*H+6e5}]:[],sh:i%4==0?2:0,saved:0},t[3]||{}));
- return{u,posts,friends:['u1','u2','u3','u4','u5','u6','u7','u10'],reqs:['u8','u9'],notes:[{id:1,t:'박지훈님이 회원님의 게시물을 좋아합니다.',to:['post','p10'],ts:n-2*H,r:0},{id:2,t:'한소희님이 친구 요청을 보냈습니다.',to:['user','u6'],ts:n-5*H,r:0},{id:3,t:'이서연님이 회원님의 게시물에 댓글을 남겼습니다: "ㅋㅋㅋ"',to:['post','p10'],ts:n-9*H,r:1}],msgs:{u1:[{m:0,t:'야 내일 몇 시에 만나?'}]},set:{ntf:1,snd:1},seq:20}}
+function seed(){
+ const N=['김민재','이수빈','박현우','최지훈','정다은','한예린','오준서','윤서진','강민호','조은찬'],
+ B=['서린고등학교 1학년','서린고등학교 1학년','서린고등학교 1학년','서린고등학교 1학년','인천 거주','서린고등학교 1학년','서린고등학교 1학년','고등학생','서린고등학교 1학년','인천 거주'],
+ u={u0:{n:'정윤호',b:'서린고등학교 · 고등학교 1학년',c:5}},n=Date.now(),H=36e5;
+ N.forEach((x,i)=>u['u'+(i+1)]={n:x,b:B[i],c:i});
+ u.p1={n:'인천 맛집 탐방',b:'페이지 · 음식점',c:3,pg:1};
+ u.p2={n:'오늘의 유머',b:'페이지 · 커뮤니티',c:1,pg:1};
+ const T=[
+  ['u1','오늘 개학했는데 교실 너무 덥다 ㅋㅋ',1],
+  ['u2','야자 끝나고 집 가는 중… 배고파',3,{img:5,place:'학교 앞'}],
+  ['u3','내일 수학 숙제 몇 번까지였지??',6],
+  ['u4','주말에 이모네 갔다가 먹은 거 ㅎㅎ',12,{img:3,place:'인천'}],
+  ['u0','서린고 첫 학기 아직 적응 중',20],
+  ['u5','매점 신상 아이스크림 먹어본 사람',28],
+  ['u6','체육 시간에 찍은 하늘',36,{img:2}],
+  ['u7','시험 범위 떴다… 큰일남',48],
+  ['u8','오늘 버스에서 이어폰 한 쪽 잃어버림 ㅠ',60],
+  ['u9','주말에 놀 사람 손 🙋',72]
+ ];
+ const posts=T.map((t,i)=>Object.assign({
+  id:'p'+(i+1),u:t[0],t:t[1],ts:n-t[2]*H,aud:0,
+  likes:['u1','u2','u3','u4','u5','u6','u7'].filter((_,k)=>(k+i)%3===0),
+  cm:i%2?[{u:'u'+(i%9+1),t:i%4?'ㅋㅋㅋㅋ':'나도 ㅋㅋ',ts:n-t[2]*H+6e5}]:[],
+  sh:i%4===0?1:0,saved:0
+ },t[3]||{}));
+ return{
+  u,posts,friends:['u1','u2','u3','u4','u5','u6','u7','u8','u9','u10'],
+  reqs:[],notes:[
+   {id:1,t:'김민재님이 회원님의 게시물을 좋아합니다.',to:['post','p5'],ts:n-2*H,r:0},
+   {id:2,t:'이수빈님이 회원님의 게시물에 댓글을 남겼습니다: "ㅋㅋㅋ"',to:['post','p1'],ts:n-5*H,r:0},
+   {id:3,t:'박현우님이 회원님의 게시물을 좋아합니다.',to:['post','p5'],ts:n-9*H,r:1}
+  ],
+  msgs:{u1:[{m:0,t:'내일 수학 숙제 사진 좀 보내줘 ㅠㅠ'},{m:1,t:'ㅇㅋ 집 가서 보내줄게'}]},
+  set:{ntf:1,snd:1},seq:20
+ };
+}
 let D=JSON.parse(localStorage[LS]||'null')||seed(),V=[{v:'feed'}],hide=new Set();
 const sv=()=>{try{localStorage[LS]=JSON.stringify(D)}catch(e){toast('저장 공간이 부족합니다')}},cur=()=>V[V.length-1],me='u0';
 const toast=m=>{const t=$('#tt');t.textContent=m;t.classList.add('on');clearTimeout(t.h);t.h=setTimeout(()=>t.classList.remove('on'),1700)};
