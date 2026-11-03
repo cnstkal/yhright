@@ -1,36 +1,68 @@
-/* 카메라 - iPhone 6s / iOS 9.3 (사진 촬영 전용) */
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:"Helvetica Neue","Apple SD Gothic Neo","Noto Sans KR",sans-serif;user-select:none;-webkit-user-select:none;touch-action:manipulation}
-#app{height:100%;height:100dvh;display:flex;flex-direction:column;background:#000;overflow:hidden;position:relative}
-button{border:0;padding:0;background:none;color:inherit;font:inherit;cursor:pointer}
-.top{height:44px;flex:none;background:#000}
-#preview{position:relative;flex:none;width:100%;aspect-ratio:3/4;max-height:calc(100% - 44px - 100px);background:#111;overflow:hidden;margin:0 auto}
-#live{width:100%;height:100%;object-fit:cover;display:block}
-#live.front{transform:scaleX(-1)}
-#fallback{position:absolute;inset:0;display:grid;place-items:center;color:#aaa;font-size:14px;text-align:center;padding:24px;background:#111}
-#fallback[hidden]{display:none}
-#flash{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
-#flash.on{opacity:1}
-#bottom{flex:1;min-height:0;background:#000;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px)}
-#label{height:36px;display:flex;align-items:center;justify-content:center;color:#ffcc00;font-size:15px;letter-spacing:1px}
-.controls{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 24px 8px}
-#thumbnail{width:48px;height:48px;border:1px solid #666;border-radius:4px;background:#222 center/cover no-repeat}
-#shutter{width:66px;height:66px;border-radius:50%;background:#fff;border:0;box-shadow:0 0 0 3px #000,0 0 0 5px #fff;display:block}
-#shutter:active{background:#ccc}
-#switch{width:48px;height:48px;display:grid;place-items:center;color:#fff}
-#switch svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-#review{position:absolute;inset:0;background:#000;z-index:8;display:flex;flex-direction:column}
-#review[hidden]{display:none}
-#review .bar{height:44px;display:flex;align-items:center;padding:0 12px;flex:none}
-#review .bar button{font-size:17px;color:#ffcc00}
-#review img{flex:1;min-height:0;width:100%;object-fit:contain}
-#review .ft{height:56px;flex:none;display:flex;align-items:center;justify-content:center}
-#review .ft button{font-size:17px;color:#ffcc00}
-#toast{position:absolute;left:50%;bottom:130px;transform:translateX(-50%);background:#333e;border-radius:16px;padding:8px 14px;font-size:13px;white-space:nowrap;opacity:0;pointer-events:none;z-index:10}
-#toast.show{opacity:1}
-*{scrollbar-width:none!important}*::-webkit-scrollbar{display:none!important}
-
-
-/* iPhone 11 상단 노치 안전 영역 */
-html.emb #app{padding-top:44px}
-html.emb .top{height:44px;flex-basis:44px}
+:root{--yel:#ffd60a;--grey:rgba(60,60,62,.72)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#d9dce1;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#fff}
+body{display:flex;align-items:center;justify-content:center}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.device{position:relative;width:393px;height:852px;background:#000;border-radius:55px;overflow:hidden;box-shadow:0 0 0 10px #1a1a1c,0 30px 60px rgba(0,0,0,.35)}
+.island{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:124px;height:36px;border-radius:20px;background:#000;z-index:100}
+.home{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:140px;height:5px;border-radius:3px;background:#fff;z-index:100;pointer-events:none}
+@media(max-width:430px){body{display:block}.device{width:100vw;height:100dvh;border-radius:0;box-shadow:none}.island{display:none}}
+#root{position:absolute;inset:0;display:flex;flex-direction:column;padding-bottom:34px}
+.status{flex:none;height:59px;display:flex;justify-content:space-between;align-items:center;padding:6px 34px 0 48px;font-size:16px;font-weight:600}
+.status .r{display:flex;gap:6px;align-items:center}
+.status svg{height:12px;width:auto}
+.top{flex:none;height:44px;position:relative;display:flex;align-items:center;justify-content:space-between;padding:0 18px}
+.ic{width:40px;height:40px;display:grid;place-items:center}
+.ic svg{width:24px;height:24px}
+.top .mid{position:absolute;left:50%;transform:translateX(-50%)}
+.top .mid svg{width:26px;height:26px;transition:transform .25s}
+.top .mid.open svg{transform:rotate(180deg)}
+.top .rt{display:flex;align-items:center;gap:6px}
+.raw{font-size:11px;font-weight:700;border:1.5px solid #fff;border-radius:4px;padding:1px 4px;letter-spacing:.3px}
+.vf{flex:none;position:relative;width:100%;aspect-ratio:3/4;background:#111;overflow:hidden;border-radius:2px}
+.vf video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fallback{position:absolute;inset:0;background:radial-gradient(circle at 70% 24%,#ffd9a0 0 8%,transparent 9%),linear-gradient(180deg,#2b3a55 0%,#6c7fa6 55%,#35402f 56%,#1c241a 100%);display:grid;place-items:center;text-align:center;padding:0 40px}
+.fallback p{font-size:15px;line-height:1.5;background:rgba(0,0,0,.5);padding:12px 16px;border-radius:14px;color:#eee}
+.fallback b{display:block;font-size:17px;margin-bottom:4px;color:#fff}
+.blink{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+.blink.on{animation:blink .22s}
+@keyframes blink{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+.panel{position:absolute;left:8px;right:8px;bottom:64px;height:52px;border-radius:16px;background:rgba(30,30,32,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;justify-content:space-around;align-items:center;padding:0 4px;opacity:0;transform:translateY(8px);pointer-events:none;transition:.22s}
+.panel.open{opacity:1;transform:none;pointer-events:auto}
+.panel .ic{width:38px;height:38px}
+.panel .ic svg{width:23px;height:23px}
+.panel .ic.y{color:var(--yel)}
+.panel .ic span{font-size:12px;font-weight:700;border:1.6px solid #fff;border-radius:4px;padding:0 3px}
+.zoom{position:absolute;left:0;right:0;bottom:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.focal{display:flex;gap:4px;background:var(--grey);border-radius:18px;padding:3px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transform:translateY(6px);pointer-events:none;transition:.2s}
+.focal.open{opacity:1;transform:none;pointer-events:auto}
+.focal button{height:30px;padding:0 12px;border-radius:15px;font-size:13px;font-weight:600}
+.focal button.on{background:rgba(255,255,255,.22);color:var(--yel)}
+.zbar{display:flex;gap:2px;align-items:center;background:var(--grey);border-radius:24px;padding:4px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.zbar button{width:34px;height:34px;border-radius:50%;font-size:13px;font-weight:600;display:grid;place-items:center}
+.zbar button.on{width:40px;height:40px;background:rgba(0,0,0,.45);color:var(--yel);font-size:14px}
+.below{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around;padding-top:4px}
+.modes{position:relative;height:36px;overflow:hidden}
+.modes .in{position:absolute;left:0;top:0;display:flex;gap:18px;align-items:center;height:36px;white-space:nowrap;transition:transform .2s}
+.modes span{font-size:13.5px;font-weight:600;color:#fff;letter-spacing:.2px}
+.modes span.on{color:var(--yel)}
+.shutrow{display:flex;justify-content:space-between;align-items:center;padding:0 38px}
+.thumb{width:56px;height:56px;border-radius:12px;background:#1c1c1e;border:1.5px solid rgba(255,255,255,.25);background-size:cover;background-position:center;overflow:hidden}
+.shutter{width:78px;height:78px;border-radius:50%;border:4px solid #fff;display:grid;place-items:center}
+.shutter i{display:block;width:62px;height:62px;border-radius:50%;background:#fff;transition:transform .08s}
+.shutter:active i{transform:scale(.9)}
+.flip{width:56px;height:56px;border-radius:50%;background:#1c1c1e;display:grid;place-items:center}
+.flip svg{width:26px;height:26px}
+/* viewer */
+.viewer{position:absolute;inset:0;z-index:50;background:#000;display:flex;flex-direction:column;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+.viewer .vh{margin-top:59px;height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:17px}
+.viewer .vh b{font-weight:600}
+.viewer .vh button{color:var(--yel);font-size:17px;min-width:48px;text-align:left}
+.viewer .vh i{min-width:48px}
+.strip{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip div{flex:none;width:100%;scroll-snap-align:center;display:grid;place-items:center}
+.strip img{max-width:100%;max-height:100%;object-fit:contain}
+.viewer .vf2{height:34px;flex:none}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
