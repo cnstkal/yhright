@@ -5,9 +5,8 @@ const KEY='s7gallery';
 const F={o:'',mono:'grayscale(1)',sepia:'sepia(.8)',warm:'sepia(.35) saturate(1.3)',cool:'hue-rotate(185deg) saturate(.7) brightness(1.05)',vivid:'saturate(1.6) contrast(1.1)',fade:'contrast(.85) brightness(1.1) saturate(.8)'};
 let S,list=[],vi=0,tok=0;
 const P=n=>String(n).padStart(2,0),D=t=>new Date(t);
-const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const fmtD=t=>{const d=D(t);return `${MON[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`};
-const fmtT=t=>{const d=D(t),h=d.getHours();return `${h%12||12}:${P(d.getMinutes())} ${h<12?'AM':'PM'}`};
+const fmtD=t=>{const d=D(t);return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일`};
+const fmtT=t=>{const d=D(t),h=d.getHours();return `${h<12?'오전':'오후'} ${h%12||12}:${P(d.getMinutes())}`};
 const dur=s=>`${Math.floor(s/60)}:${P(s%60)}`;
 
 /* 저장소 (기존 데이터 읽기 전용) */
@@ -91,10 +90,10 @@ async function init(){document.body.classList.add('lib');S=await idbGet()||seed(
 list=[...S.photos].sort((a,b)=>b.ts-a.ts);
 $('#app').innerHTML=`<div id="main">${list.length?grid(list):''}</div>
 <div class="lt"><b id="dt"></b></div>
-<div class="acts"><button class="pill">Select</button><button class="round" aria-label="더보기">${SVG.dots}</button></div>
-<div class="bottom"><div class="seg" id="seg"><button>Years</button><button>Months</button><button>Days</button><button class="on">All Photos</button></div>
-<nav class="tabs"><button class="on">${SVG.lib}<span>Library</span></button><button>${SVG.fy}<span>For You</span></button><button>${SVG.alb}<span>Albums</span></button><button>${SVG.srch}<span>Search</span></button></nav></div>
-<div id="v" hidden><div class="top"><button class="bk" id="bk" aria-label="뒤로">${SVG.back}</button><div class="tt"><b id="vd"></b><small id="vtm"></small></div><div class="tr"><button>Edit</button><button class="more" aria-label="더보기">${SVG.ring}</button></div></div>
+<div class="acts"><button class="pill">선택</button><button class="round" aria-label="더보기">${SVG.dots}</button></div>
+<div class="bottom"><div class="seg" id="seg"><button>연도</button><button>월</button><button>일</button><button class="on">모든 사진</button></div>
+<nav class="tabs"><button class="on">${SVG.lib}<span>보관함</span></button><button>${SVG.fy}<span>추천</span></button><button>${SVG.alb}<span>앨범</span></button><button>${SVG.srch}<span>검색</span></button></nav></div>
+<div id="v" hidden><div class="top"><button class="bk" id="bk" aria-label="뒤로">${SVG.back}</button><div class="tt"><b id="vd"></b><small id="vtm"></small></div><div class="tr"><button>편집</button><button class="more" aria-label="더보기">${SVG.ring}</button></div></div>
 <div id="stage"><img id="vimg" alt=""></div><div class="strip" id="strip"></div>
 <div class="vb"><button aria-label="공유">${SVG.share}</button><button aria-label="즐겨찾기">${SVG.heart}</button><button aria-label="보정">${SVG.paw}</button><button aria-label="삭제">${SVG.trash}</button></div></div>`;
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){io.unobserve(e.target);fill(e.target,byId(e.target.dataset.id))}}),{root:$('#main'),rootMargin:'600px'});
