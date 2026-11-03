@@ -82,8 +82,10 @@ svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-l
 
 /* 대화창 */
 #ktRoom{background:var(--kb)}
-.kt-rbar{flex:none;height:44px;display:flex;align-items:center;padding:0 4px;background:var(--kb)}
-.kt-rbar h1{flex:1;text-align:center;font-size:17px;font-weight:600;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 4px}
+.kt-rbar{flex:none;height:44px;display:grid;grid-template-columns:36px 36px minmax(0,1fr) 36px 36px;align-items:center;padding:0 4px;background:var(--kb)}
+.kt-rbar::before{content:'';grid-column:1}
+.kt-rbar .kt-back{grid-column:2}
+.kt-rbar h1{grid-column:3;min-width:0;text-align:center;font-size:17px;font-weight:600;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 4px}
 .kt-rbar h1 small{font-size:14px;color:#556;font-weight:400;margin-left:4px}
 .kt-back svg{width:12px;height:21px;stroke-width:2.200}
 .kt-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px 10px 10px;background:var(--kb)}
