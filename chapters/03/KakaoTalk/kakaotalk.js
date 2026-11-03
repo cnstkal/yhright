@@ -60,16 +60,16 @@ try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(!S||!Array.isArray(S.chats)||!S.chats.length)S=seed();
 (function chapter3Chats(){
  const messages=[
-  ['f3','오늘 퇴근 조금 늦을 것 같아. 먼저 씻고 있어.',new Date(2020,9,27,18,12).getTime(),'ch3-seonghwa-01'],
-  ['me','응 천천히 와. 저녁은 내가 해둘게',new Date(2020,9,27,18,15).getTime(),'ch3-seonghwa-02'],
-  ['f3','무리하지 말고. 냉장고에 있는 거 먹어도 돼',new Date(2020,9,27,18,17).getTime(),'ch3-seonghwa-03'],
-  ['me','나 이제 여기 사는 사람인데 그 정도는 하지 ㅋㅋ',new Date(2020,9,27,18,20).getTime(),'ch3-seonghwa-04'],
-  ['f3','그렇네. 그래도 고마워',new Date(2020,9,27,18,22).getTime(),'ch3-seonghwa-05'],
-  ['me','오늘 회사는 어땠어?',new Date(2020,9,28,19,4).getTime(),'ch3-seonghwa-06'],
-  ['f3','평소랑 똑같지. 보고서 하나 더 생긴 것 빼고',new Date(2020,9,28,19,6).getTime(),'ch3-seonghwa-07'],
-  ['me','대리님 힘내세요',new Date(2020,9,28,19,8).getTime(),'ch3-seonghwa-08'],
-  ['f3','놀리는 거지 지금',new Date(2020,9,28,19,9).getTime(),'ch3-seonghwa-09'],
-  ['me','조금 ㅎㅎ',new Date(2020,9,28,19,10).getTime(),'ch3-seonghwa-10']
+  ['f3','오늘 퇴근 조금 늦을 것 같아. 먼저 씻고 있어.',new Date(2022,9,27,18,12).getTime(),'ch3-seonghwa-01'],
+  ['me','응 천천히 와. 저녁은 내가 해둘게',new Date(2022,9,27,18,15).getTime(),'ch3-seonghwa-02'],
+  ['f3','무리하지 말고. 냉장고에 있는 거 먹어도 돼',new Date(2022,9,27,18,17).getTime(),'ch3-seonghwa-03'],
+  ['me','나 이제 여기 사는 사람인데 그 정도는 하지 ㅋㅋ',new Date(2022,9,27,18,20).getTime(),'ch3-seonghwa-04'],
+  ['f3','그렇네. 그래도 고마워',new Date(2022,9,27,18,22).getTime(),'ch3-seonghwa-05'],
+  ['me','오늘 회사는 어땠어?',new Date(2022,9,28,19,4).getTime(),'ch3-seonghwa-06'],
+  ['f3','평소랑 똑같지. 보고서 하나 더 생긴 것 빼고',new Date(2022,9,28,19,6).getTime(),'ch3-seonghwa-07'],
+  ['me','대리님 힘내세요',new Date(2022,9,28,19,8).getTime(),'ch3-seonghwa-08'],
+  ['f3','놀리는 거지 지금',new Date(2022,9,28,19,9).getTime(),'ch3-seonghwa-09'],
+  ['me','조금 ㅎㅎ',new Date(2022,9,28,19,10).getTime(),'ch3-seonghwa-10']
  ];
  let c=S.chats.find(x=>x.id==='c4');
  if(!c){c={id:'c4',name:'박성화',group:false,members:['f3'],unread:0,msgs:[]};S.chats.push(c)}
