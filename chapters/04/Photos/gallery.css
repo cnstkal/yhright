@@ -1,4 +1,8 @@
-/* iOS 12 (2018) 사진 앱 스타일 · iPhone 6s 375pt */
+/* iOS 17 사진 앱 스타일 (2022년 · iPhone 12 시대 UI 참고 이미지 기준)
+   라이브러리: 전체 화면 3열 그리드 + 상단 날짜/Select 오버레이 + 하단 Years·Months·Days·All Photos + 탭바
+   상세: 가운데 정렬 사진 + 하단 필름스트립 + 공유·좋아요·보정·삭제 툴바 */
+:root{--sb:20px}
+html.emb{--sb:44px}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html,body{height:100%;background:#fff}
@@ -7,6 +11,7 @@ body{position:relative;overflow:hidden;color:#000;margin:0 auto;
  -webkit-font-smoothing:antialiased;-webkit-user-select:none;user-select:none}
 @media(min-width:501px){body{max-width:375px;box-shadow:0 0 0 .5px #c8c7cc}}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+svg{display:block}
 
 /* 상태 표시줄 */
 .sbar{position:absolute;top:0;left:0;right:0;z-index:30;height:calc(20px + env(safe-area-inset-top));
@@ -18,39 +23,80 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .bat{position:relative;width:22px;height:10px;border:1px solid currentColor;border-radius:2.5px;opacity:.9}
 .bat:before{content:"";position:absolute;inset:1px;background:currentColor;border-radius:1px}
 .bat:after{content:"";position:absolute;right:-3px;top:2.5px;width:1.5px;height:3px;background:currentColor;border-radius:0 1px 1px 0}
+/* 라이브러리 화면: 사진 위에 떠 있는 흰색 상태 표시줄 */
+body.lib .sbar{background:transparent;color:#fff;text-shadow:0 0 4px rgba(0,0,0,.25)}
 body.dark .sbar{background:#000;color:#fff}
 
-#app{position:absolute;left:0;right:0;bottom:0;top:calc(20px + env(safe-area-inset-top))}
+#app{position:absolute;left:0;right:0;bottom:0;top:0}
 
-/* 사진 목록 */
-#main{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:env(safe-area-inset-bottom)}
-h1{font-size:34px;line-height:41px;font-weight:700;letter-spacing:.37px;padding:6px 16px 8px}
-h4{font-size:15px;line-height:20px;font-weight:600;letter-spacing:-.24px;padding:14px 16px 6px;margin-top:4px}
-h1+h4{margin-top:0}
-.g{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:0 0 2px}
+/* 라이브러리: 전체 화면 그리드 (상단은 상태 표시줄 아래까지 사진이 채움) */
+#main{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#fff;
+ padding:0 0 calc(160px + env(safe-area-inset-bottom))}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:#fff}
 .c{position:relative;aspect-ratio:1;background:#e5e5ea;overflow:hidden}
 .c img{display:block;width:100%;height:100%;object-fit:cover}
 .bd{position:absolute;right:4px;bottom:3px;font-size:12px;font-weight:600;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.5)}
 
+/* 라이브러리 오버레이: 날짜 · Select · ••• */
+.lt{position:absolute;left:16px;top:calc(var(--sb) + env(safe-area-inset-top,0px) + 6px);z-index:4;pointer-events:none;
+ color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.lt b{font-size:26px;line-height:32px;font-weight:700;letter-spacing:.2px}
+.acts{position:absolute;right:14px;top:calc(var(--sb) + env(safe-area-inset-top,0px) + 6px);z-index:4;display:flex;gap:8px;align-items:center}
+.pill,.round{height:36px;color:#fff;background:rgba(110,110,120,.55);
+ -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);border-radius:18px}
+.pill{padding:0 16px;font-size:16px;font-weight:600}
+.round{width:36px;display:flex;align-items:center;justify-content:center}
+
+/* 하단: 기간 세그먼트 + 탭바 */
+.bottom{position:absolute;left:0;right:0;bottom:0;z-index:5;pointer-events:none}
+.bottom>*{pointer-events:auto}
+.seg{position:absolute;left:12px;right:12px;bottom:calc(58px + env(safe-area-inset-bottom));display:flex;padding:3px;
+ border-radius:22px;background:rgba(255,255,255,.38);
+ -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.seg button{flex:1;height:34px;border-radius:18px;font-size:15px;font-weight:600;color:#3c3c43;white-space:nowrap;text-shadow:none}
+.seg button.on{background:rgba(110,110,122,.62);color:#fff}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:calc(49px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);
+ display:flex;background:rgba(249,249,249,.9);border-top:.5px solid rgba(0,0,0,.22);
+ -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
+.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding-top:4px;
+ color:#8e8e93;font-size:10px;font-weight:500;letter-spacing:.1px}
+.tabs svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tabs button.on{color:#007aff}
+.tabs button.on svg{fill:currentColor}
+
 /* 사진 상세 */
 #v{position:absolute;inset:0;z-index:20;background:#fff}
 #v.hu{background:#000}
-.top,.vb{position:absolute;left:0;right:0;z-index:2;background:rgba(247,247,247,.94);
+.top,.vb{position:absolute;left:0;right:0;z-index:2;background:rgba(249,249,249,.94);
  -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}
-.top{top:0;height:calc(64px + env(safe-area-inset-top));padding-top:calc(20px + env(safe-area-inset-top));border-bottom:.5px solid rgba(0,0,0,.3);
- display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.top b{font-size:15px;line-height:18px;font-weight:600;letter-spacing:-.24px}
-.top small{font-size:11px;line-height:13px;color:#6d6d72}
-.top .bk{position:absolute;left:8px;bottom:0;height:44px;display:flex;align-items:center;font-size:17px;color:#007aff}
-.bk svg{width:12px;height:21px;margin-right:5px;fill:none;stroke:#007aff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.vb{bottom:0;height:calc(44px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);border-top:.5px solid rgba(0,0,0,.3);
- display:flex;align-items:center;justify-content:center;font-size:13px;color:#000}
-#v.hu .top,#v.hu .vb{opacity:0;pointer-events:none}
-#stage{position:absolute;left:0;right:0;top:calc(64px + env(safe-area-inset-top));bottom:calc(44px + env(safe-area-inset-bottom));
- display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:pan-y}
+.top{top:0;height:calc(var(--sb) + 44px);padding-top:var(--sb);border-bottom:.5px solid rgba(0,0,0,.25)}
+.top .bk{position:absolute;left:8px;bottom:0;height:44px;padding:0 6px;display:flex;align-items:center;color:#007aff}
+.bk svg{width:12px;height:21px;fill:none;stroke:#007aff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tt{position:absolute;left:0;right:0;bottom:0;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.tt b{font-size:15px;line-height:18px;font-weight:600;letter-spacing:-.24px}
+.tt small{font-size:11px;line-height:13px;color:#6d6d72}
+.tr{position:absolute;right:14px;bottom:0;height:44px;display:flex;align-items:center;gap:16px;color:#007aff;font-size:17px}
+.tr .more{display:flex;align-items:center}
+.tr .more svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.6}
+.vb{bottom:0;height:calc(44px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);border-top:.5px solid rgba(0,0,0,.25);
+ display:flex;align-items:center;justify-content:space-around;padding-left:6px;padding-right:6px}
+.vb button{width:48px;height:44px;display:flex;align-items:center;justify-content:center;color:#007aff}
+.vb svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.vb svg circle[fill=currentColor]{stroke:none}
+#v.hu .top,#v.hu .vb,#v.hu .strip{opacity:0;pointer-events:none}
+
+/* 필름스트립 (현재 사진 주변 썸네일) */
+.strip{position:absolute;left:0;right:0;bottom:calc(44px + env(safe-area-inset-bottom));height:40px;z-index:2;
+ display:flex;align-items:center;gap:2px;overflow-x:auto;overflow-y:hidden;background:#fff;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip img{width:30px;height:40px;flex:none;object-fit:cover;opacity:.55}
+.strip img.cur{width:36px;height:40px;opacity:1;outline:2px solid #fbbf24;outline-offset:-2px}
+
+#stage{position:absolute;left:0;right:0;top:calc(var(--sb) + 44px);bottom:calc(84px + env(safe-area-inset-bottom));
+ display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:pan-y;background:#fff}
+#v.hu #stage{background:#000}
 #vimg{max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;-webkit-user-drag:none}
 
-/* iPhone 11 상단 노치 안전 영역 */
+/* iPhone 노치 안전 영역 (emb 모드: 시스템 바 44pt) */
 html.emb .sbar{height:44px;padding-top:22px}
 html.emb .sbar b{left:54px;right:auto;top:22px;text-align:left}
-html.emb #app{top:44px}
