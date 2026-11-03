@@ -1,429 +1,499 @@
-/* ---------- icons ---------- */
-const IC={
-flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
-compass:'<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
-heart:'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
-msg:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
-user:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
-sliders:'<path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/>',
-undo:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5 5.5 5.5 0 0 1-5.5 5.5H11"/>',
-x:'<path d="M18 6 6 18M6 6l12 12"/>',
-star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
-send:'<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/>',
-pin:'<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
-shield:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
-chevd:'<path d="m6 9 6 6 6-6"/>',
-back:'<path d="m15 18-6-6 6-6"/>',
-more:'<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
-zap:'<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
-up:'<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
-search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
-smile:'<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/>',
-briefcase:'<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
-school:'<path d="m4 6 8-4 8 4"/><path d="m18 10 4 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l4-2"/><path d="M14 22v-4a2 2 0 0 0-4 0v4"/><path d="M18 5v17M6 5v17"/><circle cx="12" cy="9" r="2"/>',
-gear:'<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
-pencil:'<path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>'
-};
-const ic=(n,s=24,f='none',sw=2)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="${f}" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
-const vf=(s=20,c='currentColor',ck='#fff')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" fill="${c}"/><path d="m9 12 2 2 4-4" stroke="${ck}" stroke-width="2.4"/></svg>`;
-/* fill placeholders in static html */
-document.body.innerHTML=document.body.innerHTML
-.replace('__FLAME__',ic('flame',64,'currentColor',1.5)).replace('__UNDO__',ic('undo',24,'none',2.6)).replace('__X__',ic('x',32,'none',3.4))
-.replace('__STAR__',`<span style="color:#7fa8f0">${ic('star',24,'currentColor',1.5)}</span>`)
-.replace('__HEART__',`<span style="color:#f0261e">${ic('heart',34,'currentColor',1.5)}</span>`)
-.replace('__SEND__',`<span style="color:#5b8def">${ic('send',22,'currentColor',1.6)}</span>`)
-.replace('__SLIDERS__',ic('sliders',28)).replace('__ZAP__',ic('zap',26,'currentColor',1.5))
-.replace('__COMPASS__',ic('compass',44)).replace('__SHIELD__',ic('shield',28)).replace('__SMILE__',ic('smile',28));
-/* ---------- photo generator (fictional placeholder portraits) ---------- */
-const uri=s=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);
-function photo(h,v,sk,o={}){
-if(o.dark) return uri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900"><rect width="600" height="900" fill="#05050a"/></svg>');
-const l1=v===2?72:40,l2=v===2?54:16;
-const shirt=`hsl(${(h+v*70+180)%360} 25% ${v===1?55:30}%)`, hair=`hsl(${20+v*6} 25% 11%)`;
-const cx=v===1?390:300, s=v===1?.62:v===2?.5:1, cy=v===1?560:v===2?600:520;
-let b='';
-for(let i=0;i<5;i++){const x=(h*7+i*131+v*53)%600,y=(h*3+i*197+v*71)%700,r=40+(i*29+h)%70;b+=`<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" opacity=".13" filter="url(#bl)"/>`}
-if(v===2) b+=`<rect y="560" width="600" height="340" fill="hsl(${h} 20% 30%)" opacity=".5"/>`;
-const fig=`<g transform="translate(${cx} ${cy}) scale(${s})"><path d="M-250 620C-250 120 -120 40 0 40C120 40 250 120 250 620Z" fill="${shirt}"/><rect x="-36" y="-70" width="72" height="120" rx="20" fill="${sk}" style="filter:brightness(.85)"/><ellipse cy="-170" rx="92" ry="116" fill="${sk}"/><path d="M-104 -185C-110 -340 110 -340 104 -185C74 -255 -74 -255 -104 -185Z" fill="${hair}"/><circle cx="-34" cy="-160" r="6" fill="#2a1d18" opacity=".75"/><circle cx="34" cy="-160" r="6" fill="#2a1d18" opacity=".75"/><path d="M-22 -105Q0 -90 22 -105" stroke="#7a4338" stroke-width="5" fill="none" stroke-linecap="round"/></g>`;
-return uri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h} 32% ${l1}%)"/><stop offset="1" stop-color="hsl(${(h+45)%360} 38% ${l2}%)"/></linearGradient><filter id="bl"><feGaussianBlur stdDeviation="14"/></filter></defs><rect width="600" height="900" fill="url(#g)"/>${b}${fig}</svg>`);
-}
-const SK=['#e8c3a5','#d9a98a','#f0d2b8','#c99877','#e3b99b'];
-/* ---------- sample data ---------- */
-const P={};
-function mk(id,name,age,dist,bio,intro,job,school,tags,o={}){
-const h=o.h??((id.charCodeAt(0)*37+id.length*53)%360), sk=SK[(h>>3)%5];
-P[id]={id,name,age,dist,bio,intro,job,school,tags,verified:!!o.vf,online:!!o.on,likedMe:!!o.lk,blur:!!o.bl,extra:o.ex||'none',tag:o.tag||'',official:!!o.off,
-pos:o.pos||'50% 30%',photos:[0,1,2].map(v=>photo(h,v,sk,{dark:o.dark&&v===0}))};
-}
-// swipe deck (미매치)
-mk('nangman','낭만고양이',29,8,'진지한 연애를 찾지만 캐주얼해도 괜찮음','어딜 그리 바삐 가시나요?','디자이너','서울예술대학교',['산책','사진','고양이'],{on:1,ex:'none',h:160});
-mk('yeongjun','유영준',23,3,'취미와 일상을 공유할 사람','요즘 빠진 건 보드게임이에요','대학생','한양대학교',['보드게임','영화','러닝'],{vf:1,lk:1,on:1,ex:'school',h:210});
-mk('jihyun','지현',29,12,'여행과 음악을 좋아해요','최근에 다녀온 곳 추천해줘요','마케터','',['여행','인디음악','와인'],{lk:1,ex:'tags',h:330});
-mk('ttussi','뚜씨뚜씨',28,5,'드라이브와 산책을 좋아하는 친구','','',' ',['드라이브','산책','카페'],{vf:1,lk:1,ex:'tags',h:30});
-mk('mj','MJ',29,17,'ENFJ, 사진과 음악을 좋아함','필름 카메라 들고 다녀요','포토그래퍼','',['사진','음악','ENFJ'],{ex:'job',h:280});
-mk('rare','희귀매물',30,6,'음악과 공연을 좋아해요','이번 주말 공연 같이 갈 사람?','공연 기획자','',['콘서트','재즈','LP'],{vf:1,lk:1,on:1,ex:'job',h:12});
-mk('dbd','dbdhwkf',29,11,'진지한 연애를 원해요','','개발자','',['독서','헬스'],{lk:1,ex:'none',h:240});
-mk('brent','Brent',27,15,'여행과 운동을 좋아함','Hiking > Netflix','엔지니어','연세대학교',['여행','클라이밍','러닝'],{vf:1,ex:'school',h:190});
-mk('junho','정윤호',26,4,'맛집 탐방이 취미예요','줄 서는 집은 일단 갑니다','셰프','',['맛집','요리','위스키'],{vf:1,lk:1,on:1,ex:'job',h:50});
-mk('haneul','하늘',25,9,'','',' ','이화여자대학교',['요가','독서'],{lk:1,ex:'school',h:200});
-mk('sora','소라',24,7,'고양이 두 마리랑 살아요','집사 구함 (진지)','일러스트레이터','',['고양이','그림','넷플릭스'],{lk:1,on:1,ex:'tags',h:300,bl:1});
-mk('taeo','태오',31,13,'주말엔 러닝, 평일엔 커피','한강 러닝 크루 모집 중','바리스타','',['러닝','커피','독립서점'],{ex:'job',h:100});
-mk('minseo','민서',27,2,'독서와 전시를 좋아해요','요즘 읽는 책 얘기해요','큐레이터','홍익대학교',['전시','독서','필름'],{vf:1,lk:1,ex:'school',h:260,bl:1});
-mk('dohyun','도현',28,10,'','말 걸어줘요','','',['농구','게임'],{ex:'tags',h:140});
-// 이미 매치된 상대
-mk('seungo','승오',27,6,'등산과 캠핑','','','',['캠핑'],{vf:1,h:90});
-mk('gil','길거리에…',26,9,'','','','',[],{h:0,dark:1});
-mk('sansan','산산',25,5,'','','','',[],{h:20});
-mk('kidal','키달ㅇ',28,4,'','','','',[],{h:215,on:1});
-mk('kd','KD',29,8,'','','','',[],{h:225});
-mk('L','L',24,11,'','','','',[],{vf:1,h:320});
-mk('yuu','Yuu',26,3,'','','','',[],{on:1,h:170,tag:'내가 받은 LIKE'});
-mk('haeden','해든',27,7,'','','','',[],{on:1,h:70});
-mk('team','Team Tinder',0,0,'','','','',[],{off:1,vf:1});
-mk('me','나',28,0,'','','','',[],{h:205});
-/* 내 프로필: 비어 있는 항목만 기본값으로 채움 (기존 값은 유지) */
-if(!P.me.bio)P.me.bio='주말엔 산책하고 맛집 찾아다니는 걸 좋아해요';
-if(!P.me.tags.length)P.me.tags=['산책','영화','커피','여행'];
-if(!P.me.prompts)P.me.prompts=[{q:'나를 가장 잘 표현하는 한 줄',a:'천천히 친해지는 타입이에요'},{q:'주말에 가장 하고 싶은 일',a:'동네 카페에서 책 읽기'}];
-const ORDER=['nangman','yeongjun','jihyun','ttussi','mj','rare','dbd','brent','junho','haeden_x','haneul','sora','taeo','minseo','dohyun'].filter(id=>P[id]);
-const PICKS=['minseo','junho','sora'];
-/* ---------- state ---------- */
-const now=Date.now(),MIN=60000;
-const S={tab:'swipe',decided:{},sent:[],history:[],front:null,photoIdx:{},likeCat:0,filters:{},room:null,enter:0,
-matches:['yuu','kd','kidal','L','haeden','seungo','gil','sansan'],
-newMatch:new Set(['seungo','gil','sansan']),
-unread:new Set(['seungo','gil','kd','team','L']),
-matchedAt:{},chats:{},replyN:{}};
-const M=(id,t,y,mo,d,h,mi)=>{S.matchedAt[id]=new Date(y,mo,d,h,mi).getTime()};
-M('kidal',0,2026,7,7,19,45);M('kd',0,2026,7,9,21,10);M('L',0,2026,7,12,14,5);M('yuu',0,2026,7,15,10,30);M('haeden',0,2026,7,18,18,20);M('seungo',0,2026,8,2,13,0);M('gil',0,2026,8,8,22,30);M('sansan',0,2026,8,20,9,40);
-S.chats={yuu:[{f:'them',x:'오른쪽 스와이프 한 번에 매치!',t:now-10*MIN}],
-kd:[{f:'them',x:'안녕하세요',t:now-20*MIN}],
-team:[{f:'them',x:'🚨 안전한 Tinder 사용을 위한 당부의 말씀을 드려요. 개인정보와 금융 정보는 공유하지 마세요.',t:now-30*MIN}],
-kidal:[{f:'them',x:'안녕',t:now-40*MIN}],
-L:[{f:'them',x:'👋',t:now-50*MIN}],
-haeden:[{f:'them',x:'프로필 사진 분위기 좋네요. 주말에 뭐 하세요?',t:now-60*MIN}],
-seungo:[],gil:[],sansan:[]};
-const REPLIES=['ㅎㅎ 반가워요! 오늘 하루는 어땠어요?','저도 비슷해요. 주말엔 보통 뭐 하세요?','오 좋은데요? 다음에 커피 한잔 어때요?','그럼 이번 주에 시간 맞춰봐요 :)'];
-/* ---------- helpers ---------- */
-const $=s=>document.querySelector(s);
-const ampm=d=>(d.getHours()<12?'오전':'오후')+' '+(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0');
-const fT=t=>ampm(new Date(t));
-const fD=t=>{const d=new Date(t);return `${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}.`};
-const fMD=t=>{const d=new Date(t);return `${d.getMonth()+1}월 ${d.getDate()}일 ${ampm(d)}`};
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let toastT;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('on'),1600)}
-const deck=()=>{const b=ORDER.filter(id=>!S.decided[id]&&!S.matches.includes(id));return (S.front&&b.includes(S.front)?[S.front,...b.filter(x=>x!==S.front)]:b).map(id=>P[id])};
-const lastMsg=id=>{const c=S.chats[id]||[];return c[c.length-1]};
-(function clock(){const d=new Date();$('#clock').textContent=(d.getHours()%12||12)+':'+String(d.getMinutes()).padStart(2,'0');setTimeout(clock,20000)})();
-/* ---------- tabs ---------- */
-const TABS=[['swipe','스와이프','flame'],['explore','둘러보기','compass'],['like','LIKE','heart'],['chat','채팅','msg'],['profile','프로필','user']];
-function renderTabs(){
-const dark=S.tab==='swipe';
-$('#tabbar').className=dark?'dark':'';
-$('#tabbar').innerHTML=TABS.map(([k,l,i])=>`<button class="tb ${S.tab===k?'on':''}" data-act="tab" data-id="${k}"><span class="ico">${ic(i,26,S.tab===k?'currentColor':'none',S.tab===k?1.5:2)}${k==='like'?'<span class="bdg">99+</span>':''}${k==='chat'&&S.unread.size?'<span class="dotr"></span>':''}</span>${l}</button>`).join('');
-$('#sb').classList.toggle('light',dark);$('#hi').classList.toggle('light',dark);
-}
-function setTab(k){
-S.tab=k;document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('on',s.id==='s-'+k));
-renderTabs();if(k==='explore')renderExplore();if(k==='like')renderLike();if(k==='chat')renderChat();if(k==='profile')renderProfile();
-}
-/* ---------- swipe ---------- */
-const stack=$('#stack');let busy=false,drag=null;
-function infoHTML(p){
-const ex=p.extra;let l2='';
-if(p.bio) l2+=`<div class="ln">${ic('search',18)}<span>${esc(p.bio)}</span></div>`;
-if(p.intro.trim()) l2+=`<div class="ln s" style="margin-top:12px">${esc(p.intro)}</div>`;
-let x='';
-if(ex==='job'&&p.job.trim())x=`<div class="ln s">${ic('briefcase',18)}<span>${esc(p.job)}</span></div>`;
-if(ex==='school'&&p.school.trim())x=`<div class="ln s">${ic('school',18)}<span>${esc(p.school)}</span></div>`;
-if(ex==='tags')x=`<div class="tags">${p.tags.slice(0,3).map(t=>`<b>${esc(t)}</b>`).join('')}</div>`;
-return `<div class="badges">${p.online?'<span class="bd g">접속 중</span>':''}${p.dist<=10?'<span class="bd">근처</span>':''}</div>${p.likedMe&&!S.decided[p.id]&&!S.matches.includes(p.id)?'<div class="rcv">내가 받은 LIKE ›</div>':''}
-<div class="nm">${esc(p.name)} <span>${p.age}</span>${p.verified?vf(24,'#fff','#222'):''}</div>
-<div class="ln">${ic('pin',20)}<span>${p.dist}km 거리에 있음</span></div>${l2}${x}`;
-}
-function dotsHTML(p){const n=S.photoIdx[p.id]||0;return p.photos.map((_,i)=>`<i class="${i===n?'on':''}"></i>`).join('')}
-function makeCard(p){
-const el=document.createElement('div');el.className='card';el.dataset.id=p.id;
-el.innerHTML=`<img class="ph" draggable="false" alt="" src="${p.photos[S.photoIdx[p.id]||0]}" style="object-position:${p.pos}"><div class="gtop"></div><div class="gbot"></div><div class="dots">${dotsHTML(p)}</div>
-<div class="stamp like"><svg viewBox="0 0 24 24" width="132" height="132" fill="#ff1f2d"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div><div class="stamp nope"><svg viewBox="0 0 24 24" width="124" height="124" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></div><div class="stamp sup">${ic('star',56,'currentColor',1.5)}<span>SUPER LIKE</span></div>
-<div class="info">${infoHTML(p)}</div><button class="up" data-act="detail" data-id="${p.id}" aria-label="상세 보기">${ic('up',24,'none',3)}</button>`;
-return el;
-}
-function setPos(el,i,anim=true){
-el.dataset.pos=i;el.style.zIndex=10-i;
-el.style.transition=anim?'transform .32s cubic-bezier(.2,.8,.2,1),opacity .32s,filter .32s':'none';
-el.style.transform=i===0?'translate(0,0) rotate(0deg) scale(1)':`translateY(${i*12}px) scale(${1-i*.05})`;
-el.style.opacity=1;
-}
-function layoutStack(){
-const d=deck().slice(0,3),ids=d.map(p=>p.id);
-[...stack.children].forEach(el=>{if(!ids.includes(el.dataset.id))el.remove()});
-d.forEach((p,i)=>{
-let el=stack.querySelector(`[data-id="${p.id}"]`);
-if(!el){
-el=makeCard(p);stack.appendChild(el);
-if(i===0&&S.enter){el.style.transition='none';el.style.transform=`translate(${S.enter*420}px,0) rotate(${S.enter*18}deg)`;el.style.opacity=0;el.dataset.pos=0;el.offsetWidth;}
-else if(i>0){el.style.transition='none';el.style.opacity=0;el.style.transform=`translateY(${i*12}px) scale(${1-i*.05})`;el.offsetWidth}
-}
-setPos(el,i);
-});
-S.enter=0;
-$('#empty').style.display=d.length?'none':'flex';
-}
-function stamps(el,dx,dy){
-const up=dy<0&&Math.abs(dy)>Math.abs(dx);
-el.querySelector('.like').style.opacity=up?0:Math.max(0,Math.min(1,dx/100));
-el.querySelector('.nope').style.opacity=up?0:Math.max(0,Math.min(1,-dx/100));
-el.querySelector('.sup').style.opacity=up?Math.min(1,-dy/120):0;
-}
-stack.addEventListener('pointerdown',e=>{
-const el=e.target.closest('.card');if(!el||el.dataset.pos!=='0'||busy||e.target.closest('[data-act]'))return;
-drag={el,x:e.clientX,y:e.clientY,dx:0,dy:0,moved:false,vx:0,px:e.clientX,pt:performance.now(),id:e.pointerId};
-el.style.transition='none';stack.setPointerCapture(e.pointerId);
-});
-stack.addEventListener('pointermove',e=>{
-if(!drag||e.pointerId!==drag.id)return;
-const dx=e.clientX-drag.x,dy=e.clientY-drag.y,t=performance.now();
-if(t>drag.pt){drag.vx=(e.clientX-drag.px)/(t-drag.pt)};drag.px=e.clientX;drag.pt=t;
-if(Math.hypot(dx,dy)>7)drag.moved=true;
-drag.dx=dx;drag.dy=dy;
-requestAnimationFrame(()=>{if(!drag)return;
-drag.el.style.transform=`translate(${dx}px,${dy}px) rotate(${dx/18}deg)`;stamps(drag.el,dx,dy);
-const nx=stack.querySelector('[data-pos="1"]');if(nx){const p=Math.min(1,Math.hypot(dx,dy)/160);nx.style.transition='none';nx.style.transform=`translateY(${12*(1-p)}px) scale(${.95+.05*p})`}
-});
-});
-function endDrag(e){
-if(!drag||e.pointerId!==drag.id)return;
-const {el,dx,dy,vx,moved}=drag;drag=null;
-if(!moved){ // tap → 사진 전환
-const r=el.getBoundingClientRect();photoStep(el.dataset.id,(e.clientX-r.left)<r.width/2?-1:1,el);return;}
-const up=dy<-120&&Math.abs(dy)>Math.abs(dx);
-if(up)return fly('super');
-if(dx>110||(vx>.55&&dx>40))return fly('like');
-if(dx<-110||(vx<-.55&&dx<-40))return fly('pass');
-setPos(el,0);stamps(el,0,0);
-const nx=stack.querySelector('[data-pos="1"]');if(nx)setPos(nx,1);
-}
-stack.addEventListener('pointerup',endDrag);stack.addEventListener('pointercancel',endDrag);
-function photoStep(id,dir,el){
-const p=P[id],n=p.photos.length,cur=S.photoIdx[id]||0,nx=Math.max(0,Math.min(n-1,cur+dir));
-if(nx===cur){el.animate([{transform:'translateX(0)'},{transform:`translateX(${-dir*8}px)`},{transform:'translateX(0)'}],{duration:180});return}
-S.photoIdx[id]=nx;const img=el.querySelector('.ph');img.src=p.photos[nx];img.animate([{opacity:.35},{opacity:1}],{duration:200});
-el.querySelector('.dots').innerHTML=dotsHTML(p);
-}
-function fly(kind){
-if(busy||drag)return;const el=stack.querySelector('[data-pos="0"]');if(!el)return;busy=true;
-const T={like:'translate(560px,-30px) rotate(26deg)',pass:'translate(-560px,-30px) rotate(-26deg)',super:'translate(0,-820px) rotate(0deg)'};
-const st=el.querySelector(kind==='like'?'.like':kind==='pass'?'.nope':'.sup');st.style.transition='opacity .25s';st.style.opacity=1;
-el.style.transition='transform .85s cubic-bezier(.22,.7,.3,1),opacity .85s ease-in';el.style.transform=T[kind];
-const nx=stack.querySelector('[data-pos="1"]');if(nx){nx.style.transition='transform .6s ease,filter .6s';nx.style.transform='translateY(0) scale(1)';nx.style.filter='none'}
-const id=el.dataset.id;
-setTimeout(()=>{decide(id,kind);el.remove();layoutStack();refresh(true);busy=false},880);
-}
-function flyBtn(kind){
-if(busy||drag)return;const el=stack.querySelector('[data-pos="0"]');if(!el)return;busy=true;
-const st=el.querySelector(kind==='like'?'.like':kind==='pass'?'.nope':'.sup');st.style.transition='opacity .25s';st.style.opacity=1;
-setTimeout(()=>{busy=false;fly(kind)},550);
-}
-/* ---------- decisions / match ---------- */
-function decide(id,kind){
-if(S.decided[id])return;S.decided[id]=kind;if(S.front===id)S.front=null;let m=false;
-if(kind!=='pass'){
-S.sent=[id,...S.sent.filter(x=>x!==id)];
-if(P[id].likedMe&&!S.matches.includes(id)){m=true;S.matches.unshift(id);S.chats[id]=[];S.newMatch.add(id);S.unread.add(id);S.matchedAt[id]=Date.now();setTimeout(()=>showMatch(id),300)}
-}
-S.history.push({id,kind,match:m});
-}
-function undo(){
-if(busy)return;const h=S.history.pop();if(!h)return toast('되돌릴 카드가 없어요');
-delete S.decided[h.id];S.sent=S.sent.filter(x=>x!==h.id);
-if(h.match){S.matches=S.matches.filter(x=>x!==h.id);delete S.chats[h.id];S.newMatch.delete(h.id);S.unread.delete(h.id)}
-S.front=h.id;S.enter=h.kind==='pass'?-1:1;layoutStack();refresh(true);
-}
-function refresh(skipStack){if(!skipStack)layoutStack();renderTabs();if(S.tab==='explore')renderExplore(true);if(S.tab==='like')renderLike();if(S.tab==='chat')renderChat();if(S.tab==='profile')renderProfile()}
-function showMatch(id){
-const p=P[id],o=document.createElement('div');o.className='mt-ov';
-o.innerHTML=`<h1>It's a Match!</h1><p>${esc(p.name)} 님과 서로 LIKE를 보냈어요</p><div class="mph"><img src="${P.me.photos[0]}" alt=""><img src="${p.photos[0]}" alt=""></div><div class="mht">${ic('heart',44,'currentColor',1.5)}</div>
-<div class="mbs"><button class="mbtn a" data-act="mmsg" data-id="${id}">메시지 보내기</button><button class="mbtn b" data-act="mkeep">계속 스와이프</button></div>`;
-$('#phone').appendChild(o);
-}
-/* ---------- LIKE screen ---------- */
-const CATS=['LIKE 99개 이상','내가 보낸 LIKE','오늘의 PICK'];
-const FL=[['near','근처'],['bio','자기소개 완료'],['ver','프로필 인증'],['age','나이'],['dist','거리']];
-function applyF(list){const f=S.filters;return list.filter(p=>(!f.near||p.dist<=5)&&(!f.bio||p.bio.trim())&&(!f.ver||p.verified)&&(!f.age||p.age<=27)&&(!f.dist||p.dist<=10))}
-function gcard(p,mode){
-const bl=p.blur&&mode==='recv',k=S.decided[p.id];
-const tag=mode==='sent'?`<div class="tagk ${k==='super'?'sp':''}">${ic(k==='super'?'star':'heart',13,'currentColor',1.5)}${S.matches.includes(p.id)?'매치됨':k==='super'?'SUPER LIKE':'LIKE 보냄'}</div>`:'';
-return `<div class="gc" data-act="detail" data-id="${p.id}"><img class="${bl?'bl':''}" src="${p.photos[0]}" alt="" style="object-position:${p.pos}"><div class="gcg"></div>${tag}
-<div class="gci">${bl?'<span class="pill-bl"></span>':`<b>${esc(p.name)}</b>`}<span>${p.age}</span>${p.verified?vf(20,'#fff','#222'):''}<div class="gcb">${ic('search',16)}<span>${esc(p.bio.trim()||'아직 소개가 없어요')}</span></div></div></div>`;
-}
-function renderLike(){
-$('#cats').innerHTML=CATS.map((c,i)=>`<button class="cat ${S.likeCat===i?'on':''}" data-act="cat" data-id="${i}">${c}</button>`).join('');
-const act=Object.keys(S.filters).filter(k=>S.filters[k]).length;
-$('#chips').innerHTML=`<button class="chip ${act?'on':''}" data-act="flt" data-id="reset" aria-label="필터 초기화">${ic('sliders',20)}</button>`+FL.map(([k,l])=>`<button class="chip ${S.filters[k]?'on':''}" data-act="flt" data-id="${k}">${l}</button>`).join('');
-const recv=applyF(ORDER.map(id=>P[id]).filter(p=>p.likedMe&&!S.decided[p.id]&&!S.matches.includes(p.id)));
-const sent=applyF(S.sent.map(id=>P[id]));
-$('#p0').innerHTML=recv.length?`<div class="grid">${recv.map(p=>gcard(p,'recv')).join('')}</div>`:'<div class="none">조건에 맞는 LIKE가 없어요<br>필터를 바꿔 보세요</div>';
-$('#p1').innerHTML=sent.length?`<div class="grid">${sent.map(p=>gcard(p,'sent')).join('')}</div>`:'<div class="none">아직 보낸 LIKE가 없어요<br>스와이프에서 하트를 눌러 보세요</div>';
-const picks=applyF(PICKS.map(id=>P[id]).filter(p=>!S.decided[p.id]&&!S.matches.includes(p.id)));
-$('#p2').innerHTML=picks.length?picks.map(p=>`<div class="pick" data-act="detail" data-id="${p.id}"><img src="${p.photos[0]}" alt=""><div class="gcg" style="height:60%"></div><div class="gci" style="font-size:26px"><b>${esc(p.name)}</b><span>${p.age}</span>${p.verified?vf(24,'#fff','#222'):''}<div class="gcb" style="font-size:16px">${esc(p.bio.trim()||p.intro)}</div><div class="tags" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;width:100%">${p.tags.slice(0,3).map(t=>`<b style="font-size:13px;font-weight:500;border:1px solid rgba(255,255,255,.7);border-radius:14px;padding:4px 10px">${esc(t)}</b>`).join('')}</div></div></div>`).join(''):'<div class="none">오늘의 PICK을 모두 확인했어요</div>';
-}
-$('#panes').addEventListener('scroll',e=>{const i=Math.round(e.target.scrollLeft/e.target.clientWidth);if(i!==S.likeCat&&e.target.clientWidth){S.likeCat=i;[...$('#cats').children].forEach((c,j)=>c.classList.toggle('on',j===i))}});
-/* ---------- explore (둘러보기) ---------- */
-const hit=(p,a)=>p.tags.some(t=>a.includes(t));
-const XG=[
-['🏃','운동·아웃도어','#ff7854,#fd267a',p=>hit(p,['러닝','클라이밍','헬스','요가','농구','캠핑','산책','드라이브','여행'])],
-['🎵','음악·공연','#a855f7,#fd267a',p=>hit(p,['인디음악','콘서트','재즈','LP','음악'])],
-['🍷','맛집·한잔','#f59e0b,#ef4444',p=>hit(p,['맛집','요리','위스키','와인','카페','커피'])],
-['🎨','문화·예술','#6366f1,#ec4899',p=>hit(p,['전시','독서','필름','사진','그림','영화','독립서점'])],
-['🐱','집콕·덕후','#14b8a6,#6366f1',p=>hit(p,['고양이','보드게임','게임','넷플릭스'])],
-['💞','진지한 연애','#fb7185,#ff7854',p=>/진지/.test(p.bio+p.intro)],
-['✅','인증 프로필','#3b82f6,#8b5cf6',p=>p.verified],
-['🟢','지금 접속 중','#22c55e,#14b8a6',p=>p.online]];
-let XC=-1;
-const XL=g=>ORDER.map(i=>P[i]).filter(g[3]);
-function renderExplore(keep){
-const sc=$('#s-explore'),old=sc.querySelector('.xs'),top=keep&&old?old.scrollTop:0;let h;
-if(XC>=0){
-const g=XG[XC],l=XL(g);
-h=`<div class="xs"><div class="xhd"><button class="circ" data-act="xback" aria-label="뒤로">${ic('back',24,'none',2.6)}</button><h1 class="sm">${g[0]} ${g[1]}</h1></div><div class="xsub">${l.length}명의 프로필</div><div class="xp">${l.length?`<div class="grid">${l.map(p=>gcard(p,'x')).join('')}</div>`:'<div class="none">해당하는 프로필이 없어요</div>'}</div></div>`;
-}else{
-const rec=[...new Set([...PICKS,...ORDER.filter(i=>P[i].verified)])].filter(i=>!S.matches.includes(i)).slice(0,6).map(i=>P[i]);
-const on=ORDER.map(i=>P[i]).filter(p=>p.online&&!S.matches.includes(p.id));
-h=`<div class="xs"><div class="xhd"><h1>둘러보기</h1><button class="circ" data-act="soon" aria-label="검색">${ic('search',22)}</button></div>
-<div class="xsec">오늘의 추천</div><div class="xh">${rec.map(p=>`<div class="xc" data-act="detail" data-id="${p.id}"><img src="${p.photos[0]}" alt="" style="object-position:${p.pos}"><div class="xcg"></div><div class="xci"><b>${esc(p.name)}</b>${p.age}${p.verified?' '+vf(18,'#fff','#222'):''}<p>${esc((p.bio||p.intro).trim()||p.tags.join(' · '))}</p></div></div>`).join('')}</div>
-<div class="xsec">관심사로 찾기</div><div class="xg">${XG.map((g,i)=>{const n=XL(g).length;return n?`<button class="xt" style="background:linear-gradient(135deg,${g[2]})" data-act="xcat" data-id="${i}"><span class="e">${g[0]}</span><span><b>${g[1]}</b><br><small>${n}명</small></span></button>`:''}).join('')}</div>
-${on.length?`<div class="xsec">지금 접속 중</div><div class="xo">${on.map(p=>`<div data-act="detail" data-id="${p.id}"><div class="rg"><img src="${p.photos[0]}" alt=""></div><span>${esc(p.name)}</span></div>`).join('')}</div>`:''}</div>`;
-}
-sc.innerHTML=h;sc.querySelector('.xs').scrollTop=top;
-}
-/* ---------- chat list ---------- */
-function renderChat(){
-const strip=S.matches.filter(id=>S.newMatch.has(id));
-const rows=[...S.matches,'team'].sort((a,b)=>((lastMsg(b)?.t)||S.matchedAt[b]||0)-((lastMsg(a)?.t)||S.matchedAt[a]||0));
-const html=`<div class="sec" style="padding-bottom:12px">새 매치</div>
-<div class="nm-row"><div class="nmc gold" data-act="tab" data-id="like"><div class="im"><img src="${P.jihyun.photos[0]}" alt=""><div class="c99">99+</div></div><span>LIKE</span></div>
-${strip.map(id=>{const p=P[id];return `<div class="nmc" data-act="room" data-id="${id}"><div class="im">${S.unread.has(id)?'<i class="rd"></i>':''}<img src="${p.photos[0]}" alt=""></div><span>${esc(p.name)}${p.verified?vf(18,'#171717'):''}</span></div>`}).join('')}</div>
-<div class="msgbox"><div class="sec">메시지</div>${rows.map(id=>{
-const p=P[id],m=lastMsg(id),them=!m||m.f==='them';
-const st=S.unread.has(id)?'#E8262A':p.online?'#34a853':'';
-return `<div class="row" data-act="room" data-id="${id}"><div class="av">${p.official?`<div class="tt">${ic('flame',34,'currentColor',1.5)}</div>`:`<img src="${p.photos[0]}" alt="">`}${st?`<i class="st" style="background:${st}"></i>`:''}</div>
-<div class="rb"><div class="rt">${esc(p.name)}${p.verified?vf(22,'#171717'):''}${p.tag&&!(S.chats[id]||[]).some(x=>x.f==='me')?`<span class="tg">${p.tag}</span>`:''}${p.official?'':them?'<span class="turn">내 차례!</span>':`<span class="tm">${fT(m.t)}</span>`}</div>
-<div class="rp">${m?esc(m.x):'새로운 매치예요. 먼저 인사해 보세요'}</div></div></div>`}).join('')}</div>`;
-const sc=$('#cscroll'),top=sc.scrollTop;sc.innerHTML=html;sc.scrollTop=top;
-}
-/* ---------- profile tab ---------- */
-function renderProfile(){
-const m=P.me,sc=$('#s-profile'),old=sc.querySelector('.xs'),top=old?old.scrollTop:0;
-sc.innerHTML=`<div class="xs"><div class="xhd"><h1>프로필</h1><button class="circ" data-act="xset" aria-label="설정">${ic('gear',22)}</button></div>
-<div class="xav"><img src="${m.photos[0]}" alt=""><button class="xedit" data-act="xedit" aria-label="프로필 수정">${ic('pencil',17,'none',2.4)}</button></div>
-<div class="xnm">${esc(m.name)}, ${m.age}${m.verified?vf(24,'#3b82f6'):''}</div>
-<div class="xst">보낸 LIKE ${S.sent.length} · 매치 ${S.matches.length}</div>
-<button class="xbtn" data-act="xedit">프로필 수정</button>
-<div class="xcard"><div class="xct">${ic('user',16)}소개</div><p>${esc(m.bio)}</p></div>
-<div class="xcard"><div class="xct">${ic('smile',16)}사진</div><div class="xgal">${m.photos.map(s=>`<img src="${s}" alt="">`).join('')}</div></div>
-<div class="xcard"><div class="xct">${ic('heart',16)}관심사</div><div class="xch">${m.tags.map(t=>`<b>${esc(t)}</b>`).join('')}</div></div>
-${m.prompts.filter(x=>x.a).map(x=>`<div class="xcard"><div class="xq">${esc(x.q)}</div><div class="xa">${esc(x.a)}</div></div>`).join('')}</div>`;
-sc.querySelector('.xs').scrollTop=top;
-}
-/* ---------- overlays: detail ---------- */
-let dIdx=0;
-function openDetail(id){
-const p=P[id];if(!p||p.official)return;dIdx=0;
-const o=document.createElement('div');o.className='ovp slideup';o.id='detail';o.dataset.id=id;
-const acts=!S.matches.includes(id)&&!S.decided[id];
-const reply=`<button class="dreply" data-act="dreply" data-id="${id}">${ic('send',17,'currentColor',2)}답장</button>`;
-const rows=[['pin',`${p.dist}km 거리에 있음`],...(p.job.trim()?[['briefcase',p.job]]:[]),...(p.school.trim()?[['school',p.school]]:[])];
-const bio=p.bio.trim(),intro=p.intro.trim();
-o.innerHTML=`<div class="dsc" id="dsc">
-<div class="dhead"><div><div class="dname">${esc(p.name)} <span>${p.age}</span>${p.verified?vf(24,'#171717'):''}</div>${p.online?'<div class="dsub">접속 중</div>':''}</div><button class="circ" data-act="dclose" aria-label="닫기">${ic('chevd',22,'none',2.6)}</button></div>
-<div class="dph" id="dph"><img id="dimg" src="${p.photos[0]}" alt="" style="object-position:${p.pos}"><div class="dots" style="top:14px" id="ddots">${dotsHTMLd(p,0)}</div></div>
-${(bio||intro)?`<div class="dcard"><div class="dct">${ic('search',16)}찾고 있는 상대</div><p>${esc(bio||intro)}</p>${bio&&intro?`<p class="dq">${esc(intro)}</p>`:''}${reply}</div>`:''}
-<div class="dph"><img src="${p.photos[1]}" alt=""></div>
-<div class="dcard"><div class="dct">${ic('user',16)}기본 정보</div>${rows.map(([i,t])=>`<div class="drow">${ic(i,20)}<span>${esc(t)}</span></div>`).join('')}${reply}</div>
-${p.tags.length?`<div class="dcard"><div class="dct">${ic('heart',16)}관심사</div><div class="ch">${p.tags.map(t=>`<b>${esc(t)}</b>`).join('')}</div>${reply}</div>`:''}
-<div class="dph"><img src="${p.photos[2]}" alt=""></div>
-<div style="height:20px"></div></div>
-${acts?`<div class="dfab"><button class="da" style="width:62px;height:62px" data-act="dpass" data-id="${id}">${ic('x',28,'none',3.2)}</button><button class="da" style="width:52px;height:52px;color:#5b8def" data-act="dsuper" data-id="${id}">${ic('star',24,'currentColor',1.5)}</button><button class="da" style="width:62px;height:62px;color:#f0261e" data-act="dlike" data-id="${id}">${ic('heart',32,'currentColor',1.5)}</button></div>`:''}`;
-$('#ov').appendChild(o);
-$('#dph').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();const n=p.photos.length;dIdx=Math.max(0,Math.min(n-1,dIdx+((e.clientX-r.left)<r.width/2?-1:1)));const im=$('#dimg');im.src=p.photos[dIdx];im.animate([{opacity:.4},{opacity:1}],{duration:180});$('#ddots').innerHTML=dotsHTMLd(p,dIdx)});
-}
-const dotsHTMLd=(p,n)=>p.photos.map((_,i)=>`<i class="${i===n?'on':''}"></i>`).join('');
-function closeDetail(){const d=$('#detail');if(!d)return;d.classList.remove('slideup');d.classList.add('outd');setTimeout(()=>d.remove(),220)}
-function detailAct(id,kind){closeDetail();decide(id,kind);refresh();}
-/* ---------- overlays: chat room ---------- */
-function openRoom(id){
-if(S.room)return;const p=P[id];S.room=id;S.unread.delete(id);renderTabs();
-const o=document.createElement('div');o.className='ovp slidein';o.id='room';
-o.innerHTML=`<div class="rh"><button class="circ" data-act="rclose" aria-label="뒤로">${ic('back',26,'none',2.4)}</button>
-<div class="rc"><img src="${p.photos[0]}" alt=""><div class="nmp">${esc(p.name)}</div></div><button class="circ" data-act="rmore" aria-label="더보기">${ic('more',26,'none',3)}</button></div>
-<div class="msgs" id="msgs"></div>
-<div class="rin"><button class="gif" data-act="gif">GIF</button><div class="inw"><input id="inp" type="text" placeholder="메시지를 입력하세요" autocomplete="off" enterkeyhint="send"><button class="snd" id="snd" data-act="send" aria-label="전송">${ic('up',22,'none',3)}</button></div></div>`;
-$('#ov').appendChild(o);drawMsgs(false);
-const inp=$('#inp');inp.addEventListener('input',()=>$('#snd').classList.toggle('on',!!inp.value.trim()));
-inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing)sendMsg()});
-}
-function drawMsgs(animLast){
-const id=S.room;if(!id)return;const p=P[id],box=$('#msgs');if(!box)return;
-const c=S.chats[id]||[];
-const notice=p.official?'':`<div class="notice">${esc(p.name)} 님과 ${fD(S.matchedAt[id]||now)}에 매치됐어요<br>${fMD(S.matchedAt[id]||now)}</div>`;
-box.innerHTML=notice+c.map(m=>m.f==='me'?`<div class="mr me"><span class="mt">${fT(m.t)}</span><div class="bb">${esc(m.x)}</div></div>`:`<div class="mr them"><img src="${p.official?'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><rect width="10" height="10" fill="#E8262A"/></svg>'):p.photos[0]}" alt=""><div class="bb">${esc(m.x)}</div></div>`).join('');
-if(!animLast)box.querySelectorAll('.mr').forEach(e=>e.style.animation='none');
-box.scrollTop=box.scrollHeight;
-}
-function sendMsg(){
-const id=S.room,inp=$('#inp');if(!id||!inp)return;const x=inp.value.trim();if(!x)return;
-(S.chats[id]=S.chats[id]||[]).push({f:'me',x,t:Date.now()});S.newMatch.delete(id);inp.value='';$('#snd').classList.remove('on');
-drawMsgs(true);renderChat();
-if(P[id].official)return;
-const n=S.replyN[id]=(S.replyN[id]||0)+1;
-setTimeout(()=>{S.chats[id].push({f:'them',x:REPLIES[(n-1)%REPLIES.length],t:Date.now()});
-if(S.room===id)drawMsgs(true);else S.unread.add(id);renderChat();renderTabs()},1300);
-}
-function closeRoom(){const r=$('#room');if(!r)return;r.classList.remove('slidein');r.classList.add('out');S.room=null;setTimeout(()=>r.remove(),220);renderChat();renderTabs()}
-/* ---------- actions ---------- */
-const ACT={
-tab:(id)=>setTab(id),
-pass:()=>flyBtn('pass'),like:()=>flyBtn('like'),super:()=>flyBtn('super'),undo,
-share:()=>toast('프로필을 공유했어요 (시뮬레이션)'),
-soon:()=>toast('시뮬레이션에서는 제공하지 않는 기능이에요'),
-safe:()=>toast('안전 센터는 시뮬레이션에서 제공하지 않아요'),
-gif:()=>toast('GIF는 시뮬레이션에서 제공하지 않아요'),
-rmore:()=>toast('더보기 메뉴는 시뮬레이션에서 제공하지 않아요'),
-detail:(id)=>openDetail(id),dclose:closeDetail,
-dpass:(id)=>detailAct(id,'pass'),dlike:(id)=>detailAct(id,'like'),dsuper:(id)=>detailAct(id,'super'),
-room:(id)=>openRoom(id),rclose:closeRoom,send:sendMsg,
-cat:(id)=>{S.likeCat=+id;$('#panes').scrollTo({left:$('#panes').clientWidth*id,behavior:'smooth'});[...$('#cats').children].forEach((c,j)=>c.classList.toggle('on',j==id))},
-flt:(id)=>{if(id==='reset')S.filters={};else S.filters[id]=!S.filters[id];renderLike()},
-mmsg:(id)=>{document.querySelector('.mt-ov')?.remove();setTab('chat');openRoom(id)},
-dreply:(id)=>{if(S.matches.includes(id)){closeDetail();setTab('chat');setTimeout(()=>openRoom(id),240)}else toast('매치된 뒤에 답장할 수 있어요')},
-mkeep:()=>{document.querySelector('.mt-ov')?.remove()},
-/* 둘러보기 / 프로필 */
-xcat:(id)=>{XC=+id;renderExplore()},
-xback:()=>{XC=-1;renderExplore()},
-xset:()=>toast('설정은 시뮬레이션에서 제공하지 않아요'),
-xedit:()=>{
-if($('#xsheet'))return;const m=P.me;
-const o=document.createElement('div');o.className='ovp slideup';o.id='xsheet';
-o.innerHTML=`<div class="xsh"><button data-act="xclose">취소</button>프로필 수정<button class="s" data-act="xsave">저장</button></div><div class="xsb">
-<label>이름</label><input id="xe-n" maxlength="20" value="${esc(m.name)}">
-<label>나이</label><input id="xe-a" type="number" min="18" max="99" value="${m.age}">
-<label>소개</label><textarea id="xe-b" rows="3" maxlength="200">${esc(m.bio)}</textarea>
-<label>관심사 (쉼표로 구분)</label><input id="xe-t" value="${esc(m.tags.join(', '))}">
-${m.prompts.map((x,i)=>`<label>${esc(x.q)}</label><input id="xe-p${i}" maxlength="80" value="${esc(x.a)}">`).join('')}</div>`;
-$('#ov').appendChild(o);
-},
-xclose:()=>{const s=$('#xsheet');if(s)s.remove()},
-xsave:()=>{
-const m=P.me,g=i=>$('#'+i).value.trim(),n=g('xe-n');if(!n)return toast('이름을 입력해 주세요');
-m.name=n;const a=+g('xe-a');if(a>=18&&a<100)m.age=a;
-m.bio=g('xe-b');m.tags=g('xe-t').split(',').map(s=>s.trim()).filter(Boolean).slice(0,8);
-m.prompts=m.prompts.map((x,i)=>({q:x.q,a:g('xe-p'+i)}));
-ACT.xclose();renderProfile();toast('프로필을 저장했어요');
-}
-};
-document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;const f=ACT[t.dataset.act];if(f){e.stopPropagation();f(t.dataset.id,t,e)}});
-/* 모바일 키보드: 보이는 영역에 맞춰 높이 조정 */
-if(window.visualViewport){const ph=$('#phone');visualViewport.addEventListener('resize',()=>{ph.style.bottom='auto';ph.style.height=visualViewport.height+'px'})}
-/* init */
-renderTabs();layoutStack();renderExplore();renderProfile();
+/* Tinder 2024 (iOS) — 챕터 4 Tinder 구조를 바탕으로 챕터 5용으로 변형
+   - 모든 아이콘/그래픽은 SVG 벡터 (이모지·문자 아이콘 없음)
+   - 사진 항목: { art:[색1,색2,종류] } 벡터 일러스트 | { src:'경로' } 실제 사진 | { video:'경로', poster:{...} } 동영상 */
+(function () {
+  'use strict';
+  const KEY = 'tinder2024-ch05';
+  const NOW = Date.now(), MIN = 60000, HR = 3600000, DAY = 86400000;
+
+  /* ---------- 데이터 ---------- */
+  const D = {
+    me: {
+      name: '민지', age: 27, verified: true,
+      bio: '주말엔 한강 러닝, 평일엔 커피 한 잔. 맛집 지도 만드는 게 취미예요.',
+      photos: [{ art: [350, 20, 'f'] }, { art: [270, 320, 'f'] }, { art: [150, 190, 'n'] }],
+      interests: ['러닝', '카페 투어', '전시회', '여행'],
+      info: { pets: '고양이', drink: '가끔', smoke: '비흡연', workout: '자주' }, goal: '장기 연애',
+      prompts: [{ q: '내 마음의 열쇠는…', a: '먼저 안부를 물어 주는 사람' }, { q: '내 버킷리스트의 첫 번째 항목은…', a: '아이슬란드에서 오로라 보기' }],
+      quiz: { q: '내가 가장 좋아하는 계절은?', options: ['봄', '여름', '가을', '겨울'], answer: 2 }
+    },
+    profiles: [
+      { id: 'p1', name: '서연', age: 26, km: 3, job: '디자이너', school: '홍익대학교', likesMe: true, verified: true,
+        bio: '고양이 두 마리와 살아요. 같이 전시 보러 가요.',
+        photos: [{ art: [30, 340, 'f'] }, { art: [200, 260, 'f'] }, { art: [140, 80, 'n'] }],
+        interests: ['전시회', '고양이', '필름 카메라'],
+        info: { pets: '고양이', drink: '가끔', smoke: '비흡연', workout: '가끔' }, goal: '장기 연애',
+        prompts: [{ q: '내 마음의 열쇠는…', a: '같이 웃을 수 있는 유머 코드' }, { q: '나에 대한 두 가지 진실과 거짓', a: '고양이 둘 · 마라톤 완주 · 비행기 조종 경험 (하나는 거짓)' }],
+        quiz: { q: '내 최애 디저트는?', options: ['마카롱', '티라미수', '붕어빵', '빙수'], answer: 1 } },
+      { id: 'p2', name: '지우', age: 29, km: 7, job: '개발자', school: '연세대학교', likesMe: false, verified: false,
+        bio: '새벽 러닝 하고 브런치 먹는 주말을 좋아해요.',
+        photos: [{ art: [190, 230, 'm'] }, { src: 'photos/lake.jpg' }],
+        interests: ['러닝', '브런치', '보드게임'],
+        info: { pets: '없음', drink: '자주', smoke: '비흡연', workout: '매일' }, goal: '새로운 친구',
+        prompts: [{ q: '내 버킷리스트의 첫 번째 항목은…', a: '하프 마라톤 1시간 40분 안에 들어오기' }],
+        quiz: { q: '내가 사는 동네는?', options: ['마포', '성수', '판교', '송도'], answer: 3 } },
+      { id: 'p3', name: '하은', age: 25, km: 12, job: '간호사', school: '서울대학교', likesMe: true, verified: true,
+        bio: '야간 근무 끝나고 먹는 라면이 인생 낙.',
+        photos: [{ art: [20, 50, 'f'] }, { src: 'photos/meal.jpg' }, { art: [200, 150, 'n'] }],
+        interests: ['캠핑', '라면', '넷플릭스'],
+        info: { pets: '강아지', drink: '비음주', smoke: '비흡연', workout: '가끔' }, goal: '아직 모르겠어요',
+        prompts: [{ q: '내 마음의 열쇠는…', a: '따뜻한 국물 같은 사람' }],
+        quiz: { q: '내 취미는?', options: ['캠핑', '서핑', '독서', '요리'], answer: 0 } },
+      { id: 'p4', name: '도윤', age: 30, km: 5, job: '셰프', school: '경희대학교', likesMe: false, verified: true,
+        bio: '요리해 드릴게요. 대신 설거지는 같이.',
+        photos: [{ art: [320, 10, 'm'] }, { art: [210, 180, 'm'] }],
+        interests: ['요리', '와인', '재즈'],
+        info: { pets: '없음', drink: '자주', smoke: '가끔', workout: '가끔' }, goal: '장기 연애',
+        prompts: [{ q: '나에 대한 두 가지 진실과 거짓', a: '파리 유학 · 미슐랭 근무 · 완벽한 길치 (하나는 거짓)' }],
+        quiz: { q: '제가 제일 자신 있는 요리는?', options: ['파스타', '스테이크', '된장찌개', '오믈렛'], answer: 0 } },
+      { id: 'p5', name: '유나', age: 24, km: 2, job: '대학원생', school: '이화여자대학교', likesMe: true, verified: false,
+        bio: '논문 쓰다 지치면 산책해요. 같이 걸어요.',
+        photos: [{ art: [225, 270, 'f'] }, { src: 'photos/lake2.jpg' }],
+        interests: ['산책', '독서', '클래식'],
+        info: { pets: '없음', drink: '가끔', smoke: '비흡연', workout: '가끔' }, goal: '장기 연애',
+        prompts: [{ q: '내 버킷리스트의 첫 번째 항목은…', a: '논문 통과하고 제주 한 달 살기' }],
+        quiz: { q: '내가 공부하는 분야는?', options: ['심리학', '통계학', '문학', '건축'], answer: 0 } },
+      { id: 'm1', name: '수빈', age: 27, km: 4, job: '마케터', school: '고려대학교', likesMe: true, verified: true,
+        bio: '맛집 탐방 같이 해요.', photos: [{ art: [340, 40, 'f'] }, { art: [260, 220, 'n'] }],
+        interests: ['맛집', '여행'], info: { pets: '없음', drink: '가끔', smoke: '비흡연', workout: '가끔' }, goal: '장기 연애',
+        prompts: [{ q: '내 마음의 열쇠는…', a: '맛있는 걸 같이 먹는 사람' }], quiz: { q: '좋아하는 음식은?', options: ['초밥', '피자', '떡볶이', '곱창'], answer: 0 } },
+      { id: 'm2', name: '예린', age: 28, km: 9, job: '사진작가', school: '중앙대학교', likesMe: true, verified: false,
+        bio: '사진 찍는 걸 좋아해요.', photos: [{ art: [250, 300, 'f'] }],
+        interests: ['사진', '여행'], info: { pets: '고양이', drink: '자주', smoke: '비흡연', workout: '가끔' }, goal: '새로운 친구',
+        prompts: [{ q: '내 버킷리스트의 첫 번째 항목은…', a: '사하라 사막에서 별 사진 찍기' }], quiz: { q: '제 카메라 브랜드는?', options: ['캐논', '소니', '니콘', '후지'], answer: 3 } },
+      { id: 'm3', name: '다은', age: 26, km: 6, job: '요가 강사', school: '한양대학교', likesMe: true, verified: true,
+        bio: '요가와 명상.', photos: [{ art: [110, 170, 'f'] }],
+        interests: ['요가', '명상'], info: { pets: '강아지', drink: '비음주', smoke: '비흡연', workout: '매일' }, goal: '장기 연애',
+        prompts: [{ q: '내 마음의 열쇠는…', a: '차분한 대화' }], quiz: { q: '아침 루틴은?', options: ['요가', '러닝', '독서', '늦잠'], answer: 0 } }
+    ],
+    matches: ['m1', 'm2', 'm3'],
+    chats: {
+      m1: [
+        { from: 'them', type: 'text', text: '안녕하세요! 프로필 보고 반가웠어요', ts: NOW - 3 * DAY },
+        { from: 'me', type: 'text', text: '안녕하세요! 저도요', ts: NOW - 3 * DAY + 4 * MIN, read: true },
+        { from: 'them', type: 'text', text: '이번 주말에 성수 카페 가볼래요?', ts: NOW - 2 * HR }
+      ],
+      m2: [
+        { from: 'them', type: 'photo', src: 'photos/lake.jpg', ts: NOW - 26 * HR },
+        { from: 'them', type: 'text', text: '어제 찍은 사진이에요', ts: NOW - 26 * HR + MIN }
+      ],
+      m3: []
+    },
+    unread: { m1: 1, m2: 2, m3: 0 },
+    notifs: [
+      { k: 'match', who: 'm3', t: '다은 님과 새로운 매치가 성사되었어요', s: '먼저 인사를 건네 보세요', ts: NOW - 20 * MIN },
+      { k: 'like', who: 'p1', t: '누군가 나를 좋아해요', s: '좋아요 탭에서 확인해 보세요', ts: NOW - 5 * HR },
+      { k: 'msg', who: 'm1', t: '수빈 님이 메시지를 보냈어요', s: '이번 주말에 성수 카페 가볼래요?', ts: NOW - 2 * HR },
+      { k: 'boost', t: '부스트로 프로필 노출이 올라갔어요', s: '지난 30분 동안 조회수 +68%', ts: NOW - 2 * DAY }
+    ]
+  };
+
+  const byId = id => D.profiles.find(p => p.id === id);
+  const root = document.getElementById('root'), phone = document.getElementById('phone');
+
+  /* ---------- 상태 ---------- */
+  const S = {
+    tab: 'discover', views: [], sheet: null, toast: '', matchOverlay: null, anim: false, typing: {},
+    deck: D.profiles.filter(p => !D.matches.includes(p.id)).map(p => p.id),
+    history: [], pi: {}, matches: D.matches.slice(), chats: JSON.parse(JSON.stringify(D.chats)),
+    unread: Object.assign({}, D.unread), me: JSON.parse(JSON.stringify(D.me)), quiz: {}, boosted: false,
+    dark: false, set: { dist: 30, amin: 22, amax: 35, show: '모두', push: true, msgs: true, likes: true }
+  };
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s) Object.assign(S, s, { views: [], sheet: null, matchOverlay: null, toast: '', anim: false, typing: {} });
+  } catch (e) {}
+  const save = () => {
+    try { const { views, sheet, matchOverlay, toast, anim, typing, ...rest } = S; localStorage.setItem(KEY, JSON.stringify(rest)); } catch (e) {}
+  };
+
+  /* ---------- 벡터 아이콘 ---------- */
+  const sv = (body, o = '') => `<svg viewBox="0 0 24 24" ${o}>${body}</svg>`;
+  const ST = 'fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';
+  const FL = 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z';
+  const HT = 'M12 21s-8-5.2-8-11a4.6 4.6 0 018-3 4.6 4.6 0 018 3c0 5.800-8 11-8 11z';
+  const I = {
+    flame: sv(`<path d="${FL}" fill="currentColor"/>`, 'fill="currentColor"'),
+    flameO: sv(`<path d="${FL}" ${ST}/>`),
+    compass: sv('<circle cx="12" cy="12" r="9.500"/><path d="M15.800 8.200l-2 5.600-5.600 2 2-5.600z" />', ST),
+    compassF: sv('<circle cx="12" cy="12" r="10.500" fill="currentColor"/><path d="M16 8l-2.100 5.900L8 16l2.100-5.900z" fill="var(--bg)"/>'),
+    heart: sv(`<path d="${HT}" fill="currentColor"/>`),
+    heartO: sv(`<path d="${HT}"/>`, ST),
+    chat: sv('<path d="M4 4h16a2 2 0 012 2v10a2 2 0 01-2 2H9l-5 4v-4a2 2 0 01-2-2V6a2 2 0 012-2z" fill="currentColor"/>'),
+    chatO: sv('<path d="M4 4h16a2 2 0 012 2v10a2 2 0 01-2 2H9l-5 4v-4a2 2 0 01-2-2V6a2 2 0 012-2z"/>', ST),
+    user: sv('<circle cx="12" cy="8" r="4.500" fill="currentColor"/><path d="M3.500 21c0-4.500 3.800-7 8.500-7s8.500 2.500 8.500 7z" fill="currentColor"/>'),
+    userO: sv('<circle cx="12" cy="8" r="4.200"/><path d="M4 20.500c0-4 3.500-6.200 8-6.200s8 2.200 8 6.200z"/>', ST),
+    bell: sv('<path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.700 21a2 2 0 01-3.400 0"/>', ST),
+    sliders: sv('<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>', ST),
+    gear: sv('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/>', ST),
+    back: sv('<path d="M15 5l-7 7 7 7"/>', 'fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"'),
+    down: sv('<path d="M5 9l7 7 7-7"/>', 'fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"'),
+    chev: sv('<path d="M9 5l7 7-7 7"/>', 'fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"'),
+    info: sv('<circle cx="12" cy="12" r="10"/><path d="M12 11v5M12 7.500v.1"/>', 'fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round"'),
+    rewind: sv('<path d="M4 6v5h5"/><path d="M4.500 11A8 8 0 1112 20"/>', 'fill="none" stroke="#ffc629" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"'),
+    nope: sv('<path d="M5 5l14 14M19 5L5 19"/>', 'fill="none" stroke="#fd267a" stroke-width="3.600" stroke-linecap="round"'),
+    star: sv('<path d="M12 2l2.900 6.600 7.100.6-5.400 4.700 1.600 7L12 17.200 5.800 20.900l1.600-7L2 9.200l7.100-.6z"/>', 'fill="#1da8f9" stroke="#1da8f9" stroke-width="1" stroke-linejoin="round"'),
+    like: sv(`<path d="${HT}"/>`, 'fill="#21d07a"'),
+    bolt: sv('<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>', 'fill="#a25af0" stroke="#a25af0" stroke-width="1" stroke-linejoin="round"'),
+    flag: sv('<path d="M5 21V4M5 4h12l-2 4 2 4H5"/>', ST),
+    send: sv('<path d="M3 11l18-8-8 18-2-8z" fill="currentColor"/>'),
+    img: sv('<rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-8 9"/>', ST),
+    check: sv('<path d="M5 12.500l4.500 4.500L19 7.500"/>', 'fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"'),
+    plus: sv('<path d="M12 5v14M5 12h14"/>', 'fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round"'),
+    pin: sv('<path d="M12 21s-7-6.200-7-11.500a7 7 0 0114 0C19 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/>', ST),
+    lock: sv('<rect x="5" y="11" width="14" height="10" rx="2.500" fill="currentColor"/><path d="M8 11V8a4 4 0 018 0v3" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round"/>'),
+    edit: sv('<path d="M4 20h4L19 9a2.800 2.800 0 00-4-4L4 16z"/><path d="M14 6l4 4"/>', ST),
+    shield: sv('<path d="M12 3l7 3v5c0 5-3.200 8.500-7 10-3.800-1.500-7-5-7-10V6z"/>', ST),
+    play: sv('<path d="M8 5v14l11-7z" fill="currentColor"/>'),
+    sparkle: sv('<path d="M12 2l2.200 6.800L21 11l-6.800 2.200L12 20l-2.200-6.800L3 11l6.800-2.200z" fill="currentColor"/>'),
+    ok: sv('<circle cx="12" cy="12" r="11" fill="#fd267a"/><path d="M7 12.500l3.500 3.500L17.500 9" fill="none" stroke="#fff" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"/>'),
+    radioOn: sv('<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="5" fill="currentColor"/>'),
+    radioOff: sv('<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" opacity=".45"/>'),
+    verified: `<svg class="verified" viewBox="0 0 24 24"><path d="M12 1.500l2.600 1.800 3.100-.3 1.200 2.900 2.800 1.400-.5 3.100 1.100 2.900-2.200 2.200-.5 3.100-3.100.5-2.500 1.900-2.600-1.800-3.100.3-1.200-2.900L2.300 17l.5-3.100L1.700 11l2.200-2.200.5-3.100 3.100-.5z" fill="#1da8f9"/><path d="M7.700 12.200l3 3 5.600-6" fill="none" stroke="#fff" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+  };
+
+  /* ---------- 사진 (벡터 일러스트 / 실제 사진 / 동영상) ---------- */
+  const artCache = {};
+  function art(a) {
+    const key = a.join('-'); if (artCache[key]) return artCache[key];
+    const [h1, h2, k] = a;
+    const g = `<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${h1} 75% 72%)"/><stop offset="1" stop-color="hsl(${h2} 70% 52%)"/></linearGradient><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(${h1} 80% 80%)"/><stop offset="1" stop-color="hsl(${h2} 70% 60%)"/></linearGradient></defs>`;
+    let body;
+    if (k === 'n') {
+      body = `<rect width="600" height="800" fill="url(#s)"/><circle cx="420" cy="250" r="82" fill="#fff" opacity=".75"/><path d="M0 560C120 450 220 470 320 540 420 470 520 440 600 500V800H0z" fill="hsl(${h2} 40% 38%)"/><path d="M0 650C150 570 300 600 400 650 480 610 540 610 600 630V800H0z" fill="hsl(${h2} 45% 28%)"/>`;
+    } else {
+      const skin = 'hsl(24 55% 78%)', hair = `hsl(${k === 'f' ? 18 : 25} 35% 18%)`, cloth = `hsl(${(h1 + 180) % 360} 38% 34%)`;
+      const hairBack = k === 'f' ? `<path d="M190 420C170 250 240 190 300 190S430 250 410 420L440 640H160z" fill="${hair}"/>` : '';
+      const hairTop = k === 'f' ? `<path d="M205 370C200 260 250 215 305 215S405 260 395 370C360 320 330 300 300 296 270 300 240 320 205 370z" fill="${hair}"/>` : `<path d="M208 372C196 250 250 214 304 214S412 250 394 372C372 330 352 308 300 306 250 308 230 330 208 372z" fill="${hair}"/>`;
+      body = `<rect width="600" height="800" fill="url(#g)"/><circle cx="110" cy="150" r="90" fill="#fff" opacity=".14"/><circle cx="520" cy="260" r="60" fill="#fff" opacity=".12"/><circle cx="470" cy="620" r="120" fill="#fff" opacity=".1"/>${hairBack}<path d="M70 800C70 640 180 590 300 590S530 640 530 800z" fill="${cloth}"/><rect x="266" y="500" width="68" height="100" rx="30" fill="${skin}"/><ellipse cx="300" cy="400" rx="96" ry="112" fill="${skin}"/>${hairTop}<circle cx="262" cy="410" r="7" fill="#2b2220"/><circle cx="338" cy="410" r="7" fill="#2b2220"/><path d="M270 462Q300 484 330 462" fill="none" stroke="#b5584f" stroke-width="7" stroke-linecap="round"/>`;
+    }
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice">${g}${body}</svg>`;
+    return (artCache[key] = "url('data:image/svg+xml," + encodeURIComponent(svg).replace(/'/g, '%27') + "')");
+  }
+  const bg = ph => {
+    const p = ph.video ? (ph.poster || { art: [200, 260, 'n'] }) : ph;
+    return p.src ? `background-image:url('${p.src}')` : `background-image:${art(p.art)}`;
+  };
+  const media = ph => ph.video ? `<video src="${ph.video}" ${ph.poster && ph.poster.src ? `poster="${ph.poster.src}"` : ''} autoplay muted loop playsinline></video>` : '';
+
+  /* ---------- 유틸 ---------- */
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const labels = { pets: '반려동물', drink: '음주', smoke: '흡연', workout: '운동' };
+  const infoTags = i => Object.keys(labels).filter(k => i[k]).map(k => `<span class="tag">${labels[k]} · ${esc(i[k])}</span>`).join('');
+  const pad = n => String(n).padStart(2, '0');
+  function fmt(ts) {
+    const d = new Date(ts), n = new Date(), h = d.getHours();
+    const clock = (h < 12 ? '오전 ' : '오후 ') + (h % 12 || 12) + ':' + pad(d.getMinutes());
+    const dd = Math.floor((new Date(n.getFullYear(), n.getMonth(), n.getDate()) - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / DAY);
+    return dd <= 0 ? clock : dd === 1 ? '어제' : (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
+  }
+  const clockOnly = ts => { const d = new Date(ts), h = d.getHours(); return (h < 12 ? '오전 ' : '오후 ') + (h % 12 || 12) + ':' + pad(d.getMinutes()); };
+  const lastMsg = id => { const c = S.chats[id] || []; const m = c[c.length - 1]; return m ? (m.type === 'photo' ? (m.from === 'me' ? '사진을 보냈어요' : '사진을 받았어요') : (m.from === 'me' ? '나: ' : '') + m.text) : '새로운 매치예요. 먼저 인사해 보세요'; };
+  const toast = msg => { S.toast = msg; render(); clearTimeout(toast.t); toast.t = setTimeout(() => { S.toast = ''; render(); }, 1800); };
+  const SOON = '시뮬레이션에서는 사용할 수 없는 기능이에요';
+
+  /* ---------- 프로필 섹션 ---------- */
+  function profileSections(p, mine) {
+    const flag = el => mine ? '' : `<button class="flag" data-act="report" data-el="${el}" aria-label="신고">${I.flag}</button>`;
+    const q = p.quiz, ans = S.quiz[p.id];
+    const quiz = q ? `<div class="sec">${flag('프로필 퀴즈')}<div class="quiz"><small>프로필 퀴즈</small><p>${esc(q.q)}</p>${q.options.map((o, i) =>
+      `<button class="opt ${ans != null ? (i === q.answer ? 'ok' : (i === ans ? 'no' : '')) : ''}" data-act="quiz" data-id="${p.id}" data-i="${i}"><span>${esc(o)}</span>${ans != null && i === q.answer ? I.check : ''}</button>`).join('')}</div></div>` : '';
+    const prompts = (p.prompts || []).map(pr => `<div class="sec">${flag('프로필 문답')}<div class="prompt"><small>${esc(pr.q)}</small><p>${esc(pr.a)}</p></div></div>`);
+    return { quiz, prompts };
+  }
+
+  /* ---------- 탐색(카드) ---------- */
+  function cardHTML(p, top) {
+    const i = Math.min(S.pi[p.id] || 0, p.photos.length - 1), ph = p.photos[i];
+    const chg = top && S.anim ? ' chg' : '';
+    return `<div class="card ${top ? 'top' : 'next'}" data-id="${p.id}">
+      <div class="photo${chg}" style="${bg(ph)}">${media(ph)}</div>
+      ${p.photos.length > 1 ? `<div class="bars">${p.photos.map((_, k) => `<i class="${k === i ? 'on' : ''}"></i>`).join('')}</div>` : ''}
+      ${top ? '<div class="zone l" data-act="prevph"></div><div class="zone r" data-act="nextph"></div>' : ''}
+      <div class="shade"></div>
+      <div class="stamp like">LIKE</div><div class="stamp nope">NOPE</div><div class="stamp sl">SUPER LIKE</div>
+      <div class="cinfo"><h2>${esc(p.name)}<span>${p.age}</span>${p.verified ? I.verified : ''}</h2>
+        <div class="ln">${I.pin}${p.km}km 거리</div>
+        <div class="ln">${esc(p.job)}</div>
+        <p class="bio">${esc(p.bio)}</p>
+        <div class="tg">${p.interests.slice(0, 3).map(t => `<b>${esc(t)}</b>`).join('')}</div></div>
+      ${top ? `<button class="infobtn" data-act="detail" data-id="${p.id}" aria-label="프로필 상세">${I.info}</button>` : ''}</div>`;
+  }
+  function discover() {
+    const top = byId(S.deck[0]), nxt = byId(S.deck[1]);
+    const deck = top ? (nxt ? cardHTML(nxt, false) : '') + cardHTML(top, true)
+      : `<div class="empty"><div><div class="pulse"></div><b>주변 프로필을 모두 확인했어요</b>나중에 다시 확인해 보세요</div></div>`;
+    const b = (cls, act, ic, extra = '') => `<button class="act ${cls} ${extra}" data-act="${act}" aria-label="${act}">${ic}</button>`;
+    return `<div class="deck">${deck}</div><div class="actions">
+      ${b('sm', 'rewind', I.rewind)}${b('lg', 'nope', I.nope)}${b('sm', 'super', I.star)}${b('lg', 'like', I.like)}${b('sm', 'boost', I.bolt, S.boosted ? 'pop' : '')}</div>`;
+  }
+
+  /* ---------- 둘러보기(화면만) ---------- */
+  function exploreTab() {
+    const T = [['장기 연애', '진지한 만남', I.heart, 'linear-gradient(135deg,#fd267a,#ff6036)'], ['새로운 친구', '가볍게 대화해요', I.chat, 'linear-gradient(135deg,#1da8f9,#6a7bff)'],
+      ['커피 한 잔', '근처에서 한 잔', I.sparkle, 'linear-gradient(135deg,#a25af0,#e04fa0)'], ['운동 메이트', '같이 땀 흘려요', I.bolt, 'linear-gradient(135deg,#21d07a,#0fa3a3)'],
+      ['반려동물', '함께 산책해요', I.flame, 'linear-gradient(135deg,#ffb020,#ff6036)'], ['여행 친구', '떠나고 싶을 때', I.compassF, 'linear-gradient(135deg,#3a4a7c,#6a7bff)']];
+    return `<div class="pane"><div class="h1">둘러보기</div><div class="likehd">관심사와 만남의 목적으로 새로운 사람을 찾아보세요.</div>
+      <div class="tiles">${T.map(t => `<button class="tile" data-act="soon" style="background:${t[3]}">${t[2]}<b>${t[0]}</b><small>${t[1]}</small></button>`).join('')}</div>
+      <div class="disabled-note">이 화면은 구경만 할 수 있어요</div></div>`;
+  }
+
+  /* ---------- 좋아요(화면만) ---------- */
+  function likesTab() {
+    const L = D.profiles.filter(p => p.likesMe && S.deck.includes(p.id));
+    return `<div class="pane"><div class="h1">좋아요</div>
+      <div class="likehd"><b>${L.length}명</b>이 나를 좋아해요. Tinder Gold 회원이 되면 누가 좋아했는지 바로 확인하고 매치할 수 있어요.</div>
+      <div class="lgrid">${L.map(p => `<button class="lcard" data-act="soon"><div class="bl" style="${bg(p.photos[0])}"></div><span class="badge2">${I.heart}</span><div class="lk">${p.age}세</div></button>`).join('') || '<div class="empty" style="position:static;padding:60px 20px"><div><b>아직 받은 좋아요가 없어요</b>카드를 더 넘겨 보세요</div></div>'}</div>
+      <div class="goldbar"><button class="gold" data-act="soon">나를 좋아한 사람 보기</button></div></div>`;
+  }
+
+  /* ---------- 채팅 ---------- */
+  function chatTab() {
+    const fresh = S.matches.filter(id => !(S.chats[id] || []).length);
+    const talk = S.matches.filter(id => (S.chats[id] || []).length).sort((a, b) => S.chats[b].slice(-1)[0].ts - S.chats[a].slice(-1)[0].ts);
+    const lk = D.profiles.filter(p => p.likesMe && S.deck.includes(p.id)).length;
+    return `<div class="pane"><div class="chead"><div class="h1">채팅</div><button class="ibtn" data-act="safe" aria-label="안전">${I.shield}</button></div>
+      <div class="sechd">새로운 매치</div>
+      <div class="newrow"><button class="newm" data-act="tab" data-t="likes"><div class="pic" style="background:var(--bg2);color:var(--g1)"><span style="width:44px;height:44px;display:block">${I.heart}</span></div>${lk}명</button>
+      ${fresh.map(id => { const p = byId(id); return `<button class="newm" data-act="chat" data-id="${id}"><div class="pic fresh" style="${bg(p.photos[0])}"></div>${esc(p.name)}</button>`; }).join('')}</div>
+      <div class="sechd">메시지</div>
+      ${talk.length ? talk.map(id => { const p = byId(id), u = S.unread[id] > 0, m = S.chats[id].slice(-1)[0];
+        return `<button class="convo ${u ? 'unread' : ''}" data-act="chat" data-id="${id}"><div class="ava" style="${bg(p.photos[0])}"></div><div class="t"><div class="row1"><b>${esc(p.name)}</b><span class="tm" style="margin:0">${fmt(m.ts)}</span></div><span>${esc(lastMsg(id))}</span></div>${u ? '<i class="ud"></i>' : ''}</button>`; }).join('')
+        : '<div style="padding:30px;text-align:center;color:var(--sub)">아직 대화가 없어요</div>'}</div>`;
+  }
+  function chatView(id) {
+    const p = byId(id), msgs = S.chats[id] || [];
+    let html = '', lastDay = '';
+    msgs.forEach((m, k) => {
+      const day = new Date(m.ts).toDateString();
+      if (day !== lastDay) { html += `<div class="dayline">${fmt(m.ts) === clockOnly(m.ts) ? '오늘' : fmt(m.ts)}</div>`; lastDay = day; }
+      const nx = msgs[k + 1], end = !nx || nx.from !== m.from || new Date(nx.ts).toDateString() !== day;
+      const bub = m.type === 'photo' ? `<div class="bub pic ${m.from}" style="${m.src ? `background-image:url('${m.src}');background-size:cover` : bg({ art: m.art })}"></div>` : `<div class="bub ${m.from}">${esc(m.text)}</div>`;
+      const last = m.from === 'me' && k === msgs.map(x => x.from).lastIndexOf('me');
+      const meta = end ? `<div class="meta">${last ? (m.read ? I.check + '읽음 · ' : '전송됨 · ') : ''}${clockOnly(m.ts)}</div>` : '';
+      html += `<div class="bwrap ${m.from}">${bub}${meta}</div>`;
+    });
+    if (S.typing[id]) html += `<div class="bwrap them"><div class="bub them typing"><i></i><i></i><i></i></div></div>`;
+    return `<div class="view" data-view="chat"><div class="vhdr"><button class="ibtn" data-act="close" aria-label="뒤로">${I.back}</button>
+      <button class="who" data-act="detail" data-id="${id}"><i style="${bg(p.photos[0])}"></i><h3>${esc(p.name)}</h3>${p.verified ? I.verified : ''}</button><button class="ibtn" data-act="safe" aria-label="안전">${I.shield}</button></div>
+      <div class="chat" id="chatbox"><div class="matchnote">${esc(p.name)} 님과 매치되었어요</div>${html}</div>
+      <div class="composer"><button class="ibtn" data-act="attach" data-id="${id}" aria-label="사진">${I.img}</button><input id="msg" placeholder="메시지 입력" autocomplete="off"><button class="send" data-act="send" data-id="${id}" aria-label="전송">${I.send}</button></div></div>`;
+  }
+
+  /* ---------- 내 프로필 ---------- */
+  function meTab() {
+    const m = S.me, ps = profileSections(m, true), pct = 82, R = 66, C = 2 * Math.PI * R;
+    return `<div class="pane" style="padding-bottom:30px">
+      <div class="mehead"><div class="ring"><svg class="pr" viewBox="0 0 140 140"><circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--line)" stroke-width="5"/><circle cx="70" cy="70" r="${R}" fill="none" stroke="url(#pg)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C * pct / 100} ${C}" transform="rotate(-90 70 70)"/><defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fd267a"/><stop offset="1" stop-color="#ff6036"/></linearGradient></defs></svg><div class="in" style="${bg(m.photos[0])};border-radius:50%"></div><span class="pct">${pct}% 완성</span></div>
+      <h1>${esc(m.name)}<span>, ${m.age}</span>${m.verified ? I.verified : ''}</h1></div>
+      <div class="mecirc"><button data-act="settings"><i>${I.gear}</i>설정</button><button data-act="soon"><i>${I.img}</i>미디어 추가</button><button data-act="edit"><i>${I.edit}</i>프로필 수정</button></div>
+      <div class="promo"><span class="gl">${I.sparkle}</span><b>Tinder Gold</b><span>나를 좋아한 사람을 확인하고 무제한으로 좋아요를 보내 보세요.</span></div>
+      <div class="promo pk"><span class="gl">${I.flame}</span><b>부스트</b><span>30분 동안 내 프로필을 더 많은 사람에게 보여줘요.</span></div>
+      <div class="sec"><h4>자기소개</h4><p>${esc(m.bio)}</p></div>
+      <div class="sec"><h4>사진</h4><div class="pgrid">${m.photos.map(ph => `<div style="${bg(ph)};background-size:cover"></div>`).join('')}</div></div>
+      <div class="sec"><h4>관심사</h4><div class="tags">${m.interests.map(t => `<span class="tag hl">${esc(t)}</span>`).join('')}</div></div>
+      <div class="sec"><h4>기본 정보</h4><div class="tags">${infoTags(m.info)}</div></div>
+      <div class="sec"><h4>관계 목표</h4><div class="tags"><span class="tag goal">${esc(m.goal)}</span></div></div>
+      ${ps.prompts.join('')}${ps.quiz}</div>`;
+  }
+
+  /* ---------- 상세 / 알림 / 설정 / 편집 ---------- */
+  function detailView(id) {
+    const p = byId(id), ps = profileSections(p, false), n = p.photos.length;
+    const ph = k => { const x = p.photos[k % n]; return `<div class="dphoto ${k ? 's' : ''}" style="${bg(x)}">${media(x)}</div>`; };
+    const inMatch = S.matches.includes(id);
+    return `<div class="view" data-view="detail"><div class="vhdr"><button class="ibtn" data-act="close" aria-label="닫기">${I.down}</button><h3>${esc(p.name)}</h3><button class="ibtn" data-act="report" data-el="프로필 전체" aria-label="신고">${I.flag}</button></div>
+      <div class="vbody">${ph(0)}
+      <div class="sec"><h1 style="display:flex;align-items:center">${esc(p.name)}<span>${p.age}</span>${p.verified ? I.verified : ''}</h1><div class="row">${esc(p.job)}</div><div class="row">${esc(p.school)}</div><div class="row">${p.km}km 거리</div></div>
+      <div class="sec"><button class="flag" data-act="report" data-el="자기소개" aria-label="신고">${I.flag}</button><h4>자기소개</h4><p>${esc(p.bio)}</p></div>
+      <div class="sec"><h4>관계 목표</h4><div class="tags"><span class="tag goal">${esc(p.goal)}</span></div></div>
+      <div class="sec"><button class="flag" data-act="report" data-el="기본 정보" aria-label="신고">${I.flag}</button><h4>기본 정보</h4><div class="tags">${infoTags(p.info)}</div></div>
+      ${n > 1 ? ph(1) : ''}${ps.prompts[0] || ''}
+      <div class="sec"><h4>관심사</h4><div class="tags">${p.interests.map(t => `<span class="tag hl">${esc(t)}</span>`).join('')}</div></div>
+      ${n > 2 ? ph(2) : ''}${ps.prompts[1] || ''}${ps.quiz}
+      <button class="reportbtn" data-act="report" data-el="프로필 전체">${esc(p.name)} 님 신고하기</button></div>
+      ${inMatch ? '' : `<div class="floatact"><button class="act lg" data-act="dnope" data-id="${id}">${I.nope}</button><button class="act sm" data-act="dsuper" data-id="${id}">${I.star}</button><button class="act lg" data-act="dlike" data-id="${id}">${I.like}</button></div>`}</div>`;
+  }
+  function notifView() {
+    const ic = { match: ['var(--grad)', I.flame], like: ['var(--grad)', I.heart], msg: ['#1da8f9', I.chat], boost: ['#a25af0', I.bolt] };
+    return `<div class="view" data-view="notif"><div class="vhdr"><button class="ibtn" data-act="close" aria-label="뒤로">${I.back}</button><h3>알림</h3></div><div class="vbody" style="padding-bottom:30px">
+      ${D.notifs.map(n => { const p = n.who ? byId(n.who) : null;
+        return `<button class="nrow" data-act="${n.k === 'match' || n.k === 'msg' ? 'chat' : 'soon'}" data-id="${n.who || ''}">${p && n.k !== 'like' ? `<div class="ic" style="${bg(p.photos[0])};background-size:cover"></div>` : `<div class="ic" style="background:${ic[n.k][0]}">${ic[n.k][1]}</div>`}<div><b>${esc(n.t)}</b><span>${esc(n.s)}</span></div><time>${fmt(n.ts)}</time></button>`; }).join('')}</div></div>`;
+  }
+  function settingsView() {
+    const s = S.set, sw = k => `<span class="sw ${s[k] ? 'on' : ''}"></span>`, ch = `<span class="sw2">${I.chev}</span>`;
+    return `<div class="view" data-view="settings"><div class="vhdr"><button class="ibtn" data-act="close" aria-label="뒤로">${I.back}</button><h3>설정</h3></div><div class="vbody" style="padding-bottom:30px;background:var(--bg)">
+      <div class="sgrp">계정 설정</div>
+      <div class="srow"><span>전화번호</span><small>010-****-1234</small></div><div class="srow"><span>이메일</span><small>minji@example.com</small></div>
+      <div class="sgrp">검색 설정</div>
+      <div class="srow col"><div class="top"><span>검색 거리</span><small id="vdist">${s.dist}km</small></div><input type="range" min="2" max="160" value="${s.dist}" data-range="dist"></div>
+      <div class="srow col"><div class="top"><span>나이 범위</span><small id="vage">${s.amin} - ${s.amax}세</small></div><input type="range" min="18" max="60" value="${s.amin}" data-range="amin"><input type="range" min="18" max="60" value="${s.amax}" data-range="amax"></div>
+      <button class="srow" data-act="show"><span>보고 싶은 성별</span><small style="display:flex;align-items:center;gap:4px">${s.show}${ch}</small></button>
+      <div class="sgrp">알림</div>
+      <button class="srow" data-act="tog" data-k="push"><span>푸시 알림</span>${sw('push')}</button>
+      <button class="srow" data-act="tog" data-k="msgs"><span>메시지 알림</span>${sw('msgs')}</button>
+      <button class="srow" data-act="tog" data-k="likes"><span>새 매치 알림</span>${sw('likes')}</button>
+      <div class="sgrp">화면</div>
+      <button class="srow" data-act="dark"><span>다크 모드</span><span class="sw ${S.dark ? 'on' : ''}"></span></button>
+      <div class="sgrp">개인정보 및 안전</div>
+      <button class="srow" data-act="soon"><span>개인정보 보호</span>${ch}</button><button class="srow" data-act="soon"><span>안전 센터</span>${ch}</button><button class="srow" data-act="soon"><span>차단 목록</span>${ch}</button>
+      <div class="sgrp">계정</div>
+      <button class="srow" data-act="soon"><span>로그아웃</span>${ch}</button><button class="srow" data-act="soon"><span style="color:var(--g1)">계정 삭제</span>${ch}</button></div></div>`;
+  }
+  function editView() {
+    const m = S.me;
+    return `<div class="view" data-view="edit"><div class="vhdr"><button class="ibtn" data-act="close" aria-label="취소">${I.back}</button><h3>프로필 수정</h3><button class="ibtn" data-act="saveedit" style="width:auto;padding:0 10px;font-weight:700;font-size:16px">완료</button></div><div class="vbody" style="padding:16px 18px 40px">
+      <div class="eslots">${[0, 1, 2, 3, 4, 5].map(k => m.photos[k] ? `<div class="f" style="${bg(m.photos[k])};background-size:cover"><span class="x">${I.edit}</span></div>` : `<button data-act="soon" style="display:grid;place-items:center;aspect-ratio:3/4;border-radius:12px;border:1.5px dashed var(--line);color:var(--sub)">${I.plus}</button>`).join('')}</div>
+      <label class="field">이름<input id="e-name" value="${esc(m.name)}"></label><label class="field">나이<input id="e-age" type="number" min="18" max="99" value="${m.age}"></label>
+      <label class="field">자기소개<textarea id="e-bio">${esc(m.bio)}</textarea></label><label class="field">관심사 (쉼표로 구분)<input id="e-int" value="${esc(m.interests.join(', '))}"></label></div></div>`;
+  }
+
+  /* ---------- 매치 / 시트 ---------- */
+  function matchHTML(id) {
+    const p = byId(id), me = S.me;
+    const conf = Array.from({ length: 22 }, (_, k) => `<span class="confv" style="left:${(k * 4.7) % 100}%;animation-duration:${2 + (k % 5) * .5}s;animation-delay:${(k % 7) * .15}s;color:${['#fff', '#ffe2ee', '#ffd1b8', '#c9ffe3'][k % 4]}">${I.heart}</span>`).join('');
+    return `<div class="match">${conf}<h1>IT'S A MATCH!</h1><div class="sub">${esc(p.name)} 님과 서로 좋아요를 눌렀어요</div>
+      <div class="pair"><div class="pic a" style="${bg(me.photos[0])}"></div><div class="pic b" style="${bg(p.photos[0])}"></div><div class="heart">${I.heart}</div></div>
+      <div class="btns"><button class="cta ghost" data-act="matchchat" data-id="${id}">메시지 보내기</button><button class="cta" style="background:rgba(255,255,255,.2)" data-act="matchclose">계속 둘러보기</button></div></div>`;
+  }
+  function sheetHTML() {
+    const sh = S.sheet; if (!sh) return '';
+    if (sh.type === 'report') {
+      const opts = ['사진', '자기소개', '프로필 문답', '프로필 퀴즈', '기본 정보', '프로필 전체'];
+      return `<div class="scrim" data-act="sheetclose"><div class="sheet" data-stop><h3>무엇을 신고하시겠어요?</h3><div class="sub">신고할 프로필 요소를 선택해 주세요</div>
+        ${opts.map(o => `<button class="li ${o === sh.el ? 'on' : ''}" data-act="rpick" data-el="${o}">${o}${o === sh.el ? I.radioOn : I.radioOff}</button>`).join('')}<button class="cta" data-act="rsend">신고 접수</button></div></div>`;
+    }
+    if (sh.type === 'show') return `<div class="scrim" data-act="sheetclose"><div class="sheet" data-stop><h3>보고 싶은 성별</h3><div class="sub">&nbsp;</div>${['남성', '여성', '모두'].map(o => `<button class="li ${S.set.show === o ? 'on' : ''}" data-act="spick" data-v="${o}">${o}${S.set.show === o ? I.radioOn : I.radioOff}</button>`).join('')}</div></div>`;
+    return '';
+  }
+
+  /* ---------- 렌더 ---------- */
+  function render() {
+    phone.dataset.theme = S.dark ? 'dark' : 'light';
+    const V = { detail: v => detailView(v.id), chat: v => chatView(v.id), settings: settingsView, edit: editView, notif: notifView };
+    const v = S.views.map(x => V[x.k](x)).join('');
+    const unreadN = Object.values(S.unread).reduce((a, b) => a + b, 0);
+    const body = { discover: discover, explore: exploreTab, likes: likesTab, chat: chatTab, me: meTab }[S.tab]();
+    const hdr = S.tab === 'discover' ? `<div class="hdr"><div class="l"><button class="ibtn" data-act="notif" aria-label="알림">${I.bell}<i class="dot"></i></button></div><span class="logo">${I.flame}tinder</span><div class="r"><button class="ibtn" data-act="settings" aria-label="검색 설정">${I.sliders}</button></div></div>` : '';
+    const tb = (t, on, off, lb, badge) => `<button class="tab ${S.tab === t ? 'on' : ''}" data-act="tab" data-t="${t}" aria-label="${lb}">${S.tab === t ? on : off}${badge ? `<i class="badge">${badge}</i>` : ''}</button>`;
+    const keepMsg = (document.getElementById('msg') || {}).value;
+    const prevPane = root.querySelector('.pane'), sc = prevPane ? prevPane.scrollTop : 0;
+    root.innerHTML = `<div class="statusgap"></div>${hdr}<div class="main">${body}</div><div class="tabbar">${tb('discover', I.flame, I.flameO, '카드')}${tb('explore', I.compassF, I.compass, '둘러보기')}${tb('likes', I.heart, I.heartO, '좋아요')}${tb('chat', I.chat, I.chatO, '채팅', unreadN)}${tb('me', I.user, I.userO, '내 프로필')}</div>${v}${sheetHTML()}${S.matchOverlay ? matchHTML(S.matchOverlay) : ''}${S.toast ? `<div class="toast">${esc(S.toast)}</div>` : ''}`;
+    if (keepMsg) { const el = document.getElementById('msg'); if (el) el.value = keepMsg; }
+    const pane = root.querySelector('.pane'); if (pane && sc && prevPane) pane.scrollTop = sc;
+    const cb = document.getElementById('chatbox'); if (cb) cb.scrollTop = cb.scrollHeight;
+    const top = root.querySelector('.card.top'); if (top && !S.views.length) bindDrag(top);
+    S.anim = false; save();
+  }
+
+  /* ---------- 스와이프 ---------- */
+  let lock = false;
+  function commit(dir, id) {
+    const p = byId(id); S.deck = S.deck.filter(x => x !== id);
+    const matched = (dir === 'like' && p.likesMe) || (dir === 'super' && (p.likesMe || p.age % 2 === 1));
+    S.history.push({ id, dir, matched });
+    if (matched) { S.matches.unshift(id); S.chats[id] = []; S.unread[id] = 0; S.matchOverlay = id; }
+    lock = false; render();
+  }
+  function fly(dir, id) {
+    if (lock) return; const c = root.querySelector('.card.top'); if (!c || c.dataset.id !== id) return commit(dir, id);
+    lock = true; c.classList.remove('snap'); c.classList.add('fly');
+    const t = dir === 'like' ? 'translate(560px,60px) rotate(26deg)' : dir === 'nope' ? 'translate(-560px,60px) rotate(-26deg)' : 'translateY(-900px) scale(.9)';
+    const st = c.querySelector('.stamp.' + (dir === 'like' ? 'like' : dir === 'nope' ? 'nope' : 'sl')); if (st) st.style.opacity = 1;
+    const nx = root.querySelector('.card.next'); if (nx) { nx.style.transition = 'transform .3s'; nx.style.transform = 'none'; nx.style.filter = 'none'; }
+    c.style.transform = t; c.style.opacity = 0; setTimeout(() => commit(dir, id), 300);
+  }
+  let suppress = false;
+  function bindDrag(c) {
+    let sx, sy, drag = false, down = false;
+    const L = c.querySelector('.stamp.like'), N = c.querySelector('.stamp.nope'), U = c.querySelector('.stamp.sl'), nx = root.querySelector('.card.next');
+    c.addEventListener('pointerdown', e => { if (lock) return; down = true; drag = false; sx = e.clientX; sy = e.clientY; });
+    c.addEventListener('pointermove', e => {
+      if (!down) return; const dx = e.clientX - sx, dy = e.clientY - sy;
+      if (!drag && Math.hypot(dx, dy) > 8) { drag = true; c.setPointerCapture(e.pointerId); c.classList.remove('snap'); }
+      if (!drag) return;
+      c.style.transform = `translate(${dx}px,${dy}px) rotate(${dx / 18}deg)`;
+      L.style.opacity = Math.max(0, Math.min(1, dx / 90)); N.style.opacity = Math.max(0, Math.min(1, -dx / 90));
+      U.style.opacity = dy < 0 && Math.abs(dx) < 60 ? Math.min(1, -dy / 90) : 0;
+      if (nx) { const k = Math.min(1, Math.hypot(dx, dy) / 160); nx.style.transition = 'none'; nx.style.transform = `scale(${.95 + .05 * k}) translateY(${10 - 10 * k}px)`; nx.style.filter = `brightness(${.92 + .08 * k})`; }
+    });
+    const end = e => {
+      if (!down) return; down = false; if (!drag) return; suppress = true; setTimeout(() => suppress = false, 50);
+      const dx = e.clientX - sx, dy = e.clientY - sy, id = c.dataset.id;
+      if (dx > 100) fly('like', id); else if (dx < -100) fly('nope', id); else if (dy < -110) fly('super', id);
+      else { c.classList.add('snap'); c.style.transform = ''; L.style.opacity = N.style.opacity = U.style.opacity = 0; if (nx) { nx.style.transition = 'transform .25s'; nx.style.transform = ''; nx.style.filter = ''; } }
+    };
+    c.addEventListener('pointerup', end); c.addEventListener('pointercancel', end);
+  }
+
+  /* ---------- 이벤트 ---------- */
+  function openChat(id) { S.unread[id] = 0; S.views.push({ k: 'chat', id }); }
+  function reply(id) {
+    const r = ['ㅎㅎ 좋아요!', '오 정말요? 더 얘기해 주세요', '저도 그렇게 생각했어요', '이번 주 시간 괜찮으세요?'];
+    S.typing[id] = true; setTimeout(render, 300);
+    setTimeout(() => {
+      S.typing[id] = false; const c = (S.chats[id] = S.chats[id] || []);
+      c.forEach(m => { if (m.from === 'me') m.read = true; });
+      c.push({ from: 'them', type: 'text', text: r[Math.floor(Math.random() * r.length)], ts: Date.now() });
+      if (!S.views.some(v => v.k === 'chat' && v.id === id)) S.unread[id] = (S.unread[id] || 0) + 1; render();
+    }, 1800);
+  }
+  root.addEventListener('click', e => {
+    if (suppress) return;
+    const t = e.target.closest('[data-act]'); if (!t) return;
+    if (e.target.closest('[data-stop]') && t.classList.contains('scrim')) return;
+    const a = t.dataset.act, id = t.dataset.id;
+    const topId = S.deck[0];
+    switch (a) {
+      case 'tab': S.tab = t.dataset.t; break;
+      case 'nextph': { const p = byId(topId); const n = Math.min((S.pi[topId] || 0) + 1, p.photos.length - 1); if (n !== (S.pi[topId] || 0)) S.anim = true; S.pi[topId] = n; break; }
+      case 'prevph': { const n = Math.max((S.pi[topId] || 0) - 1, 0); if (n !== (S.pi[topId] || 0)) S.anim = true; S.pi[topId] = n; break; }
+      case 'like': case 'nope': case 'super': if (topId) { t.classList.add('pop'); fly(a, topId); } return;
+      case 'rewind': { const h = S.history.pop(); if (!h) return toast('되돌릴 프로필이 없어요'); S.deck.unshift(h.id); if (h.matched) { S.matches = S.matches.filter(x => x !== h.id); delete S.chats[h.id]; } break; }
+      case 'boost': S.boosted = true; toast('부스트 시작 · 30분 동안 내 프로필이 더 많이 노출돼요'); return;
+      case 'detail': S.views.push({ k: 'detail', id }); break;
+      case 'close': S.views.pop(); break;
+      case 'chat': if (!id) return toast(SOON); S.tab = 'chat'; S.views = []; openChat(id); break;
+      case 'settings': S.views.push({ k: 'settings' }); break;
+      case 'edit': S.views.push({ k: 'edit' }); break;
+      case 'notif': S.views.push({ k: 'notif' }); break;
+      case 'safe': return toast(SOON);
+      case 'soon': return toast(SOON);
+      case 'quiz': S.quiz[id] = +t.dataset.i; break;
+      case 'report': S.sheet = { type: 'report', el: t.dataset.el }; break;
+      case 'rpick': S.sheet.el = t.dataset.el; break;
+      case 'rsend': { const el = S.sheet.el; S.sheet = null; render(); return toast(`'${el}' 신고가 접수되었어요`); }
+      case 'sheetclose': S.sheet = null; break;
+      case 'show': S.sheet = { type: 'show' }; break;
+      case 'spick': S.set.show = t.dataset.v; S.sheet = null; break;
+      case 'tog': S.set[t.dataset.k] = !S.set[t.dataset.k]; break;
+      case 'dark': S.dark = !S.dark; break;
+      case 'dlike': case 'dnope': case 'dsuper': {
+        const d = a === 'dlike' ? 'like' : a === 'dnope' ? 'nope' : 'super'; S.views = [];
+        if (S.deck.includes(id)) { S.deck = S.deck.filter(x => x !== id); S.deck.unshift(id); lock = false; commit(d, id); return; } break;
+      }
+      case 'matchchat': S.matchOverlay = null; S.tab = 'chat'; S.views = []; openChat(id); break;
+      case 'matchclose': S.matchOverlay = null; break;
+      case 'send': {
+        const inp = document.getElementById('msg'); const v = inp.value.trim(); if (!v) return;
+        (S.chats[id] = S.chats[id] || []).push({ from: 'me', type: 'text', text: v, ts: Date.now(), read: false }); inp.value = ''; render(); reply(id); return;
+      }
+      case 'attach': (S.chats[id] = S.chats[id] || []).push({ from: 'me', type: 'photo', src: 'photos/lake2.jpg', ts: Date.now(), read: false }); render(); reply(id); return;
+      case 'saveedit': {
+        const n = document.getElementById('e-name').value.trim(), ag = +document.getElementById('e-age').value;
+        if (!n || ag < 18) return toast('이름과 나이(18세 이상)를 확인해 주세요');
+        Object.assign(S.me, { name: n, age: ag, bio: document.getElementById('e-bio').value.trim(), interests: document.getElementById('e-int').value.split(',').map(x => x.trim()).filter(Boolean) });
+        S.views.pop(); render(); return toast('프로필이 저장되었어요');
+      }
+    }
+    render();
+  });
+  root.addEventListener('input', e => {
+    const r = e.target.dataset.range; if (!r) return; S.set[r] = +e.target.value;
+    if (S.set.amin > S.set.amax) { if (r === 'amin') S.set.amax = S.set.amin; else S.set.amin = S.set.amax; }
+    const d = document.getElementById('vdist'), g = document.getElementById('vage');
+    if (d) d.textContent = S.set.dist + 'km'; if (g) g.textContent = `${S.set.amin} - ${S.set.amax}세`; save();
+  });
+  root.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'msg') { const b = root.querySelector('[data-act=send]'); if (b) b.click(); } });
+  render();
+})();
