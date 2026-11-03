@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const HOUR=3600000,DAY=86400000,KEY='yhright.messages.v1';
+const HOUR=3600000,DAY=86400000,KEY='yhright.messages.ch04.v2';
 const SMS_DEFAULT=['c3','c4'];/* 기존 데이터에 sms 표시가 없을 때 SMS(초록)로 보는 연락처 */
 
 /* ---------- 데이터 (기존 데이터 유지) ---------- */
@@ -11,11 +11,38 @@ function seed(){
 const now=Date.now();
 const m=(me,text,ago)=>({id:uid(),me,text,img:'',ts:now-ago});
 return{
-contacts:[{id:'c1',name:'엄마',phone:'010-3960-2207'},{id:'c2',name:'형',phone:'010-2394-7716'},{id:'c3',name:'민준',phone:'010-3347-8850'},{id:'c4',name:'지수',phone:'010-7316-8842'}],
+contacts:[
+{id:'c1',name:'김홍중',phone:'010-2381-4490'},
+{id:'c2',name:'박성화',phone:'010-4821-3067'},
+{id:'c3',name:'최산',phone:'010-5912-7740'},
+{id:'c4',name:'정우영',phone:'010-7731-2058'},
+{id:'c5',name:'윤민기',phone:'010-8842-1136'}
+],
 threads:[
-{id:'t1',ids:['c1'],unread:2,msgs:[m(false,'저녁 뭐 먹을 거니?',5*HOUR),m(true,'아직 못 정했어요',4.5*HOUR),m(false,'그럼 같이 먹자',HOUR)]},
-{id:'t2',ids:['c2'],unread:0,msgs:[m(false,'내일 시간 돼?',DAY+2*HOUR),m(true,'응 오후에 괜찮아',DAY+HOUR)]},
-{id:'t3',ids:['c3'],unread:1,msgs:[m(false,'내일 회의 자료 보내줄게',3*HOUR)]}
+{id:'t1',ids:['c1'],unread:0,msgs:[
+m(false,'오늘 공연 와줘서 고마워. 잘 들어갔어?',18*60000),
+m(true,'응 방금 도착했어',16*60000),
+m(false,'다음엔 끝나고 바로 가지 말고 기다려',14*60000),
+m(true,'왜?',13*60000),
+m(false,'밥 먹고 가야지. 내가 살게',11*60000),
+m(true,'그럼 다음엔 밥 먹으러 갈게 ㅋㅋ',9*60000),
+m(false,'약속',8*60000)
+]},
+{id:'t2',ids:['c2'],unread:0,msgs:[
+m(false,'이번 주에 시간 괜찮으면 얼굴 한번 보자',3*DAY+4*HOUR),
+m(true,'이번 주는 일정이 좀 애매해',3*DAY+3*HOUR),
+m(false,'알겠어. 무리하지 말고',3*DAY+2*HOUR)
+]},
+{id:'t3',ids:['c3'],unread:0,msgs:[
+m(false,'홍중이랑 연락한다는 게 너였구나',DAY+5*HOUR),
+m(true,'응 공연 갔다가 알게 됐어',DAY+4*HOUR),
+m(false,'신기하네 ㅋㅋ 잘 지내봐',DAY+3*HOUR)
+]},
+{id:'t4',ids:['c4'],unread:0,msgs:[
+m(false,'야 너 요즘 공연장 자주 가냐',2*DAY+2*HOUR),
+m(true,'가끔',2*DAY+HOUR),
+m(false,'재밌게 사네',2*DAY+50*60000)
+]}
 ]
 };
 }
