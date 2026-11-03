@@ -71,7 +71,7 @@
       '<div class="btns"><button type="button" data-go="#/acct">계좌조회</button><button type="button" class="dummy">이체</button></div></section>' +
       '<button type="button" class="hero2" data-go="#/acct"><span>내 계좌 ' + S.accts.length + '개</span><span>전체계좌 보기 ›</span></button>' +
       '<div class="grid">' + g.map(function (x) { return '<button type="button" class="dummy"><i class="gi">' + x[0] + '</i>' + x[1] + '</button>'; }).join('') + '</div>' +
-      '<button type="button" class="banner dummy"><b>S뱅크 가을맞이 이벤트</b><span>스마트폰 뱅킹 이용 고객 대상 (예시)</span></button>' +
+      '<button type="button" class="banner dummy"><b>신한은행 모바일뱅킹 안내</b><span>스마트폰 뱅킹 이용 고객 대상 (예시)</span></button>' +
       '<div class="lst"><button type="button" data-go="#/card">카드 이용내역</button><button type="button" class="dummy">이벤트</button><button type="button" class="dummy">고객센터</button></div>' +
       '<p class="foot">※ 본 화면의 모든 정보는 가상의 데이터이며 실제 금융 정보가 아닙니다.</p>';
     tick();
