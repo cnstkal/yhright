@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const KEY='yhright.phone.2017.v3',HOUR=36e5,DAY=864e5;
+const KEY='yhright.phone.2017.v4',HOUR=36e5,DAY=864e5;
 const MSG_URL='../Messages/messages.html';
 const PH='<svg viewBox="0 0 24 24" class="f"><use href="#ph"/></svg>';
 const PERSON='<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>';
