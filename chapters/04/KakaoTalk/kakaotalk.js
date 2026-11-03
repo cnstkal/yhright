@@ -4,38 +4,54 @@
   const now = new Date();
   const at = (daysAgo, h, m) => { const d = new Date(now); d.setDate(d.getDate() - daysAgo); d.setHours(h, m, 0, 0); return d.toISOString(); };
   window.DATA = {
-    me: { name: '민지', status: '오늘도 화이팅 :)', photo: { bg: 'linear-gradient(160deg,#ffd194,#ff9a8b)', emoji: '🙂' } },
+    me: { name: '정윤호', status: '오늘도 무사히', photo: { bg: 'linear-gradient(160deg,#29334a,#8d9bb5)', emoji: '🌙' } },
     friends: [
-      { id: 'f1', name: '김서연', status: '커피 마시러 갈 사람?', fav: true, photo: { bg: 'linear-gradient(160deg,#a1c4fd,#c2e9fb)', emoji: '☕' } },
-      { id: 'f2', name: '박지우', status: '', fav: true, photo: { bg: 'linear-gradient(160deg,#fbc2eb,#a6c1ee)', emoji: '🐶' } },
-      { id: 'f3', name: '이도윤', status: '바쁘다 바빠', birthday: true, photo: { bg: 'linear-gradient(160deg,#f6d365,#fda085)', emoji: '🎂' } },
-      { id: 'f4', name: '강하은', status: '운동 중 💪', photo: { bg: 'linear-gradient(160deg,#84fab0,#8fd3f4)', emoji: '🌿' } },
-      { id: 'f5', name: '최수빈', status: '여행 가고 싶다', photo: { bg: 'linear-gradient(160deg,#fa709a,#fee140)', emoji: '✈️' } },
-      { id: 'f6', name: '정예린', status: '', photo: { bg: 'linear-gradient(160deg,#667eea,#764ba2)', emoji: '📷' } },
-      { id: 'f7', name: '한유나', status: '잠시 자리 비움', photo: { bg: 'linear-gradient(160deg,#c3cfe2,#f5f7fa)', emoji: '📚' } },
-      { id: 'f8', name: '윤태현', status: '주말엔 등산!', photo: { bg: 'linear-gradient(160deg,#d4fc79,#96e6a1)', emoji: '⛰️' } }
+      { id: 'f1', name: '김홍중', status: '작업실', fav: true, photo: { bg: 'linear-gradient(160deg,#24283a,#b44b42)', emoji: '🎧' } },
+      { id: 'f2', name: '박성화', status: '잘 지내지?', photo: { bg: 'linear-gradient(160deg,#b9a18c,#55443d)', emoji: '☕' } },
+      { id: 'f3', name: '최산', status: '운동 중', photo: { bg: 'linear-gradient(160deg,#5e8b82,#1d3438)', emoji: '🏋️' } },
+      { id: 'f4', name: '정우영', status: 'ㅋㅋㅋㅋ', photo: { bg: 'linear-gradient(160deg,#e8a46b,#9b4c3b)', emoji: '🦊' } },
+      { id: 'f5', name: '윤민기', status: '', photo: { bg: 'linear-gradient(160deg,#8ca5c8,#34445f)', emoji: '🎮' } },
+      { id: 'f6', name: '작업실 사람들', status: '초대 링크로 참여', photo: { bg: 'linear-gradient(160deg,#282b38,#9a4d4d)', emoji: '🎤' } }
     ],
     chats: [
       { id: 'c1', friend: 'f1', msgs: [
-        { from: 'f1', text: '내일 점심 뭐 먹을래?', ts: at(1, 18, 2) },
-        { from: 'me', text: '샐러드 어때?', ts: at(1, 18, 5) },
-        { from: 'f1', text: '좋아! 12시에 역 앞에서 보자', ts: at(0, 9, 12) },
-        { from: 'f1', text: '늦지 마~ ㅎㅎ', ts: at(0, 9, 13) } ], unread: 2 },
-      { id: 'c2', friend: 'f3', msgs: [
-        { from: 'me', text: '생일 축하해!! 🎉', ts: at(0, 8, 30) },
-        { from: 'f3', text: '고마워 ㅠㅠ 저녁에 시간 돼?', ts: at(0, 8, 41) } ], unread: 1 },
-      { id: 'c3', group: '주말 등산 모임', members: ['f8', 'f4', 'f5'], photo: { bg: 'linear-gradient(160deg,#d4fc79,#96e6a1)', emoji: '⛰️' }, msgs: [
-        { from: 'f8', text: '이번 주 토요일 북한산 어때요?', ts: at(2, 20, 10) },
-        { from: 'f4', text: '저는 좋아요!', ts: at(2, 20, 12) },
-        { from: 'me', text: '저도 참석할게요', ts: at(2, 20, 30) } ], unread: 0 },
-      { id: 'c4', friend: 'f2', msgs: [
-        { from: 'f2', text: '사진 보내줘서 고마워', ts: at(4, 14, 2) },
-        { from: 'me', text: '별말씀을~', ts: at(4, 14, 20) } ], unread: 0 }
+        { from: 'f1', text: '집 도착했어?', ts: at(0, 23, 18) },
+        { from: 'me', text: '응 방금', ts: at(0, 23, 21) },
+        { from: 'f1', text: '오늘 와줘서 고마워. 사람 많아서 정신없었지', ts: at(0, 23, 22) },
+        { from: 'me', text: '아냐 재밌었어 ㅋㅋ', ts: at(0, 23, 24) },
+        { from: 'f1', text: '다음엔 공연 말고 밥 먹자', ts: at(0, 23, 25) },
+        { from: 'me', text: '좋아', ts: at(0, 23, 27) },
+        { from: 'f1', text: '번호 저장해 둬. 김홍중', ts: at(0, 23, 28) },
+        { from: 'me', text: '이미 저장했는데', ts: at(0, 23, 29) },
+        { from: 'f1', text: 'ㅋㅋㅋㅋ 빠르네', ts: at(0, 23, 30) }
+      ], unread: 0 },
+      { id: 'c2', friend: 'f2', msgs: [
+        { from: 'f2', text: '요즘은 어떻게 지내?', ts: at(4, 19, 10) },
+        { from: 'me', text: '그냥 일하고 집 오고 그러지', ts: at(4, 19, 22) },
+        { from: 'f2', text: '밥은 잘 챙겨 먹고?', ts: at(4, 19, 24) },
+        { from: 'me', text: '응 걱정마 ㅋㅋ', ts: at(4, 19, 27) }
+      ], unread: 0 },
+      { id: 'c3', friend: 'f3', msgs: [
+        { from: 'f3', text: '홍중이 공연 갔다며', ts: at(2, 16, 3) },
+        { from: 'me', text: '어떻게 알았어', ts: at(2, 16, 8) },
+        { from: 'f3', text: '스토리에 올라왔던데 ㅋㅋ', ts: at(2, 16, 9) },
+        { from: 'me', text: '아는 사람 생겨서 인사하고 왔어', ts: at(2, 16, 12) },
+        { from: 'f3', text: '오 잘됐네', ts: at(2, 16, 13) }
+      ], unread: 0 },
+      { id: 'c4', friend: 'f6', group: '작업실 사람들', members: ['f1','f3'], photo: { bg: 'linear-gradient(160deg,#282b38,#9a4d4d)', emoji: '🎤' }, msgs: [
+        { from: 'f1', text: '이번 주 작업은 목요일 저녁으로 잡을게요', ts: at(1, 14, 2) },
+        { from: 'f3', text: '확인했습니다', ts: at(1, 14, 5) },
+        { from: 'me', text: '저도 그날 갈게요', ts: at(1, 14, 9) }
+      ], unread: 0 },
+      { id: 'c5', friend: 'f5', msgs: [
+        { from: 'f5', text: '오랜만이네', ts: at(12, 20, 10) },
+        { from: 'me', text: '그러게 잘 지내?', ts: at(12, 20, 18) }
+      ], unread: 0 }
     ]
   };
 })();
 (function () {
-  const D = window.DATA, KEY = 'kakao2023-ch04';
+  const D = window.DATA, KEY = 'kakao-story-ch04-v2';
   const root = document.getElementById('root');
   const S = { tab: 'friends', view: null, chats: JSON.parse(JSON.stringify(D.chats)) };
   try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.chats) S.chats = s.chats; } catch (e) {}
