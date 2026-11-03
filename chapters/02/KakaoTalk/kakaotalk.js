@@ -47,6 +47,29 @@ function seed(){
 let S=null;
 try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(!S||!Array.isArray(S.chats))S=seed();
+
+/* 챕터 2 서사 데이터: 귀가 후 다시 집을 나와 모텔에 머물게 된 흐름 */
+(function addStoryMessages(){
+ const c=S.chats.find(x=>x.id==='c1');
+ if(!c)return;
+ const story=[
+  ['f1','집에는 갔어?',new Date(2018,11,28,20,10).getTime(),'story-home-1'],
+  ['me','응 일단 집에 왔어',new Date(2018,11,28,20,12).getTime(),'story-home-2'],
+  ['f1','그럼 이제 괜찮은 거야?',new Date(2018,11,28,20,14).getTime(),'story-home-3'],
+  ['me','잘 모르겠어 오래 못 있을 것 같아',new Date(2018,11,28,20,16).getTime(),'story-home-4'],
+  ['f1','무슨 일 있으면 바로 연락해',new Date(2018,11,28,20,18).getTime(),'story-home-5'],
+  ['me','결국 집에서도 나왔어',new Date(2018,11,30,18,5).getTime(),'story-motel-1'],
+  ['f1','뭐? 지금 어디야',new Date(2018,11,30,18,6).getTime(),'story-motel-2'],
+  ['me','모텔. 일단 여기서 지내려고',new Date(2018,11,30,18,8).getTime(),'story-motel-3'],
+  ['f1','혼자 있는 거야?',new Date(2018,11,30,18,10).getTime(),'story-motel-4'],
+  ['me','응 장기투숙하기로 했어',new Date(2018,11,30,18,12).getTime(),'story-motel-5'],
+  ['f1','학교는 계속 다닐 거지',new Date(2018,11,30,18,14).getTime(),'story-motel-6'],
+  ['me','당연하지 돈도 벌어야 돼',new Date(2018,11,30,18,16).getTime(),'story-motel-7']
+ ];
+ const ids=new Set(c.msgs.map(x=>x.id));
+ story.forEach(([from,text,ts,id])=>{if(!ids.has(id))c.msgs.push({id,me:from==='me',from,text,ts})});
+ c.msgs.sort((a,b)=>a.ts-b.ts);
+})();
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
 save();
 const chat=id=>S.chats.find(c=>c.id===id);
