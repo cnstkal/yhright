@@ -1,8 +1,18 @@
 const $=s=>document.querySelector(s);
-const KEY='yhright.notes.v1';let mem=null;
+const KEY='yhright.notes.2017.v2';let mem=null;
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{notes:[],cats:[]}}catch(e){return mem||{notes:[],cats:[]}}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){mem=D}}
+const hadSaved=!!localStorage.getItem(KEY);
 let D=load();D.notes=D.notes||[];D.cats=D.cats||[];D.fa=D.fa||{};
+if(!hadSaved){
+ const n=Date.now();
+ D.notes=[
+  {id:uid(),title:'내일 준비물',text:'',items:[{t:'체육복',d:false},{t:'수학 문제집',d:false},{t:'학생증',d:true}],imgs:[],audio:'',cat:'',acc:'i',ts:n-2*3600000},
+  {id:uid(),title:'수학 숙제',text:'42쪽 1번부터 10번까지 풀기\n모르는 건 종호한테 물어보기',items:[],imgs:[],audio:'',cat:'',acc:'i',ts:n-22*3600000},
+  {id:uid(),title:'학교에서 챙길 것',text:'영어 단어장 가져가기\n급식비 확인하기',items:[],imgs:[],audio:'',cat:'',acc:'i',ts:n-2*86400000}
+ ];
+ save();
+}
 let F='d:i',query='',edit=false,fedit=false,sel=new Set(),cur=null,dirty=false,range=null,tm=null,fns=[];
 if(window.parent!==window)document.body.classList.add('embedded');
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
