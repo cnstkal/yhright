@@ -1,41 +1,76 @@
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#eef2f7;color:#1d2433}
-.app{max-width:375px;margin:0 auto;min-height:100vh;background:#f5f7fa;position:relative;padding-bottom:64px}
-.notice{background:#fff4d6;color:#7a5a00;font-size:11px;text-align:center;padding:6px}
-.top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff}
-.logo{font-weight:700;font-size:17px;color:#2457d6}
-.top-icons{display:flex;gap:14px}
-.ti{font-size:16px;color:#5a6373}
-.hero{background:#2457d6;color:#fff;padding:22px 16px 18px;border-radius:0 0 22px 22px}
-.label{font-size:13px;opacity:.85}
-.amount{font-size:30px;font-weight:700;margin-top:6px}
-.amount small{font-size:16px;margin-left:2px}
-.sub{font-size:12px;opacity:.75;margin-top:4px}
-.quick{display:flex;justify-content:space-between;margin-top:18px}
-.qb{flex:1;margin:0 4px;background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:14px;padding:10px 0;font-size:12px;opacity:.9;cursor:default}
-.qb i{display:block;font-style:normal;font-size:16px;margin-bottom:4px}
-.card-box{padding:16px}
-.cardv{background:linear-gradient(135deg,#1f2c4d,#3d5fb0);color:#fff;border-radius:16px;padding:16px;height:150px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 6px 16px rgba(31,44,77,.25)}
-.cd-top,.cd-bot{display:flex;justify-content:space-between;font-size:12px;opacity:.9}
-.cd-num{font-size:18px;letter-spacing:1px;font-weight:600}
-.list{background:#fff;margin:0 16px;border-radius:16px;padding:14px 14px 4px}
-.list-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.list h2{font-size:15px}
-.more{font-size:12px;color:#8a93a3;background:none;border:0;cursor:default}
-.list ul{list-style:none}
-.list li{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #eef1f5}
-.list li .ic{width:34px;height:34px;border-radius:50%;background:#eaf0fc;color:#2457d6;display:flex;align-items:center;justify-content:center;font-size:14px}
-.nm{flex:1;font-size:14px}
-.nm small{display:block;font-size:11px;color:#8a93a3;margin-top:2px}
-.amt{font-size:14px;color:#5a6373}
-.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:375px;display:flex;justify-content:space-around;background:#fff;border-top:1px solid #e6eaf0;padding:10px 0 14px;font-size:12px;color:#8a93a3}
-.tabbar .on{color:#2457d6;font-weight:700}
-
-/* iPhone 11 상단 노치 안전 영역 및 컨트롤 가독성 */
-html.emb .app{padding-top:44px}
-html.emb .ti{font-size:19px}
-html.emb .qb i{font-size:19px}
-
-/* 기기 화면 안에서는 가로폭을 꽉 채움 */
-html.emb .app{max-width:none;width:100%}
-html.emb .tabbar{max-width:none;width:100%;left:0;transform:none}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,"SF Pro Text","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;background:#e8eaee;color:#222;font-size:15px;letter-spacing:-.2px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left;letter-spacing:inherit}
+ul{list-style:none}
+.app{max-width:375px;margin:0 auto;min-height:100vh;background:#fff;position:relative;padding-bottom:70px}
+.top{display:flex;align-items:center;height:50px;padding:0 6px 0 16px;background:#fff;position:sticky;top:0;z-index:20;border-bottom:1px solid #f0f1f4}
+.top .sp{flex:1}
+.lg{display:flex;align-items:center;gap:7px;font-size:17px;font-weight:800}
+.lg i{width:26px;height:26px;border-radius:6px;background:#0046ff;color:#fff;font:800 9px/26px -apple-system,sans-serif;font-style:normal;text-align:center;letter-spacing:0}
+.bk{width:38px;height:44px;margin-left:-10px;display:flex;align-items:center;justify-content:center}
+.bk svg{width:22px;height:22px;stroke:#222;fill:none;stroke-width:2}
+.ttl{font-size:17px;font-weight:700}
+.hi{width:38px;height:44px;display:flex;align-items:center;justify-content:center}
+.hi svg{width:22px;height:22px;fill:none;stroke:#333;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.band{height:8px;background:#f2f3f6}
+.greet{padding:18px 20px 4px}.greet b{font-size:19px;font-weight:700}.greet p{font-size:12px;color:#8a919c;margin-top:4px}
+.main{padding:14px 20px 20px}
+.main .nm{font-size:13px;color:#555}.main .no{font-size:12px;color:#9aa1ab;margin-top:2px}
+.main .bal{font-size:30px;font-weight:800;text-align:right;margin:14px 0 16px;letter-spacing:-.8px}
+.main .bal em{font-style:normal;font-size:19px;font-weight:600;margin-left:2px}
+.btns{display:flex;gap:8px}
+.btns button{flex:1;text-align:center;height:42px;line-height:40px;border-radius:6px;font-weight:700;font-size:15px;border:1px solid #0046ff}
+.b1{color:#0046ff;background:#fff}.b2{color:#fff;background:#0046ff}
+.btns button:active,.dummy:active{opacity:.55}
+.sh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px 6px}
+.sh b{font-size:15px;font-weight:700}.sh button{font-size:12px;color:#7d8590}
+.ar{display:flex;align-items:center;width:100%;padding:14px 20px;gap:10px;border-top:1px solid #f0f1f4}
+.ar:active,.tx:active,.ls:active{background:#f6f7fa}
+.ar .an{flex:1;font-size:14px;font-weight:600}.ar .an small{display:block;font-size:12px;font-weight:400;color:#9aa1ab;margin-top:3px}
+.ar .ab{font-size:16px;font-weight:700}
+.tg{display:inline-block;font-size:10px;color:#0046ff;border:1px solid #aebfff;border-radius:3px;padding:0 4px;margin-left:5px;font-weight:600}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 12px}
+.sg button{text-align:center;padding:12px 0 6px;font-size:12px;color:#333}
+.sg svg,.tabbar svg{display:block;margin:0 auto 7px;width:27px;height:27px;fill:none;stroke:#0046ff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ls{display:flex;justify-content:space-between;align-items:center;width:100%;padding:15px 20px;border-top:1px solid #f0f1f4;font-size:14px}
+.ls:after{content:"›";color:#b0b6bf;font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:6px 20px 18px}
+.chips button{border:1px solid #d8dce3;border-radius:5px;padding:8px 12px;font-size:13px;color:#444}
+.bn{display:block;width:calc(100% - 40px);margin:12px 20px;padding:14px;background:#eef3ff;border-radius:6px}
+.bn b{display:block;color:#0046ff;font-size:14px;margin-bottom:3px}.bn span{font-size:12px;color:#5b6577}
+.foot{padding:14px 20px 6px;font-size:11px;color:#a2a8b1;line-height:1.5}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:375px;display:flex;background:#fff;border-top:1px solid #e4e6ea;z-index:20}
+.tabbar button{flex:1;text-align:center;padding:8px 0 9px;font-size:10.5px;color:#8a919c}
+.tabbar svg{width:23px;height:23px;margin-bottom:3px;stroke:#8a919c}
+.tabbar button.on{color:#0046ff;font-weight:700}.tabbar button.on svg{stroke:#0046ff}
+.sum{padding:16px 20px}.sum small{font-size:12px;color:#7d8590}.sum b{display:block;font-size:26px;font-weight:800;margin-top:4px}
+.grp{padding:9px 20px;font-size:12px;color:#6b7380;background:#f6f7f9;display:flex;justify-content:space-between}
+.dh{padding:16px 20px}.dh .n{font-size:14px;font-weight:600}.dh .no{font-size:12px;color:#9aa1ab;margin:2px 0 8px}.dh .big{font-size:28px;font-weight:800;text-align:right;letter-spacing:-.8px;margin-bottom:14px}
+.seg{display:flex;margin:12px 20px;background:#f0f2f5;border-radius:6px;padding:3px}
+.seg button{flex:1;text-align:center;padding:8px 0;font-size:13px;color:#6b7380;border-radius:4px}
+.seg .on{background:#fff;color:#0046ff;font-weight:700;box-shadow:0 0 0 1px #dfe3ea}
+.stat{display:flex;margin:0 20px 8px;border-top:1px solid #e4e6ea;border-bottom:1px solid #e4e6ea;font-size:12px;color:#7d8590}
+.stat div{flex:1;text-align:center;padding:10px 0}.stat div+div{border-left:1px solid #eef0f3}.stat b{display:block;margin-top:3px;font-size:14px;color:#222}
+.dg{padding:8px 20px;font-size:12px;color:#6b7380;background:#f6f7f9}
+.tr{display:flex;justify-content:space-between;padding:13px 20px;gap:10px;border-bottom:1px solid #f2f3f6}
+.tr .m{font-size:15px;font-weight:600}.tr .s{font-size:12px;color:#9aa1ab;margin-top:3px}
+.tr .r{text-align:right}.tr .a{font-size:16px;font-weight:700}.tr .b{font-size:12px;color:#9aa1ab;margin-top:3px}
+.in{color:#0046ff}.out{color:#333}
+.mn{display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.mn button{width:32px;height:32px;border:1px solid #d8dce3;border-radius:5px;text-align:center;font-size:17px;line-height:30px}.mn button[disabled]{opacity:.3}
+.mn span{font-size:16px;font-weight:700}
+.tx{display:flex;align-items:center;gap:12px;width:100%;padding:13px 20px;border-bottom:1px solid #f2f3f6}
+.tx .l{flex:1}.tx .m{font-size:15px;font-weight:600}.tx .s{font-size:12px;color:#9aa1ab;margin-top:3px}
+.tx .r{text-align:right}.tx .a{font-size:16px;font-weight:700}
+.st{display:inline-block;font-size:11px;font-weight:700;margin-top:3px}.st.a{color:#0046ff}.st.c{color:#e5322d}
+.cancel .a{text-decoration:line-through;color:#e5322d}
+.dtl{padding:22px 20px 18px}.dtl .m{font-size:15px;color:#555}.dtl .big{font-size:30px;font-weight:800;margin-top:6px;letter-spacing:-.8px}
+.kv{width:100%;border-collapse:collapse}.kv th,.kv td{padding:14px 20px;font-size:14px;border-top:1px solid #f0f1f4;vertical-align:top}
+.kv th{color:#8a919c;font-weight:400;text-align:left;width:34%}.kv td{text-align:right}
+.empty{padding:50px 0;text-align:center;color:#9aa1ab}
+/* Chapter 4 iPhone 12 기기 프레임(emb) 대응 — 원본 규칙 유지 */
+html.emb .app{padding-top:44px;max-width:none;width:100%}
+html.emb .app::before{content:"";position:fixed;top:0;left:0;right:0;height:44px;background:#fff;z-index:30}
+html.emb .top{top:44px}
+html.emb .tabbar{max-width:none;width:100%;left:0;transform:none;padding-bottom:18px}
+html.emb .hi svg{width:24px;height:24px}
