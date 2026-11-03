@@ -1,7 +1,7 @@
 'use strict';
 /* 신한 SOL (2022) 연출용 - 계좌조회/카드 이용내역만 동작, 모든 데이터는 가상 */
 (function () {
-  var KEY = 'sinhan_sol_ch3_v2', NOW = '2022-10-28', MONTHS = ['2022-07', '2022-08', '2022-09', '2022-10'];
+  var KEY = 'sinhan_sol_ch3_v3', NOW = '2022-10-28', MONTHS = ['2022-07', '2022-08', '2022-09', '2022-10'];
   var $ = function (id) { return document.getElementById(id); };
   var V = $('view'), TOP = $('top'), TAB = $('tabbar');
   var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
@@ -25,14 +25,14 @@
   var svg = function (k) { return '<svg viewBox="0 0 24 24"><path d="' + P[k] + '"/></svg>'; };
 
   var CAT = {
-    cv: { n: '편의점', g: '편', m: ['GS25 한빛대점', 'CU 한빛대정문점', '이마트24 학교앞점', '세븐일레븐 원룸촌점'], lo: 1000, hi: 8500, rd: 10, h: [8, 23] },
-    cafe: { n: '카페', g: '카', m: ['스타벅스 한빛대점', '메가MGC커피', '컴포즈커피', '이디야커피', '투썸플레이스'], lo: 1500, hi: 7500, rd: 100, h: [9, 19] },
-    food: { n: '음식점', g: '식', m: ['한빛대 학생식당', '맘스터치', '김밥천국', '신전떡볶이', '본죽&비빔밥', '홍콩반점0410', '역전우동'], lo: 3500, hi: 14000, rd: 100, h: [11, 21] },
+    cv: { n: '편의점', g: '편', m: ['GS25 ', 'CU 정문점', '이마트24 ', '세븐일레븐 원룸촌점'], lo: 1000, hi: 8500, rd: 10, h: [8, 23] },
+    cafe: { n: '카페', g: '카', m: ['스타벅스 ', '메가MGC커피', '컴포즈커피', '이디야커피', '투썸플레이스'], lo: 1500, hi: 7500, rd: 100, h: [9, 19] },
+    food: { n: '음식점', g: '식', m: ['백반집', '맘스터치', '김밥천국', '신전떡볶이', '본죽&비빔밥', '홍콩반점0410', '역전우동'], lo: 3500, hi: 14000, rd: 100, h: [11, 21] },
     del: { n: '배달', g: '배', m: ['배달의민족', '요기요', '쿠팡이츠'], lo: 11000, hi: 22000, rd: 100, h: [18, 23] },
     trans: { n: '교통', g: '교', m: ['티머니 충전', '카카오T', '서울교통공사', 'KORAIL'], fix: [1250, 1250, 1350, 1400, 2500, 3800, 5300, 10000], h: [7, 22] },
     shop: { n: '온라인쇼핑', g: '쇼', m: ['쿠팡', '11번가', '지마켓', '무신사', '올리브영'], lo: 7000, hi: 59000, rd: 100, h: [19, 23] },
-    mart: { n: '생활/약국', g: '생', m: ['다이소 한빛대점', '올리브영 한빛대점', '온누리약국', '이마트'], lo: 1500, hi: 28000, rd: 10, h: [11, 21] },
-    study: { n: '도서/학습', g: '학', m: ['교보문고', '알라딘 중고서점', '프린트카페 한빛', 'YES24'], lo: 1000, hi: 24000, rd: 100, h: [10, 18] },
+    mart: { n: '생활/약국', g: '생', m: ['다이소 ', '올리브영 ', '온누리약국', '이마트'], lo: 1500, hi: 28000, rd: 10, h: [11, 21] },
+    study: { n: '도서/학습', g: '학', m: ['교보문고', '알라딘 중고서점', '문구점', 'YES24'], lo: 1000, hi: 24000, rd: 100, h: [10, 18] },
     ent: { n: '문화', g: '문', m: ['CGV', '메가박스', 'YES24 티켓'], lo: 9000, hi: 15000, rd: 500, h: [13, 22] }
   };
   var CARDS = [
@@ -100,7 +100,7 @@
     setTop(''); setTab('');
     var a = S.accts[0];
     var M = [['acct', '계좌조회', '#/acct'], ['card', '카드 이용내역', '#/card'], ['send', '이체'], ['open', '오픈뱅킹'], ['dep', '예금'], ['sav', '적금'], ['loan', '대출'], ['fx', '환전'], ['bill', '공과금'], ['auto', '자동이체'], ['cert', '인증센터'], ['life', '쏠쏠한 라이프']];
-    V.innerHTML = '<div class="dots"><i></i><i class="on"></i><i></i></div><div class="hi-line"><span class="hy">Hey Young</span><br><b>김하늘님,<br>오늘도 좋은 하루 보내세요</b></div>' +
+    V.innerHTML = '<div class="dots"><i></i><i class="on"></i><i></i></div><div class="hi-line"><span class="hy">Hey Young</span><br><b>정윤호님,<br>오늘도 좋은 하루 보내세요</b></div>' +
       '<section class="mainc"><div class="nm">' + a.name + '</div><div class="no">신한 ' + a.no + '</div><div class="bal">' + won(a.bal) + '<em>원</em></div>' +
       '<div class="btns"><button type="button" class="b1" data-go="#/acct/0">조회</button><button type="button" class="b2 dummy">이체</button></div></section>' +
       '<button type="button" class="ob dummy"><span><b>오픈뱅킹</b>다른 은행 계좌까지 한눈에 모아보세요</span><span class="pl">계좌 등록</span></button>' +
