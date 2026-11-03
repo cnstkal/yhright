@@ -2,49 +2,18 @@
 <html lang="ko" data-sysbar="overlay"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><script>try{if(top!==self)document.documentElement.classList.add('emb')}catch(e){document.documentElement.classList.add('emb')}</script>
-<title>샘플뱅크 (연출용)</title>
+<title>신한 슈퍼SOL</title>
 <link rel="stylesheet" href="sample-bank.css">
 <style>@import url("https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/static/pretendard.css");*,*::before,*::after{font-family:"Pretendard",sans-serif!important}</style><style>html.emb .kt-sbar,html.emb .sbar,html.emb .status,html.emb .stb,html.emb #sb,html.emb #sbar,html.emb .sb,html.emb #ktSbar{display:none!important}</style></head>
 <body>
 <div class="app">
-  <div class="notice">샘플 화면 · 실제 금융 정보 아님 · 기능 없음</div>
-  <header class="top">
-    <span class="logo">샘플뱅크</span>
-    <div class="top-icons"><span class="ti">🔔</span><span class="ti">≡</span></div>
-  </header>
-
-  <section class="hero">
-    <p class="label">총 잔고 (예시)</p>
-    <p class="amount">0,000,000<small>원</small></p>
-    <p class="sub">계좌 0000-000-000000 (예시)</p>
-    <div class="quick">
-      <button class="qb" disabled><i>↗</i>이체</button>
-      <button class="qb" disabled><i>↙</i>입금</button>
-      <button class="qb" disabled><i>▤</i>조회</button>
-      <button class="qb" disabled><i>＋</i>더보기</button>
-    </div>
-  </section>
-
-  <section class="card-box">
-    <div class="cardv">
-      <div class="cd-top"><span>샘플카드</span><span>VISA</span></div>
-      <div class="cd-num">0000 ···· ···· 0000</div>
-      <div class="cd-bot"><span>이번 달 사용 (예시) 0,000원</span><span>00/00</span></div>
-    </div>
-  </section>
-
-  <section class="list">
-    <div class="list-h"><h2>최근 이용 내역 (예시)</h2><button class="more" disabled>전체보기 ›</button></div>
-    <ul>
-      <li><span class="ic">▣</span><span class="nm">가맹점 A<small>00.00 · 카테고리</small></span><span class="amt">-0,000원</span></li>
-      <li><span class="ic">▣</span><span class="nm">가맹점 B<small>00.00 · 카테고리</small></span><span class="amt">-0,000원</span></li>
-      <li><span class="ic">▣</span><span class="nm">가맹점 C<small>00.00 · 카테고리</small></span><span class="amt">-0,000원</span></li>
-      <li><span class="ic">▣</span><span class="nm">가맹점 D<small>00.00 · 카테고리</small></span><span class="amt">-0,000원</span></li>
-    </ul>
-  </section>
-
-  <nav class="tabbar">
-    <span class="on">홈</span><span>자산</span><span>카드</span><span>혜택</span><span>전체</span>
+  <main id="root"></main>
+  <nav class="tabbar" id="tabbar">
+    <span data-a="go" data-i="home" data-t="home"><i>⌂</i>홈</span>
+    <span class="dm"><i>◔</i>자산</span>
+    <span class="dm"><i>↗</i>주식</span>
+    <span data-a="go" data-i="cards" data-t="cards"><i>▭</i>카드</span>
+    <span data-a="go" data-i="menu" data-t="menu"><i>≡</i>전체</span>
   </nav>
 </div>
 <script src="sample-bank.js"></script>
