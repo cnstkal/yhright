@@ -1,7 +1,7 @@
 'use strict';
 /* 신한 SOL (2020) 연출용 - 계좌조회/카드 이용내역만 동작, 모든 데이터는 가상 */
 (function () {
-  var KEY = 'sinhan_sol_2020_v1', NOW = '2020-10-28', MONTHS = ['2020-07', '2020-08', '2020-09', '2020-10'];
+  var KEY = 'sinhan_sol_ch3_v2', NOW = '2020-10-28', MONTHS = ['2020-07', '2020-08', '2020-09', '2020-10'];
   var $ = function (id) { return document.getElementById(id); };
   var V = $('view'), TOP = $('top'), TAB = $('tabbar');
   var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
@@ -40,9 +40,7 @@
     { id: 1, name: '신한카드 Mr.Life 신용', short: 'Mr.Life 신용', no: '9410-48**-****-7702', type: 'credit', W: { shop: 3, del: 2, food: 1, mart: 1, study: 1, ent: 1 } }
   ];
   var ACCTS = [
-    { id: 0, name: '쏠편한 입출금통장(저축예금)', no: '110-448-293517', kind: '입출금', bank: '신한은행', base: 300000 },
-    { id: 1, name: '신한 쏠쏠 자유적금', no: '110-502-614830', kind: '적금', bank: '신한은행', base: 600000 },
-    { id: 2, name: '카카오뱅크 입출금통장', no: '3333-04-1827463', kind: '입출금', bank: '카카오뱅크', open: 1, base: 280000 }
+    { id: 0, name: '쏠편한 입출금통장(저축예금)', no: '110-448-293517', kind: '입출금', bank: '신한은행', base: 7000000 }
   ];
 
   function genCard(card, r) {
@@ -74,33 +72,11 @@
   }
   function monthSum(txs, mo) { var s = 0; txs.forEach(function (t) { if (t.d.indexOf(mo) === 0) s += t.st === 'A' ? t.a : -t.a; }); return s; }
   function genAccts(cards, r) {
-    var ev = [[], [], []];
-    var add = function (i, d, t, memo, o, n) { if (d <= NOW) ev[i].push({ d: d, t: t, memo: memo, out: o || 0, in: n || 0 }); };
-    var pay = [587300, 603900, 579100, 611800];
-    [7, 8, 9, 10].forEach(function (m, idx) {
-      var mo = '2020-' + pad(m);
-      add(0, mo + '-02', '09:03:14', '월세 이체(원룸 임대인)', 380000);
-      add(0, mo + '-05', '08:12:40', '용돈 입금(어머니)', 0, 500000);
-      add(0, mo + '-14', '10:02:45', '신한카드 결제대금', idx === 0 ? 96400 : monthSum(cards[1], MONTHS[idx - 1]));
-      add(0, mo + '-20', '14:21:08', '이체 비상금(김하늘)', 50000); add(2, mo + '-20', '14:21:08', '입금 신한(김하늘)', 0, 50000);
-      add(0, mo + '-25', '18:20:12', '급여 (주)카페드림', 0, pay[idx]);
-      add(0, mo + '-25', '18:21:00', '적금 자동이체', 100000); add(1, mo + '-25', '18:21:00', '자유적금 납입', 0, 100000);
-      for (var k = 0; k < 3; k++) {
-        var dd = 2 + Math.floor(r() * 26), nm = ['박지수', '이도윤', '최서연', '정민우'][Math.floor(r() * 4)], tm = pad(12 + Math.floor(r() * 10)) + ':' + pad(Math.floor(r() * 60)) + ':10';
-        if (r() < .7) add(0, mo + '-' + pad(dd), tm, '모바일이체 ' + nm, [12000, 18500, 25000, 32000][Math.floor(r() * 4)]);
-        else add(0, mo + '-' + pad(dd), tm, '모바일입금 ' + nm, 0, [10000, 15000, 22000][Math.floor(r() * 3)]);
-      }
-    });
-    add(0, '2020-09-18', '11:40:22', '교내장학금 입금', 0, 300000);
-    add(0, '2020-07-22', '13:05:19', '신한 ATM 출금', 50000); add(0, '2020-09-08', '19:18:51', '신한 ATM 출금', 50000);
-    cards[0].forEach(function (t) { add(0, t.d, t.t, (t.st === 'A' ? '체크카드 ' : '체크취소 ') + t.m, t.st === 'A' ? t.a : 0, t.st === 'C' ? t.a : 0); });
-    return ACCTS.map(function (a, i) {
-      var e = ev[i].sort(function (p, q) { return (p.d + p.t) < (q.d + q.t) ? -1 : 1; }), run = 0, min = 0;
-      e.forEach(function (x) { run += x.in - x.out; if (run < min) min = run; });
-      var bal = Math.max(a.base, -min + 60000);
-      e.forEach(function (x) { bal += x.in - x.out; x.bal = bal; });
-      return { id: a.id, name: a.name, no: a.no, kind: a.kind, bank: a.bank, open: a.open || 0, bal: bal, tx: e };
-    });
+    return [{
+      id: 0, name: ACCTS[0].name, no: ACCTS[0].no, kind: ACCTS[0].kind,
+      bank: ACCTS[0].bank, open: 0, bal: 7000000,
+      tx: [{ d: '2020-10-25', t: '18:20:00', memo: '아르바이트 급여', out: 0, in: 420000, bal: 7000000 }]
+    }];
   }
   function load() {
     try { var s = localStorage.getItem(KEY); if (s) return JSON.parse(s); } catch (e) {}
