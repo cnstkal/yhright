@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-const HOUR=3600000,DAY=86400000,KEY='yhright.messages.v1';
+const HOUR=3600000,DAY=86400000,KEY='yhright.messages.2017.v2';
 const SMS_DEFAULT=['c3','c4'];/* 기존 데이터에 sms 표시가 없을 때 SMS(초록)로 보는 연락처 */
 
 /* ---------- 데이터 (기존 데이터 유지) ---------- */
@@ -11,12 +11,28 @@ function seed(){
 const now=Date.now();
 const m=(me,text,ago)=>({id:uid(),me,text,img:'',ts:now-ago});
 return{
-contacts:[{id:'c1',name:'엄마',phone:'010-3960-2207'},{id:'c2',name:'형',phone:'010-2394-7716'},{id:'c3',name:'민준',phone:'010-3347-8850'},{id:'c4',name:'지수',phone:'010-7316-8842'}],
-threads:[
-{id:'t1',ids:['c1'],unread:2,msgs:[m(false,'저녁 뭐 먹을 거니?',5*HOUR),m(true,'아직 못 정했어요',4.5*HOUR),m(false,'그럼 같이 먹자',HOUR)]},
-{id:'t2',ids:['c2'],unread:0,msgs:[m(false,'내일 시간 돼?',DAY+2*HOUR),m(true,'응 오후에 괜찮아',DAY+HOUR)]},
-{id:'t3',ids:['c3'],unread:1,msgs:[m(false,'내일 회의 자료 보내줄게',3*HOUR)]}
-]
+ contacts:[
+  {id:'c1',name:'이모',phone:'010-5721-6384'},
+  {id:'c2',name:'종호',phone:'010-3347-8850'},
+  {id:'c3',name:'이모부',phone:'010-8264-1903'},
+  {id:'c4',name:'민재',phone:'010-7412-3058'}
+ ],
+ threads:[
+  {id:'t1',ids:['c2'],unread:1,msgs:[
+   m(false,'야 내일 학교 끝나고 매점 갈래?',7*HOUR),
+   m(true,'ㅇㅇ 몇 시에?',6.5*HOUR),
+   m(false,'종례 끝나면 바로 ㄱㄱ',6*HOUR)
+  ]},
+  {id:'t2',ids:['c1'],unread:0,msgs:[
+   m(false,'윤호야 이번 주말에 이모네 올 수 있어?',2*DAY+3*HOUR),
+   m(true,'토요일이면 괜찮을 것 같아',2*DAY+2*HOUR),
+   m(false,'그래 그럼 이모가 맛있는 거 해놓을게',2*DAY)
+  ]},
+  {id:'t3',ids:['c3'],unread:0,sms:true,msgs:[
+   m(false,'윤호야 이모한테 토요일에 온다고 전해줘',4*DAY+2*HOUR),
+   m(true,'네 이모부 알겠어요',4*DAY+HOUR)
+  ]}
+ ]
 };
 }
 let S=null;
